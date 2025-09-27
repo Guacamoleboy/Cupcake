@@ -1,50 +1,206 @@
-/* Til dig Andreas bby <3 */
+/* 
+
+    Cupcake Project CSS File
+    Made By Group D
+    School Project
+
+    ____________________________
+
+    1rem ~ 16px
+    rem is calculated instead of px being hardcoded.
+    Use rem or else..............
+
+    ____________________________
+
+    DO NOT USE PX.
+    DO NOT HARDCODE ANYTHING.
+
+*/
+
+/* ___________________________________________ */
+
+             /* Root Settings */
+
+/* ___________________________________________ */
 
 :root {
-    --background: #000000;
-    --navbar: #C3C3C3;
 
-    /*
+    /* Default */
+    --background: #CAA4A4;
 
-    Kan ændre farve på flere objekter mm på samme tid
-    uden at skulle finde hver evig eneste version i .css filen..
+    /* Footer */
+    --footer-background: var(--background);
 
-    */
+    /* Footer Nav */
+    --footer-nav-background: rgba(255, 255, 255, 0.24);
+
+    /* Section 1 */
+    --section-1-background: #BC4646;
+
+    /* Section 2 */
+    --section-2-background: #B36660;
+
+    /* Profile & Admin Menu */
+    --profile-background: #452929;
+    --profile-sidemenu: #332929;
+    --profile-sidemenu-border: #727272;
+    --profile-sidemenu-buttons: var(--profile-background);
+    --profile-sidemenu-buttons-text: white;
+
+    /* Inputs */
+    --input-box: #D9D9D9;
+    --input-placeholder: #5B5B5B;
+    --input-user-input: #363636;
+    --input-border: #7B7B7B;
+
+    /* Navbar */
+    --navbar-background: #D96363;
+    --nav-text: #FFFFFF;
+    --nav-buttons: rgba(255, 255, 255, 0.24);
+    --nav-border: #ACACAC;
+
+    /* Blockquote */
+    --blockquote-under-orange: #e4fd00;
+    --blockquote-under-white: white;
+
+    /* Colors */
+    --cupcake-orange: orange;
+    --cupcake-red: red;
+    --cupcake-blue: blue;
+    --cupcake-green: green;
+    --cupcake-black: black;
+    --cupcake-white: white;
+
+    /* :hover */
+    --hover-exit: var(--cupcake-orange);
+
+    /* Login & Register */
+    --login-menu-background: #C37F7F;
+    --login-menu-border: #9F6868;
+    --login-menu-input-background: #F8B0B0;
+    --login-menu-input-placeholder: #686868;
+    --login-menu-click-buttons: #CACACA;
+    --login-menu-exit-button: rgba(255, 255, 255, 0.51);
 
 }
 
-body {
-    background: var(--background);
+/* ___________________________________________ */
 
-    /*
+           /* Default Site Settings */
 
-    <body> <------ Denne
+/* ___________________________________________ */
 
-    </body>
-
-    */
+html, body {
+    background: var(--background) !important;
 }
 
-.body {
+/* ___________________________________________ */
 
-    /*
+                   /* Hero */
 
-    <div class="body">
+/* ___________________________________________ */
 
-    </div>
-
-    */
-
+.hero {
+    background: url(../images/backgrounds/3-cup-cakes-i-luften.svg);
 }
 
-#body {
+/* ___________________________________________ */
 
-    /*
+                /* Section 1 */
 
-    <div id="body">
+/* ___________________________________________ */
 
-    </div>
+.section-1 {
+    background-color: var(--section-1-background);
+}
 
-    */
+/* ___________________________________________ */
 
+                 /* Navbar */
+
+/* ___________________________________________ */
+
+.navbar {
+    background-color: var(--navbar-background);
+    display: flex; /* Important for content placement */
+    align-items: center;
+    height: 6rem;
+    max-width: 80%;
+    border-radius: 15px;
+    margin: 0.5rem auto 0 auto; /* Top Bottom Right Left */
+}
+
+.navbar a {
+    color: var(--nav-text);    
+    text-decoration: none;    
+}
+
+.navbar a:hover {
+    text-decoration: none; /* Removes that line under on :hover */
+}
+
+.navbar-menu {
+    list-style: none;  /* Removes that annoying dot */
+    margin: 0;
+    padding: 0;
+    display: flex;     
+    gap: 1rem; /* Gap between items */
+}
+
+.navbar-menu li {
+    margin: 0;
+    padding: 0;
+}
+
+.navbar-menu li a {
+    text-decoration: none;
+    color: var(--nav-text);
+    font-weight: bold;
+    padding: 0.5rem 1rem;
+    display: block;
+    transition: color 0.2s ease; /* Smooth UI feel */
+}
+
+.navbar-menu li a:hover {
+    color: var(--cupcake-orange);
+}
+
+.navbar-sticky {
+    position: fixed;
+    top: 5%;          
+    left: 0;
+    right: 0;          
+    z-index: 1000;
+    background-color: var(--navbar-background);
+    box-shadow: 0 4px 8px rgba(0,0,0,0.30);
+}
+
+/* ___________________________________________ */
+
+                /* Section 2 */
+
+/* ___________________________________________ */
+
+.section-2 {
+    background-color: var(--section-2-background);
+}
+
+/* ___________________________________________ */
+
+                  /* Footer */
+
+/* ___________________________________________ */
+
+.footer {
+    background-color: var(--footer-background);
+}
+
+/* ___________________________________________ */
+
+                /* Footer Nav */
+
+/* ___________________________________________ */
+
+.footer-nav {
+    background-color: var(--footer-nav-background);
 }
