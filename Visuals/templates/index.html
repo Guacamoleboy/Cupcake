@@ -25,6 +25,10 @@
     <link rel="stylesheet" href="../static/css/guacamoleboy-framework.css">
     <script src="../static/js/guacamoleboy-wow.js" defer></script>
 
+    <!-- Modules -->
+    <script type="module" src="../static/js/components/navbar.js" defer></script>
+    <script type="module" src="../static/js/components/footer.js" defer></script>
+
     <!--
             defer loads the script along with the page
             but executes it once the page has loaded.
@@ -36,55 +40,121 @@
 </head>
 <body>
 
-    <!-- Navbar Start -->
-    <div class="navbar navbar-sticky">
-        <div class="guac-container guac-d-flex guac-justify-between guac-align-center">
-            
-            <!-- Logo Left Start -->
-            <div class="navbar-logo">
-                <img src="#" alt="Logo Her Broski">
-            </div>
-            <!-- Logo Left End -->
-
-            <!-- Menu Items Start -->
-            <div class="guac-row guac-justify-center">
-                <ul class="navbar-menu guac-d-flex guac-gap-3">
-                    <li><a href="#">Text</a></li>
-                    <li><a href="#">Text</a></li>
-                    <li><a href="#">Text</a></li>
-                    <li><a href="#">Text</a></li>
-                    <li><a href="#">Text</a></li>
-                </ul>
-            </div>
-            <!-- Menu Items End -->
-
-            <!-- Profile Icon Right Start -->
-            <div class="navbar-profile">
-                <a href="#"><img src="#" alt="Profile Img"></a>
-            </div>
-            <!-- Profile Icon Right End -->
-            
-        </div>
-    </div>
-    <!-- Navbar End -->
-
-
+    <!-- Navbar -->
+    <div id="navbar-component"></div>
+    <!-- Navbar -->
 
     <!-- Hero Section Start -->
     <section class="hero">
         <div class="guac-container">
-
             <div class="guac-row">
-
+      
+                <div class="guac-col-auto index-cupcake-1 guac-animate guac-slide-left">
+                    <img src="../static/images/page-content/index/cupcake-3.png" alt="Billede 1">
+                </div>
+                <div class="guac-col-auto index-cupcake-2 guac-animate guac-slide-up">
+                    <img src="../static/images/page-content/index/cupcake-3.png" alt="Billede 2">
+                </div>
+                <div class="guac-col-auto index-cupcake-3 guac-animate guac-slide-in-right">
+                    <img src="../static/images/page-content/index/cupcake-3.png" alt="Billede 3">
+                </div>
+                
             </div>
-
-            <!-- End Wave Hero Start -->
-            <div class="wave-1"></div>
-            <!-- End Wave Hero End -->
-
         </div>
+
+        <!-- End Wave Hero Start -->
+        <div class="wave-1">
+            <img src="../static/images/waves/wave-top.svg">
+        </div>
+        <!-- End Wave Hero End -->
+
     </section>
     <!-- Hero Section End -->
+
+    <!-- Section 1 Start -->
+    <section class="section-1">
+        <div class="guac-container">
+
+            <div class="guac-row guac-justify-center">
+                <div class="section-1-intro guac-mt-5 guac-animate guac-slide-up">
+                    <h2>Vi anbefaler</h2>
+                    <p class="guac-pb-5">
+                    En cupcake er ikke bare en kage.. En cupcake er et håndværk. En cupcake er en oplevelse.
+                    Her er hvad vi anbefaler lige for tiden
+                    </p>
+                </div>
+            </div>
+
+            <!-- Cupcake Showcase Start -->
+            <div class="section-1-showcase guac-animate guac-zoom-in">
+                <div class="guac-col-auto showcase-item guac-animate guac-zoom-in-n-out">
+                    <img src="../static/images/page-content/index/cupcake-3.png" alt="Showcase 1">
+                    <h3>Honeybun Cherry</h3>
+                    <p>Rig chokoladesmag med cremet topping og ekstra kærlighed.</p>
+                </div>
+                <div class="guac-col-auto showcase-item guac-animate guac-zoom-in-n-out">
+                    <img src="../static/images/page-content/index/cupcake-3.png" alt="Showcase 2">
+                    <h3>Rød Top</h3>
+                    <p>Friske bær og en let, luftig lyserød frosting og et lille kirsebær til at slutte af på.</p>
+                </div>
+                <div class="guac-col-auto showcase-item guac-animate guac-zoom-in-n-out">
+                    <img src="../static/images/page-content/index/cupcake-3.png" alt="Showcase 3">
+                    <h3>Karamel Nigrini</h3>
+                    <p>Soft caramel pudding center med græskar frosting og et lille twist af hindbær.</p>
+                </div>
+            </div>
+            <!-- Cupcake Showcase End -->
+
+        </div>
+
+    </section>
+    <!-- Section 1 End -->
+
+    <!-- Section 2 Start -->
+    <section class="section-2">
+
+        <!-- End Wave Section 1 Start -->
+        <div class="wave-2">
+            <img src="../static/images/waves/wave-section-1.svg">
+        </div>
+        <!-- End Wave Section 1 End -->
+        
+        <div class="guac-container">
+            <div class="guac-row guac-justify-center">
+                <div class="section-2-intro guac-animate guac-zoom-in">
+                    <h2>Hvem er vi?</h2>
+                    <p class="guac-pt-5 guac-pb-5">
+                    Vi er et lille, passioneret team af cupcake-entusiaster, der elsker at skabe smagsoplevelser ud over det sædvanlige.  
+                    Vores mission er enkel: at bringe glæde, kreativitet og kvalitet til hver eneste cupcake vi laver.  
+                    Fra klassiske favoritter til unikke smagskombinationer – vi gør hver kage til en oplevelse. #ChatGPT
+                    <span class="section-2-text-end">– Olsker Cupcakes</span>
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <!-- End Wave Section 2 Start -->
+        <div class="wave-3">
+            <img src="../static/images/waves/footer-wave.svg">
+        </div>
+        <!-- End Wave Section 2 End -->
+
+    </section>
+    <!-- Section 2 End -->
+
+    <!-- Navbar -->
+    <div id="footer-component"></div>
+    <!-- Navbar -->
+
+    <!-- Footer Navbar Start -->
+    <section class="footer-navbar guac-d-flex guac-justify-center guac-align-center">
+        <p>
+            Built by Andreas, Ebou & Jonas with 
+            <span style="color:#ff0000;">&#10084;</span>
+        </p>
+    </section>
+    <!-- Footer Navbar End -->
+
 
 </body>
 </html>

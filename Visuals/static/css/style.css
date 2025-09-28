@@ -32,7 +32,7 @@
     --footer-background: var(--background);
 
     /* Footer Nav */
-    --footer-nav-background: rgba(255, 255, 255, 0.24);
+    --footer-nav-background: #9c7e7e;
 
     /* Section 1 */
     --section-1-background: #BC4646;
@@ -55,9 +55,15 @@
 
     /* Navbar */
     --navbar-background: #D96363;
+    --nav-stroke: rgb(253, 149, 149);
     --nav-text: #FFFFFF;
+    --nav-text-hover: #b8b8b8;
     --nav-buttons: rgba(255, 255, 255, 0.24);
     --nav-border: #ACACAC;
+    --nav-login-button: #d86565;
+    --nav-login-button-text: #eeeeee;
+    --nav-login-button-hover: #c25a5a;
+    --nav-login-button-stroke: rgb(219, 219, 219);
 
     /* Blockquote */
     --blockquote-under-orange: #e4fd00;
@@ -70,6 +76,7 @@
     --cupcake-green: green;
     --cupcake-black: black;
     --cupcake-white: white;
+    --cupcake-grey: rgb(95, 95, 95);
 
     /* :hover */
     --hover-exit: var(--cupcake-orange);
@@ -91,7 +98,17 @@
 /* ___________________________________________ */
 
 html, body {
-    background: var(--background) !important;
+    background: url(../images/textures/background-texture-1.svg);
+    background-color: var(--background) !important;
+    overflow-x: hidden !important;
+    overflow-y: scroll; /* Makes sure users can still Scroll */
+    scrollbar-width: none;
+    -ms-overflow-style: none; /* Old Browsers. Just for safety. */
+}
+
+html::-webkit-scrollbar, 
+body::-webkit-scrollbar { /* All other browsers */
+    display: none;
 }
 
 /* ___________________________________________ */
@@ -101,7 +118,32 @@ html, body {
 /* ___________________________________________ */
 
 .hero {
-    background: url(../images/backgrounds/3-cup-cakes-i-luften.svg);
+    position: relative;       
+    height: 55rem;            
+}
+
+.index-cupcake-1,
+.index-cupcake-2,
+.index-cupcake-3 {
+    position: relative;
+}
+
+.index-cupcake-1 img {
+    width: 60%;
+    height: auto;
+    transform: translateY(40%) rotate(-190deg);
+}
+
+.index-cupcake-2 img {
+    width: 80%;
+    height: auto;
+    transform: translateY(150%) rotate(-30deg);
+}
+
+.index-cupcake-3 img {
+    width: 90%;
+    height: auto;
+    transform: translateY(20%) rotate(20deg);
 }
 
 /* ___________________________________________ */
@@ -111,7 +153,75 @@ html, body {
 /* ___________________________________________ */
 
 .section-1 {
+    position: relative;
     background-color: var(--section-1-background);
+}
+
+.section-1-intro {
+    text-align: center;
+    max-width: 55ch;
+    position: relative;
+    margin: 0 auto;
+    color: var(--cupcake-white);
+}
+
+.section-1-intro h2::after {
+    content: "";
+    display: block;
+    width: 60%; 
+    margin: 0.5em auto 0; 
+    border-bottom: 4px dotted #bdbdbd;
+}
+
+.section-1-intro p {
+    font-style: italic;
+    opacity: 70%;
+    line-height: 1.6;
+}
+
+.section-1-showcase {
+    display: flex;
+    justify-content: center;
+    text-align: center;
+    gap: 2rem; 
+    flex-wrap: wrap; 
+    margin-top: 2rem;
+}
+
+.showcase-item {
+    text-align: center;
+    max-width: 250px;
+    color: var(--cupcake-white);
+}
+
+.showcase-item img {
+    width: 75%;
+    height: auto;
+    margin: 0 auto;
+    display: block;
+}
+
+.showcase-item h3 {
+    margin-top: 1rem;
+    font-size: 1.2rem;
+}
+
+.showcase-item p {
+    font-size: 0.95rem;
+    line-height: 1.5;
+    opacity: 0.8;
+    font-style: italic;
+    max-width: 30ch;       
+    margin: 0.5rem auto 0; 
+    text-align: center;   
+}
+
+.section-1-showcase h3::after {
+    content: "";
+    display: block;
+    width: 25%; 
+    margin: 0.5em auto 0; 
+    border-bottom: 4px dotted #bdbdbd;
 }
 
 /* ___________________________________________ */
@@ -121,6 +231,7 @@ html, body {
 /* ___________________________________________ */
 
 .navbar {
+    border: 2px solid var(--nav-stroke);
     background-color: var(--navbar-background);
     display: flex; /* Important for content placement */
     align-items: center;
@@ -130,9 +241,20 @@ html, body {
     margin: 0.5rem auto 0 auto; /* Top Bottom Right Left */
 }
 
+.navbar li {
+    position: relative;
+}
+
+.navbar ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
 .navbar a {
     color: var(--nav-text);    
     text-decoration: none;    
+    text-shadow: 0px 3px 2px rgba(0,0,0,0.4);
 }
 
 .navbar a:hover {
@@ -162,7 +284,7 @@ html, body {
 }
 
 .navbar-menu li a:hover {
-    color: var(--cupcake-orange);
+    color: var(--nav-text-hover);
 }
 
 .navbar-sticky {
@@ -175,6 +297,57 @@ html, body {
     box-shadow: 0 4px 8px rgba(0,0,0,0.30);
 }
 
+.navbar-logo img {
+    width: 20rem;       
+    height: auto;    
+    display: block;  
+}
+
+.navbar-login-button {
+    border-radius: 15px;
+    border: 2px solid var(--nav-login-button-stroke);
+    background-color: var(--nav-login-button);
+    box-shadow: 0 4px 8px rgba(0,0,0,0.30); /* x, y, blur, color*/
+    font-size: 1.0rem;
+    font-weight: 900;
+    color: var(--nav-login-button-text);
+    padding: 0.7rem;
+    transition: transform 0.3s ease, background-color 0.2s ease;
+}
+
+.navbar-login-button:hover {
+    transform: scale(1.05);
+    background-color: var(--nav-login-button-hover);
+}
+
+.dropdown-menu {
+    text-align: center; /* Important DO NOT REMOVE */
+    display: none; 
+    position: absolute;
+    top: 100%; 
+    left: -19%;
+    border-radius: 10px;
+    background-color: rgba(150, 89, 89, 0.8);
+    box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+    min-width: 150px;
+    z-index: 10;
+    transition: all 0.3s ease-in-out;
+}
+
+.dropdown-menu:hover {
+
+}
+
+.dropdown-menu li a {
+    padding: 0.5rem 1rem;
+}
+
+.dropdown:hover .dropdown-menu {
+    display: block;
+    opacity: 1;
+    pointer-events: auto;
+}
+
 /* ___________________________________________ */
 
                 /* Section 2 */
@@ -185,6 +358,56 @@ html, body {
     background-color: var(--section-2-background);
 }
 
+.section-2-intro {
+    text-align: center;
+    max-width: 55ch;
+    position: relative;
+    margin: 0 auto;
+    color: var(--cupcake-white);
+}
+
+.section-2-intro h2::after {
+    content: "";
+    display: block;
+    width: 60%; 
+    margin: 0.5em auto 0; 
+    border-bottom: 4px dotted #bdbdbd;
+}
+
+.section-2-intro p {
+    font-style: italic;
+    opacity: 70%;
+    line-height: 1.6;
+}
+
+.section-2-text-end {
+    display: block;        
+    margin-top: 1rem;     
+    font-weight: bold;    
+    color: var(--cupcake-white);
+    font-style: normal;  
+}
+
+/* ___________________________________________ */
+
+                 /* Waves */
+
+/* ___________________________________________ */
+
+.wave-1 {
+    position: absolute;       
+    bottom: 0;                
+    left: 0;
+    width: 100%;             
+}
+
+.wave-1 img,
+.wave-2 img,
+.wave-3 img {
+    width: 100%;
+    display: block;           
+}
+
 /* ___________________________________________ */
 
                   /* Footer */
@@ -192,15 +415,111 @@ html, body {
 /* ___________________________________________ */
 
 .footer {
-    background-color: var(--footer-background);
+    background-color: var(--background);
+    position: relative;
+    color: #d6d6d6;
+    text-align: center !important;
+    transition: auto 0.3s ease-in-out !important;
+    padding: 4rem 1rem;
+}
+
+.footer .footer-col {
+    text-align: center;
+}
+
+.footer li a { /* links (a) are usually inline by default. Gotta set it to inline-block for translateY... */
+    display: inline-block;  /* Very important DO NOT REMOVE */
+    color: #eeeeee !important;
+    font-weight: 600;
+    text-decoration: none;
+    transition: transform 0.2s ease, text-shadow 0.2s ease, color 0.2s ease;
+}
+
+.footer li a:hover {
+    transform: translateY(-2px); 
+    text-shadow: 0 2px 4px rgba(0,0,0,0.3);
+    color: #7a5551 !important;
+}
+
+.footer h3 {
+    color: #ffffff !important;
+    margin-bottom: 1rem;
+    position: relative;
+}
+
+.footer h3::after {
+    content: "";              
+    display: block;           
+    width: 15%;               
+    height: 3px;              
+    background-color: #b98b8b; 
+    margin: 0.5rem auto 2rem auto;   
+    border-radius: 1.0rem;
+}
+
+.footer ul { /* Dot infront of ul... So ugly LOOOOOOOOOOOOOOOOOOOOOOOOL */
+    list-style: none;  
+    padding: 0;       
+    margin: 0;         
 }
 
 /* ___________________________________________ */
 
-                /* Footer Nav */
+            /* Footer Navbar */
 
 /* ___________________________________________ */
 
-.footer-nav {
+.footer-navbar {
     background-color: var(--footer-nav-background);
+    color: #cccccc;
+    height: 4rem;
+    font-size: 1rem;
+    box-shadow: 0px -5px 12px rgba(22, 22, 22, 0.2);
+}
+
+.footer-navbar p {
+    margin: 0;
+    font-weight: 600;
+    text-align: center;
+}
+
+/* ___________________________________________ */
+
+                /* 404 */
+
+/* ___________________________________________ */
+
+.visuals-404 {
+    height: 100vh; /* Very important DO NOT REMOVE */ 
+    overflow: hidden !important;  
+}
+
+.section-404 {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    text-align: center;
+    color: #7e5656;
+    padding: 2rem;
+}
+
+.section-404-title {
+    font-size: 8rem;     
+    font-weight: bold;
+    text-shadow: 0 4px 3px rgba(0, 0, 0, 0.4);
+}
+
+.section-404-text {
+    font-size: 2rem;      
+    margin-bottom: 1rem;
+    text-shadow: 0 2px 3px rgba(0, 0, 0, 0.4);
+}
+
+.section-404-p {
+    font-size: 1.2rem;
+    max-width: 55ch;     
+    line-height: 1.6;
+    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.4);
 }
