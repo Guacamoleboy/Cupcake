@@ -25,16 +25,15 @@
     <link rel="stylesheet" href="../static/css/guacamoleboy-framework.css">
     <script src="../static/js/guacamoleboy-wow.js" defer></script>
 
-    <!--
-            defer loads the script along with the page
-            but executes it once the page has loaded.
-
-            Without defer it would read top to bottom. Stop at the script -> load the script ->
-            load the rest of the page. Resulting in unwanted slow speed. Bad practice in general.
-    -->
+    <!-- Modules -->
+    <script type="module" src="../static/js/components/navbar.js" defer></script>
 
 </head>
 <body>
+
+    <!-- Navbar -->
+    <div id="navbar-component"></div>
+    <!-- Navbar -->
 
 
 </body>

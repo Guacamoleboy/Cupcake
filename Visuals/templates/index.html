@@ -25,6 +25,9 @@
     <link rel="stylesheet" href="../static/css/guacamoleboy-framework.css">
     <script src="../static/js/guacamoleboy-wow.js" defer></script>
 
+    <!-- Modules -->
+    <script type="module" src="../static/js/components/navbar.js" defer></script>
+
     <!--
             defer loads the script along with the page
             but executes it once the page has loaded.
@@ -36,53 +39,44 @@
 </head>
 <body>
 
-    <!-- Navbar Start -->
-    <div class="navbar navbar-sticky">
-        <div class="guac-container guac-d-flex guac-justify-between guac-align-center">
-            
-            <!-- Logo Left Start -->
-            <div class="navbar-logo">
-                <img src="#" alt="Logo Her Broski">
-            </div>
-            <!-- Logo Left End -->
-
-            <!-- Menu Items Start -->
-            <div class="guac-row guac-justify-center">
-                <ul class="navbar-menu guac-d-flex guac-gap-3">
-                    <li><a href="#">Text</a></li>
-                    <li><a href="#">Text</a></li>
-                    <li><a href="#">Text</a></li>
-                    <li><a href="#">Text</a></li>
-                    <li><a href="#">Text</a></li>
-                </ul>
-            </div>
-            <!-- Menu Items End -->
-
-            <!-- Profile Icon Right Start -->
-            <div class="navbar-profile">
-                <a href="#"><img src="#" alt="Profile Img"></a>
-            </div>
-            <!-- Profile Icon Right End -->
-            
-        </div>
-    </div>
-    <!-- Navbar End -->
-
-
+    <!-- Navbar -->
+    <div id="navbar-component"></div>
+    <!-- Navbar -->
 
     <!-- Hero Section Start -->
     <section class="hero">
         <div class="guac-container">
-
             <div class="guac-row">
 
+                <!-- 
+                
+                Det her er vores 3 cupcakes som skal være på skærmen. 
+                Vi afventer Andreas' fucking asset upload før de kan tilføjes...
+
+                - Guac
+                 
+                -->
+
+                <!--
+                <div class="guac-col-auto">
+                    <img src="../static/images/page-content/index/cupcake-1.png" alt="Billede 1">
+                </div>
+                <div class="guac-col-auto">
+                    <img src="../static/images/page-content/index/cupcake-2.png" alt="Billede 2">
+                </div>
+                <div class="guac-col-auto">
+                    <img src="../static/images/page-content/index/cupcake-3.png" alt="Billede 3">
+                </div>
+                -->
             </div>
-
-            <!-- End Wave Hero Start -->
-            <div class="wave-1"></div>
-            <!-- End Wave Hero End -->
-
         </div>
+
+        <!-- End Wave Hero Start -->
+        <div class="wave-1">
+            <img src="../static/images/waves/wave-top.svg">
+        </div>
+        <!-- End Wave Hero End -->
+
     </section>
     <!-- Hero Section End -->
 

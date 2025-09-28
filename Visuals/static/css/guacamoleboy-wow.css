@@ -19,7 +19,7 @@
 }
 
 .guac-fade-in.guac-visible {
-    animation: guacFadeIn 1s forwards;
+    animation: guacFadeIn 0.7s forwards;
 }
 
 .guac-slide-up.guac-visible {
