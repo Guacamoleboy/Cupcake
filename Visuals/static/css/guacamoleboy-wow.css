@@ -38,12 +38,25 @@
     animation: guacSlideInLeft 1s forwards;
 }
 
+.guac-slide-up.guac-visible {
+    animation: guacSlideUp 1s forwards;
+}
+
+.guac-slide-in-right.guac-visible {
+    animation: guacSlideRight 1s forwards;
+}
+
 .guac-bounce.guac-visible {
     animation: guacBounce 1s forwards;
 }
 
 .guac-zoom-in.guac-visible {
     animation: guacZoomIn 1s forwards;
+}
+
+.guac-zoom-in-n-out.guac-visible {
+    animation: guacZoomInNOut 0.5s forwards;
+    animation-delay: 1s; /* Waits for zoom-in to be done */
 }
 
 .guac-rotate.guac-visible {
@@ -137,6 +150,11 @@
     to { opacity: 1; transform: translateX(0); }
 }
 
+@keyframes guacSlideUp {
+    from { opacity: 0; transform: translateY(50px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
 @keyframes guacBounce {
     0% { transform: translateY(0); }
     20% { transform: translateY(0); }
@@ -149,6 +167,18 @@
 @keyframes guacZoomIn {
     from { opacity: 0; transform: scale(0.5); }
     to { opacity: 1; transform: scale(1); }
+}
+
+@keyframes guacZoomInNOut {
+    0% {
+        transform: scale(1);
+    }
+    50% {
+        transform: scale(1.05); 
+    }
+    100% {
+        transform: scale(1);   
+    }
 }
 
 @keyframes guacRotate {
