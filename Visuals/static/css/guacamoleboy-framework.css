@@ -310,6 +310,16 @@ li {
     max-width: 75%;
 }
 
+.guac-col-10 {
+    flex: 0 0 83.3333%;
+    max-width: 83.3333%;
+}
+
+.guac-col-11 {
+    flex: 0 0 91.6667%;
+    max-width: 91.6667%;
+}
+
 .guac-col-12 {
     flex: 0 0 100%;
     max-width: 100%;
