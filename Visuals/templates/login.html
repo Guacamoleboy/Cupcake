@@ -19,23 +19,43 @@
     <!-- CSS Load -->
     <link rel="stylesheet" href="../static/css/style.css">
 
-    <!-- Scripts can also be loaded here with defer -->
     <!-- Framwork load -->
     <link rel="stylesheet" href="../static/css/guacamoleboy-wow.css">
     <link rel="stylesheet" href="../static/css/guacamoleboy-framework.css">
-    <script src="../static/js/guacamoleboy-wow.js" defer></script>
+    <script src="../static/js/guacamoleboy-wow.js"></script>
 
-    <!--
-            defer loads the script along with the page
-            but executes it once the page has loaded.
+    <!-- Font Load -->
+    <link href="https://fonts.googleapis.com/css2?family=Itim&display=swap" rel="stylesheet">
 
-            Without defer it would read top to bottom. Stop at the script -> load the script ->
-            load the rest of the page. Resulting in unwanted slow speed. Bad practice in general.
-    -->
+    <!-- Script Load -->
+    <script src="../static/js/bubble-spawn.js" defer></script>
 
 </head>
 <body>
 
+    <!-- Exit Button Start -->
+    <a href="../templates/index.html" class="exit-btn" title="Tilbage til forsiden">&#10006;</a>
+    <!-- Exit Button End -->
+
+    <!-- Login Section Start -->
+    <section class="login-section-1">
+        <div class="login-container">
+            <h2>Log Ind</h2>
+            <form id="loginForm">
+                <input type="text" placeholder="Brugernavn" required>
+                <input type="password" placeholder="Adgangskode" required>
+                <div class="login-btn-group">
+                    <button type="submit" class="guac-btn guac-btn-form" onclick="window.location.href='../templates/index.html'">
+                        Log Ind
+                    </button>
+                    <button type="button" class="guac-btn guac-btn-form" id="registerBtn" onclick="window.location.href='../templates/register.html'">
+                        Opret Bruger
+                    </button>
+                </div>
+            </form>
+        </div>
+    </section>
+    <!-- Login Section End -->
 
 </body>
 </html>

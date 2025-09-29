@@ -82,12 +82,26 @@
     --hover-exit: var(--cupcake-orange);
 
     /* Login & Register */
-    --login-menu-background: #C37F7F;
+    --login-background: #ac7070;
+    --login-menu-background: #df9898;
+    --login-menu-title: #f0f0f0;
     --login-menu-border: #9F6868;
-    --login-menu-input-background: #F8B0B0;
-    --login-menu-input-placeholder: #686868;
+    --login-menu-input-background: #dbb1b1;
+    --login-menu-input-placeholder: #755b5b;
     --login-menu-click-buttons: #CACACA;
     --login-menu-exit-button: rgba(255, 255, 255, 0.51);
+    --login-button-background: #b47e7e;
+    --login-input-focused: #a56262;
+    --login-button-text: #e4e4e4;
+    --login-button-border: rgb(255, 136, 0);
+    --login-input-stroke: #a18282;
+    --login-button-stroke: #9c7373;
+    --login-button-hover: #946161;
+
+    /* Exit Button */
+    --exit-button-background: #723a3a;
+    --exit-button-background-hover: #c9afaf;
+    --exit-button-background-hover-text: #252525;
 
 }
 
@@ -98,6 +112,7 @@
 /* ___________________________________________ */
 
 html, body {
+    font-family: 'Itim', cursive !important; /* Site Identity DO NOT REMOVE */
     background: url(../images/textures/background-texture-1.svg);
     background-color: var(--background) !important;
     overflow-x: hidden !important;
@@ -420,7 +435,7 @@ body::-webkit-scrollbar { /* All other browsers */
     color: #d6d6d6;
     text-align: center !important;
     transition: auto 0.3s ease-in-out !important;
-    padding: 4rem 1rem;
+    padding: 8rem 1rem;
 }
 
 .footer .footer-col {
@@ -485,7 +500,7 @@ body::-webkit-scrollbar { /* All other browsers */
 
 /* ___________________________________________ */
 
-                /* 404 */
+                  /* 404 */
 
 /* ___________________________________________ */
 
@@ -522,4 +537,234 @@ body::-webkit-scrollbar { /* All other browsers */
     max-width: 55ch;     
     line-height: 1.6;
     text-shadow: 0 1px 2px rgba(0, 0, 0, 0.4);
+}
+
+/* ___________________________________________ */
+
+              /* Exit Button */
+
+/* ___________________________________________ */
+
+.exit-btn {
+    text-decoration: none !important; /* Underline on <a> element */
+    position: fixed;
+    top: 20px;
+    left: 20px;
+    z-index: 10000;
+    background-color: var(--exit-button-background);
+    color: var(--cupcake-white);
+    font-size: 1.5rem;
+    font-weight: bold;
+    padding: 0.5rem 1rem;
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+    transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.exit-btn:hover {
+    background-color: var(--exit-button-background-hover);
+    color: var(--exit-button-background-hover-text) !important;
+    transform: scale(1.1);
+}
+
+/* ___________________________________________ */
+
+                /* Login */
+
+/* ___________________________________________ */
+
+.login-section-1 {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh; 
+    background-color: var(--login-background);
+}
+
+.login-container {
+    background: var(--login-menu-background);
+    padding: 2rem;
+    border-radius: 1rem;
+    text-align: center;
+    box-shadow: 0 6px 12px rgba(0,0,0,0.3);
+    border: 2px solid var(--login-button-background);
+    max-width: 400px;
+    width: 90%;
+}
+
+.login-container h2 {
+    color: var(--login-menu-title);
+    margin-bottom: 1.5rem;
+    position: relative;
+    display: inline-block;
+    padding-bottom: 0.5rem;
+    text-shadow: 0px 3px 3px rgba(0,0,0,0.4);
+}
+
+.login-container h2::after {
+    content: "";
+    display: block;
+    width: 50%;
+    height: 3px;
+    background-color: var(--login-button-background);
+    margin: 0.5rem auto 0 auto;
+    border-radius: 2px;
+}
+
+.login-container input {
+    width: 100%;
+    margin-bottom: 1rem;
+    border-radius: 2rem;
+    font-size: 1.2rem !important;
+    padding: 0.5rem 0 !important;
+    text-align: center !important;
+    border: 2px solid var(--login-input-stroke);
+    outline: none;
+    background-color: var(--login-menu-input-background);
+    color: var(--login-menu-input-placeholder);
+    caret-color: transparent;
+}
+
+.login-container input::placeholder {
+  font-family: 'Itim', cursive !important;
+  color: var(--login-menu-input-placeholder);
+  font-size: 1.2rem; /* hvis du også vil matche størrelsen */
+  text-align: center;
+}
+
+.login-container input:focus {
+    border: 3px solid var(--login-input-focused) !important;
+    box-shadow: none !important;
+    font-family: 'Itim', cursive !important;
+}
+
+.login-btn-group {
+    display: flex;
+    justify-content: space-between;
+    gap: 0.5rem;
+}
+
+.login-btn-group .guac-btn {
+    flex: 1; /* Very Important DO NOT REMOVE */
+}
+
+.login-container select {
+    width: 100%;
+    margin-bottom: 1rem;
+    border-radius: 2rem;
+    font-size: 1.2rem !important;
+    padding: 0.5rem 0 !important;
+    text-align: center !important;
+    border: 2px solid #464646;
+    outline: none;
+    background-color: #ebebeb;
+    color: #3b3b3b;
+    appearance: none;          
+    -webkit-appearance: none; 
+    -moz-appearance: none;     
+}
+
+.login-container select:focus {
+    border: 3px solid var(--login-button-background) !important;
+    box-shadow: none !important;
+}
+
+/* ___________________________________________ */
+
+                /* Buttons */
+
+/* ___________________________________________ */
+
+.guac-btn-form {
+    background-color: var(--login-button-background) !important;
+    border-radius: 1rem !important;
+    border: 2px solid var(--login-button-stroke);
+    font-size: 1.0rem !important;   
+    font-weight: bold !important;   
+    color: var(--login-button-text) !important; 
+    box-shadow: 0 2px 3px rgba(22, 22, 22, 0.4);
+}
+
+.guac-btn-form:hover {
+    background-color: var(--login-button-hover) !important; 
+    transform: translateY(5%)
+}
+
+/* ___________________________________________ */
+
+                /* Bubbles */
+
+/* ___________________________________________ */
+
+.bubble {
+    position: fixed;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.1);
+    pointer-events: none;
+    z-index: 1;
+    animation: fadeOut 3s ease-out forwards;
+}
+  
+  @keyframes fadeOut {
+    0% {
+      opacity: 1;
+      transform: scale(0.5);
+    }
+    100% {
+      opacity: 0;
+      transform: scale(1.5);
+    }
+}
+
+/* ___________________________________________ */
+
+      /* Input Error Visuals & Anims */
+
+/* ___________________________________________ */
+
+.input-error {
+  border-color: red !important;
+  animation: inputShake 0.5s;
+}
+
+@keyframes inputShake {
+  0% { transform: translateX(0); }
+  20% { transform: translateX(-5px); }
+  40% { transform: translateX(5px); }
+  60% { transform: translateX(-5px); }
+  80% { transform: translateX(5px); }
+  100% { transform: translateX(0); }
+}
+
+/* ___________________________________________ */
+
+            /* Scroll Button */
+
+/* ___________________________________________ */
+
+.scroll-btn {
+    position: fixed;
+    bottom: 30px;
+    right: 30px;
+    padding: 10px 20px;
+    background-color: #373757;
+    color: white;
+    border: none;
+    border-radius: 15px;
+    font-size: 16px;
+    opacity: 0;            
+    pointer-events: none;   
+    cursor: pointer;
+    z-index: 1000;
+    transition: all 0.3s ease;
+}
+
+.scroll-btn.show {
+    opacity: 1;
+    pointer-events: auto; 
+}
+
+.scroll-btn:hover {
+    background-color: #f8b600;
+    transition: all 0.3s ease;
 }
