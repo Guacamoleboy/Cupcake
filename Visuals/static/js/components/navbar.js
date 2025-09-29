@@ -17,25 +17,25 @@ const navbarHTML = `
         <div class="guac-row guac-justify-center">
             <ul class="navbar-menu guac-d-flex guac-gap-3">
                 <li class="dropdown">
-                    <a href="#">Cupcakes</a>
+                    <a href="../templates/order.html">Cupcakes</a>
                     <ul class="dropdown-menu guac-animate guac-fade-in">
-                        <li><a href="#">Chokolade</a></li>
-                        <li><a href="#">Vanilje</a></li>
-                        <li><a href="#">Red Velvet</a></li>
-                        <li><a href="#">Osv...</a></li>
+                        <li><a href="../templates/order.html">Chokolade</a></li>
+                        <li><a href="../templates/order.html">Vanilje</a></li>
+                        <li><a href="../templates/order.html">Red Velvet</a></li>
+                        <li><a href="../templates/order.html">Osv...</a></li>
                     </ul>
                 </li>
-                <li><a href="#">Hitter nu</a></li>
-                <li><a href="#">Nossehår</a></li>
-                <li><a href="#">Events</a></li>
-                <li><a href="#">Kontakt</a></li>
+                <li><a href="../templates/order.html">Hitter nu</a></li>
+                <li><a href="#">Text</a></li>
+                <li><a href="../templates/events.html">Events</a></li>
+                <li><a href="../templates/contact.html">Kontakt</a></li>
             </ul>
         </div>
         <!-- Menu Items End -->
 
         <!-- Login Start -->
         <div class="navbar-profile">
-            <a href="#">
+            <a href="../templates/login.html">
                 <button class="navbar-login-button">Log Ind</button>
             </a>
         </div>

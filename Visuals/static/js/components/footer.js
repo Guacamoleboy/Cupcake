@@ -8,27 +8,26 @@ const footerHTML = `
                 <div class="guac-col-auto footer-col">
                     <h3>Links</h3>
                     <ul>
-                        <li><a href="#">Om os</a></li>
-                        <li><a href="#">Kundeservice</a></li>
-                        <li><a href="#">Kontakt</a></li>
-                        <li><a href="#">Bestil Cupcakes</a></li>
+                        <li><a href="../templates/index.html">Om os</a></li>
+                        <li><a href="../templates/contact.html">Kundeservice</a></li>
+                        <li><a href="../templates/order.html">Bestil Cupcakes</a></li>
                     </ul>
                 </div>
                 <div class="guac-col-auto footer-col">
                     <h3>Social</h3>
                     <ul>
-                        <li><a href="#">Facebook</a></li>
-                        <li><a href="#">TikTok</a></li>
-                        <li><a href="#">Instagram</a></li>
-                        <li><a href="#">YouTube</a></li>
+                        <li><a href="https://www.facebook.com" target="_blank">Facebook</a></li>
+                        <li><a href="https://www.tiktok.com" target="_blank">TikTok</a></li>
+                        <li><a href="https://www.instagram.com" target="_blank">Instagram</a></li>
+                        <li><a href="https://www.youtube.com" target="_blank">YouTube</a></li>
                     </ul>
                 </div>
                 <div class="guac-col-auto footer-col">
                     <h3>Jobs</h3>
                     <ul>
-                        <li><a href="#">Ledige Jobs</a></li>
-                        <li><a href="#">Karriere</a></li>
-                        <li><a href="#">Ansøg nu</a></li>
+                        <li><a href="../templates/jobs.html">Ledige Jobs</a></li>
+                        <li><a href="../templates/career.html">Karriere</a></li>
+                        <li><a href="../templates/apply.html">Ansøg nu</a></li>
                     </ul>
                 </div>
             </div>

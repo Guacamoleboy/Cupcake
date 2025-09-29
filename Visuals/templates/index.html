@@ -19,15 +19,18 @@
     <!-- CSS Load -->
     <link rel="stylesheet" href="../static/css/style.css">
 
-    <!-- Scripts can also be loaded here with defer -->
     <!-- Framwork load -->
     <link rel="stylesheet" href="../static/css/guacamoleboy-wow.css">
     <link rel="stylesheet" href="../static/css/guacamoleboy-framework.css">
-    <script src="../static/js/guacamoleboy-wow.js" defer></script>
+    <script src="../static/js/guacamoleboy-wow.js"></script>
+
+    <!-- Script Load -->
+    <script src="../static/js/button-to-top.js"></script>
 
     <!-- Modules -->
     <script type="module" src="../static/js/components/navbar.js" defer></script>
     <script type="module" src="../static/js/components/footer.js" defer></script>
+    <script type="module" src="../static/js/components/footer-nav.js" defer></script>
 
     <!--
             defer loads the script along with the page
@@ -39,6 +42,14 @@
 
 </head>
 <body>
+
+    <!-- Cookie Button Start -->
+    <div class="cookie-btn"><i class="fa fa-arrow-up"></i></div>
+    <!-- Cookie Button End -->
+
+    <!-- Scroll-to-Top Button Start -->
+    <button id="scrollToTopBtn" class="scroll-btn" onclick="scrollToSection()"><i class="fa fa-arrow-up"></i></button>
+    <!-- Scroll-to-Top Button End -->
 
     <!-- Navbar -->
     <div id="navbar-component"></div>
@@ -87,23 +98,38 @@
 
             <!-- Cupcake Showcase Start -->
             <div class="section-1-showcase guac-animate guac-zoom-in">
-                <div class="guac-col-auto showcase-item guac-animate guac-zoom-in-n-out">
+                <div class="guac-col-auto showcase-item guac-animate guac-zoom-in-n-out1">
                     <img src="../static/images/page-content/index/cupcake-3.png" alt="Showcase 1">
                     <h3>Honeybun Cherry</h3>
                     <p>Rig chokoladesmag med cremet topping og ekstra kærlighed.</p>
                 </div>
-                <div class="guac-col-auto showcase-item guac-animate guac-zoom-in-n-out">
+                <div class="guac-col-auto showcase-item guac-animate guac-zoom-in-n-out2">
                     <img src="../static/images/page-content/index/cupcake-3.png" alt="Showcase 2">
                     <h3>Rød Top</h3>
                     <p>Friske bær og en let, luftig lyserød frosting og et lille kirsebær til at slutte af på.</p>
                 </div>
-                <div class="guac-col-auto showcase-item guac-animate guac-zoom-in-n-out">
+                <div class="guac-col-auto showcase-item guac-animate guac-zoom-in-n-out3">
                     <img src="../static/images/page-content/index/cupcake-3.png" alt="Showcase 3">
                     <h3>Karamel Nigrini</h3>
                     <p>Soft caramel pudding center med græskar frosting og et lille twist af hindbær.</p>
                 </div>
             </div>
             <!-- Cupcake Showcase End -->
+
+            <!-- 
+            
+                Add carousel showcase. Await animation (2seconds) before starting. 
+                Should move left. So start as 3 cupcakes. Showcase the 3 with animations.
+                After the 2 seconds it should apply and move the cupcakes to the left with slow speed.
+
+                It's only a showcase. Meaning users should not be able to click or interact with the carousel.
+
+                If we were to add interactions - positions would be messed up. If a mouse is :hover in the carousel
+                it will stop the carousel in odd positions resulting in odd visuals and possible bugs.
+
+                - Guac
+             
+            -->
 
         </div>
 
@@ -131,6 +157,15 @@
                     </p>
                 </div>
             </div>
+
+            <!-- Man Section 2 Start -->
+            <div class="man-wrapper">
+                <div class="section-2-man guac-animate guac-fade-slide-up">
+                    <img src="../static/images/page-content/index/section-2-man.png">
+                </div>
+            </div>
+            <!-- Man Section 2 Start -->
+
         </div>
 
         <!-- End Wave Section 2 Start -->
@@ -142,19 +177,13 @@
     </section>
     <!-- Section 2 End -->
 
-    <!-- Navbar -->
+    <!-- Footer -->
     <div id="footer-component"></div>
-    <!-- Navbar -->
+    <!-- Footer -->
 
-    <!-- Footer Navbar Start -->
-    <section class="footer-navbar guac-d-flex guac-justify-center guac-align-center">
-        <p>
-            Built by Andreas, Ebou & Jonas with 
-            <span style="color:#ff0000;">&#10084;</span>
-        </p>
-    </section>
-    <!-- Footer Navbar End -->
-
+    <!-- Footer Nav -->
+    <div id="footer-nav-component"></div>
+    <!-- Footer Nav -->
 
 </body>
 </html>
