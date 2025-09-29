@@ -26,7 +26,7 @@ const navbarHTML = `
                     </ul>
                 </li>
                 <li><a href="../templates/order.html">Hitter nu</a></li>
-                <li><a href="#">Nossehår</a></li>
+                <li><a href="#">Text</a></li>
                 <li><a href="../templates/events.html">Events</a></li>
                 <li><a href="../templates/contact.html">Kontakt</a></li>
             </ul>
