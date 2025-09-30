@@ -1,0 +1,235 @@
+#menu {
+    position: relative;
+    text-align: center;
+}
+
+#menu h2 {
+    color: #FFF !important;
+    text-align: center;       
+    position: relative;        
+    margin-bottom: 1.5rem;      
+}
+
+.menu-wrapper p {
+    color: #FFF !important;
+    opacity: 70%;
+    font-style: italic;
+}
+
+.menu-wrapper h2::after {
+    content: '';
+    display: block;
+    width: 15%;
+    border-bottom: 5px dotted #FFF; 
+    margin: 2rem auto 0; 
+}
+
+.subpage #menu {
+    background-color: #BC4646 !important;
+}
+
+.products {
+    position: relative;
+    border-radius: 1rem;
+    display: flex;
+    align-items: center;
+    padding: 2rem;
+    gap: 2rem !important;
+}
+
+.products img {
+    width: 60%;
+    height: auto;
+}
+
+.product-item {
+    align-items: center;
+    background-color: #703e3e79 !important;
+    width: 20rem !important;
+    border-radius: 0.8rem;
+    border: 2px solid #ac7a7a !important; 
+    padding: 1rem !important;
+    position: relative;
+}
+
+.product-title {
+    position: relative;
+}
+
+.product-title p::after {
+    content: "";
+    display: block;            
+    margin: 2rem auto 0; /* Centers our line */
+    width: 60px;               
+    height: 3px;              
+    background-color: #FFF;
+    border-radius: 1px;
+}
+
+.product-item p {
+    color: #FFF;
+}
+
+.add-product {
+    text-decoration: none;
+    color: #ffffff;
+    padding: 0.5rem;
+    background-color: #BC4646;
+    border-radius: 0.4rem;
+    display: inline-block;
+    transition: transform 0.2s ease-in-out;
+    box-shadow: 0px 2px 6px rgba(0,0,0,0.3);
+}
+
+.add-product:hover {
+    background-color: #882f2f;
+    cursor: pointer;
+    color: #c9b3b1;  
+    transform: translateY(2px);    
+    text-decoration: none; 
+}
+
+.menu-filters {
+    display: flex;
+    gap: 1rem;
+    justify-content: center;
+    align-items: center;
+    margin: 1.5rem 0 2.5rem;
+    flex-wrap: wrap;
+}
+
+.filter-input,
+.filter-select {
+    padding: 0.6rem 1rem;
+    border-radius: 0.5rem;
+    border: 1px solid #ddd;
+    font-size: 1rem;
+    min-width: 10rem;
+    outline: none;
+}
+
+.filter-input:focus,
+.filter-select:focus {
+    border-color: #BC4646;
+    box-shadow: 0 0 6px rgba(188, 70, 70, 0.6);
+}
+
+.cupcake-cards {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 2rem;
+  justify-content: center;
+}
+
+/* ___________________________________________ */
+
+              /* Cupcake Menu */
+
+/* ___________________________________________ */
+
+.cupcake-cards {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 2rem;
+  justify-content: center;
+}
+
+.cupcake-card {
+  position: relative;
+  flex: 1 1 30%; /* guac-col-4 fix bby */
+  border-radius: 25px;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  font-family: 'Poppins', sans-serif;
+  margin-bottom: 2rem;
+  transition: border 0.3s ease;
+}
+
+.cupcake-imgBox {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  margin-top: 2rem;
+  transition: transform 0.5s ease-in-out, width 0.5s ease-in-out;
+}
+
+.cupcake-imgBox img {
+  width: 100%;
+  height: auto;
+  transition: transform 0.5s ease-in-out, width 0.5s ease-in-out;
+}
+
+.cupcake-contentBox {
+  width: 100%;
+  text-align: center;
+  margin-top: 2.5rem;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  transition: margin-top 0.5s ease-in-out;
+}
+
+.cupcake-contentBox h2 {
+  color: #fff;
+  font-weight: 600;
+  font-size: 1.2rem;
+  margin: 0;
+  position: relative;
+}
+
+.cupcake-contentBox h2::after {
+  content: '';
+  display: block;
+  width: 100%;
+  max-width: 30%;
+  height: 3px;
+  background-color: #fff;
+  margin: 0.5rem auto 0;
+  border-radius: 2px;
+  opacity: 0;
+  transform: scaleX(0);
+  transform-origin: center;
+  transition: opacity 0.5s ease-in-out, transform 0.5s ease-in-out;
+}
+
+.cupcake-hoverContent {
+  position: absolute;
+  top: 60%; 
+  left: 50%;
+  transform: translate(-50%, 1rem); 
+  opacity: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.5rem;
+  transition: opacity 0.5s ease-in-out, transform 0.5s ease-in-out;
+}
+
+.cupcake-hoverContent p,
+.cupcake-hoverContent a {
+  margin: 0 auto;
+  color: #fff;
+  text-align: center;
+}
+
+.cupcake-card:hover .cupcake-imgBox img {
+  width: 70%;
+  transform: translateY(-1rem);
+}
+
+.cupcake-card:hover .cupcake-contentBox {
+  margin-top: 0.5rem;
+}
+
+.cupcake-card:hover .cupcake-contentBox h2::after {
+  opacity: 1;
+  transform: scaleX(1);
+}
+
+.cupcake-card:hover .cupcake-hoverContent {
+  opacity: 1;
+  transform: translate(-50%, 0);
+}
