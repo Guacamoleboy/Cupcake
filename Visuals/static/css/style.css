@@ -483,9 +483,11 @@ body::-webkit-scrollbar { /* All other browsers */
      z-index: 500;
 }
 
+/* ADD AGAIN LATER 
 .wave-1 img {
     filter: drop-shadow(0px -5px 10px rgba(0,0,0,0.2));
 }
+*/
 
 
 /* ___________________________________________ */
@@ -603,6 +605,7 @@ body::-webkit-scrollbar { /* All other browsers */
     line-height: 1.6;
     text-shadow: 0 1px 2px rgba(0, 0, 0, 0.4);
 }
+
 /* ___________________________________________ */
 
                   /* Contact / Kontakt */
@@ -610,23 +613,22 @@ body::-webkit-scrollbar { /* All other browsers */
 /* ___________________________________________ */
 
 .contact-section {
-    background-color: transparent;
+    background-color: transparent; 
 }
 
-/* (kontakt-kort fjernet - ikke i brug) */
-/* Kontakt: brug tema-farver */
 .contact-section .section-1-intro {
     color: var(--cupcake-white);
 }
-/* Kontakt: centrer og fast bredde som 'Find os' */
+
 .contact-section .contact-form {
     max-width: 640px;
     margin: 0 auto;
 }
-/* Kontakt: inputs kun med streg under */
+
 .contact-section .contact-form label {
     color: var(--cupcake-white);
 }
+
 .contact-section .contact-form input:not([type="checkbox"]),
 .contact-section .contact-form textarea {
     background: var(--contact-input-background) !important;
@@ -637,20 +639,24 @@ body::-webkit-scrollbar { /* All other browsers */
     padding: 0.5rem 0 !important;
     width: 100% !important;
 }
+
 .contact-section .contact-form input:not([type="checkbox"])::placeholder,
 .contact-section .contact-form textarea::placeholder {
     color: var(--contact-input-placeholder) !important;
 }
+
 .contact-section .contact-form input:not([type="checkbox"]):focus,
 .contact-section .contact-form textarea:focus {
     border-bottom-color: var(--contact-input-stroke) !important;
     box-shadow: none !important;
 }
+
 .contact-section .contact-form textarea { min-height: 8rem; resize: vertical; }
 .contact-section .guac-btn-contact { margin-top: 1rem; display: block; margin-left: auto; margin-right: auto; }
 .contact-section .contact-form label {
     color: var(--cupcake-white);
 }
+
 .contact-section .contact-form input,
 .contact-section .contact-form textarea,
 .contact-section .contact-form select {
@@ -658,15 +664,18 @@ body::-webkit-scrollbar { /* All other browsers */
     border-color: var(--nav-stroke);
     color: #5b3a3f;
 }
+
 .contact-section .contact-form input::placeholder,
 .contact-section .contact-form textarea::placeholder {
     color: rgba(91, 58, 63, 0.75);
 }
+
 .contact-section .contact-form input:focus,
 .contact-section .contact-form textarea:focus,
 .contact-section .contact-form select:focus {
-    border-color: var(--nav-stroke);
-    box-shadow: 0 0 0 3px rgba(253,149,149,0.25);
+    border: 3px solid var(--login-input-focused) !important;
+    box-shadow: none !important;
+    font-family: 'Itim', cursive !important;
 }
 
 .contact-form textarea {
@@ -744,7 +753,6 @@ body::-webkit-scrollbar { /* All other browsers */
     transform: translateY(0);
 }
 
-
 .contact-list {
     list-style: none;
     margin: 0;
@@ -757,14 +765,11 @@ body::-webkit-scrollbar { /* All other browsers */
     color: #6a4f4f;
 }
 
-/* Find os section fuck mørk background */
 .contact-findus .section-2-intro h2,
 .contact-findus .section-2-intro p,
 .contact-findus .contact-list li {
     color: #ffffff !important;
 }
-
-
 
 /* ___________________________________________ */
 
@@ -1295,4 +1300,122 @@ body::-webkit-scrollbar { /* All other browsers */
     margin-right: auto;
     text-align: center;
     max-width: 80%;
+}
+
+/* ___________________________________________ */
+
+                /* Galleri */
+
+/* ___________________________________________ */
+
+.galleri-card {
+    background-color: #cea2a2 !important;
+    border-radius: 25px !important;
+    border: 4px dashed #e4e4e4 !important;
+    box-shadow: 0 6px 15px rgba(0,0,0,0.15);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+    position: relative;
+}
+
+.galleri-page .guac-card {
+    position: relative;
+    padding: 0% !important;
+}
+
+.galleri-page .section-1 h2 {
+    color: #FFF;
+    text-align: center;       
+    position: relative;        
+    margin-bottom: 1.5rem;      
+}
+
+.galleri-page .section-1 h2::after {
+    content: "";
+    display: block;            
+    margin: 2rem auto 0; /* Centers our line */
+    width: 60px;               
+    height: 3px;              
+    background-color: #FFF;
+    border-radius: 1px;
+}
+
+.galleri-page .section-1 p {
+    text-align: center;
+    font-style: italic;
+    color: #FFF;
+    opacity: 0.7;
+    margin-top: 0.5rem;
+    margin-bottom: 4rem;
+    font-size: 1rem;
+}
+
+.galleri-card:hover {
+    transform: scale(105%) !important;
+    box-shadow: 0 12px 25px rgba(0,0,0,0.25);
+}
+
+.galleri-image-container {
+    position: relative;
+    width: 100%;
+    height: auto;
+    overflow: hidden;
+}
+
+.galleri-image-container img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.guac-card a {
+    color: #e4e4e4;
+    font-weight: 600;
+}
+
+.guac-card a:hover {
+    text-decoration: none;
+}
+
+.galleri-card .guac-card-title {
+    color: #664b4b !important;
+    max-width: 80%;
+}
+
+.galleri-card .guac-card-text {
+    color: #664b4b !important;
+    max-width: 80%;
+}
+
+.galleri-card .guac-card-title,
+.galleri-card .guac-card-text {
+    margin-left: auto;
+    margin-right: auto;
+    text-align: center;
+    max-width: 80%;
+}
+
+.galleri-card-wrapper {
+    position: relative;
+    width: 100%;
+    height: auto;
+    background-color: #373757;
+    border-bottom-right-radius: 20px;
+    border-bottom-left-radius: 20px;
+    border-top: 2px solid #393972;
+}
+
+.galleri-card-wrapper .guac-card-title,
+.galleri-card-wrapper .guac-card-text {
+    color: #FFF !important;
+}
+
+.galleri-card-wraper .guac-card-title::after {
+    content: "";
+    display: block;
+    width: 60%; 
+    margin: 0.5em auto 0; 
+    border-bottom: 4px solid #bdbdbd;
 }
