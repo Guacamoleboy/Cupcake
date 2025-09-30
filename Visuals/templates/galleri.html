@@ -18,6 +18,9 @@
 
     <!-- CSS Load -->
     <link rel="stylesheet" href="../static/css/style.css">
+    
+    <!-- Font Awesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 
     <!-- Scripts can also be loaded here with defer -->
     <!-- Framwork load -->
@@ -29,6 +32,29 @@
     <script type="module" src="../static/js/components/navbar.js" defer></script>
     <script type="module" src="../static/js/components/footer.js" defer></script>
     <script type="module" src="../static/js/components/footer-nav.js" defer></script>
+    
+    <!-- Heart Button Functionality -->
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const heartButtons = document.querySelectorAll('.heart-btn');
+            
+            heartButtons.forEach(button => {
+                button.addEventListener('click', function(e) {
+                    
+                    // gør så class ved click bliver "liked" styling
+                    this.classList.toggle('liked');
+                    
+                   
+                    const icon = this.querySelector('i');
+                    if (this.classList.contains('liked')) {
+                        icon.className = 'fa-solid fa-heart';
+                    } else {
+                        icon.className = 'fa-regular fa-heart';
+                    }
+                });
+            });
+        });
+    </script>
 
 </head>
 <body class="subpage galleri-page">
@@ -71,40 +97,73 @@
                 <div class="guac-col-12 guac-mt-5">
                     <h2>Galleri</h2>
                     <p>Se, like og kommenter vores nyeste opslag!</p>
-                    <div class="guac-grid-3 guac-gap-4">
-
-                        <div class="guac-card galleri-card">
-                            <div class="galleri-image-container">
-                                <img src="../static/images/page-content/events/event-card-1.png" alt="ID HER">
-                            </div>
-                            <div class="galleri-card-wrapper guac-pt-2">
-                                <div class="guac-card-title">En dag på slottet</div>
-                                <div class="guac-card-text">
-                                    Fuck dig!
-                                </div>
+                    
+                    
+                    <div class="gallery-grid">
+                        <div class="gallery-item" style="background-image: url('../static/images/gallery/birthday.png');">
+                            <button class="heart-btn">
+                                <i class="fa-regular fa-heart"></i>
+                            </button>
+                            <div class="gallery-item__details">
+                                Fødselsdags Cupcake - denne gav vi til Jonas og hans boyfriend på deres fødselsdag!
                             </div>
                         </div>
-
-                        <div class="guac-card galleri-card">
-                            <div class="galleri-image-container">
-                                <img src="../static/images/page-content/events/event-card-1.png" alt="ID HER">
-                            </div>
-                            <div class="guac-card-title">En dag på slottet</div>
-                            <div class="guac-card-text">
-                                Fuck dig!
+                        <div class="gallery-item gallery-item--large" style="background-image: url('../static/images/gallery/pride.png');">
+                            <button class="heart-btn">
+                                <i class="fa-regular fa-heart"></i>
+                            </button>
+                            <div class="gallery-item__details">
+                                Fejring af Jødisk Kulturfestival - Andreas stod for at lave regnbuecupcakes til fejringen!
                             </div>
                         </div>
-
-                        <div class="guac-card galleri-card">
-                            <div class="galleri-image-container">
-                                <img src="../static/images/page-content/events/event-card-1.png" alt="ID HER">
-                            </div>
-                            <div class="guac-card-title">En dag på slottet</div>
-                            <div class="guac-card-text">
-                                Fuck dig!
+                        <div class="gallery-item gallery-item--medium" style="background-image: url('../static/images/gallery/nice.png');">
+                            <button class="heart-btn">
+                                <i class="fa-regular fa-heart"></i>
+                            </button>
+                            <div class="gallery-item__details">
+                                Lækker jordbær LOL
                             </div>
                         </div>
-
+                        <div class="gallery-item gallery-item--large" style="background-image: url('../static/images/gallery/andreas.png');">
+                            <button class="heart-btn">
+                                <i class="fa-regular fa-heart"></i>
+                            </button>
+                            <div class="gallery-item__details">
+                                Andreas Special
+                            </div>
+                        </div>
+                        <div class="gallery-item gallery-item--full" style="background-image: url('../static/images/gallery/ebou.png');">
+                            <button class="heart-btn">
+                                <i class="fa-regular fa-heart"></i>
+                            </button>
+                            <div class="gallery-item__details">
+                                Ebou's Favorit
+                            </div>
+                        </div>
+                        <div class="gallery-item gallery-item--medium" style="background-image: url('../static/images/gallery/jew.png');">
+                            <button class="heart-btn">
+                                <i class="fa-regular fa-heart"></i>
+                            </button>
+                            <div class="gallery-item__details">
+                                Blåbær muffins med et twist af LGTBQ+ krymmel! We don't discriminate.
+                            </div>
+                        </div>
+                        <div class="gallery-item gallery-item--large" style="background-image: url('../static/images/gallery/jonasmonster.png');">
+                            <button class="heart-btn">
+                                <i class="fa-regular fa-heart"></i>
+                            </button>
+                            <div class="gallery-item__details">
+                                Olskers Special Cookie Monster cupcakes, som vores elskede Jonas fik spist et par af!
+                            </div>
+                        </div>
+                        <div class="gallery-item" style="background-image: url('../static/images/gallery/shit.png');">
+                            <button class="heart-btn">
+                                <i class="fa-regular fa-heart"></i>
+                            </button>
+                            <div class="gallery-item__details">
+                                Flotte cupcakes på bestilling fra Andreas Rovelt's bogklub
+                            </div>
+                        </div>
                     </div>
                 </div>
                 <!-- Gallery Card End -->
