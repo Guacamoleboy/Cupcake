@@ -1,7 +1,6 @@
 <!DOCTYPE html>
 <html lang="da">
 <head>
-
     <!-- Meta -->
     <meta charset="UTF-8"> <!-- ÆØÅ -->
     <meta http-equiv="X-UA-Compatible" content="IE=edge"> <!-- In case some nerd uses Internet Explorer -->
@@ -19,74 +18,129 @@
     <!-- CSS Load -->
     <link rel="stylesheet" href="../static/css/style.css">
 
-    <!-- Scripts can also be loaded here with defer -->
     <!-- Framwork load -->
     <link rel="stylesheet" href="../static/css/guacamoleboy-wow.css">
     <link rel="stylesheet" href="../static/css/guacamoleboy-framework.css">
-    <script src="../static/js/guacamoleboy-wow.js" defer></script>
+    <script src="../static/js/guacamoleboy-wow.js"></script>
+
+    <!-- Script Load -->
+    <script src="../static/js/button-to-top.js"></script>
 
     <!-- Modules -->
     <script type="module" src="../static/js/components/navbar.js" defer></script>
-
+    <script type="module" src="../static/js/components/footer.js" defer></script>
+    <script type="module" src="../static/js/components/footer-nav.js" defer></script>
 </head>
 <body class="subpage">
-
-    <!-- Navbar -->
+    <!-- Navbar Start -->
     <div id="navbar-component"></div>
-    <!-- Navbar -->
-
+    <!-- Navbar End -->
     <!-- Hero Section Start -->
     <section class="hero">
-
         <div class="guac-container">
             <div class="guac-row">
-                
                 <div class="guac-col-auto subpage-cupcake-1">
-                    <img src="../static/images/page-content/index/cupcake-3.png" alt="Billede 1">
+                    <img src="../static/images/page-content/index/cupcake-3.png" alt="Cupcake dekor 1">
                 </div>
                 <div class="guac-col-auto subpage-cupcake-2">
-                    <img src="../static/images/page-content/index/cupcake-3.png" alt="Billede 2">
+                    <img src="../static/images/page-content/index/cupcake-3.png" alt="Cupcake dekor 2">
                 </div>
-
             </div>
         </div>
-
         <!-- End Wave Hero Start -->
         <div class="wave-1">
             <img src="../static/images/waves/wave-top.svg">
         </div>
         <!-- End Wave Hero End -->
-
     </section>
     <!-- Hero Section End -->
-
-    <!-- Har lige fixet dine tags lidt - xoxo -->
-    <section class="section-1">
-        <div class="guac-container"> 
-            <div class="guac-row guac-animate guac-fade-slide-up">
-                <h2>Kontakt Os</h2>
-                <p>Har du nogle spørgsmål, bla blab vblablslbcdlsdlfsldf</p>
-                <form class="contact-form">
-                        <div class="guac-col-6">
-                            <input type="text" id="navn" navn="navn" placeholder="Dit navn">
+    <section class="section-1 contact-section">
+        <div class="guac-container">
+            <div class="guac-row guac-justify-center">
+                <div class="section-1-intro guac-mt-5 guac-animate guac-slide-up">
+                    <h2>Kontakt os</h2>
+                    <p class="guac-pb-5">Har du spørgsmål, en specialbestilling eller brug for hjælp? Skriv til os herunder.</p>
+                </div>
+            </div>
+            <div class="guac-row guac-justify-center guac-animate guac-fade-slide-up">
+                <div class="guac-col-8">
+                    <form class="contact-form" action="../templates/tak.html" method="get">
+                        <div class="guac-row">
+                            <div class="guac-col-12">
+                                <label for="navn">Navn</label>
+                                <input type="text" id="navn" name="navn" placeholder="Fornavn og efternavn" required>
+                            </div>
+                            <div class="guac-col-12">
+                                <label for="email">E-mail</label>
+                                <input type="email" id="email" name="email" placeholder="din@email.dk" required>
+                            </div>
+                            <div class="guac-col-12">
+                                <label for="telefon">Telefon</label>
+                                <input type="tel" id="telefon" name="telefon" placeholder="Valgfrit">
+                            </div>
+                            <div class="guac-col-12">
+                                <label for="emne">Emne</label>
+                                <input type="text" id="emne" name="emne" placeholder="Hvad drejer henvendelsen sig om?" required>
+                            </div>
+                            <div class="guac-col-12">
+                                <label for="besked">Besked</label>
+                                <textarea id="besked" name="besked" placeholder="Skriv din besked her" rows="6" required></textarea>
+                            </div>
+                            <div class="guac-col-12">
+                                <label class="contact-consent">
+                                    <input type="checkbox" id="samtykke" name="samtykke" required>
+                                    ja det godt
+                                </label>
+                            </div>
+                            <div class="guac-col-12">
+                                <button type="submit" class="guac-btn guac-btn-contact">Send besked</button>
+                            </div>
                         </div>
-                        <div class="guac-col-6">
-                            <input type="email" id="email" email="email" placeholder="Din email">
-                        </div>
-                        <div class="guac-col-12">
-                            <input type="tel" id="phone" navn="phone" placeholder="Telefonnummer">
-                        </div>
-                        <div class="guac-col-12">
-                            <input type="text" id="besked" navn="besked" rows="5">
-                        </div>
-                        <div class="guac-col-12">
-                            <button type="submit" class="guac-btn guac-btn-form"></button>Send besked</button>
-                        </div>
-                </form>
+                    </form>
+                </div>
             </div>
         </div>
     </section>
-    <!-- Text her End -->
-    
+    <section class="section-2 contact-findus">
+        <div class="wave-2">
+            <img src="../static/images/waves/wave-section-1.svg">
+        </div>
+        <div class="guac-container">
+            <div class="guac-row guac-justify-center">
+                <div class="section-2-intro guac-animate guac-zoom-in">
+                    <h2>Find os</h2>
+                    <p class="guac-pt-5 guac-pb-5">
+                        Kig forbi vores butik i hjertet af Bornholm, eller kontakt os for en specialbestilling.
+                        <span class="section-2-text-end">– Olsker Cupcakes</span>
+                    </p>
+                </div>
+            </div>
+            <div class="guac-row guac-justify-center guac-animate guac-fade-slide-up">
+                <div class="guac-col-8">
+                    <ul class="contact-list">
+                        <li><strong>Adresse:</strong> Olskervej 1, 3770 Allinge</li>
+                        <li><strong>Telefon:</strong> +45 12 34 56 78</li>
+                        <li><strong>E-mail:</strong> kontakt@olskercupcakes.dk</li>
+                        <li><strong>Åbningstider:</strong> Man–Fre 10–17, Lør 10–14</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="wave-3">
+            <img src="../static/images/waves/footer-wave.svg">
+        </div>
+        <!-- End Wave Section 2 End -->
+
+    </section>
+    <!-- Section 2 End -->
+
+    <!-- Footer -->
+    <div id="footer-component"></div>
+    <!-- Footer -->
+
+    <!-- Footer Nav -->
+    <div id="footer-nav-component"></div>
+    <!-- Footer Nav -->
+
 </body>
 </html>
