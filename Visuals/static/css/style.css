@@ -28,6 +28,9 @@
     /* Default */
     --background: #CAA4A4;
 
+    /* Heart Button */
+    --heart: #d11818;
+
     /* Footer */
     --footer-background: var(--background);
 
@@ -114,6 +117,13 @@
     --exit-button-background: #723a3a;
     --exit-button-background-hover: #c9afaf;
     --exit-button-background-hover-text: #252525;
+    
+    /* Gallery */
+    --gallery-card-info-background: #e4e0e0;
+
+    /* Cart */
+    --card-text-color: #6d3737;
+    --card-text-title: #e7e7e7;
 
 }
 
@@ -483,12 +493,9 @@ body::-webkit-scrollbar { /* All other browsers */
      z-index: 500;
 }
 
-/* ADD AGAIN LATER 
-.wave-1 img {
+.wave-1 img { /* Added this again */
     filter: drop-shadow(0px -5px 10px rgba(0,0,0,0.2));
 }
-*/
-
 
 /* ___________________________________________ */
 
@@ -1304,30 +1311,13 @@ body::-webkit-scrollbar { /* All other browsers */
 
 /* ___________________________________________ */
 
-                /* Galleri */
+                /* Gallery */
 
 /* ___________________________________________ */
 
-.galleri-card {
-    background-color: #cea2a2 !important;
-    border-radius: 25px !important;
-    border: 4px dashed #e4e4e4 !important;
-    box-shadow: 0 6px 15px rgba(0,0,0,0.15);
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
-    display: flex;
-    flex-direction: column;
-    text-align: center;
-    position: relative;
-}
-
-.galleri-page .guac-card {
-    position: relative;
-    padding: 0% !important;
-}
-
 .galleri-page .section-1 h2 {
-    color: #FFF;
-    text-align: center;       
+    color: var(--cupcake-white); /* Using :root colors instead */
+    text-align: center;        
     position: relative;        
     margin-bottom: 1.5rem;      
 }
@@ -1336,86 +1326,289 @@ body::-webkit-scrollbar { /* All other browsers */
     content: "";
     display: block;            
     margin: 2rem auto 0; /* Centers our line */
-    width: 60px;               
+    width: 4rem;  /* rem fix instead of px. % works just as good */             
     height: 3px;              
-    background-color: #FFF;
-    border-radius: 1px;
+    background-color: var(--cupcake-white); /* Using :root colors instead */
+    border-radius: 15px;
 }
 
 .galleri-page .section-1 p {
     text-align: center;
     font-style: italic;
-    color: #FFF;
+    color: var(--cupcake-white); /* Using :root colors instead */
     opacity: 0.7;
     margin-top: 0.5rem;
     margin-bottom: 4rem;
     font-size: 1rem;
 }
 
-.galleri-card:hover {
-    transform: scale(105%) !important;
-    box-shadow: 0 12px 25px rgba(0,0,0,0.25);
+.gallery-grid {
+    display: grid;
+    grid-gap: 2rem;
+    grid-template-columns: repeat(auto-fit, minmax(19rem, 1fr)); /* Changed to rem for responsive layout */
+    grid-auto-rows: 9rem; /* Rem change */
+    grid-auto-flow: row dense;
+    counter-reset: item-counter;
 }
 
-.galleri-image-container {
+.gallery-item {
     position: relative;
-    width: 100%;
-    height: auto;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    box-sizing: border-box;
+    color: var(--cupcake-white); /* Using :root colors instead */
+    grid-column-start: auto;
+    grid-row-start: auto;
+    background-size: cover;
+    background-position: center;
+    box-shadow: -2px 2px 10px 0px rgba(68, 68, 68, 0.4);
+    transition: transform 0.3s ease-in-out;
+    cursor: pointer;
+    counter-increment: item-counter;
+    border-radius: 15px;
     overflow: hidden;
 }
 
-.galleri-image-container img {
+.gallery-item:after {
+    content: '';
+    position: absolute;
     width: 100%;
     height: 100%;
-    object-fit: cover;
+    background-color: var(--cupcake-black);
+    opacity: 0.3; /* Opacity fremfor background-color uden :root */
+    transition: opacity 0.3s ease-in-out;
 }
 
-.guac-card a {
-    color: #e4e4e4;
-    font-weight: 600;
+.gallery-item:hover {
+    transform: scale(1.02); /* Less :hover scale. Looked crazy at 1.05 */
 }
 
-.guac-card a:hover {
-    text-decoration: none;
+.gallery-item:hover:after { /* The img overlay */ 
+    opacity: 0.1;
 }
 
-.galleri-card .guac-card-title {
-    color: #664b4b !important;
-    max-width: 80%;
+.gallery-item--normal {  /* Added more item scaling */
+    grid-row-end: span 1;
 }
 
-.galleri-card .guac-card-text {
-    color: #664b4b !important;
-    max-width: 80%;
+.gallery-item--medium {
+    grid-row-end: span 2;
 }
 
-.galleri-card .guac-card-title,
-.galleri-card .guac-card-text {
-    margin-left: auto;
-    margin-right: auto;
-    text-align: center;
-    max-width: 80%;
+.gallery-item--large {
+    grid-row-end: span 3;
 }
 
-.galleri-card-wrapper {
+.gallery-item--XL { /* Added more item scaling */
+    grid-row-end: span 4;
+}
+
+.gallery-item--extreme { /* Added more item scaling */
+    grid-row-end: span 5;
+}
+
+.gallery-item--full {
+    grid-column-end: auto;
+}
+
+.gallery-item--half {  /* Added more item scaling */
+    grid-column-end: span 2;
+}
+
+.gallery-item__details {
     position: relative;
+    z-index: 1;
+    padding: 1rem;
+    background: var(--gallery-card-info-background); /* Color fix */
+    text-transform: lowercase;
+    letter-spacing: 0.05rem; /* Rem fix */
+    color: var(--cupcake-grey); /* Color fix */
+    font-weight: 600;
+    font-size: 0.9rem;
+}
+
+.gallery-item__details:before {
+    /* content: counter(item-counter); Sets the number (needed?) */
+    font-weight: bold;
+    font-size: 1.1rem;
+    padding-right: 0.5em;
+    color: var(--cupcake-grey); /* :root colors */
+}
+
+.gallery-item__img { /* Instead of style directly in the html file */
+    position: absolute;
+    inset: 0;                 
     width: 100%;
-    height: auto;
-    background-color: #373757;
-    border-bottom-right-radius: 20px;
-    border-bottom-left-radius: 20px;
-    border-top: 2px solid #393972;
+    height: 100%;
+    object-fit: cover;       
+    object-position: center;  
+    z-index: 0;               
 }
 
-.galleri-card-wrapper .guac-card-title,
-.galleri-card-wrapper .guac-card-text {
-    color: #FFF !important;
+.gallery-item__lac { /* Added these for likes and comments */
+    margin-top: 0.5rem; /* Distance between description and meta data */
+    font-size: 0.9rem;
+    color: var(--cupcake-grey);
 }
 
-.galleri-card-wraper .guac-card-title::after {
+.gallery-item__lac i {
+    /* margin-right: 0.3rem; Add and see the difference. Maybe u like it with it on */
+    color: var(--heart);
+}
+
+
+/* ___________________________________________ */
+
+                  /* Heart */
+
+/* ___________________________________________ */
+
+.heart-btn {
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+    background: var(--cupcake-white); /* :root colors */
+    border: none;
+    border-radius: 50%;
+    width: 2rem;
+    height: 2rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    z-index: 2;
+    transition: all 0.3s ease-in-out; /* Animation on the heart  */
+}
+
+.heart-btn i {
+    font-size: 1rem;
+    color: var(--heart); /* :root colors */
+}
+
+.heart-btn.liked {
+    background: var(--heart); /* :root colors */
+}
+
+.heart-btn.liked i {
+    color: var(--cupcake-white); /* :root colors */
+}
+
+/* ___________________________________________ */
+
+            /* Gallery Responsive */
+
+/* ___________________________________________ */
+
+@media screen and (min-width: 768px) { /* Phone sizes mainly */
+    .gallery-item--full {
+        grid-column: 1/-1;
+        grid-row-end: span 2;
+    }
+}
+
+/* ___________________________________________ */
+
+            /* Shopping Cart */
+
+/* ___________________________________________ */
+
+#cart-container {
+    position: fixed;
+    bottom: 2rem;     
+    right: 2rem;       
+    z-index: 9999;
+    font-family: 'Itim', cursive !important; 
+}
+
+.cart-popup {
+    background: rgba(255, 255, 255, 0.2); 
+    color: var(--card-text-title);
+    padding: 1.25rem;           
+    margin-top: 0.6rem;       
+    border-radius: 1rem;         
+    box-shadow: 0 0.5rem 1.5rem rgba(0,0,0,0.2); 
+    transform: translateX(120%);
+    opacity: 0;
+    transition: opacity 0.4s ease, transform 0.4s ease; 
+    min-width: 18.75rem;       
+    backdrop-filter: blur(0.75rem); 
+    -webkit-backdrop-filter: blur(0.75rem);
+    border: 0.063rem solid rgba(255, 255, 255, 0.4); 
+}
+
+.cart-popup.show {
+    opacity: 1;
+    transform: translateX(0);
+}
+
+.cart-popup h4 {
+    margin: 0;
+    text-align: center;
+    font-size: 1.25rem;          
+    font-weight: bold;
+    position: relative;
+    padding-bottom: 0.5rem;      
+}
+
+.cart-popup h4::after {
     content: "";
     display: block;
-    width: 60%; 
-    margin: 0.5em auto 0; 
-    border-bottom: 4px solid #bdbdbd;
+    width: 50%;
+    height: 0.125rem;            
+    background: rgba(0,0,0,0.2);
+    margin: 0.5rem auto 0 auto;  
+    border-radius: 0.125rem;
+}
+
+.cart-popup ul {
+    list-style: none;
+    margin: 1rem 0 0 0;      
+    padding: 0;
+}
+
+.cart-popup ul li {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 0.938rem;           
+    margin: 0.4rem 0;           
+    padding: 0.25rem 0;           
+}
+
+.cart-popup ul li input {
+    width: 2rem;               
+    text-align: center;
+    border: 0.063rem solid rgba(0,0,0,0.2);
+    border-radius: 0.5rem;         
+    padding: 0.25rem;              
+    background: rgba(255,255,255,0.7);
+    font-family: inherit;
+    font-size: 0.875rem;          
+    outline: none;
+}
+
+.cart-popup ul li span {
+    font-weight: bold;
+    color: var(--card-text-color);                
+}
+
+.cart-popup .total {
+    margin-top: 0.938rem;          
+    padding-top: 0.5rem;          
+    border-top: 0.125rem solid rgba(0,0,0,0.2); 
+    font-size: 1rem;               
+    font-weight: bold;
+    display: flex;
+    justify-content: space-between;
+}
+
+.cart-popup ul li input::-webkit-outer-spin-button,
+.cart-popup ul li input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+.cart-popup ul li input[type=number] {
+    -moz-appearance: textfield;
 }
