@@ -6,7 +6,7 @@
 
                   Last edited by
                    Guacamoleboy
-                    28/09-2025
+                    01/10-2025
 
 */
 
@@ -40,36 +40,4 @@ document.addEventListener("DOMContentLoaded", function() {
     window.addEventListener("resize", checkAnimations);
     checkAnimations();
 
-    // Notifications
-    const notifications = [
-        { message: 'Daddy Notification', type: 'primary' },
-        { message: 'Diddy Notification', type: 'success' },
-        { message: 'Epstein Notification', type: 'danger' },
-        { message: 'Trump Notification', type: 'warning' },
-        { message: 'Hentai Notification', type: 'info' }
-    ];
-
-    notifications.forEach(notif => showNotification(notif.message, notif.type));
 });
-
-// __________________________________________________________________
-
-function showNotification(message, type = 'primary') {
-    const container = document.getElementById('guac-notification-container');
-    const toast = document.createElement('div');
-    toast.className = `guac-notification guac-notification-${type}`;
-    toast.innerText = message;
-
-    container.appendChild(toast);
-
-    requestAnimationFrame(() => {
-        toast.style.opacity = '1';
-        toast.style.transform = 'translateX(0)';
-    });
-
-    setTimeout(() => {
-        toast.style.opacity = '0';
-        toast.style.transform = 'translateX(100%)';
-        setTimeout(() => container.removeChild(toast), 500);
-    }, 5000);
-}
