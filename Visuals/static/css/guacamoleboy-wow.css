@@ -83,6 +83,10 @@
     animation: guacRollRight 1s forwards;
 }
 
+.guac-slide-out {
+    animation: guac-slide-out 1s forwards;
+}
+
 .guac-fade-slide-up.guac-visible {
     animation: guacFadeSlideUp 1s forwards;
 }
@@ -252,3 +256,14 @@
 }
 
 @keyframes spin { 100% { transform: rotate(360deg); } }
+
+@keyframes guac-slide-out {
+    0% {
+        transform: translateX(0);
+        opacity: 1;
+    }
+    100% {
+        transform: translateX(-100%);
+        opacity: 0;
+    }
+}

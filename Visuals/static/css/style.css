@@ -132,6 +132,9 @@
     --order-product-item-border: #ac7a7a;
     --order-add-product-button: #c56969;
 
+    /* Notification */
+    --notification-background: #c77b7b;
+
 }
 
 /* ___________________________________________ */
@@ -253,15 +256,14 @@ body::-webkit-scrollbar { /* All other browsers */
 .section-1-showcase {
     display: flex;
     justify-content: center;
-    text-align: center;
-    gap: 2rem; 
-    flex-wrap: wrap; 
-    margin-top: 2rem;
+    gap: 2rem;
+    flex-wrap: nowrap;
+    width: 100%;
 }
 
 .showcase-item {
     text-align: center;
-    max-width: 250px;
+    max-width: 16rem;
     color: var(--cupcake-white);
 }
 
@@ -285,14 +287,6 @@ body::-webkit-scrollbar { /* All other browsers */
     max-width: 30ch;       
     margin: 0.5rem auto 0; 
     text-align: center;   
-}
-
-.section-1-showcase h3::after {
-    content: "";
-    display: block;
-    width: 25%; 
-    margin: 0.5em auto 0; 
-    border-bottom: 4px dotted #bdbdbd;
 }
 
 /* ___________________________________________ */
@@ -498,6 +492,7 @@ body::-webkit-scrollbar { /* All other browsers */
 .wave-3 {
      position: relative;
      z-index: 500;
+     transform: translateY(0.125rem); /* Fixes the annoying wave issue.*/
 }
 
 .wave-1 img { /* Added this again */
