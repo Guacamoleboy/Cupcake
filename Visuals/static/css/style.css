@@ -1897,7 +1897,7 @@ body::-webkit-scrollbar { /* All other browsers */
     text-align: center;
     min-height:  60rem;
     padding: 0.2rem;
-    background-color: #BC4646; 
+    background-color: var(--section-1-background); 
 }
 
 .section-custom-cupcake h2 {
