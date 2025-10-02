@@ -109,10 +109,12 @@
     --contact-input-background: transparent;
     --contact-input-placeholder: rgba(255, 255, 255, 0.85);
     --contact-input-stroke: rgba(255, 255, 255, 0.7);
-    --contact-button-background: #d86565;
+    --contact-button-background: #c25454;
+    --contact-button-background-hover: #7a2f2f;
     --contact-button-text: #ffffff;
     --contact-button-border: #e5c8d6;
     --contact-focus-ring: rgba(216, 101, 101, 0.35);
+    --contact-button-focused: #e08888;
     
     /* Exit Button */
     --exit-button-background: #723a3a;
@@ -630,7 +632,6 @@ body::-webkit-scrollbar { /* All other browsers */
 }
 
 .contact-section .contact-form {
-    max-width: 40rem;
     margin: 0 auto;
 }
 
@@ -653,15 +654,17 @@ body::-webkit-scrollbar { /* All other browsers */
 .contact-section .contact-form input::placeholder,
 .contact-section .contact-form textarea::placeholder {
     color: rgba(255, 255, 255, 0.6);
+    font-size: 1rem;
 }
 
 .contact-section .contact-form input:focus,
 .contact-section .contact-form textarea:focus {
-    border-bottom: 2px solid var(--cupcake-orange) !important;
+    border-bottom: 2px solid var(--contact-button-focused) !important;
     box-shadow: none !important;
     outline: none !important;
     font-family: 'Itim', cursive !important;
     background-color: transparent !important;
+    font-size: 1rem;
 }
 
 .contact-section .contact-form textarea { 
@@ -673,7 +676,6 @@ body::-webkit-scrollbar { /* All other browsers */
     background-color: var(--contact-button-background) !important;
     color: var(--contact-button-text) !important;
     border: 0.125rem solid var(--contact-button-border) !important;
-
     border-radius: 1rem !important;
     font-weight: 800 !important;
     padding: 0.9rem 1.25rem !important;
@@ -682,13 +684,13 @@ body::-webkit-scrollbar { /* All other browsers */
     display: block;
     margin-left: auto;
     margin-right: auto;
+    box-shadow: 0 3px 4px rgb(0, 0, 0, 0.3) !important;
 }
 
 .guac-btn-contact:hover {
-    transform: translateY(-2%);
-    border: 0.125rem solid var(--cupcake-orange) !important;
-    /* box-shadow: 0 4px 10px rgb(255, 255, 255) !important; */
-
+    background-color: var(--contact-button-background-hover) !important;
+    transform: translateY(5%);
+    border: 0.125rem solid var(--cupcake-less-white) !important;
 }
 
 .guac-btn-contact:active {
@@ -704,15 +706,8 @@ body::-webkit-scrollbar { /* All other browsers */
 }
 
 .contact-list li {
-    color: #6a4f4f;
+    color: var(--cupcake-white);
 }
-
-/* ved ik hvorfor det driller  */
-.contact-intro-text {
-    font-size: 1.2rem;
-}
-
-/* Contact layout er guac  */
 
 .contact-list-centered {
     text-align: center;
