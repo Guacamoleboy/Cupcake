@@ -24,6 +24,23 @@ name VARCHAR(100) NOT NULL,
 price DECIMAL(10,2) NOT NULL
 );
 
+/* For order.html */
+CREATE TABLE categories (
+id SERIAL PRIMARY KEY,
+name VARCHAR(100) NOT NULL UNIQUE
+);
+
+/* Products */
+CREATE TABLE products (
+id SERIAL PRIMARY KEY,
+name VARCHAR(150) NOT NULL,
+description TEXT,
+price DECIMAL(10,2) NOT NULL,
+image_url TEXT,
+category_id INT REFERENCES categories(id) ON DELETE SET NULL,
+created_at TIMESTAMP DEFAULT NOW()
+);
+
 /* Cupcake toppings */
 CREATE TABLE cupcake_toppings (
 id SERIAL PRIMARY KEY,
@@ -40,10 +57,11 @@ created_at TIMESTAMP DEFAULT NOW() /* Auto */
 );
 
 /* Per order (order lines) */
-CREATE TABLE order_per (
+CREATE TABLE order_items (
 id SERIAL PRIMARY KEY,
 order_id INT REFERENCES orders(id) ON DELETE CASCADE,
-bottom_id INT REFERENCES cupcake_flavor(id),
+product_id INT REFERENCES products(id), -- hvis kunden køber et færdigt produkt
+bottom_id INT REFERENCES cupcake_flavor(id), -- hvis kunden bygger selv
 topping_id INT REFERENCES cupcake_toppings(id),
 quantity INT NOT NULL DEFAULT 1
 );

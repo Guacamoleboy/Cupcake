@@ -1,5 +1,5 @@
 // Package
-package dk.cupcake;
+package dk.cupcake.server;
 
 // Imports
 import org.thymeleaf.TemplateEngine;
