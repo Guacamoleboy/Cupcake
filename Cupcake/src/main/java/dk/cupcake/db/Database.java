@@ -1,5 +1,5 @@
 // Package
-package dk.cupcake;
+package dk.cupcake.db;
 
 // Imports
 import java.sql.Connection;

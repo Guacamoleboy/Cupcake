@@ -2,6 +2,7 @@
 package dk.cupcake;
 
 // Imports
+import dk.cupcake.server.Server;
 
 public class Main {
 
