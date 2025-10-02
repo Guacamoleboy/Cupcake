@@ -13,8 +13,8 @@
     <title>Olsker Cupcakes</title>
 
     <!-- Icon -->
-    <link rel="icon" href="../static/images/icons/icon.svg" type="image/x-icon"> <!-- That little logo thats next to the title in URL -->
-    <link rel="apple-touch-icon" href="../static/images/icons/icon.svg">
+    <link rel="icon" href="../static/images/icons/cupcake-1.png" type="image/x-icon"> <!-- That little logo thats next to the title in URL -->
+    <link rel="apple-touch-icon" href="../static/images/icons/cupcake-1.png">
 
     <!-- CSS Load -->
     <link rel="stylesheet" href="../static/css/style.css">
@@ -27,6 +27,8 @@
 
     <!-- Modules -->
     <script type="module" src="../static/js/components/navbar.js" defer></script>
+    <script type="module" src="../static/js/components/footer.js" defer></script>
+    <script type="module" src="../static/js/components/footer-nav.js" defer></script>
 
 </head>
 <body class="subpage">
@@ -60,25 +62,55 @@
     </section>
     <!-- Hero Section End -->
 
-    <!-- 
     
-        ## ROVELT123 ##
-
-        Lav custom.html her.
-
-        "Som kunde kan jeg bestille og betale cupcakes med en valgfri bund og top,
-        sådan at jeg senere kan køre forbi butikken i Olsker og hente min ordre."
-    
-    -->
-
-    <!-- Next Section Start -->
     <section class="section-1">
-        <div class="guac-container">
-            <div class="guac-row">
+        <div class="section-custom-cupcake">
 
-            </div>
+            <h2>Lav din egen cupcake</h2>
+
+            <form class="cupcake-form">
+
+                <h3>Vælg top og bund</h3>
+                <div class= "row">
+                    <select name="top">
+                        <option value="jordbaer">Jordbær</option>
+                        <option value="blaabaer">Blåbær</option>
+                        <option value="hindbaer">Hindbær</option>
+                    </select>
+
+                    <select name="bund">
+                        <option value="chokolade">Chokolade</option>
+                        <option value="vanilje">Vanilje</option>
+                        <option value="karamel">Karamel</option>
+                    </select>
+                </div>
+
+            
+                <div class="cupcake-preview">
+                    <img src="../static/images/products/cupcake-1.png" alt="Cupcake" />
+                </div>
+
+
+                <p class="price">49,- DKK</p>
+
+                <button type="submit">Tilføj til kurven</button>
+            </form>
         </div>
+        
+        <!-- End Wave Section 2 Start -->
+        <div class="wave-3">
+            <img src="../static/images/waves/footer-wave.svg">
+        </div>
+        <!-- End Wave Section 2 End -->
+
     </section>
+    
+    <!-- Footer -->
+    <div id="footer-component"></div>
+    <!-- Footer -->
+
+    <!-- Footer Nav -->
+    <div id="footer-nav-component"></div>
     <!-- Next Section End -->
 
 

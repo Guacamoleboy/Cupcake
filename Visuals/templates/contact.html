@@ -13,8 +13,8 @@
     <title>Olsker Cupcakes</title>
 
     <!-- Icon -->
-    <link rel="icon" href="../static/images/icons/icon.svg" type="image/x-icon"> <!-- That little logo thats next to the title in URL -->
-    <link rel="apple-touch-icon" href="../static/images/icons/icon.svg">
+    <link rel="icon" href="../static/images/icons/cupcake-1.png" type="image/x-icon"> <!-- That little logo thats next to the title in URL -->
+    <link rel="apple-touch-icon" href="../static/images/icons/cupcake-1.png">
 
     <!-- CSS Load -->
     <link rel="stylesheet" href="../static/css/style.css">
@@ -64,12 +64,32 @@
         <div class="guac-container">
             <div class="guac-row guac-justify-center">
                 <div class="section-1-intro guac-mt-5 guac-animate guac-slide-up">
-                    <h2>Kontakt os</h2>
-                    <p class="guac-pb-5">Har du spørgsmål, en specialbestilling eller brug for hjælp? Skriv til os herunder.</p>
+                    <p class="guac-pb-5 contact-intro-text">Har du spørgsmål, en specialbestilling eller brug for hjælp? Skriv til os herunder.</p>
                 </div>
             </div>
-            <div class="guac-row guac-justify-center guac-animate guac-fade-slide-up guac-pb-5">
-                <div class="guac-col-8">
+            <div class="guac-grid-2 guac-animate guac-fade-slide-up guac-pb-5">
+                <!-- Find os (venstre side) -->
+                <div>
+                    <div class="section-2-intro">
+                        <h2>Find os</h2>
+                        <p class="guac-pt-5 guac-pb-5">
+                            Kig forbi vores butik i hjertet af Bornholm, eller kontakt os for en specialbestilling.
+                            <span class="section-2-text-end">– Olsker Cupcakes</span>
+                        </p>
+                    </div>
+                    <ul class="contact-list contact-list-centered">
+                        <li><strong>Adresse:</strong> Olskervej 1, 3770 Allinge</li>
+                        <li><strong>Telefon:</strong> +45 12 34 56 78</li>
+                        <li><strong>E-mail:</strong> kontakt@olskercupcakes.dk</li>
+                        <li><strong>Åbningstider:</strong> Man–Fre 10–17, Lør 10–14</li>
+                    </ul>
+                </div>
+
+                <!-- Kontaktformular (højre side) -->
+                <div>
+                    <div class="section-2-intro">
+                        <h2>Kontakt os</h2>
+                    </div>
                     <form class="contact-form" action="../templates/tak.html" method="get">
                         <div class="guac-row">
                             <div class="guac-col-12">
@@ -92,12 +112,7 @@
                                 <label for="besked">Besked</label>
                                 <textarea id="besked" name="besked" placeholder="Skriv din besked her" rows="6" required></textarea>
                             </div>
-                            <div class="guac-col-12">
-                                <label class="contact-consent">
-                                    <input type="checkbox" id="samtykke" name="samtykke" required>
-                                    ja det godt
-                                </label>
-                            </div>
+                           
                             <div class="guac-col-12">
                                 <button type="submit" class="guac-btn guac-btn-contact">Send besked</button>
                             </div>

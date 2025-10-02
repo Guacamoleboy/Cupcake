@@ -80,6 +80,7 @@
     --cupcake-blue: blue;
     --cupcake-green: green;
     --cupcake-black: black;
+    --cupcake-less-black: rgb(61, 61, 61);
     --cupcake-white: white;
     --cupcake-less-white: rgb(182, 182, 182);
     --cupcake-grey: rgb(95, 95, 95);
@@ -124,6 +125,15 @@
     /* Cart */
     --card-text-color: #6d3737;
     --card-text-title: #e7e7e7;
+
+    /* Order */
+    --order-product-hover-bg: #882f2f;
+    --order-product-item-bg: #703e3e79;
+    --order-product-item-border: #ac7a7a;
+    --order-add-product-button: #c56969;
+
+    /* Notification */
+    --notification-background: #c77b7b;
 
 }
 
@@ -246,15 +256,14 @@ body::-webkit-scrollbar { /* All other browsers */
 .section-1-showcase {
     display: flex;
     justify-content: center;
-    text-align: center;
-    gap: 2rem; 
-    flex-wrap: wrap; 
-    margin-top: 2rem;
+    gap: 2rem;
+    flex-wrap: nowrap;
+    width: 100%;
 }
 
 .showcase-item {
     text-align: center;
-    max-width: 250px;
+    max-width: 16rem;
     color: var(--cupcake-white);
 }
 
@@ -278,14 +287,6 @@ body::-webkit-scrollbar { /* All other browsers */
     max-width: 30ch;       
     margin: 0.5rem auto 0; 
     text-align: center;   
-}
-
-.section-1-showcase h3::after {
-    content: "";
-    display: block;
-    width: 25%; 
-    margin: 0.5em auto 0; 
-    border-bottom: 4px dotted #bdbdbd;
 }
 
 /* ___________________________________________ */
@@ -491,6 +492,7 @@ body::-webkit-scrollbar { /* All other browsers */
 .wave-3 {
      position: relative;
      z-index: 500;
+     transform: translateY(0.125rem); /* Fixes the annoying wave issue.*/
 }
 
 .wave-1 img { /* Added this again */
@@ -615,7 +617,7 @@ body::-webkit-scrollbar { /* All other browsers */
 
 /* ___________________________________________ */
 
-                  /* Contact / Kontakt */
+     /* Contact / Kontakt */
 
 /* ___________________________________________ */
 
@@ -628,7 +630,7 @@ body::-webkit-scrollbar { /* All other browsers */
 }
 
 .contact-section .contact-form {
-    max-width: 640px;
+    max-width: 40rem;
     margin: 0 auto;
 }
 
@@ -636,124 +638,57 @@ body::-webkit-scrollbar { /* All other browsers */
     color: var(--cupcake-white);
 }
 
-.contact-section .contact-form input:not([type="checkbox"]),
-.contact-section .contact-form textarea {
-    background: var(--contact-input-background) !important;
-    border: none !important;
-    border-bottom: 2px solid var(--contact-input-stroke) !important;
-    border-radius: 0 !important;
-    color: var(--contact-input-placeholder) !important;
-    padding: 0.5rem 0 !important;
-    width: 100% !important;
-}
-
-.contact-section .contact-form input:not([type="checkbox"])::placeholder,
-.contact-section .contact-form textarea::placeholder {
-    color: var(--contact-input-placeholder) !important;
-}
-
-.contact-section .contact-form input:not([type="checkbox"]):focus,
-.contact-section .contact-form textarea:focus {
-    border-bottom-color: var(--contact-input-stroke) !important;
-    box-shadow: none !important;
-}
-
-.contact-section .contact-form textarea { min-height: 8rem; resize: vertical; }
-.contact-section .guac-btn-contact { margin-top: 1rem; display: block; margin-left: auto; margin-right: auto; }
-.contact-section .contact-form label {
-    color: var(--cupcake-white);
-}
-
 .contact-section .contact-form input,
-.contact-section .contact-form textarea,
-.contact-section .contact-form select {
-    background-color: rgba(255,255,255,0.9);
-    border-color: var(--nav-stroke);
-    color: #5b3a3f;
+.contact-section .contact-form textarea {
+    background-color: transparent;
+    border: none;
+    border-bottom: 2px solid rgba(255, 255, 255, 0.7);
+    color: rgba(255, 255, 255, 0.9);
+    font-family: 'Itim', cursive !important;
+    border-radius: 0;
+    padding: 0.5rem 0;
+    width: 100%;
 }
 
 .contact-section .contact-form input::placeholder,
 .contact-section .contact-form textarea::placeholder {
-    color: rgba(91, 58, 63, 0.75);
+    color: rgba(255, 255, 255, 0.6);
 }
 
 .contact-section .contact-form input:focus,
-.contact-section .contact-form textarea:focus,
-.contact-section .contact-form select:focus {
-    border: 3px solid var(--login-input-focused) !important;
+.contact-section .contact-form textarea:focus {
+    border-bottom: 2px solid var(--cupcake-orange) !important;
     box-shadow: none !important;
+    outline: none !important;
     font-family: 'Itim', cursive !important;
+    background-color: transparent !important;
 }
 
-.contact-form textarea {
-    resize: vertical;
-}
-
-.contact-consent {
-    display: flex;
-    align-items: center;
-    gap: 0.6rem;
-    font-size: 0.95rem;
-    color: var(--contact-input-placeholder);
-    user-select: none;
-}
-
-.contact-consent input[type="checkbox"] {
-    appearance: none;
-    width: 1.15rem;
-    height: 1.15rem;
-    border: 2px solid var(--contact-button-border);
-    border-radius: 0.5rem;
-    background: transparent;
-    box-shadow: 0 2px 3px rgba(0,0,0,0.2);
-    display: inline-grid;
-    place-content: center;
-    cursor: pointer;
-    transition: background-color 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease;
-}
-
-.contact-consent input[type="checkbox"]::after {
-    content: "";
-    width: 0.5rem;
-    height: 0.3rem;
-    border: 2px solid var(--contact-button-text);
-    border-top: 0;
-    border-left: 0;
-    transform: rotate(45deg) scale(0);
-    transform-origin: center;
-    transition: transform 0.18s ease-in-out;
-}
-
-.contact-consent input[type="checkbox"]:checked {
-    background-color: var(--contact-button-background);
-    border-color: var(--contact-button-border);
-    box-shadow: 0 4px 8px rgba(0,0,0,0.25);
-}
-
-.contact-consent input[type="checkbox"]:checked::after {
-    transform: rotate(45deg) scale(1);
-}
-
-.contact-consent input[type="checkbox"]:focus-visible {
-    outline: none;
-    box-shadow: 0 0 0 3px var(--contact-focus-ring);
+.contact-section .contact-form textarea { 
+    min-height: 8rem; 
+    resize: vertical; 
 }
 
 .guac-btn-contact {
     background-color: var(--contact-button-background) !important;
     color: var(--contact-button-text) !important;
-    border: 2px solid var(--contact-button-border) !important;
+    border: 0.125rem solid var(--contact-button-border) !important;
+
     border-radius: 1rem !important;
     font-weight: 800 !important;
     padding: 0.9rem 1.25rem !important;
-    box-shadow: 0 4px 10px rgba(0,0,0,0.25) !important;
     transition: transform 0.2s ease, background-color 0.2s ease, box-shadow 0.2s ease !important;
+    margin-top: 1rem;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
 }
 
 .guac-btn-contact:hover {
     transform: translateY(-2%);
-    filter: brightness(0.95);
-    box-shadow: 0 8px 18px rgba(0,0,0,0.3) !important;
+    border: 0.125rem solid var(--cupcake-orange) !important;
+    /* box-shadow: 0 4px 10px rgb(255, 255, 255) !important; */
+
 }
 
 .guac-btn-contact:active {
@@ -772,10 +707,15 @@ body::-webkit-scrollbar { /* All other browsers */
     color: #6a4f4f;
 }
 
-.contact-findus .section-2-intro h2,
-.contact-findus .section-2-intro p,
-.contact-findus .contact-list li {
-    color: #ffffff !important;
+/* ved ik hvorfor det driller  */
+.contact-intro-text {
+    font-size: 1.2rem;
+}
+
+/* Contact layout er guac  */
+
+.contact-list-centered {
+    text-align: center;
 }
 
 /* ___________________________________________ */
@@ -1066,7 +1006,7 @@ body::-webkit-scrollbar { /* All other browsers */
     background-color: #373757;
     color: white;
     border: none;
-    border-radius: 15px;
+    border-radius: 0.9375rem;
     font-size: 16px;
     opacity: 0;            
     pointer-events: none;   
@@ -1329,7 +1269,7 @@ body::-webkit-scrollbar { /* All other browsers */
     width: 4rem;  /* rem fix instead of px. % works just as good */             
     height: 3px;              
     background-color: var(--cupcake-white); /* Using :root colors instead */
-    border-radius: 15px;
+    border-radius: 0.9375rem;
 }
 
 .galleri-page .section-1 p {
@@ -1366,7 +1306,7 @@ body::-webkit-scrollbar { /* All other browsers */
     transition: transform 0.3s ease-in-out;
     cursor: pointer;
     counter-increment: item-counter;
-    border-radius: 15px;
+    border-radius: 0.9375rem;
     overflow: hidden;
 }
 
@@ -1611,4 +1551,342 @@ body::-webkit-scrollbar { /* All other browsers */
 
 .cart-popup ul li input[type=number] {
     -moz-appearance: textfield;
+}
+
+/* ___________________________________________ */
+
+              /* Andreas' Menu */
+
+/* ___________________________________________ */
+
+#menu {
+    position: relative;
+    text-align: center;
+}
+
+#menu h2 {
+    color: var(--cupcake-white) !important;
+    text-align: center;       
+    position: relative;        
+    margin-bottom: 1.5rem;      
+}
+
+.menu-wrapper p {
+    color: var(--cupcake-white) !important;
+    opacity: 70%;
+    font-style: italic;
+}
+
+.menu-wrapper h2::after {
+    content: '';
+    display: block;
+    width: 15%;
+    border-bottom: 5px dotted var(--cupcake-white); 
+    margin: 2rem auto 0; 
+}
+
+.subpage #menu {
+    background-color: var(--section-1-background) !important;
+}
+
+.products {
+    position: relative;
+    border-radius: 1rem;
+    display: flex;
+    align-items: center;
+    padding: 2rem;
+    gap: 2rem !important;
+}
+
+.products img {
+    width: 60%;
+    height: auto;
+}
+
+.product-item {
+    align-items: center;
+    background-color: var(--order-product-item-bg) !important;
+    width: 20rem !important;
+    border-radius: 0.8rem;
+    border: 2px solid var(--order-product-item-border) !important; 
+    padding: 1rem !important;
+    position: relative;
+}
+
+.product-title {
+    position: relative;
+}
+
+.product-title p::after {
+    content: "";
+    display: block;            
+    margin: 2rem auto 0; /* Centers our line */
+    width: 60px;               
+    height: 3px;              
+    background-color: var(--cupcake-white);
+    border-radius: 1px;
+}
+
+.product-item p {
+    color: var(--cupcake-white);
+}
+
+.add-product {
+    text-decoration: none;
+    color: var(--cupcake-white);
+    padding: 0.5rem;
+    background-color: var(--order-add-product-button);
+    border-radius: 1rem;
+    border: 2px dotted var(--cupcake-less-white);
+    display: inline-block;
+    transition: all 0.2s ease-in-out;
+    box-shadow: 0px 2px 6px rgba(0,0,0,0.3);
+}
+
+.add-product:hover {
+    background-color: var(--order-product-hover-bg);
+    cursor: pointer;
+    color: #c9b3b1;  
+    transform: translateY(2px);    
+    text-decoration: none; 
+}
+
+.menu-filters {
+    display: flex;
+    gap: 1rem;
+    justify-content: center;
+    align-items: center;
+    margin: 1.5rem 0 2.5rem;
+    flex-wrap: wrap;
+}
+
+.filter-input,
+.filter-select {
+    padding: 0.6rem 1rem;
+    border-radius: 0.8rem;
+    border: 1px solid rgba(0,0,0,0.2);
+    background: rgba(255, 255, 255, 0.5);
+    backdrop-filter: blur(6px);
+    -webkit-backdrop-filter: blur(6px);
+    font-family: 'Itim', cursive !important;
+    font-size: 1rem;
+    color: var(--cupcake-white);
+    outline: none;
+    transition: all 0.2s ease;
+}
+
+.filter-select option {
+    background: var(--cupcake-white);       
+    color: var(--cupcake-less-black);          
+}
+
+.filter-input:hover,
+.filter-select:hover {
+    border-color: rgba(0,0,0,0.4);
+    background: rgba(255, 255, 255, 0.6);
+}
+
+.filter-input:focus,
+.filter-select:focus {
+    border-color: var(--cupcake-less-black);
+    background: rgba(255,255,255,0.3);
+    box-shadow: 0 0 0.5rem rgba(0,0,0,0.15);
+}
+
+.filter-input::placeholder {
+    color: var(--cupcake-white);
+}
+
+/* ___________________________________________ */
+
+              /* Cupcake Menu */
+
+/* ___________________________________________ */
+
+.cupcake-cards {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 2rem;
+  justify-content: center;
+}
+
+.cupcake-cards {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 2rem;
+  justify-content: center;
+}
+
+.cupcake-card {
+  position: relative;
+  flex: 1 1 30% !important; /* guac-col-4 fix bby */
+  border-radius: 25px;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  font-family: 'Poppins', sans-serif;
+  margin-bottom: 2rem;
+  transition: border 0.3s ease;
+}
+
+.cupcake-imgBox {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  margin-top: 2rem;
+  transition: transform 0.5s ease-in-out, width 0.5s ease-in-out;
+}
+
+.cupcake-imgBox img {
+  width: 100%;
+  height: auto;
+  transition: transform 0.5s ease-in-out, width 0.5s ease-in-out;
+}
+
+.cupcake-contentBox {
+  width: 100%;
+  text-align: center;
+  margin-top: 2.5rem;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  transition: margin-top 0.5s ease-in-out;
+}
+
+.cupcake-contentBox h2 {
+  color: var(--cupcake-white);
+  font-weight: 600;
+  font-size: 1.2rem;
+  margin: 0;
+  position: relative;
+}
+
+.cupcake-contentBox h2::after {
+  content: '';
+  display: block;
+  width: 100%;
+  max-width: 30%;
+  height: 3px;
+  background-color: var(--cupcake-white);
+  margin: 0.5rem auto 0;
+  border-radius: 2px;
+  opacity: 0;
+  transform: scaleX(0);
+  transform-origin: center;
+  transition: opacity 0.5s ease-in-out, transform 0.5s ease-in-out;
+}
+
+.cupcake-hoverContent {
+  position: absolute;
+  top: 60%; 
+  left: 50%;
+  transform: translate(-50%, 1rem); 
+  opacity: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.5rem;
+  transition: opacity 0.5s ease-in-out, transform 0.5s ease-in-out;
+}
+
+.cupcake-hoverContent p,
+.cupcake-hoverContent a {
+  margin: 0 auto;
+  color: var(--cupcake-white);
+  text-align: center;
+}
+
+.cupcake-card:hover .cupcake-imgBox img {
+  width: 70%;
+  transform: translateY(-1rem);
+}
+
+.cupcake-card:hover .cupcake-price {
+  transform: translateY(-0.5rem);
+  font-weight: 600;
+}
+
+.cupcake-card:hover .cupcake-contentBox {
+  margin-top: 0.5rem;
+}
+
+.cupcake-card:hover .cupcake-contentBox h2::after {
+  opacity: 1;
+  transform: scaleX(1);
+}
+
+.cupcake-card:hover .cupcake-hoverContent {
+  opacity: 1;
+  transform: translate(-50%, 0);
+}
+
+
+.section-custom-cupcake {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    min-height:  60rem;
+    padding: 0.2rem;
+    background-color: var(--section-1-background); 
+}
+
+.section-custom-cupcake h2 {
+    margin-top: 4rem;
+    color: #fff; 
+}
+
+.cupcake-form {
+    margin-top: 3rem;
+    background: #ffffff36;
+    color: #ffffff; 
+    border-radius: 1rem;
+    padding: 2rem;
+    max-width: 70%;
+    width: 30%;
+    border: 0.2rem solid #943939;
+    box-shadow: 0 0.8rem 2rem rgba(0,0,0,0.4); 
+}
+
+
+.section-custom-cupcake select {
+    width: 20%;
+    padding: 0.5rem;
+    border-radius: 0.5rem;
+    border: 0.1rem solid #504c4c;
+    font-size: 1rem;
+}
+
+.cupcake-preview img {
+    max-width: 50%;
+    height: auto;
+    margin: 1rem auto;
+    display: block;
+}
+
+.price {
+    font-weight: bold;
+    margin-top: 1.5rem;
+    font-size: 1.2rem;
+}
+
+.section-custom-cupcake button {
+    margin-top: 1rem;
+    width: 25%;
+    padding: 0.8rem;
+    background: #ff4b6e;
+    border: none;
+    color: white;
+    font-size: 1rem;
+    border-radius: 0.5rem;
+    cursor: pointer;
+    transition: transform 0.2s;
+}
+
+.section-custom-cupcake button:hover {
+    background: #e04462;
+    transform: scale(1.05);
+    box-shadow: 0 0.8rem 2rem rgba(0,0,0,0.4); 
 }
