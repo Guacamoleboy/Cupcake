@@ -2,7 +2,7 @@
 package dk.cupcake.mapper;
 
 // Imports
-import dk.cupcake.Category;
+import dk.cupcake.entites.Category;
 import dk.cupcake.db.Database;
 import java.sql.*;
 import java.util.ArrayList;

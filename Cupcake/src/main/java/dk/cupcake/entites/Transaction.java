@@ -1,29 +1,38 @@
 // Package
-package dk.cupcake;
+package dk.cupcake.entites;
 
 // Imports
 import java.sql.Timestamp;
-import java.util.*;
 
-public class Order {
+public class Transaction {
 
     // Attributes
     private int id;
-    private User user;
-    private String status;
+    private int userId;
+    private double amount;
     private Timestamp createdAt;
-    private ArrayList<OrderItem> items;
+    private String description;
 
     // ___________________________________________________
 
-    public ArrayList<OrderItem> getItems() {
-        return items;
+    public int getUserId() {
+        return userId;
     }
 
     // ___________________________________________________
 
-    public void setItems(ArrayList<OrderItem> items) {
-        this.items = items;
+    public void setUserId(int userId) {
+        this.userId = userId;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    // ___________________________________________________
+
+    public void setDescription(String description) {
+        this.description = description;
     }
 
     // ___________________________________________________
@@ -40,14 +49,14 @@ public class Order {
 
     // ___________________________________________________
 
-    public User getUser() {
-        return user;
+    public double getAmount() {
+        return amount;
     }
 
     // ___________________________________________________
 
-    public void setUser(User user) {
-        this.user = user;
+    public void setAmount(double amount) {
+        this.amount = amount;
     }
 
     // ___________________________________________________
@@ -62,16 +71,4 @@ public class Order {
         this.id = id;
     }
 
-    // ___________________________________________________
-
-    public String getStatus() {
-        return status;
-    }
-
-    // ___________________________________________________
-
-    public void setStatus(String status) {
-        this.status = status;
-    }
-
-} // Order end
+} // Transaction end

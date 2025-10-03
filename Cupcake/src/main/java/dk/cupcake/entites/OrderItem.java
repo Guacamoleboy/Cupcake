@@ -1,5 +1,5 @@
 // Package
-package dk.cupcake;
+package dk.cupcake.entites;
 
 // Imports
 

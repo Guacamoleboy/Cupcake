@@ -1,17 +1,18 @@
 // Package
-package dk.cupcake;
+package dk.cupcake.entites;
 
 // Imports
 import java.sql.Timestamp;
 
-public class User {
+public class Product {
 
     // Attributes
     private int id;
-    private String email;
-    private String password; // This is hashed
-    private String role;
-    private String username;
+    private String name;
+    private String description;
+    private double price;
+    private String imageUrl;
+    private int categoryId;
     private Timestamp createdAt;
 
     // ___________________________________________________
@@ -28,50 +29,62 @@ public class User {
 
     // ___________________________________________________
 
-    public String getEmail() {
-        return email;
+    public String getName() {
+        return name;
     }
 
     // ___________________________________________________
 
-    public void setEmail(String email) {
-        this.email = email;
+    public void setName(String name) {
+        this.name = name;
     }
 
     // ___________________________________________________
 
-    public String getPassword() {
-        return password;
+    public String getDescription() {
+        return description;
     }
 
     // ___________________________________________________
 
-    public void setPassword(String password) {
-        this.password = password;
+    public void setDescription(String description) {
+        this.description = description;
     }
 
     // ___________________________________________________
 
-    public String getRole() {
-        return role;
+    public double getPrice() {
+        return price;
     }
 
     // ___________________________________________________
 
-    public void setRole(String role) {
-        this.role = role;
+    public void setPrice(double price) {
+        this.price = price;
     }
 
     // ___________________________________________________
 
-    public String getUsername() {
-        return username;
+    public String getImageUrl() {
+        return imageUrl;
     }
 
     // ___________________________________________________
 
-    public void setUsername(String username) {
-        this.username = username;
+    public void setImageUrl(String imageUrl) {
+        this.imageUrl = imageUrl;
+    }
+
+    // ___________________________________________________
+
+    public int getCategoryId() {
+        return categoryId;
+    }
+
+    // ___________________________________________________
+
+    public void setCategoryId(int categoryId) {
+        this.categoryId = categoryId;
     }
 
     // ___________________________________________________
@@ -86,4 +99,5 @@ public class User {
         this.createdAt = createdAt;
     }
 
-} // User end
+
+} // Product end

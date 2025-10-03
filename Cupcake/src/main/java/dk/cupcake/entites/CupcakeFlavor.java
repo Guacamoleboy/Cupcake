@@ -1,9 +1,9 @@
 // Package
-package dk.cupcake;
+package dk.cupcake.entites;
 
 // Imports
 
-public class CupcakeTopping {
+public class CupcakeFlavor {
 
     // Attributes
     private int id;
@@ -12,14 +12,14 @@ public class CupcakeTopping {
 
     // ___________________________________________________
 
-    public double getPrice() {
-        return price;
+    public String getName() {
+        return name;
     }
 
     // ___________________________________________________
 
-    public void setPrice(double price) {
-        this.price = price;
+    public void setName(String name) {
+        this.name = name;
     }
 
     // ___________________________________________________
@@ -36,14 +36,14 @@ public class CupcakeTopping {
 
     // ___________________________________________________
 
-    public String getName() {
-        return name;
+    public double getPrice() {
+        return price;
     }
 
     // ___________________________________________________
 
-    public void setName(String name) {
-        this.name = name;
+    public void setPrice(double price) {
+        this.price = price;
     }
 
-} // CupcakeTopping end
+} // CupcakeFlavor end
