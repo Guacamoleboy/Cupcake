@@ -25,12 +25,27 @@ INSERT INTO cupcake_toppings (name, price) VALUES
 ('Nossehår', 20.00), /* Det vokser langsomt bby girl.. Derfor prisen jooooooooo */
 ('Vaniljecreme', 12.00);
 
+/* Categories */
+INSERT INTO categories (name) VALUES
+('Chokolade'), ('Frugt'), ('Creme');
+
+/* Products */
+INSERT INTO products (name, description, price, image_url, category_id) VALUES
+('Chokolade Cupcake', 'Epstein for president', 28.00, '/static/images/products/cupcake-3.png', 1),
+('Jordbær Cupcake', 'Et pust i nakken af Diddy', 25.00, '/static/images/products/cupcake-2.png', 2),
+('Chokolade Cupcake', 'Epstein for president', 28.00, '/static/images/products/cupcake-3.png', 3);
+
 /* Orders (Total) */
 INSERT INTO orders (user_id, status) VALUES
-(2, 'open');
+(2, 'open'),
+(3, 'open');
 
-/* Per Order */
-INSERT INTO order_per (order_id, bottom_id, topping_id, quantity) VALUES
+/* Per Order (Pre-defined) */
+INSERT INTO order_items (order_id, product_id, quantity)
+VALUES (2, 1, 3);
+
+/* Per Order (Custom Cupcake) */
+INSERT INTO order_items (order_id, bottom_id, topping_id, quantity) VALUES
 (1, 1, 1, 2),
 (1, 2, 2, 1);
 
