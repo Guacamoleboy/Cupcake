@@ -125,7 +125,7 @@ public class OrderMapper {
     }
 
     // _________________________________________________________
-    // Delete an order (cascades to order items)
+    // Delete
 
     public void delete(int id) throws SQLException {
         String sql = "DELETE FROM orders WHERE id = ?";

@@ -4,19 +4,19 @@
 	Made for School Projects where
 	Bootstrap might not be allowed
 
-	Last updated: 10/09-2025
+	Last updated: 28/09-2025
 	By Guacamoleboy
 
 */
 
 /* ______________________________________________ */
 
-				    /* ROOT */
+/* ROOT */
 /* ______________________________________________ */
 
 :root {
 
-        /* Info Colors */
+    /* Info Colors */
     --guac-primary: #007bff;
     --guac-secondary: #6c757d;
     --guac-success: #28a745;
@@ -26,15 +26,15 @@
     --guac-light: #f8f9fa;
     --guac-dark: #343a40;
 
-       /* White / Black */
+    /* White / Black */
     --guac-white: #ffffff;
     --guac-black: #000000;
 
-        /* body-default */
+    /* body-default */
     --guac-body-bg: #9590ad;
     --guac-body-color: #333333;
 
-          /* Colors */
+    /* Colors */
     --guac-blue: #0d6efd;
     --guac-indigo: #6610f2;
     --guac-purple: #6f42c1;
@@ -49,7 +49,7 @@
     --guac-gray-dark: #343a40;
     --guac-gray-light: #f8f9fa;
 
-        /* Headlines */
+    /* Headlines */
     --guac-h1-size: 2.5rem;
     --guac-h1-line: 1.2;
     --guac-h1-margin: 1rem;
@@ -73,25 +73,25 @@
 
 /* ______________________________________________ */
 
-				    /* BODY */
+/* BODY */
 /* ______________________________________________ */
 
 /* Default values incase a browser chooses to overwrite layout */
 /* 1rem = 16px */
 
 body {
-	margin: 0;
-	padding: 0;
-	font-family: Arial, sans-serif;
-	font-size: 1rem;
-	line-height: 1.5;
-	color: #333333;
-	background-color: var(--guac-body-bg);
+    margin: 0;
+    padding: 0;
+    font-family: Arial, sans-serif;
+    font-size: 1rem;
+    line-height: 1.5;
+    color: #333333;
+    background-color: var(--guac-body-bg);
 }
 
 /* ______________________________________________ */
 
-				   /* Headers */
+/* Headers */
 /* ______________________________________________ */
 
 h1 {
@@ -132,16 +132,16 @@ h6 {
 
 /* ______________________________________________ */
 
-				 /* Text & Links */
+/* Text & Links */
 /* ______________________________________________ */
 
 p {
-    font-size: 1rem;     
+    font-size: 1rem;
     margin-bottom: 1rem;
 }
 
 a {
-    color: #007bff;      
+    color: #007bff;
     text-decoration: none;
 }
 
@@ -151,11 +151,11 @@ a:hover {
 
 /* ______________________________________________ */
 
-				    /* Lists */
+/* Lists */
 /* ______________________________________________ */
 
 ul, ol {
-    margin: 0 0 1rem 2rem; 
+    margin: 0 0 1rem 2rem;
     padding: 0;
 }
 
@@ -165,7 +165,7 @@ li {
 
 /* ______________________________________________ */
 
-			   /* Text Formatting */
+/* Text Formatting */
 /* ______________________________________________ */
 
 .strong {
@@ -232,7 +232,7 @@ li {
 
 /* ______________________________________________ */
 
-			     /* Container */
+/* Container */
 /* ______________________________________________ */
 
 .guac-container {
@@ -247,25 +247,25 @@ li {
 
 /* ______________________________________________ */
 
-			   		/* Row */
+/* Row */
 /* ______________________________________________ */
 
 .guac-row {
-  display: flex;
-  flex-wrap: wrap;
-  margin-left: -0.5rem;
-  margin-right: -0.5rem;
-  gap: 1rem;
+    display: flex;
+    flex-wrap: wrap;
+    margin-left: -0.5rem;
+    margin-right: -0.5rem;
+    gap: 1rem;
 }
 
 .guac-row > .guac-card {
-  margin: 0;
-  flex: 0 0 auto;
+    margin: 0;
+    flex: 0 0 auto;
 }
 
 /* ______________________________________________ */
 
-			   	   /* Column */
+/* Column */
 /* ______________________________________________ */
 
 .guac-col {
@@ -276,8 +276,8 @@ li {
 }
 
 .guac-col-auto {
-  flex: 1 0 200px;
-  max-width: 100%;
+    flex: 1 0 200px;
+    max-width: 100%;
 }
 
 .guac-col-1 {
@@ -310,6 +310,16 @@ li {
     max-width: 75%;
 }
 
+.guac-col-10 {
+    flex: 0 0 83.3333%;
+    max-width: 83.3333%;
+}
+
+.guac-col-11 {
+    flex: 0 0 91.6667%;
+    max-width: 91.6667%;
+}
+
 .guac-col-12 {
     flex: 0 0 100%;
     max-width: 100%;
@@ -317,42 +327,42 @@ li {
 
 /* ______________________________________________ */
 
-			   	   /* Grid */
+/* Grid */
 /* ______________________________________________ */
 
 .guac-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-  gap: 1rem;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 1rem;
 }
 
 .guac-grid-2 {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 1rem;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1rem;
 }
 
 .guac-grid-3 {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 1rem;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1rem;
 }
 
 .guac-grid-4 {
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: 1rem;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1rem;
 }
 
 .guac-grid-6 {
-  display: grid;
-  grid-template-columns: repeat(6, 1fr);
-  gap: 1rem;
+    display: grid;
+    grid-template-columns: repeat(6, 1fr);
+    gap: 1rem;
 }
 
 /* ______________________________________________ */
 
-			   	   /* Margin */
+/* Margin */
 /* ______________________________________________ */
 
 .guac-m-0 {
@@ -477,7 +487,7 @@ li {
 
 /* ______________________________________________ */
 
-			   	   /* Height */
+/* Height */
 /* ______________________________________________ */
 
 .guac-h-0 {
@@ -530,7 +540,7 @@ li {
 
 /* ______________________________________________ */
 
-			   	   /* Display */
+/* Display */
 /* ______________________________________________ */
 
 .guac-d-block {
@@ -559,7 +569,7 @@ li {
 
 /* ______________________________________________ */
 
-			   	    /* FLEX */
+/* FLEX */
 /* ______________________________________________ */
 
 .guac-flex-row {
@@ -637,7 +647,7 @@ li {
 
 /* ______________________________________________ */
 
-			   	   /* PADDING */
+/* PADDING */
 /* ______________________________________________ */
 
 .guac-p-0 {
@@ -762,7 +772,7 @@ li {
 
 /* ______________________________________________ */
 
-			   	/* TEXT ALIGNMENT */
+/* TEXT ALIGNMENT */
 /* ______________________________________________ */
 
 .guac-text-left {
@@ -783,7 +793,7 @@ li {
 
 /* ______________________________________________ */
 
-			   	    /* WIDTH */
+/* WIDTH */
 /* ______________________________________________ */
 
 .guac-w-25 {
@@ -808,7 +818,7 @@ li {
 
 /* ______________________________________________ */
 
-			   	 /* FLEX WRAP */
+/* FLEX WRAP */
 /* ______________________________________________ */
 
 .guac-flex-nowrap {
@@ -825,7 +835,7 @@ li {
 
 /* ______________________________________________ */
 
-			   	      /* GAP */
+/* GAP */
 /* ______________________________________________ */
 
 .guac-gap-0 {
@@ -854,7 +864,7 @@ li {
 
 /* ______________________________________________ */
 
-			   	   /* HOVER */
+/* HOVER */
 /* ______________________________________________ */
 
 .guac-hover-opacity:hover {
@@ -867,7 +877,7 @@ li {
 
 /* ______________________________________________ */
 
-			   	   /* BORDER */
+/* BORDER */
 /* ______________________________________________ */
 
 .guac-border {
@@ -896,7 +906,7 @@ li {
 
 /* ______________________________________________ */
 
-			   	    /* FONT */
+/* FONT */
 /* ______________________________________________ */
 
 .guac-fs-1 {
@@ -937,7 +947,7 @@ li {
 
 /* ______________________________________________ */
 
-			   	   /* OPACITY */
+/* OPACITY */
 /* ______________________________________________ */
 
 .guac-opacity-25 {
@@ -958,7 +968,7 @@ li {
 
 /* ______________________________________________ */
 
-			   	   /* BUTTON */
+/* BUTTON */
 /* ______________________________________________ */
 
 .guac-alert-close {
@@ -1041,57 +1051,57 @@ li {
 
 /* ______________________________________________ */
 
-			   	   /* NAVBAR */
+/* NAVBAR */
 /* ______________________________________________ */
 
 .guac-navbar {
-  background-color: var(--guac-dark);
-  color: var(--guac-white);
-  position: sticky;
-  top: 0;
-  z-index: 1000;
+    background-color: var(--guac-dark);
+    color: var(--guac-white);
+    position: sticky;
+    top: 0;
+    z-index: 1000;
 }
 
 .guac-navbar-brand {
-  color: var(--guac-white);
+    color: var(--guac-white);
 }
 
 .guac-navbar-links {
-  list-style: none;
-  padding: 0;
-  margin: 0;
+    list-style: none;
+    padding: 0;
+    margin: 0;
 }
 
 .guac-navbar-links li {
-  margin: 0;
+    margin: 0;
 }
 
 .guac-navbar .guac-btn {
-  padding: 0.4rem 0.9rem;
-  font-size: 0.95rem;
-  border-radius: 0.5rem;
-  text-transform: capitalize;
+    padding: 0.4rem 0.9rem;
+    font-size: 0.95rem;
+    border-radius: 0.5rem;
+    text-transform: capitalize;
 }
 
 .guac-navbar .guac-btn:hover {
-  color: var(--guac-gray-dark);
+    color: var(--guac-gray-dark);
 }
 
 .guac-navbar-links a {
-  color: var(--guac-white);
-  text-decoration: none;
-  font-size: 1rem;
-  padding: 0.25rem 0.5rem;
-  transition: color 0.3s ease;
+    color: var(--guac-white);
+    text-decoration: none;
+    font-size: 1rem;
+    padding: 0.25rem 0.5rem;
+    transition: color 0.3s ease;
 }
 
 .guac-navbar-links a:hover {
-  color: var(--guac-primary);
+    color: var(--guac-primary);
 }
 
 /* ______________________________________________ */
 
-			   	    /* CARD */
+/* CARD */
 /* ______________________________________________ */
 
 .guac-card {
@@ -1126,7 +1136,7 @@ li {
 
 /* ______________________________________________ */
 
-			   	   /* ALERT */
+/* ALERT */
 /* ______________________________________________ */
 
 .guac-alert {
@@ -1168,7 +1178,7 @@ li {
 
 /* ______________________________________________ */
 
-			   	    /* BADGE */
+/* BADGE */
 /* ______________________________________________ */
 
 .guac-badge {
@@ -1193,7 +1203,7 @@ li {
 
 /* ______________________________________________ */
 
-			   	  /* Progress */
+/* Progress */
 /* ______________________________________________ */
 
 .guac-progress {
@@ -1232,7 +1242,7 @@ li {
 
 /* ______________________________________________ */
 
-			   	  /* Tooltip */
+/* Tooltip */
 /* ______________________________________________ */
 
 .guac-tooltip {
@@ -1278,24 +1288,24 @@ li {
 
 /* ______________________________________________ */
 
-			   	  /* No Press */
+/* No Press */
 /* ______________________________________________ */
 
 .guac-no-press {
-    pointer-events: none;  
-    opacity: 0.6;          
-    user-select: none;    
+    pointer-events: none;
+    opacity: 0.6;
+    user-select: none;
 }
 
 /* ______________________________________________ */
 
-			   	  /* Locked */
+/* Locked */
 /* ______________________________________________ */
 
 .guac-locked {
-    opacity: 0.6;           
+    opacity: 0.6;
     pointer-events: auto;
-    position: relative;   
+    position: relative;
     cursor: not-allowed;
 }
 
@@ -1305,7 +1315,7 @@ li {
 
 /* ______________________________________________ */
 
-			   	  /* Badges */
+/* Badges */
 /* ______________________________________________ */
 
 .guac-badge {
@@ -1337,7 +1347,7 @@ li {
 
 /* ______________________________________________ */
 
-			   	  /* Notification */
+/* Notification */
 /* ______________________________________________ */
 
 #guac-notification-container {
