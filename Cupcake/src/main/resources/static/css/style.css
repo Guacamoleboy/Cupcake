@@ -116,6 +116,11 @@
     --contact-focus-ring: rgba(216, 101, 101, 0.35);
     --contact-button-focused: #e08888;
 
+    /* Cart Button */
+    --cart-button-background: #914b4b;
+    --cart-button-background-hover: #703a3a;
+    --cart-button-background-hover-text: #b7b7b7;
+
     /* Exit Button */
     --exit-button-background: #723a3a;
     --exit-button-background-hover: #c9afaf;
@@ -125,7 +130,7 @@
     --gallery-card-info-background: #e4e0e0;
 
     /* Cart */
-    --card-text-color: #6d3737;
+    --card-text-color: #dbdbdb;
     --card-text-title: #e7e7e7;
 
     /* Order */
@@ -482,6 +487,7 @@ body::-webkit-scrollbar { /* All other browsers */
     bottom: 0;
     left: 0;
     width: 100%;
+    transform: translateY(0.125rem);
 }
 
 .wave-1 img,
@@ -746,6 +752,7 @@ body::-webkit-scrollbar { /* All other browsers */
     position: relative;
     font-size: 1.8rem;
     margin-bottom: 1rem;
+    font-weight: normal !important;
     text-shadow: 0 2px 3px rgba(0, 0, 0, 0.4);
 }
 
@@ -760,10 +767,31 @@ body::-webkit-scrollbar { /* All other browsers */
 }
 
 .section-tak-p {
-    font-size: 1.5rem;
-    max-width: 55ch;
+    font-size: 1.3rem;
+    max-width: 40ch;
     line-height: 1.6;
     text-shadow: 0 1px 2px rgba(0, 0, 0, 0.4);
+}
+
+.tak-home-btn {
+    padding: 0.75rem 0.75rem !important;
+    font-size: 1.25rem !important;
+}
+
+.tak-order-wrapper {
+    transition: all 0.2s ease-in-out;
+}
+
+.tak-order-wrapper a {
+    text-decoration: none !important;
+}
+
+.tak-order-wrapper a:hover {
+    text-decoration: none !important;
+}
+
+.tak-order-wrapper:hover {
+    transform: translateY(2%);
 }
 
 /* ___________________________________________ */
@@ -816,6 +844,45 @@ body::-webkit-scrollbar { /* All other browsers */
     background-color: var(--profile-button-hover);
     color: var(--cupcake-white) !important;
     transform: translateX(-50%) scale(1.1);
+}
+
+/* ___________________________________________ */
+
+/* Cart Button */
+
+/* ___________________________________________ */
+
+.cart-btn-wrapper {
+    /*display: none !important;*/
+    text-decoration: none !important; /* Underline on <a> element */
+    position: fixed;
+    bottom: 1.5rem;
+    right: 1.5rem;
+    z-index: 10000;
+    background-color: var(--cart-button-background);
+    border: 2px dashed var(--cupcake-less-white);
+    font-size: 1.5rem;
+    font-weight: bold;
+    padding: 0.75rem 1.25rem;
+    align-content: center !important;
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+    transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.cart-btn-wrapper a {
+    margin-right: 0.25rem !important;
+    color: var(--cupcake-white) !important;
+    text-decoration: none !important;
+}
+
+.cart-btn-wrapper:hover {
+    background-color: var(--cart-button-background-hover) !important;
+    transform: scale(1.1);
+}
+
+.cart-btn-wrapper:hover a {
+    color: var(--cart-button-background-hover-text) !important;
 }
 
 /* ___________________________________________ */
@@ -1466,10 +1533,10 @@ body::-webkit-scrollbar { /* All other browsers */
     transform: translateX(120%);
     opacity: 0;
     transition: opacity 0.4s ease, transform 0.4s ease;
-    min-width: 18.75rem;
-    backdrop-filter: blur(0.75rem);
-    -webkit-backdrop-filter: blur(0.75rem);
-    border: 0.063rem solid rgba(255, 255, 255, 0.4);
+    width: 20rem; /* Width of our cart */
+    backdrop-filter: blur(1rem);
+    -webkit-backdrop-filter: blur(1rem);
+    border: 0.25rem solid rgba(255, 255, 255, 0.5);
 }
 
 .cart-popup.show {
@@ -1489,9 +1556,9 @@ body::-webkit-scrollbar { /* All other browsers */
 .cart-popup h4::after {
     content: "";
     display: block;
-    width: 50%;
+    width: 25%;
     height: 0.125rem;
-    background: rgba(0,0,0,0.2);
+    background: rgba(238, 238, 238, 0.2);
     margin: 0.5rem auto 0 auto;
     border-radius: 0.125rem;
 }
@@ -1531,7 +1598,7 @@ body::-webkit-scrollbar { /* All other browsers */
 .cart-popup .total {
     margin-top: 0.938rem;
     padding-top: 0.5rem;
-    border-top: 0.125rem solid rgba(0,0,0,0.2);
+    border-top: 0.2rem solid rgba(255, 255, 255, 0.2);
     font-size: 1rem;
     font-weight: bold;
     display: flex;

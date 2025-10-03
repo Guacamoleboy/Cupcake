@@ -6,6 +6,7 @@ const footerNavHTML = `
         <p>
             Built by Andreas, Ebou & Jonas with 
             <span style="color:#ff0000;">&#10084;</span>
+            <span>| Your email: pik@narko.dk</span>
         </p>
     </section>
     <!-- Footer Navbar End -->

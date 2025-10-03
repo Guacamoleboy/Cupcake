@@ -7,8 +7,8 @@ const navbarHTML = `
         
         <!-- Logo Left Start -->
         <div class="navbar-logo">
-            <a href="../templates/index.html">
-                <img src="../static/images/logo/logo-3.svg" alt="Logo Her Broski">
+            <a href="/">
+                <img src="/images/logo/logo-3.svg" alt="Logo Her Broski">
             </a>
         </div>
         <!-- Logo Left End -->
@@ -17,25 +17,25 @@ const navbarHTML = `
         <div class="guac-row guac-justify-center">
             <ul class="navbar-menu guac-d-flex guac-gap-3">
                 <li class="dropdown">
-                    <a href="../templates/order.html">Menu</a>
+                    <a href="/order">Menu</a>
                     <ul class="dropdown-menu guac-animate guac-fade-in">
-                        <li><a href="../templates/order.html#menu">Chokolade</a></li>
-                        <li><a href="../templates/order.html#menu">Vanilje</a></li>
-                        <li><a href="../templates/order.html#menu">Red Velvet</a></li>
-                        <li><a href="../templates/order.html#menu">Mere...</a></li>
+                        <li><a href="/order">Chokolade</a></li>
+                        <li><a href="/order">Vanilje</a></li>
+                        <li><a href="/order">Red Velvet</a></li>
+                        <li><a href="/order">Mere...</a></li>
                     </ul>
                 </li>
-                <li><a href="../templates/order.html#HitterNu">Hitter nu</a></li>
-                <li><a href="../templates/galleri.html">Galleri</a></li>
-                <li><a href="../templates/events.html">Events</a></li>
-                <li><a href="../templates/contact.html">Kontakt</a></li>
+                <li><a href="/order">Hitter nu</a></li>
+                <li><a href="/galleri">Galleri</a></li>
+                <li><a href="/events">Events</a></li>
+                <li><a href="/contact">Kontakt</a></li>
             </ul>
         </div>
         <!-- Menu Items End -->
 
         <!-- Login Start -->
         <div class="navbar-profile">
-            <a href="../templates/login.html">
+            <a href="login">
                 <button class="navbar-login-button">Log Ind</button>
             </a>
         </div>

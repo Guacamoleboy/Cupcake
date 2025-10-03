@@ -31,8 +31,9 @@ INSERT INTO categories (name) VALUES
 
 /* Products */
 INSERT INTO products (name, description, price, image_url, category_id) VALUES
+('Chokolade Cupcake', 'Epstein for president', 28.00, '/static/images/products/cupcake-3.png', 1),
 ('Jordbær Cupcake', 'Et pust i nakken af Diddy', 25.00, '/static/images/products/cupcake-2.png', 2),
-('Chokolade Cupcake', 'Epstein for president', 28.00, '/static/images/products/cupcake-3.png', 1);
+('Chokolade Cupcake', 'Epstein for president', 28.00, '/static/images/products/cupcake-3.png', 3);
 
 /* Orders (Total) */
 INSERT INTO orders (user_id, status) VALUES

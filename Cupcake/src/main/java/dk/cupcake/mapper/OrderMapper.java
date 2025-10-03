@@ -17,9 +17,10 @@ public class OrderMapper {
     private final UserMapper userMapper = new UserMapper();
 
     // _________________________________________________________
-    // Get order by id
+    // Get order by id (not user_id).
 
     public Order getById(int id) throws SQLException {
+
         String sql = "SELECT * FROM orders WHERE id = ?";
         try (Connection conn = Database.getConnection();
              PreparedStatement stmt = conn.prepareStatement(sql)) {
@@ -29,7 +30,9 @@ public class OrderMapper {
 
             if (rs.next()) return toOrder(rs);
             return null;
+
         }
+
     }
 
     // _________________________________________________________
@@ -141,6 +144,7 @@ public class OrderMapper {
     // Epstein
 
     private Order toOrder(ResultSet rs) throws SQLException {
+
         Order order = new Order();
         order.setId(rs.getInt("id"));
         order.setStatus(rs.getString("status"));
