@@ -1,38 +1,29 @@
 // Package
-package dk.cupcake;
+package dk.cupcake.entites;
 
 // Imports
 import java.sql.Timestamp;
+import java.util.*;
 
-public class Transaction {
+public class Order {
 
     // Attributes
     private int id;
-    private int userId;
-    private double amount;
+    private User user;
+    private String status;
     private Timestamp createdAt;
-    private String description;
+    private ArrayList<OrderItem> items;
 
     // ___________________________________________________
 
-    public int getUserId() {
-        return userId;
+    public ArrayList<OrderItem> getItems() {
+        return items;
     }
 
     // ___________________________________________________
 
-    public void setUserId(int userId) {
-        this.userId = userId;
-    }
-
-    public String getDescription() {
-        return description;
-    }
-
-    // ___________________________________________________
-
-    public void setDescription(String description) {
-        this.description = description;
+    public void setItems(ArrayList<OrderItem> items) {
+        this.items = items;
     }
 
     // ___________________________________________________
@@ -49,14 +40,14 @@ public class Transaction {
 
     // ___________________________________________________
 
-    public double getAmount() {
-        return amount;
+    public User getUser() {
+        return user;
     }
 
     // ___________________________________________________
 
-    public void setAmount(double amount) {
-        this.amount = amount;
+    public void setUser(User user) {
+        this.user = user;
     }
 
     // ___________________________________________________
@@ -71,4 +62,16 @@ public class Transaction {
         this.id = id;
     }
 
-} // Transaction end
+    // ___________________________________________________
+
+    public String getStatus() {
+        return status;
+    }
+
+    // ___________________________________________________
+
+    public void setStatus(String status) {
+        this.status = status;
+    }
+
+} // Order end

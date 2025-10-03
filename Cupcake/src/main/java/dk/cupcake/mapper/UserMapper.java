@@ -2,7 +2,8 @@
 package dk.cupcake.mapper;
 
 // Imports
-import dk.cupcake.User;
+import dk.cupcake.exceptions.DatabaseException;
+import dk.cupcake.entites.User;
 import dk.cupcake.db.Database;
 
 import java.sql.*;
@@ -34,9 +35,31 @@ public class UserMapper {
     }
 
     // _________________________________________________________
+
+    // Gets a specific user from userName
+
+    public User getByUserName(String username) throws SQLException {
+
+        String sql = "SELECT * FROM users WHERE id = ?";
+
+        try (Connection conn = Database.getConnection();
+             PreparedStatement stmt = conn.prepareStatement(sql)) {
+
+            stmt.setString(1, username);
+            ResultSet rs = stmt.executeQuery();
+
+            if (rs.next()) {
+                return toUser(rs);
+            } else {
+                return null;
+            }
+        }
+    }
+
+    // _________________________________________________________
     // Creates a new user
 
-    public void newUser(User user) throws SQLException {
+    public void newUser(User user) throws DatabaseException {
         String sql = "INSERT INTO users (email, password_hash, role, username) VALUES (?, ?, ?, ?)";
         try (Connection conn = Database.getConnection();
              PreparedStatement stmt = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
@@ -52,6 +75,12 @@ public class UserMapper {
             if (keys.next()) {
                 user.setId(keys.getInt(1));
             }
+        } catch (SQLException e) {
+            String msg = "DB fejl - Kontakt admin";
+            if (e.getMessage().startsWith("ERROR: duplicate key value")) {
+                msg = "Brugernavnet findes allerede. Vælg et andet";
+            }
+            throw new DatabaseException(msg, e.getMessage());
         }
     }
 
@@ -121,6 +150,28 @@ public class UserMapper {
         u.setCreatedAt(rs.getTimestamp("created_at"));
         return u;
 
+    }
+
+    // _________________________________________________________
+    // Login
+
+    public User login(String userName, String password) throws DatabaseException{
+        String sql = "select * from users where username=? and password_hash=?";
+        try (Connection conn = Database.getConnection();
+             PreparedStatement stmt = conn.prepareStatement(sql)) {
+
+            stmt.setString(1, userName);
+            stmt.setString(2, password);
+            ResultSet rs = stmt.executeQuery();
+            if (rs.next()) {
+                return toUser(rs);
+            } else {
+                throw new DatabaseException("Fejl i login. Prøv igen");
+            }
+        }
+        catch (SQLException e) {
+            throw new DatabaseException("DB fejl - Kontakt admin", e.getMessage());
+        }
     }
 
 } // UserMapper end

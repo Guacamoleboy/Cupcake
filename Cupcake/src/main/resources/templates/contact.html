@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="da">
+<head>
+
+    <!-- Meta -->
+    <meta charset="UTF-8"> <!-- ÆØÅ -->
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"> <!-- In case some nerd uses Internet Explorer -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"> <!-- Mobile Responsiveness -->
+    <meta name="description" content="Fuck vi hader livet jo... #swag"> <!-- SEO / Google -->
+    <meta name="author" content="Gruppe D"> <!-- Author of Website -->
+
+    <!-- Visuals -->
+    <title>Olsker Cupcakes</title>
+
+    <!-- Icon -->
+    <link rel="icon" href="/images/icons/cupcake-1.png" type="image/x-icon"> <!-- That little logo thats next to the title in URL -->
+    <link rel="apple-touch-icon" href="/images/icons/cupcake-1.png">
+
+    <!-- CSS Load -->
+    <link rel="stylesheet" href="/css/style.css">
+
+    <!-- Framwork load -->
+    <link rel="stylesheet" href="/css/guacamoleboy-wow.css">
+    <link rel="stylesheet" href="/css/guacamoleboy-framework.css">
+    <script src="/js/guacamoleboy-wow.js"></script>
+
+    <!-- Script Load -->
+    <script src="/js/button-to-top.js"></script>
+
+    <!-- Modules -->
+    <script type="module" src="/js/components/navbar.js" defer></script>
+    <script type="module" src="/js/components/footer.js" defer></script>
+    <script type="module" src="/js/components/footer-nav.js" defer></script>
+
+</head>
+<body class="subpage">
+
+    <!-- Navbar Start -->
+    <div id="navbar-component"></div>
+    <!-- Navbar End -->
+
+    <!-- Hero Section Start -->
+    <section class="hero">
+        <div class="guac-container">
+            <div class="guac-row">
+                <div class="guac-col-auto subpage-cupcake-1">
+                    <img src="/images/page-content/index/cupcake-3.png" alt="Cupcake dekor 1">
+                </div>
+                <div class="guac-col-auto subpage-cupcake-2">
+                    <img src="/images/page-content/index/cupcake-3.png" alt="Cupcake dekor 2">
+                </div>
+            </div>
+        </div>
+        <!-- End Wave Hero Start -->
+        <div class="wave-1">
+            <img src="/images/waves/wave-top.svg">
+        </div>
+        <!-- End Wave Hero End -->
+    </section>
+    <!-- Hero Section End -->
+
+    <!-- Contact Section Start -->
+    <section class="section-1 contact-section">
+        <div class="guac-container">
+            <div class="guac-row guac-justify-center">
+                <div class="section-1-intro guac-mt-5 guac-animate guac-slide-up">
+                    <p class="guac-pb-5 contact-intro-text">Har du spørgsmål, en specialbestilling eller brug for hjælp? Skriv til os herunder.</p>
+                </div>
+            </div>
+            <div class="guac-grid-2 guac-animate guac-fade-slide-up guac-pb-5">
+
+                <!-- Find os (venstre side) -->
+                <div>
+                    <div class="section-2-intro">
+                        <h2>Find os</h2>
+                        <p class="guac-pt-5 guac-pb-5">
+                            Kig forbi vores butik i hjertet af Bornholm, eller kontakt os for en specialbestilling.
+                            <span class="section-2-text-end">&ndash; Olsker Cupcakes</span>
+                        </p>
+                    </div>
+                    <ul class="contact-list contact-list-centered">
+                        <li><strong>Adresse:</strong> Olskervej 1, 3770 Allinge</li>
+                        <li><strong>Telefon:</strong> +45 12 34 56 78</li>
+                        <li><strong>E-mail:</strong> kontakt@olskercupcakes.dk</li>
+                        <li><strong>Åbningstider:</strong> Man&ndash;Fre 10&ndash;17, Lør 10&ndash;14</li>
+                    </ul>
+                </div>
+
+                <!-- Kontaktformular (højre side) -->
+                <div>
+                    <div class="section-2-intro">
+                        <h2 class="">Kontakt os</h2>
+                    </div>
+                    <form class="contact-form" action="../templates/tak.html" method="get">
+                        <div class="guac-row">
+                            <div class="guac-col-12">
+                                <label for="navn">Navn</label>
+                                <input type="text" id="navn" name="navn" placeholder="Fornavn og efternavn" required>
+                            </div>
+                            <div class="guac-col-12">
+                                <label for="email">E-mail</label>
+                                <input type="email" id="email" name="email" placeholder="din@email.dk" required>
+                            </div>
+                            <div class="guac-col-12">
+                                <label for="telefon">Telefon</label>
+                                <input type="tel" id="telefon" name="telefon" placeholder="Valgfrit">
+                            </div>
+                            <div class="guac-col-12">
+                                <label for="emne">Emne</label>
+                                <input type="text" id="emne" name="emne" placeholder="Hvad drejer henvendelsen sig om?" required>
+                            </div>
+                            <div class="guac-col-12">
+                                <label for="besked">Besked</label>
+                                <textarea id="besked" name="besked" placeholder="Skriv din besked her" rows="6" required></textarea>
+                            </div>
+                           
+                            <div class="guac-col-12">
+                                <button type="submit" class="guac-btn guac-btn-contact">Send besked</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+        <!-- End Wave Contact -->
+        <div class="wave-3">
+            <img src="/images/waves/footer-wave.svg">
+        </div>
+        <!-- End Wave Contact -->
+
+    </section>
+    <!-- Contact Section End -->
+
+    <!-- Find us Start -->
+    <!-- <section class="section-2 contact-findus"> -->
+
+        <!-- Wave 2 -->
+        <!-- <div class="wave-2">
+            <img src="/images/waves/wave-section-1.svg">
+        </div>
+         -->
+        <!-- Wave 2 -->
+        <!--
+        <div class="guac-container">
+            <div class="guac-row guac-justify-center">
+                <div class="section-2-intro guac-animate guac-zoom-in">
+                    <h2>Find os</h2>
+                    <p class="guac-pt-5 guac-pb-5">
+                        Kig forbi vores butik i hjertet af Bornholm, eller kontakt os for en specialbestilling.
+                        <span class="section-2-text-end">– Olsker Cupcakes</span>
+                    </p>
+                </div>
+            </div>
+            <div class="guac-row guac-justify-center guac-animate guac-fade-slide-up">
+                <div class="guac-col-8">
+                    <ul class="contact-list">
+                        <li><strong>Adresse:</strong> Olskervej 1, 3770 Allinge</li>
+                        <li><strong>Telefon:</strong> +45 12 34 56 78</li>
+                        <li><strong>E-mail:</strong> kontakt@olskercupcakes.dk</li>
+                        <li><strong>Åbningstider:</strong> Man–Fre 10–17, Lør 10–14</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        -->
+
+        <!-- End Wave Contact -->
+        <!--
+        <div class="wave-3">
+            <img src="/images/waves/footer-wave.svg">
+        </div>
+        -->
+        <!-- End Wave Contact -->
+
+    <!--</section>-->
+    <!-- Find us Start -->
+
+    <!-- Footer -->
+    <div id="footer-component"></div>
+    <!-- Footer -->
+
+    <!-- Footer Nav -->
+    <div id="footer-nav-component"></div>
+    <!-- Footer Nav -->
+
+</body>
+</html>
