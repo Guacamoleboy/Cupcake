@@ -397,7 +397,7 @@ body::-webkit-scrollbar { /* All other browsers */
     display: none;
     position: absolute;
     top: 100%;
-    left: -19%;
+    left: -50% !important;
     border-radius: 10px;
     background-color: rgba(150, 89, 89, 0.8);
     box-shadow: 0 4px 8px rgba(0,0,0,0.2);
@@ -1884,71 +1884,271 @@ body::-webkit-scrollbar { /* All other browsers */
     transform: translate(-50%, 0);
 }
 
+/* ___________________________________________ */
+
+/* Custom Cupcake Menu */
+
+/* ___________________________________________ */
 
 .section-custom-cupcake {
     display: flex;
     flex-direction: column;
     align-items: center;
     text-align: center;
-    min-height:  60rem;
-    padding: 0.2rem;
+    padding: 5rem 1rem;
     background-color: var(--section-1-background);
 }
 
 .section-custom-cupcake h2 {
-    margin-top: 4rem;
     color: #fff;
+    margin-bottom: 1rem;
+    position: relative;
+}
+
+.section-custom-cupcake h2::after {
+    content: "";
+    display: block;
+    width: 40%;
+    height: 3px;
+    background-color: #ffffff;
+    margin: 2.5rem auto 0; /* Top, Right/left, bottom */
+    border-radius: 2px;
+}
+
+.section-custom-cupcake p {
+    opacity: 0.7;
+    font-style: italic;
+    color: #fff;
+    margin-bottom: 3rem;
 }
 
 .cupcake-form {
-    margin-top: 3rem;
-    background: #ffffff36;
-    color: #ffffff;
-    border-radius: 1rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
+    background: rgba(161, 91, 91, 0.6);
     padding: 2rem;
-    max-width: 70%;
-    width: 30%;
-    border: 0.2rem solid #943939;
-    box-shadow: 0 0.8rem 2rem rgba(0,0,0,0.4);
+    border-radius: 1rem;
+    border: 4px dashed #ffffff;
+    box-shadow: 0 0.6rem 1.5rem rgba(0, 0, 0, 0.3);
+    width: 90%;
+    max-width: 350px;
+    text-align: center;
 }
 
+.cupcake-field {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+}
 
-.section-custom-cupcake select {
-    width: 20%;
-    padding: 0.5rem;
+.cupcake-field label {
+    margin-bottom: 0.8rem;
+    color: #fff;
+    font-weight: 600;
+}
+
+.cupcake-field select {
+    width: 80%;
+    padding: 0.6rem;
     border-radius: 0.5rem;
-    border: 0.1rem solid #504c4c;
+    border: 0.1rem solid #ccc;
     font-size: 1rem;
+    background-color: #fff;
+    cursor: pointer;
+    transition: border 0.2s;
 }
 
-.cupcake-preview img {
-    max-width: 50%;
-    height: auto;
-    margin: 1rem auto;
-    display: block;
+.cupcake-field select:hover {
+    border-color: #ff7a91;
+}
+
+.show-btn,
+.add-btn {
+    padding: 0.8rem;
+    border: none;
+    border-radius: 0.5rem;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.show-btn,
+.add-btn {
+    background-color: #d55252;
+    color: #fff;
+    font-weight: 600;
+    border: 2px solid #FFF;
+}
+
+.add-btn:hover,
+.show-btn:hover {
+    background-color: #ad4343;
+    transform: translateY(2px);
 }
 
 .price {
-    font-weight: bold;
-    margin-top: 1.5rem;
-    font-size: 1.2rem;
-}
-
-.section-custom-cupcake button {
     margin-top: 1rem;
-    width: 25%;
-    padding: 0.8rem;
-    background: #ff4b6e;
-    border: none;
-    color: white;
-    font-size: 1rem;
-    border-radius: 0.5rem;
-    cursor: pointer;
-    transition: transform 0.2s;
+    margin-bottom: 1rem !important;
+    color: #fff;
+    font-weight: bold;
+    font-size: 1.2rem;
+    opacity: 100% !important;
 }
 
-.section-custom-cupcake button:hover {
-    background: #e04462;
-    transform: scale(1.05);
-    box-shadow: 0 0.8rem 2rem rgba(0,0,0,0.4);
+.cupcake-buttons {
+    display: flex;
+    gap: 1rem;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+.cupcake-preview img {
+    width: 100% !important;
+    height: auto;
+    display: block;
+    margin: 0 auto;
+    border-radius: 1rem;
+}
+
+.cupcake-forms-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 5rem !important;
+    justify-content: center;
+    align-items: flex-start;
+}
+
+.cupcake-form-box {
+    flex: 1 1 300px;
+    max-width: 350px;
+}
+
+.cupcake-preview {
+    min-height: 19rem !important; /* Change later to non-hardcoded height */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 2rem;
+    background: rgba(161, 91, 91, 0.6);
+    border: 4px dashed #ffffff;
+    border-radius: 1rem;
+    box-shadow: 0 0.6rem 1.5rem rgba(0,0,0,0.3);
+}
+
+.cupcake-preview img {
+    width: 70%;
+    height: auto;
+    border-radius: 1rem;
+}
+
+/* ___________________________________________ */
+
+/* Payment Menu */
+
+/* ___________________________________________ */
+
+.section-1-payment {
+    min-height: 100vh;
+    background-color: var(--section-1-background);
+    padding: 4rem 1rem;
+    color: #fff;
+}
+
+.section-1-payment button {
+    border: 2px solid #FFF;
+}
+
+.section-1-payment h2,
+.section-1-payment h3 {
+    text-align: left;
+    margin-bottom: 1rem;
+}
+
+.section-1-payment .payment-p {
+    text-align: left;
+    opacity: 0.8;
+    font-style: italic;
+    margin-bottom: 3rem !important;
+}
+
+.section-divider {
+    border: 0;
+    border-top: 2px solid rgba(255, 255, 255, 0.3);
+    margin: 2rem 0;
+}
+
+.delivery-options button,
+.payment-options button,
+.next-btn {
+    margin: 0.3rem;
+    padding: 0.6rem 1rem;
+    border-radius: 15px;
+    border: 2px solid #FFF;
+    background-color: #d55252;
+    color: #fff;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.delivery-options button:hover,
+.payment-options button:hover,
+.next-btn:hover {
+    background-color: #ad4343;
+    transform: translateY(1px);
+}
+
+.discount-code {
+    width: 29%;
+    padding: 0.5rem;
+    border-radius: 15px;
+    border: 2px dashed #fff;
+    background: transparent;
+    color: #fff;
+    font-family: 'itim', cursive;
+    font-size: 1rem;
+    outline: none;
+}
+
+.discount-code::placeholder {
+    font-family: 'itim', cursive;
+    font-size: 1rem;
+    font-weight: 400;
+    color: rgba(255, 255, 255, 0.7);
+}
+
+.discount-code:focus {
+    border: 2px dashed #fff;
+    box-shadow: none;
+}
+
+.order-list .order-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1.5rem;
+    flex-wrap: wrap;
+    margin-left: 0;
+}
+
+.order-list .order-item p {
+    margin: 0.2rem 0;
+    color: #fff;
+    opacity: 100% !important;
+    font-weight: 500;
+    text-align: left;
+    flex: 1;
+}
+
+.next-btn {
+    display: inline-block;
+    margin-left: 0;
+    font-weight: 400 !important;
+}
+
+.next-btn:hover {
+    text-decoration: none !important;
 }
