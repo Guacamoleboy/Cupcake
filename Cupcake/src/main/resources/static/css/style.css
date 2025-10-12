@@ -152,10 +152,9 @@
 
 html, body {
     font-family: 'Itim', cursive !important; /* Site Identity DO NOT REMOVE */
-    /*background: url(../images/backgrounds/4-upgrade-2.png) no-repeat center 70% fixed;*/
-    background: url(../images/textures/background-texture-1.svg);
+    background: url(../images/backgrounds/4-upgrade-2.png) no-repeat center 70% fixed;
     background-color: var(--background) !important;
-    /*background-size: cover;*/
+    background-size: cover;
     overflow-x: hidden !important;
     overflow-y: scroll; /* Makes sure users can still Scroll */
     scrollbar-width: none;
@@ -204,7 +203,7 @@ body::-webkit-scrollbar { /* All other browsers */
 .index-cupcake-3 img {
     width: 90%;
     height: auto;
-    transform: translateY(20%) rotate(20deg);
+    transform: translateY(-10%) rotate(20deg);
 }
 
 .index-cupcake-1,

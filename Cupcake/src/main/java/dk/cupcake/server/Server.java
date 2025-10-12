@@ -22,9 +22,6 @@ public class Server {
         // Routing
         Routing.registerRoutes(app);
 
-        // Port print
-        System.out.println("http://localhost: " + port);
-
     }
 
     // _______________________________________________
