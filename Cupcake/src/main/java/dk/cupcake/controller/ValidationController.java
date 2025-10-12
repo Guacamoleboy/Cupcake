@@ -16,7 +16,7 @@ public class ValidationController {
     // Attributes
     private static final UserMapper userMapper = new UserMapper();
 
-    // _______________________________________________
+    // __________________________________________________________________________________
 
     public static void registerRoutes(Javalin app) {
 
@@ -34,11 +34,18 @@ public class ValidationController {
             }
         });
 
+        // __________________________________________________________________________________
+
         // POST /register
         app.post("/register", ctx -> {
             String username = ctx.formParam("username");
             String password = ctx.formParam("password");
+            String passwordConfirm = ctx.formParam("passwordConfirm");
             String email = ctx.formParam("email");
+
+            if(!password.equalsIgnoreCase(passwordConfirm)) {
+                ctx.redirect("/register");
+            }
 
             try {
                 User user = new User();
@@ -53,6 +60,8 @@ public class ValidationController {
                 ctx.html(ThymeleafSetup.render("register.html", Map.of("error", e.getMessage())));
             }
         });
+
+        // __________________________________________________________________________________
 
         // GET /ordertak/{id}
         app.get("/ordertak/{id}", ctx -> {

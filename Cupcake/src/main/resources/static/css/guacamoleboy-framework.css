@@ -1387,3 +1387,14 @@ li {
 .guac-notification-danger  { background-color: var(--guac-danger); }
 .guac-notification-warning { background-color: var(--guac-warning); color: var(--guac-black); }
 .guac-notification-info    { background-color: var(--guac-info); }
+
+/* ______________________________________________ */
+
+/* Dividers */
+/* ______________________________________________ */
+
+.section-divider {
+    border: 0;
+    border-top: 2px solid rgba(255, 255, 255, 0.3);
+    margin: 2rem 0;
+}
