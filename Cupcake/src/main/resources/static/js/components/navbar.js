@@ -22,10 +22,9 @@ const navbarHTML = `
                         <li><a href="/order">Chokolade</a></li>
                         <li><a href="/order">Vanilje</a></li>
                         <li><a href="/order">Red Velvet</a></li>
-                        <li><a href="/order">Mere...</a></li>
                     </ul>
                 </li>
-                <li><a href="/order">Hitter nu</a></li>
+                <li><a href="/custom">Custom Cupcake</a></li>
                 <li><a href="/galleri">Galleri</a></li>
                 <li><a href="/events">Events</a></li>
                 <li><a href="/contact">Kontakt</a></li>

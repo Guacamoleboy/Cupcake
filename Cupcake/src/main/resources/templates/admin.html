@@ -19,11 +19,13 @@
     <!-- CSS Load -->
     <link rel="stylesheet" href="/css/style.css">
 
-    <!-- Scripts can also be loaded here with defer -->
     <!-- Framwork load -->
     <link rel="stylesheet" href="/css/guacamoleboy-wow.css">
     <link rel="stylesheet" href="/css/guacamoleboy-framework.css">
     <script src="/js/guacamoleboy-wow.js" defer></script>
+
+    <!-- Script Load -->
+    <script src="/js/admin-menu.js" defer></script>
 
     <!-- Modules -->
     <script type="module" src="/js/components/navbar.js" defer></script>
@@ -41,13 +43,13 @@
                     <h3>Hej,<br>$name!</h3>
                 </div>
                 <div class="profile-buttons">
-                    <a href="#" class="guac-btn guac-btn-profile">Option</a>
-                    <a href="#" class="guac-btn guac-btn-profile">Option</a>
-                    <a href="#" class="guac-btn guac-btn-profile">Option</a>
-                    <a href="#" class="guac-btn guac-btn-profile">Option</a>
-                    <a href="#" class="guac-btn guac-btn-profile">Option</a>
-                    <a href="#" class="guac-btn guac-btn-profile">Option</a>
-                    <a href="#" class="guac-btn guac-btn-profile">Option</a>
+                    <a href="#" class="guac-btn guac-btn-profile" data-section="brugere">Brugere</a>
+                    <a href="#" class="guac-btn guac-btn-profile" data-section="ordre">Ordre</a>
+                    <a href="#" class="guac-btn guac-btn-profile" data-section="levering">Levering</a>
+                    <a href="#" class="guac-btn guac-btn-profile" data-section="distributor">Distributør</a>
+                    <a href="#" class="guac-btn guac-btn-profile" data-section="bestil">Bestil Varer</a>
+                    <a href="#" class="guac-btn guac-btn-profile" data-section="internt">Internt</a>
+                    <a href="#" class="guac-btn guac-btn-profile" data-section="statistik">Dine statistik</a>
                 </div>
 
                 <!-- Exit Button Start -->
@@ -57,11 +59,190 @@
             </div>
             <!-- Side Menu End -->
 
-            <!-- Main Content Start -->
-            <div class="guac-col-auto profile-actual">
-                <h2>Ku' fandme godt lægge en lort lige nu</h2>
+            <!-- ____________________________________________________________________ -->
+
+            <!-- "Brugere" Content Start -->
+            <div class="guac-col-auto profile-actual" id="brugere">
+
+                <!--  Content Section -->
+                <div class="content-section">
+                    <h2>Søg efter bruger</h2>
+                    <p>Indtast brugerens ID og/eller brugernavn:</p>
+                    <div class="guac-row input-group">
+                        <div class="guac-col">
+                            <label for="user-id">ID</label>
+                            <input type="text" id="user-id" placeholder="41414...">
+                        </div>
+                        <div class="guac-col">
+                            <label for="username">Brugernavn</label>
+                            <input type="text" id="username" placeholder="Diddy69...">
+                        </div>
+                        <div class="guac-col">
+                            <label>email</label>
+                            <input type="email" placeholder="narko@narko.dk">
+                        </div>
+                    </div>
+                    <button type="button" class="guac-btn action-btn">Søg efter bruger</button>
+                </div>
+                <!--  Content Section -->
+
+                <hr class="section-divider">
+
+                <!--  Content Section -->
+                <div class="content-section">
+                    <h2>Tilføj ny bruger</h2>
+                    <p>Udfyld oplysninger for at oprette en ny bruger:</p>
+                    <div class="guac-row input-group">
+                        <div class="guac-col">
+                            <label for="new-username">Brugernavn</label>
+                            <input type="text" id="new-username" placeholder="Brugernavn...">
+                        </div>
+                        <div class="guac-col">
+                            <label>Password</label>
+                            <input type="password" placeholder="Password...">
+                        </div>
+                        <div class="guac-col">
+                            <label for="email">Email</label>
+                            <input type="email" id="email" placeholder="Email...">
+                        </div>
+                    </div>
+                    <button type="button" class="guac-btn action-btn">Opret bruger</button>
+                </div>
+                <!--  Content Section -->
+
+                <hr class="section-divider">
+
+                <!--  Content Section -->
+                <div class="content-section">
+                    <h2>Fjern bruger</h2>
+                    <p>Udfyld oplysninger for at fjerne en bruger:</p>
+                    <div class="guac-row input-group">
+                        <div class="guac-col">
+                            <label>Brugernavn</label>
+                            <input type="text" placeholder="Brugernavn...">
+                        </div>
+                        <div class="guac-col">
+                            <label>Email</label>
+                            <input type="email" placeholder="Email...">
+                        </div>
+                        <div class="guac-col">
+                            <label>ID</label>
+                            <input type="text" placeholder="ID...">
+                        </div>
+                    </div>
+                    <button type="button" class="guac-btn action-btn">Fjern bruger</button>
+                </div>
+                <!--  Content Section -->
+
+                <hr class="section-divider"> <!-- Important to have in the end for sticky UI feel -->
+
             </div>
-            <!-- Main Content End -->
+            <!-- "Brugere" Content End -->
+
+            <!-- ____________________________________________________________________ -->
+
+            <!-- "ordre" Content Start -->
+            <div class="guac-col-auto profile-actual" id="ordre" style="display:none;">
+
+                <!--  Content Section -->
+                <div class="content-section">
+                    <h2>Ordre Title</h2>
+                    <p>Jeg er stor fan af majs.</p>
+                </div>
+                <!--  Content Section -->
+
+                <hr class="section-divider">
+
+            </div>
+            <!-- "Ordre" Content End -->
+
+            <!-- ____________________________________________________________________ -->
+
+            <!-- "levering" Content Start -->
+            <div class="guac-col-auto profile-actual" id="levering" style="display:none;">
+
+                <!--  Content Section -->
+                <div class="content-section">
+                    <h2>Levering Title</h2>
+                    <p>Jeg er stor fan af majs.</p>
+                </div>
+                <!--  Content Section -->
+
+                <hr class="section-divider">
+
+            </div>
+            <!-- "levering" Content End -->
+
+            <!-- ____________________________________________________________________ -->
+
+            <!-- "distributør" Content Start -->
+            <div class="guac-col-auto profile-actual" id="distributor" style="display:none;">
+
+                <!--  Content Section -->
+                <div class="content-section">
+                    <h2>Distributør Title</h2>
+                    <p>Jeg er stor fan af majs.</p>
+                </div>
+                <!--  Content Section -->
+
+                <hr class="section-divider">
+
+            </div>
+            <!-- "distributør" Content End -->
+
+            <!-- ____________________________________________________________________ -->
+
+            <!-- "Bestil Varer" Content Start -->
+            <div class="guac-col-auto profile-actual" id="bestil" style="display:none;">
+
+                <!--  Content Section -->
+                <div class="content-section">
+                    <h2>Bestil Varer Title</h2>
+                    <p>Jeg er stor fan af majs.</p>
+                </div>
+                <!--  Content Section -->
+
+                <hr class="section-divider">
+
+            </div>
+            <!-- "Bestil Varer" Content End -->
+
+            <!-- ____________________________________________________________________ -->
+
+            <!-- "Internt" Content Start -->
+            <div class="guac-col-auto profile-actual" id="internt" style="display:none;">
+
+                <!--  Content Section -->
+                <div class="content-section">
+                    <h2>Internt indhold</h2>
+                    <p>Her kan du finde relevant og nyt information som vi skal bruge internt</p>
+                    <button type="button" class="guac-btn action-btn">Forstået</button>
+                </div>
+                <!--  Content Section -->
+
+                <hr class="section-divider">
+
+            </div>
+            <!-- "Internt" Content End -->
+
+            <!-- ____________________________________________________________________ -->
+
+            <!-- "statistik" Content Start -->
+            <div class="guac-col-auto profile-actual" id="statistik" style="display:none;">
+
+                <!--  Content Section -->
+                <div class="content-section">
+                    <h2>Statistik Title</h2>
+                    <p>Jeg er stor fan af majs.</p>
+                </div>
+                <!--  Content Section -->
+
+                <hr class="section-divider">
+
+            </div>
+            <!-- "statistik" Content End -->
+
+            <!-- ____________________________________________________________________ -->
 
         </div>
     </section>

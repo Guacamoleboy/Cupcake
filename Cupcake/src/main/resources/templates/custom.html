@@ -42,12 +42,12 @@
 
         <div class="guac-container">
             <div class="guac-row">
-                
+
                 <div class="guac-col-auto subpage-cupcake-1">
-                    <img src="/images/page-content/index/cupcake-3.png" alt="Billede 1">
+                    <img src="/images/products/cupcake-16.png" alt="Cupcake dekor 1">
                 </div>
                 <div class="guac-col-auto subpage-cupcake-2">
-                    <img src="/images/page-content/index/cupcake-3.png" alt="Billede 2">
+                    <img src="/images/products/cupcake-2-test-2.png" alt="Cupcake dekor 2">
                 </div>
 
             </div>
@@ -62,49 +62,81 @@
     </section>
     <!-- Hero Section End -->
 
-    
     <section class="section-1">
-        <div class="section-custom-cupcake">
+        <div class="section-custom-cupcake guac-container">
 
             <h2>Lav din egen cupcake</h2>
+            <p>Ja, den er god nok. Som noget nyt hos Olsker kan du nu lave dine helt egne kombinationer af smage! Prøv herunder...</p>
 
-            <form class="cupcake-form">
+            <div class="guac-row cupcake-forms-row">
 
-                <h3>Vælg top og bund</h3>
-                <div class= "row">
-                    <select name="top">
-                        <option value="jordbaer">Jordbær</option>
-                        <option value="blaabaer">Blåbær</option>
-                        <option value="hindbaer">Hindbær</option>
-                    </select>
+                <!-- Input Form -->
+                <div class="cupcake-form-box">
+                    <form class="cupcake-form">
 
-                    <select name="bund">
-                        <option value="chokolade">Chokolade</option>
-                        <option value="vanilje">Vanilje</option>
-                        <option value="karamel">Karamel</option>
-                    </select>
+                        <div class="cupcake-field">
+                            <label for="top">Vælg top</label>
+                            <select id="top" name="top">
+                                <option value="" disabled selected hidden>Vælg topping</option>
+                                <option value="jordbaer">Jordbær</option>
+                                <option value="blaabaer">Blåbær</option>
+                                <option value="hindbaer">Hindbær</option>
+                                <option value="chokoladeglasur">Chokoladeglasur</option>
+                                <option value="vaniljeglasur">Vaniljeglasur</option>
+                                <option value="karamelglasur">Karamelglasur</option>
+                                <option value="citron">Citron</option>
+                                <option value="lakrids">Lakrids</option>
+                                <option value="mandel">Mandel</option>
+                                <option value="kokos">Kokos</option>
+                                <option value="mokka">Mokka</option>
+                                <option value="hindbaerfrosting">Hindbærfrosting</option>
+                            </select>
+                        </div>
+
+                        <div class="cupcake-field">
+                            <label for="bund">Vælg bund</label>
+                            <select id="bund" name="bund">
+                                <option value="" disabled selected hidden>Vælg bund</option>
+                                <option value="chokolade">Chokolade</option>
+                                <option value="vanilje">Vanilje</option>
+                                <option value="karamel">Karamel</option>
+                                <option value="citron">Citron</option>
+                                <option value="banan">Banan</option>
+                                <option value="redvelvet">Red Velvet</option>
+                                <option value="lakrids">Lakrids</option>
+                                <option value="mandel">Mandel</option>
+                                <option value="kokos">Kokos</option>
+                                <option value="hindbaer">Hindbær</option>
+                                <option value="blomme">Blomme</option>
+                                <option value="mokka">Mokka</option>
+                            </select>
+                        </div>
+
+                        <p class="price">49 kr</p>
+
+                        <div class="cupcake-buttons">
+                            <button type="button" class="show-btn">Vis cupcake</button>
+                            <button type="submit" class="add-btn">Tilføj til kurven</button>
+                        </div>
+
+                    </form>
                 </div>
 
-            
-                <div class="cupcake-preview">
-                    <img src="/images/products/cupcake-1.png" alt="Cupcake" />
+                <!-- Preview Box -->
+                <div class="cupcake-form-box">
+                    <div class="cupcake-form cupcake-preview">
+                        <img src="/images/products/cupcake-2.png" alt="Cupcake preview">
+                    </div>
                 </div>
 
-
-                <p class="price">49,- DKK</p>
-
-                <button type="submit">Tilføj til kurven</button>
-            </form>
+            </div>
         </div>
-        
-        <!-- End Wave Section 2 Start -->
+
         <div class="wave-3">
-            <img src="/images/waves/footer-wave.svg">
+            <img src="/images/waves/footer-wave.svg" alt="">
         </div>
-        <!-- End Wave Section 2 End -->
-
     </section>
-    
+
     <!-- Footer -->
     <div id="footer-component"></div>
     <!-- Footer -->

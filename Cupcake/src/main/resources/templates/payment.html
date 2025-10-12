@@ -10,7 +10,7 @@
     <meta name="author" content="Gruppe D"> <!-- Author of Website -->
 
     <!-- Visuals -->
-    <title>Olsker Cupcakes</title>
+    <title>Olsker Cupcakes - Payment</title>
 
     <!-- Icon -->
     <link rel="icon" href="/images/icons/cupcake-1.png" type="image/x-icon"> <!-- That little logo thats next to the title in URL -->
@@ -19,22 +19,129 @@
     <!-- CSS Load -->
     <link rel="stylesheet" href="/css/style.css">
 
-    <!-- Scripts can also be loaded here with defer -->
     <!-- Framwork load -->
     <link rel="stylesheet" href="/css/guacamoleboy-wow.css">
     <link rel="stylesheet" href="/css/guacamoleboy-framework.css">
     <script src="/js/guacamoleboy-wow.js" defer></script>
 
-    <!-- Modules -->
-    <script type="module" src="/js/components/navbar.js" defer></script>
+    <!-- Script Load -->
+    <script src="/js/payment.js" defer></script>
 
 </head>
 <body class="subpage">
 
-    <!-- Navbar -->
-    <div id="navbar-component"></div>
-    <!-- Navbar -->
+    <!-- Return to Index -->
+    <a href="/" class="exit-btn" title="Tilbage til forsiden">&#10006;</a>
+    <!-- Return to Index -->
 
+    <!-- Payment Section Start -->
+    <section class="section-1-payment">
+        <div class="guac-container">
+
+            <!-- Order Header -->
+            <h2>Order Confirmation #694206969</h2>
+            <p class="payment-p">Venligst kig om alt stemmer overens herunder</p>
+            <!-- Order Header -->
+
+            <hr class="section-divider">
+
+            <!-- Info Above Order List -->
+            <div class="order-list">
+                <div class="order-item guac-row guac-col-auto">
+                    <p>Produkt</p>
+                    <p>Antal</p>
+                    <p>Pris pr stk</p>
+                </div>
+            </div>
+            <!-- Info Above Order List -->
+
+            <hr class="section-divider">
+
+            <!-- Order List -->
+            <div class="order-list">
+                <div class="order-item guac-row guac-col-auto">
+                    <p>Jordbær Top / Chokolade Bund</p>
+                    <p>2</p>
+                    <p>49 kr</p>
+                </div>
+                <div class="order-item guac-row guac-col-auto">
+                    <p>Blåbær Cupcake</p>
+                    <p>1</p>
+                    <p>15 kr</p>
+                </div>
+                <div class="order-item guac-row guac-col-auto">
+                    <p>Halloween Cupcake</p>
+                    <p>7</p>
+                    <p>24 kr</p>
+                </div>
+                <div class="order-item guac-row guac-col-auto">
+                    <p>Jordbær Cupcake</p>
+                    <p>9</p>
+                    <p>30 kr</p>
+                </div>
+            </div>
+            <!-- Order List -->
+
+            <hr class="section-divider">
+
+            <!-- Info Under Order List -->
+            <div class="order-list">
+                <div class="order-item guac-row guac-col-auto">
+                    <p>Total</p>
+                    <p></p>
+                    <p>560 kr</p>
+                </div>
+            </div>
+            <!-- Info Under Order List -->
+
+            <hr class="section-divider">
+
+            <!-- Delivery -->
+            <h3>Vælg leveringsmetode</h3>
+            <div class="delivery-options guac-row">
+                <button type="button">GLS</button>
+                <button type="button">PostNord</button>
+                <button type="button">DAO</button>
+                <button type="button">Bring</button>
+                <button type="button">Afhent i butik</button>
+            </div>
+            <!-- Delivery -->
+
+            <hr class="section-divider">
+
+            <!-- Coupon -->
+            <h3>Har du en rabatkode?</h3>
+            <input type="text" placeholder="5005-1050-51CU-PCAKE" class="discount-code">
+            <div class="coupon-options guac-row">
+                <button type="button">Benyt</button>
+            </div>
+            <div class="hidden-coupon">
+                <p>Rabatkode: 5005-1050-51CU-PCAKE anvendt</p>
+                <p>Rabat: 10%</p>
+            </div>
+            <!-- Coupon -->
+
+            <hr class="section-divider">
+
+            <!-- Payment Method -->
+            <h3>Vælg betalingsmetode</h3>
+            <div class="payment-options guac-row">
+                <button type="button">MobilePay</button>
+                <button type="button">VISA</button>
+                <button type="button">MasterCard</button>
+                <button type="button">Apple Pay</button>
+            </div>
+            <!-- Payment Method -->
+
+            <hr class="section-divider">
+
+            <!-- Next Button -->
+            <a href="/pay" class="next-btn">Se ordre og betal</a>
+            <!-- Next Button -->
+
+        </div>
+    </section>
+    <!-- Payment Section End -->
 
 </body>
 </html>
