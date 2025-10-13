@@ -2,62 +2,46 @@
 package dk.cupcake.mapper;
 
 // Imports
+import dk.cupcake.entities.User;
 import dk.cupcake.exceptions.DatabaseException;
-import dk.cupcake.entites.User;
 import dk.cupcake.db.Database;
-
 import java.sql.*;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
 
 public class UserMapper {
 
-    // Attributes
-
-    // _________________________________________________________
-    // Gets a specific user from id
+    // ________________________________________________________________
 
     public User getById(int id) throws SQLException {
-
         String sql = "SELECT * FROM users WHERE id = ?";
-
         try (Connection conn = Database.getConnection();
              PreparedStatement stmt = conn.prepareStatement(sql)) {
-
             stmt.setInt(1, id);
             ResultSet rs = stmt.executeQuery();
-
             if (rs.next()) {
                 return toUser(rs);
-            } else {
-                return null;
             }
+            return null;
         }
     }
 
-    // _________________________________________________________
-
-    // Gets a specific user from userName
+    // ________________________________________________________________
 
     public User getByUserName(String username) throws SQLException {
-
-        String sql = "SELECT * FROM users WHERE id = ?";
-
+        String sql = "SELECT * FROM users WHERE username = ?";
         try (Connection conn = Database.getConnection();
              PreparedStatement stmt = conn.prepareStatement(sql)) {
-
             stmt.setString(1, username);
             ResultSet rs = stmt.executeQuery();
-
             if (rs.next()) {
                 return toUser(rs);
-            } else {
-                return null;
             }
+            return null;
         }
     }
 
-    // _________________________________________________________
-    // Creates a new user
+    // ________________________________________________________________
 
     public void newUser(User user) throws DatabaseException {
         String sql = "INSERT INTO users (email, password_hash, role, username) VALUES (?, ?, ?, ?)";
@@ -65,7 +49,7 @@ public class UserMapper {
              PreparedStatement stmt = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
 
             stmt.setString(1, user.getEmail());
-            stmt.setString(2, user.getPassword());
+            stmt.setString(2, user.getPasswordHash());
             stmt.setString(3, user.getRole());
             stmt.setString(4, user.getUsername());
 
@@ -75,102 +59,103 @@ public class UserMapper {
             if (keys.next()) {
                 user.setId(keys.getInt(1));
             }
+
         } catch (SQLException e) {
-            String msg = "DB fejl - Kontakt admin";
-            if (e.getMessage().startsWith("ERROR: duplicate key value")) {
-                msg = "Brugernavnet findes allerede. Vælg et andet";
+            String msg = "Databasefejl – kontakt admin";
+            if (e.getMessage().contains("duplicate key")) {
+                msg = "Brugernavn eller email findes allerede";
             }
             throw new DatabaseException(msg, e.getMessage());
         }
     }
 
-    // _________________________________________________________
-    // Updates a user
+    // ________________________________________________________________
 
     public void update(User user) throws SQLException {
         String sql = "UPDATE users SET email = ?, password_hash = ?, role = ?, username = ? WHERE id = ?";
         try (Connection conn = Database.getConnection();
              PreparedStatement stmt = conn.prepareStatement(sql)) {
-
             stmt.setString(1, user.getEmail());
-            stmt.setString(2, user.getPassword());
+            stmt.setString(2, user.getPasswordHash());
             stmt.setString(3, user.getRole());
             stmt.setString(4, user.getUsername());
             stmt.setInt(5, user.getId());
-
             stmt.executeUpdate();
         }
     }
 
-    // _________________________________________________________
-    // Deletes a specific user. Might need a 2 factor step to make sure its correct and not a mistake deletion!
+    // ________________________________________________________________
 
     public void delete(int id) throws SQLException {
         String sql = "DELETE FROM users WHERE id = ?";
         try (Connection conn = Database.getConnection();
              PreparedStatement stmt = conn.prepareStatement(sql)) {
-
             stmt.setInt(1, id);
             stmt.executeUpdate();
         }
     }
 
-    // _________________________________________________________
-    // Gets all users.
+    // ________________________________________________________________
 
     public List<User> getAll() throws SQLException {
-
         List<User> users = new ArrayList<>();
         String sql = "SELECT * FROM users";
-
         try (Connection conn = Database.getConnection();
              Statement stmt = conn.createStatement();
              ResultSet rs = stmt.executeQuery(sql)) {
-
             while (rs.next()) {
                 users.add(toUser(rs));
             }
         }
-
         return users;
-
     }
 
-    // _________________________________________________________
-    // Act sort of like a toString() method by printing a user.
+    // ________________________________________________________________
 
     private User toUser(ResultSet rs) throws SQLException {
-
         User u = new User();
         u.setId(rs.getInt("id"));
         u.setEmail(rs.getString("email"));
-        u.setPassword(rs.getString("password_hash"));
+        u.setPasswordHash(rs.getString("password_hash"));
         u.setRole(rs.getString("role"));
         u.setUsername(rs.getString("username"));
         u.setCreatedAt(rs.getTimestamp("created_at"));
         return u;
-
     }
 
-    // _________________________________________________________
-    // Login
+    // ________________________________________________________________
 
-    public User login(String userName, String password) throws DatabaseException{
-        String sql = "select * from users where username=? and password_hash=?";
+    public User login(String username, String passwordHash) throws DatabaseException {
+        String sql = "SELECT * FROM users WHERE username = ? AND password_hash = ?";
         try (Connection conn = Database.getConnection();
              PreparedStatement stmt = conn.prepareStatement(sql)) {
-
-            stmt.setString(1, userName);
-            stmt.setString(2, password);
+            stmt.setString(1, username);
+            stmt.setString(2, passwordHash);
             ResultSet rs = stmt.executeQuery();
             if (rs.next()) {
                 return toUser(rs);
             } else {
-                throw new DatabaseException("Fejl i login. Prøv igen");
+                throw new DatabaseException("Forkert brugernavn eller adgangskode");
             }
+        } catch (SQLException e) {
+            throw new DatabaseException("Databasefejl – kontakt admin", e.getMessage());
         }
-        catch (SQLException e) {
-            throw new DatabaseException("DB fejl - Kontakt admin", e.getMessage());
+    }
+
+    // ________________________________________________________________
+
+
+    public boolean existsByEmailOrUsername(String email, String username) throws SQLException {
+        String sql = "SELECT COUNT(*) FROM users WHERE email = ? OR username = ?";
+        try (Connection conn = Database.getConnection();
+             PreparedStatement stmt = conn.prepareStatement(sql)) {
+            stmt.setString(1, email);
+            stmt.setString(2, username);
+            ResultSet rs = stmt.executeQuery();
+            if (rs.next()) {
+                return rs.getInt(1) > 0;
+            }
+            return false;
         }
     }
 

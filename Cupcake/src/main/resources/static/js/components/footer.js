@@ -8,9 +8,9 @@ const footerHTML = `
                 <div class="guac-col-auto footer-col">
                     <h3>Links</h3>
                     <ul>
-                        <li><a href="../templates/index.html">Om os</a></li>
-                        <li><a href="../templates/contact.html">Kundeservice</a></li>
-                        <li><a href="../templates/order.html">Bestil Cupcakes</a></li>
+                        <li><a href="/">Om os</a></li>
+                        <li><a href="/contact">Kundeservice</a></li>
+                        <li><a href="/order">Bestil Cupcakes</a></li>
                     </ul>
                 </div>
                 <div class="guac-col-auto footer-col">
@@ -25,9 +25,9 @@ const footerHTML = `
                 <div class="guac-col-auto footer-col">
                     <h3>Jobs</h3>
                     <ul>
-                        <li><a href="../templates/jobs.html">Ledige Jobs</a></li>
-                        <li><a href="../templates/career.html">Karriere</a></li>
-                        <li><a href="../templates/apply.html">Ansøg nu</a></li>
+                        <li><a href="/jobs">Ledige Jobs</a></li>
+                        <li><a href="/career">Karriere</a></li>
+                        <li><a href="/apply">Ansøg nu</a></li>
                     </ul>
                 </div>
             </div>
