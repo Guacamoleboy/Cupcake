@@ -1,5 +1,5 @@
 // Package
-package dk.cupcake.entites;
+package dk.cupcake.entities;
 
 // Imports
 import java.sql.Timestamp;

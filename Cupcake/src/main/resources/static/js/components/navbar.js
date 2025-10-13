@@ -1,5 +1,3 @@
-// Sets a const to our finished Navbar Visuals 
-
 const navbarHTML = `
 <!-- Navbar Start -->
 <div class="navbar navbar-sticky guac-animate guac-slide-down">
@@ -47,22 +45,55 @@ const navbarHTML = `
 
 // Searches for our id="navbar-component" checks if it's not found and reports error in console
 
-export function loadNavbar(containerId = "navbar-component") {
-    
+export async function loadNavbar(containerId = "navbar-component") {
+
     const container = document.getElementById(containerId);
 
-    // Checks if container is found or not. Dev Console Error if not found.
     if (!container) {
         console.error(`Navbar container #${containerId} not found`);
         return;
     }
 
-    // Loads our navbar into DOM
-    // Same as this. It's just a variable instead.
-    // document.getElementById("navbar-container").innerHTML = navbarHTML;
     container.innerHTML = navbarHTML;
 
+    try {
+
+        const response = await fetch("/api/auth/status");
+        const data = await response.json();
+        const profileButtonContainer = container.querySelector(".navbar-profile");
+
+        if (!profileButtonContainer) return;
+
+        if (!data.loggedIn) {
+            profileButtonContainer.innerHTML = `
+                <a href="/login">
+                    <button class="navbar-login-button">Log Ind</button>
+                </a>
+            `;
+            return;
+        }
+
+        switch (data.role?.toLowerCase()) {
+            case "admin":
+                profileButtonContainer.innerHTML = `
+                    <a href="/admin">
+                        <button class="navbar-login-button">Admin Menu</button>
+                    </a>
+                `;
+                break;
+
+            default:
+                profileButtonContainer.innerHTML = `
+                    <a href="/profile">
+                        <button class="navbar-login-button">Min Profil</button>
+                    </a>
+                `;
+                break;
+        }
+
+    } catch (err) {
+        console.error("Could not fetch auth status:", err);
+    }
 }
 
-// Load Navbar (Calls the function we just created)
 loadNavbar();

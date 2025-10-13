@@ -589,6 +589,8 @@ body::-webkit-scrollbar { /* All other browsers */
 /* ___________________________________________ */
 
 .visuals-404 {
+    background-color: var(--background) !important;
+    background: url("../images/textures/background-texture-1.svg");
     height: 100vh; /* Very important DO NOT REMOVE */
     overflow: hidden !important;
 }
@@ -930,6 +932,7 @@ body::-webkit-scrollbar { /* All other browsers */
 }
 
 .login-container input {
+    font-family: 'Itim', cursive !important;
     width: 100%;
     margin-bottom: 1rem;
     border-radius: 2rem;
