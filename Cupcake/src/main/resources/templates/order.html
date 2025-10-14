@@ -24,6 +24,7 @@
 
     <!-- Scripts Load -->
     <script src="js/cart.js" defer></script>
+    <script src="js/order.js" defer></script>
 
     <!-- Framwork load -->
     <link rel="stylesheet" href="css/guacamoleboy-wow.css">
@@ -94,29 +95,40 @@
 
                 <!-- Input Menu Start -->
                 <div class="menu-filters guac-pt-5">
+
                     <input type="text" placeholder="Søg..." class="filter-input">
 
-                    <select class="filter-select">
-                        <option value="" disabled selected hidden>Kategori</option>
-                        <option value="chocolate">Chokolade</option>
-                        <option value="fruit">Frugt</option>
-                        <option value="cream">Creme</option>
+                    <select class="filter-select" id="category-filter">
+                        <option value="">Kategori</option>
+                        <option value="1">Chokolade</option>
+                        <option value="2">Frugt</option>
+                        <option value="3">Creme</option>
                     </select>
 
-                    <select class="filter-select">
-                        <option value="" disabled selected hidden>Smag</option>
-                        <option value="sweet">Sød</option>
-                        <option value="acidity">Syrlig</option>
-                        <option value="mixed">Blandet</option>
+                    <select class="filter-select" id="topping-filter">
+                        <option value="">Topping</option>
+                        <option value="Jordbær">Jordbær</option>
+                        <option value="Hindbær">Hindbær</option>
+                        <option value="Chokolade">Chokolade</option>
+                        <option value="Flødeskum">Flødeskum</option>
+                        <option value="Marshmallow Sprinkle">Marshmallow Sprinkle</option>
+                        <option value="Skum">Skum</option>
+                        <option value="Marengs">Marengs</option>
+                        <option value="Vaniljeskum">Vaniljeskum</option>
+                        <option value="Is">Is</option>
+                        <option value="Marshmallow Fluff">Marshmallow Fluff</option>
                     </select>
 
-                    <select class="filter-select">
-                        <option value="" disabled selected hidden>Sortér efter</option>
-                        <option value="popular">Mest populære</option>
-                        <option value="hits">Hitter lige nu</option>
-                        <option value="nigga1">Nigga</option>
-                        <option value="nigga2">Nigga 2</option>
+                    <select class="filter-select" id="bund-filter">
+                        <option value="">Bund</option>
+                        <option value="Chokolade">Chokolade</option>
+                        <option value="Vanilje">Vanilje</option>
+                        <option value="Red Velvet">Red Velvet</option>
+                        <option value="Sandkage">Sandkage</option>
                     </select>
+
+                    <button class="filter-select reset-btn">Reset</button>
+
                 </div>
             </div>
             <!-- Input Menu End -->
@@ -124,168 +136,21 @@
             <!-- Cupcake Menu Start -->
             <div class="cupcake-cards guac-justify-center guac-mb-5 guac-col-12">
 
-                <!-- Row 1 -->
-                <div class="cupcake-card guac-col-4">
+                <!-- Cupcake loop -->
+                <div th:each="p : ${products}" class="cupcake-card guac-col-4">
                     <div class="cupcake-imgBox">
-                        <img src="images/products/cupcake-2.png" alt="Chokolade cupcake">
+                        <img th:src="@{${p.imageUrl}}" th:alt="${p.name}">
                     </div>
                     <div class="cupcake-contentBox">
-                        <h2>Jordbær Cupcake</h2>
+                        <h2 th:text="${p.name}"></h2>
                         <div class="cupcake-hoverContent">
-                            <p class="cupcake-desc guac-pt-3">Beskrivelse her broski lol.. Hader livet.</p>
-                            <p class="cupcake-price guac-pt-3">25 kr</p>
+                            <p class="cupcake-desc guac-pt-3" th:text="${p.description}"></p>
+                            <p class="cupcake-price guac-pt-3" th:text="${p.price + ' kr'}"></p>
                             <a href="#" class="add-product">Tilføj til kurv</a>
                         </div>
                     </div>
                 </div>
-
-                <div class="cupcake-card guac-col-4">
-                    <div class="cupcake-imgBox">
-                        <img src="images/products/cupcake-3.png" alt="Chokolade cupcake">
-                    </div>
-                    <div class="cupcake-contentBox">
-                        <h2>Vanilje Cupcake</h2>
-                        <div class="cupcake-hoverContent">
-                            <p class="cupcake-desc guac-pt-3">Beskrivelse her broski lol.. Hader livet.</p>
-                            <p class="cupcake-price guac-pt-3">25 kr</p>
-                            <a href="#" class="add-product">Tilføj til kurv</a>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="cupcake-card guac-col-4">
-                    <div class="cupcake-imgBox">
-                        <img src="images/products/cupcake-1.png" alt="Chokolade cupcake">
-                    </div>
-                    <div class="cupcake-contentBox">
-                        <h2>Chokolade Cupcake</h2>
-                        <div class="cupcake-hoverContent">
-                            <p class="cupcake-desc guac-pt-3">Beskrivelse her broski lol.. Hader livet.</p>
-                            <p class="cupcake-price guac-pt-3">25 kr</p>
-                            <a href="#" class="add-product">Tilføj til kurv</a>
-                        </div>
-                    </div>
-                </div>
-                <!-- Row 1 -->
-
-                <!-- Row 2 -->
-                <div class="cupcake-card guac-col-4">
-                    <div class="cupcake-imgBox">
-                        <img src="images/products/cupcake-10.png" alt="Chokolade cupcake">
-                    </div>
-                    <div class="cupcake-contentBox">
-                        <h2>Cupcake Title</h2>
-                        <div class="cupcake-hoverContent">
-                            <p class="cupcake-desc guac-pt-3">Rig, lækker chokoladesmag med blød topping.</p>
-                            <p class="cupcake-price guac-pt-3">25 kr</p>
-                            <a href="#" class="add-product">Tilføj til kurv</a>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="cupcake-card guac-col-4">
-                    <div class="cupcake-imgBox">
-                        <img src="images/products/cupcake-6.png" alt="Chokolade cupcake">
-                    </div>
-                    <div class="cupcake-contentBox">
-                        <h2>Cupcake Title</h2>
-                        <div class="cupcake-hoverContent">
-                            <p class="cupcake-desc guac-pt-3">Rig, lækker chokoladesmag med blød topping.</p>
-                            <p class="cupcake-price guac-pt-3">25 kr</p>
-                            <a href="#" class="add-product">Tilføj til kurv</a>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="cupcake-card guac-col-4">
-                    <div class="cupcake-imgBox">
-                        <img src="images/products/cupcake-7.png" alt="Chokolade cupcake">
-                    </div>
-                    <div class="cupcake-contentBox">
-                        <h2>Cupcake Title</h2>
-                        <div class="cupcake-hoverContent">
-                            <p class="cupcake-desc guac-pt-3">Rig, lækker chokoladesmag med blød topping.</p>
-                            <p class="cupcake-price guac-pt-3">25 kr</p>
-                            <a href="#" class="add-product">Tilføj til kurv</a>
-                        </div>
-                    </div>
-                </div>
-                <!-- Row 2 -->
-
-                <!-- Row 3 -->
-                <div class="cupcake-card guac-col-4">
-                    <div class="cupcake-imgBox">
-                        <img src="images/products/cupcake-11.png" alt="Chokolade cupcake">
-                    </div>
-                    <div class="cupcake-contentBox">
-                        <h2>Cupcake Title</h2>
-                        <div class="cupcake-hoverContent">
-                            <p class="cupcake-desc guac-pt-3">Rig, lækker chokoladesmag med blød topping.</p>
-                            <p class="cupcake-price guac-pt-3">25 kr</p>
-                            <a href="#" class="add-product">Tilføj til kurv</a>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="cupcake-card guac-col-4">
-                    <div class="cupcake-imgBox">
-                        <img src="images/products/cupcake-9.png" alt="Chokolade cupcake">
-                    </div>
-                    <div class="cupcake-contentBox">
-                        <h2>Cupcake Title</h2>
-                        <div class="cupcake-hoverContent">
-                            <p class="cupcake-desc guac-pt-3">Rig, lækker chokoladesmag med blød topping.</p>
-                            <p class="cupcake-price guac-pt-3">25 kr</p>
-                            <a href="#" class="add-product">Tilføj til kurv</a>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="cupcake-card guac-col-4">
-                    <div class="cupcake-imgBox">
-                        <img src="images/products/cupcake-12.png" alt="Chokolade cupcake">
-                    </div>
-                    <div class="cupcake-contentBox">
-                        <h2>Cupcake Title</h2>
-                        <div class="cupcake-hoverContent">
-                            <p class="cupcake-desc guac-pt-3">Rig, lækker chokoladesmag med blød topping.</p>
-                            <p class="cupcake-price guac-pt-3">25 kr</p>
-                            <a href="#" class="add-product">Tilføj til kurv</a>
-                        </div>
-                    </div>
-                </div>
-                <!-- Row 3 -->
-
-                <!-- Row 4 -->
-                <div class="cupcake-card guac-col-4">
-                    <div class="cupcake-imgBox">
-                        <img src="images/products/cupcake-14.png" alt="Chokolade cupcake">
-                    </div>
-                    <div class="cupcake-contentBox">
-                        <h2>Cupcake Title</h2>
-                        <div class="cupcake-hoverContent">
-                            <p class="cupcake-desc guac-pt-3">Rig, lækker chokoladesmag med blød topping.</p>
-                            <p class="cupcake-price guac-pt-3">25 kr</p>
-                            <a href="#" class="add-product">Tilføj til kurv</a>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="cupcake-card guac-col-4">
-                    <div class="cupcake-imgBox">
-                        <img src="images/products/cupcake-13.png" alt="Chokolade cupcake">
-                    </div>
-                    <div class="cupcake-contentBox">
-                        <h2>Cupcake Title</h2>
-                        <div class="cupcake-hoverContent">
-                            <p class="cupcake-desc guac-pt-3">Rig, lækker chokoladesmag med blød topping.</p>
-                            <p class="cupcake-price guac-pt-3">25 kr</p>
-                            <a href="#" class="add-product">Tilføj til kurv</a>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Row 4 -->
+                <!-- Cupcake loop -->
 
             </div>
             <!-- Cupcake Menu End -->

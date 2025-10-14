@@ -55,6 +55,8 @@ description TEXT,
 price DECIMAL(10,2) NOT NULL,
 image_url TEXT,
 category_id INT REFERENCES categories(id) ON DELETE SET NULL,
+topping_id INT REFERENCES cupcake_toppings(id) ON DELETE SET NULL,
+flavor_id INT REFERENCES cupcake_flavor(id) ON DELETE SET NULL,
 created_at TIMESTAMP DEFAULT NOW()
 );
 

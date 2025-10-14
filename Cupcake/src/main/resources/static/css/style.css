@@ -827,7 +827,7 @@ body::-webkit-scrollbar { /* All other browsers */
 .exit-btn-profile {
     text-decoration: none !important;
     position: absolute;
-    bottom: 3rem;
+    bottom: 5rem;
     left: 50%;
     transform: translateX(-50%);
     transform-origin: center;
