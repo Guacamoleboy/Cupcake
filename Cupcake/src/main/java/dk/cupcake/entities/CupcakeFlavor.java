@@ -1,13 +1,14 @@
 // Package
-package dk.cupcake.entites;
+package dk.cupcake.entities;
 
 // Imports
 
-public class Category {
+public class CupcakeFlavor {
 
     // Attributes
     private int id;
     private String name;
+    private double price;
 
     // ___________________________________________________
 
@@ -33,4 +34,16 @@ public class Category {
         this.id = id;
     }
 
-} // Category end
+    // ___________________________________________________
+
+    public double getPrice() {
+        return price;
+    }
+
+    // ___________________________________________________
+
+    public void setPrice(double price) {
+        this.price = price;
+    }
+
+} // CupcakeFlavor end

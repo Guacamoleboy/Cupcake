@@ -10,7 +10,7 @@
     <meta name="author" content="Gruppe D"> <!-- Author of Website -->
 
     <!-- Visuals -->
-    <title>Olsker Cupcakes</title>
+    <title>Olsker Cupcakes - Admin</title>
 
     <!-- Icon -->
     <link rel="icon" href="/images/icons/cupcake-1.png" type="image/x-icon"> <!-- That little logo thats next to the title in URL -->
@@ -26,6 +26,8 @@
 
     <!-- Script Load -->
     <script src="/js/admin-menu.js" defer></script>
+    <script src="/js/auth.js" defer></script>
+    <script src="/js/notification.js" defer></script>
 
     <!-- Modules -->
     <script type="module" src="/js/components/navbar.js" defer></script>
@@ -45,15 +47,15 @@
                 <div class="profile-buttons">
                     <a href="#" class="guac-btn guac-btn-profile" data-section="brugere">Brugere</a>
                     <a href="#" class="guac-btn guac-btn-profile" data-section="ordre">Ordre</a>
-                    <a href="#" class="guac-btn guac-btn-profile" data-section="levering">Levering</a>
+                    <a href="#" class="guac-btn guac-btn-profile" data-section="cms">CMS</a>
                     <a href="#" class="guac-btn guac-btn-profile" data-section="distributor">Distributør</a>
                     <a href="#" class="guac-btn guac-btn-profile" data-section="bestil">Bestil Varer</a>
                     <a href="#" class="guac-btn guac-btn-profile" data-section="internt">Internt</a>
-                    <a href="#" class="guac-btn guac-btn-profile" data-section="statistik">Dine statistik</a>
+                    <a href="#" class="guac-btn guac-btn-profile" data-section="statistik">Statistik</a>
                 </div>
 
                 <!-- Exit Button Start -->
-                <a href="../templates/index.html" class="exit-btn-profile" title="Tilbage til forsiden">&#10006;</a>
+                <a href="/" class="exit-btn-profile" title="Tilbage til forsiden">&#10006;</a>
                 <!-- Exit Button End -->
                  
             </div>
@@ -63,6 +65,18 @@
 
             <!-- "Brugere" Content Start -->
             <div class="guac-col-auto profile-actual" id="brugere">
+
+                <!--  Content Section -->
+                <div class="content-section">
+                    <h2>Hurtig Navigation</h2>
+                    <p>Vælg herunder for hurtigere navigation</p>
+                    <button type="button" class="guac-btn action-btn">Søg efter bruger</button>
+                    <button type="button" class="guac-btn action-btn">Tilføj ny bruger</button>
+                    <button type="button" class="guac-btn action-btn">Slet bruger</button>
+                </div>
+                <!--  Content Section -->
+
+                <hr class="section-divider">
 
                 <!--  Content Section -->
                 <div class="content-section">
@@ -146,8 +160,82 @@
 
                 <!--  Content Section -->
                 <div class="content-section">
-                    <h2>Ordre Title</h2>
-                    <p>Jeg er stor fan af majs.</p>
+                    <h2>Hurtig Navigation</h2>
+                    <p>Vælg herunder for hurtigere navigation</p>
+                    <button type="button" class="guac-btn action-btn">Søg efter ordre</button>
+                    <button type="button" class="guac-btn action-btn">Se alle ordre</button>
+                    <button type="button" class="guac-btn action-btn">Opdater / slet ordre</button>
+                    <button type="button" class="guac-btn action-btn">Opret ny ordre</button>
+                    <button type="button" class="guac-btn action-btn">Refusion</button>
+                    <button type="button" class="guac-btn action-btn">Retur</button>
+                </div>
+                <!--  Content Section -->
+
+                <hr class="section-divider">
+
+                <!--  Content Section -->
+                <div class="content-section">
+                    <h2>Søg efter ordre</h2>
+                    <p>Indtast brugerens ID og/eller brugernavn:</p>
+                    <div class="guac-row input-group">
+                        <div class="guac-col">
+                            <label>ID</label>
+                            <input type="text"  placeholder="41414...">
+                        </div>
+                        <div class="guac-col">
+                            <label>Brugernavn</label>
+                            <input type="text" placeholder="Diddy69...">
+                        </div>
+                        <div class="guac-col">
+                            <label>email</label>
+                            <input type="email" placeholder="narko@narko.dk">
+                        </div>
+                    </div>
+                    <button type="button" class="guac-btn action-btn">Søg efter ordre</button>
+                </div>
+                <!--  Content Section -->
+
+                <hr class="section-divider">
+
+                <!--  Content Section -->
+                <div class="content-section">
+                    <h2>Opdater / slet ordre for bruger</h2>
+                    <p>Indtast brugerens ID og/eller brugernavn:</p>
+                    <div class="guac-row input-group">
+                        <div class="guac-col">
+                            <label>ID</label>
+                            <input type="text"  placeholder="41414...">
+                        </div>
+                        <div class="guac-col">
+                            <label>Brugernavn</label>
+                            <input type="text" placeholder="Diddy69...">
+                        </div>
+                        <div class="guac-col">
+                            <label>email</label>
+                            <input type="email" placeholder="narko@narko.dk">
+                        </div>
+                    </div>
+                    <button type="button" class="guac-btn action-btn">Søg efter ordre</button>
+                </div>
+                <!--  Content Section -->
+
+                <hr class="section-divider">
+
+                <!--  Content Section -->
+                <div class="content-section">
+                    <h2>Se alle ordre</h2>
+                    <p>Her kan du se alle ordre</p>
+                    <button type="button" class="guac-btn action-btn">Vis alle ordre</button>
+                </div>
+                <!--  Content Section -->
+
+                <hr class="section-divider">
+
+                <!--  Content Section -->
+                <div class="content-section">
+                    <h2>Opret ny ordre</h2>
+                    <p>Indtast oplysninger herunder:</p>
+                    <button type="button" class="guac-btn action-btn">Opret ny ordre</button>
                 </div>
                 <!--  Content Section -->
 
@@ -158,20 +246,99 @@
 
             <!-- ____________________________________________________________________ -->
 
-            <!-- "levering" Content Start -->
-            <div class="guac-col-auto profile-actual" id="levering" style="display:none;">
+            <!-- "cms" Content Start -->
+            <div class="guac-col-auto profile-actual" id="cms" style="display:none;">
 
                 <!--  Content Section -->
                 <div class="content-section">
-                    <h2>Levering Title</h2>
-                    <p>Jeg er stor fan af majs.</p>
+                    <h2>Hurtig Navigation</h2>
+                    <p>Vælg herunder for hurtigere navigation</p>
+                    <button type="button" class="guac-btn action-btn">Leveringspriser</button>
+                    <button type="button" class="guac-btn action-btn">Cupcake priser</button>
+                    <button type="button" class="guac-btn action-btn">Rabatkode</button>
+                </div>
+                <!--  Content Section -->
+
+                <hr class="section-divider">
+
+                <!--  Content Section -->
+                <div class="content-section">
+                    <h2>Opdater leveringspriser</h2>
+                    <p>Udfyld oplysningerne herunder:</p>
+                    <div class="guac-row input-group">
+                        <div class="guac-col">
+                            <label>Leveringsmetode</label>
+                            <input type="text" placeholder="Fx GLS...">
+                        </div>
+                        <div class="guac-col">
+                            <label>Ny pris</label>
+                            <input type="text" placeholder="Ny pris...">
+                        </div>
+                        <div class="guac-col">
+                            <label>Godkendelse</label>
+                            <input type="text" placeholder="Skriv dit brugernavn...">
+                        </div>
+                    </div>
+                    <button type="button" class="guac-btn action-btn">Opdater</button>
+                </div>
+                <!--  Content Section -->
+
+                <hr class="section-divider">
+
+                <!--  Content Section -->
+                <div class="content-section">
+                    <h2>Opdater cupcake pris</h2>
+                    <p>Udfyld oplysningerne herunder:</p>
+                    <div class="guac-row input-group">
+                        <div class="guac-col">
+                            <label>Cupcake</label>
+                            <input type="text" placeholder="Jordbærcupcake...">
+                        </div>
+                        <div class="guac-col">
+                            <label>ID</label>
+                            <input type="text" placeholder="ID...">
+                        </div>
+                        <div class="guac-col">
+                            <label>Ny pris</label>
+                            <input type="text" placeholder="Ny pris...">
+                        </div>
+                        <div class="guac-col">
+                            <label>Godkendelse</label>
+                            <input type="text" placeholder="Skriv dit brugernavn...">
+                        </div>
+                    </div>
+                    <button type="button" class="guac-btn action-btn">Opdater</button>
+                </div>
+                <!--  Content Section -->
+
+                <hr class="section-divider">
+
+                <!--  Content Section -->
+                <div class="content-section">
+                    <h2>Opret rabatkode</h2>
+                    <p>Udfyld oplysningerne herunder:</p>
+                    <div class="guac-row input-group">
+                        <div class="guac-col">
+                            <label>Rabatkode</label>
+                            <input type="text" placeholder="5001-5055-6CUP-CAKE...">
+                        </div>
+                        <div class="guac-col">
+                            <label>Rabat</label>
+                            <input type="text" placeholder="Rabat (0-100)...">
+                        </div>
+                        <div class="guac-col">
+                            <label>Godkendelse</label>
+                            <input type="text" placeholder="Skriv dit brugernavn...">
+                        </div>
+                    </div>
+                    <button type="button" class="guac-btn action-btn">Opret</button>
                 </div>
                 <!--  Content Section -->
 
                 <hr class="section-divider">
 
             </div>
-            <!-- "levering" Content End -->
+            <!-- "cms" Content End -->
 
             <!-- ____________________________________________________________________ -->
 
@@ -180,8 +347,13 @@
 
                 <!--  Content Section -->
                 <div class="content-section">
-                    <h2>Distributør Title</h2>
-                    <p>Jeg er stor fan af majs.</p>
+                    <h2>Hurtig Navigation</h2>
+                    <p>Vælg herunder for hurtigere navigation</p>
+                    <button type="button" class="guac-btn action-btn">Kontakt</button>
+                    <button type="button" class="guac-btn action-btn">Beskeder</button>
+                    <button type="button" class="guac-btn action-btn">Nyeste information</button>
+                    <button type="button" class="guac-btn action-btn">Opret ny distributør</button>
+                    <button type="button" class="guac-btn action-btn">Send retur</button>
                 </div>
                 <!--  Content Section -->
 
@@ -197,8 +369,9 @@
 
                 <!--  Content Section -->
                 <div class="content-section">
-                    <h2>Bestil Varer Title</h2>
-                    <p>Jeg er stor fan af majs.</p>
+                    <h2>Hurtig Navigation</h2>
+                    <p>Vælg herunder for hurtigere navigation</p>
+                    <button type="button" class="guac-btn action-btn">Bestil råvarer</button>
                 </div>
                 <!--  Content Section -->
 
@@ -214,9 +387,13 @@
 
                 <!--  Content Section -->
                 <div class="content-section">
-                    <h2>Internt indhold</h2>
-                    <p>Her kan du finde relevant og nyt information som vi skal bruge internt</p>
-                    <button type="button" class="guac-btn action-btn">Forstået</button>
+                    <h2>Hurtig Navigation</h2>
+                    <p>Vælg herunder for hurtigere navigation</p>
+                    <button type="button" class="guac-btn action-btn">Kampagner</button>
+                    <button type="button" class="guac-btn action-btn">Seneste beskeder</button>
+                    <button type="button" class="guac-btn action-btn">Manglende godkendelse</button>
+                    <button type="button" class="guac-btn action-btn">Fra HR</button>
+                    <button type="button" class="guac-btn action-btn">Fra Ledelsen</button>
                 </div>
                 <!--  Content Section -->
 
@@ -232,8 +409,15 @@
 
                 <!--  Content Section -->
                 <div class="content-section">
-                    <h2>Statistik Title</h2>
-                    <p>Jeg er stor fan af majs.</p>
+                    <h2>Hurtig Navigation</h2>
+                    <p>Vælg herunder for hurtigere navigation</p>
+                    <button type="button" class="guac-btn action-btn">Total salg</button>
+                    <button type="button" class="guac-btn action-btn">Salg pr cupcake</button>
+                    <button type="button" class="guac-btn action-btn">Ebitda</button>
+                    <button type="button" class="guac-btn action-btn">Retur statistik</button>
+                    <button type="button" class="guac-btn action-btn">Leveringsskader</button>
+                    <button type="button" class="guac-btn action-btn">Tabt omsætning</button>
+                    <button type="button" class="guac-btn action-btn">Hjemmeside statistik</button>
                 </div>
                 <!--  Content Section -->
 
@@ -247,6 +431,10 @@
         </div>
     </section>
     <!-- Profile Menu End -->
+
+    <!-- Notification -->
+    <div id="guac-notification-container"></div>
+    <!-- Notification -->
 
 </body>
 </html>

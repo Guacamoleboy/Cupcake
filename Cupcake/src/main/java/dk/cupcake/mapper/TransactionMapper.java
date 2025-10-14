@@ -3,7 +3,7 @@ package dk.cupcake.mapper;
 
 // Imports
 import dk.cupcake.db.Database;
-import dk.cupcake.entites.Transaction;
+import dk.cupcake.entities.Transaction;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;

@@ -4,6 +4,7 @@ package dk.cupcake.server.routing;
 // Imports
 import dk.cupcake.controller.ErrorController;
 import dk.cupcake.controller.PageController;
+import dk.cupcake.controller.UserController;
 import dk.cupcake.controller.ValidationController;
 import io.javalin.Javalin;
 
@@ -17,6 +18,7 @@ public class Routing {
 
         PageController.registerRoutes(app);
         ValidationController.registerRoutes(app);
+        UserController.registerRoutes(app);
         registerErrorRoutes(app);
 
     }
