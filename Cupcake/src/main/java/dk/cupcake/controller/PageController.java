@@ -59,7 +59,24 @@ public class PageController {
         app.get("/order", ctx -> ctx.html(ThymeleafSetup.render("order.html", null)));
         app.get("/payment", ctx -> ctx.html(ThymeleafSetup.render("payment.html", null)));
         app.get("/pay", ctx -> ctx.html(ThymeleafSetup.render("final-confirmation.html", null)));
-        app.get("/profile", ctx -> ctx.html(ThymeleafSetup.render("profile.html", null)));
+
+        // ______________________________________________________________
+
+        app.get("/profile", ctx -> {
+
+            User user = ctx.sessionAttribute("user");
+
+            if (user == null) {
+                ctx.redirect("/login");
+                return;
+            }
+
+            ctx.html(ThymeleafSetup.render("profile.html", Map.of("user", user)));
+
+        });
+
+        // ______________________________________________________________
+
         app.get("/register", ctx -> ctx.html(ThymeleafSetup.render("register.html", null)));
         app.get("/login", ctx -> ctx.html(ThymeleafSetup.render("login.html", null)));
         app.get("/tak", ctx -> ctx.html(ThymeleafSetup.render("tak.html", null)));
@@ -67,4 +84,4 @@ public class PageController {
 
     }
 
-}
+} // PageController end

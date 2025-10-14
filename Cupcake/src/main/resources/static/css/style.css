@@ -2237,3 +2237,63 @@ body::-webkit-scrollbar { /* All other browsers */
     border-top: 1px solid #ddd;
     margin: 2rem 0;
 }
+
+/* ___________________________________________ */
+
+/* Preloader */
+
+/* ___________________________________________ */
+
+.preloader {
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 100vh;
+    width: 100vw;
+    background-color: var(--section-1-background);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 9999;
+    animation: fadeOut 1.0s ease-in-out forwards;
+}
+
+.preloader::before {
+    content: "";
+    height: 80px;
+    width: 80px;
+    border: 7px solid white;
+    border-radius: 0 50% 50% 50%;
+    position: relative;
+    transform: rotate(45deg);
+    animation: move 0.5s linear infinite alternate-reverse;
+}
+
+.preloader::after {
+    content: "";
+    position: absolute;
+    height: 44px;
+    width: 44px;
+    border-radius: 50%;
+    border: 7px solid transparent;
+    border-top-color: white;
+    border-bottom-color: white;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    animation: rotate 1s linear infinite;
+}
+
+/* Might have these in guacamoleboy-wow.js but cba checking rn */
+
+@keyframes rotate {
+    to { transform: translate(-50%, -50%) rotate(360deg); }
+}
+@keyframes move {
+    to { transform: translateY(15px) rotate(45deg); }
+}
+
+@keyframes fadeOut {
+    0%, 80% { opacity: 1; }
+    100% { opacity: 0; pointer-events: none; }
+}

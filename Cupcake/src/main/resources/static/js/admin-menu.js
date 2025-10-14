@@ -10,11 +10,26 @@ document.addEventListener('DOMContentLoaded', () => {
 
     function showSection(id) {
         const section = document.getElementById(id);
-        if(section) section.style.display = 'block';
+        if (section) {
+            section.style.display = 'block';
+            return true;
+        }
+        return false;
+    }
+
+    // Fix for admin / profile instead of only being admin.html
+    function getFirstSectionId() {
+        if (document.getElementById('brugere')) return 'brugere';
+        if (document.getElementById('minProfil')) return 'minProfil';
+        return sections.length > 0 ? sections[0].id : null;
     }
 
     hideAllSections();
-    showSection('brugere');
+    const firstSectionId = getFirstSectionId();
+    if (firstSectionId) showSection(firstSectionId);
+
+    const defaultButton = document.querySelector(`.guac-btn-profile[data-section="${firstSectionId}"]`);
+    if (defaultButton) defaultButton.classList.add('active');
 
     buttons.forEach(btn => {
         btn.addEventListener('click', (e) => {
@@ -24,7 +39,6 @@ document.addEventListener('DOMContentLoaded', () => {
             hideAllSections();
             showSection(target);
 
-            // Active button styling
             buttons.forEach(b => b.classList.remove('active'));
             btn.classList.add('active');
         });

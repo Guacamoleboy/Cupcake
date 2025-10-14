@@ -13,6 +13,8 @@ public class User {
     private String role;
     private String username;
     private Timestamp createdAt;
+    private String phone;
+    private boolean paymentAttached;
 
     // ___________________________________________________
 
@@ -24,6 +26,30 @@ public class User {
 
     public void setId(int id) {
         this.id = id;
+    }
+
+    // ___________________________________________________
+
+    public String getPhone() {
+        return phone;
+    }
+
+    // ___________________________________________________
+
+    public void setPhone(String phone) {
+        this.phone = phone;
+    }
+
+    // ___________________________________________________
+
+    public boolean isPaymentAttached() {
+        return paymentAttached;
+    }
+
+    // ___________________________________________________
+
+    public void setPaymentAttached(boolean paymentAttached) {
+        this.paymentAttached = paymentAttached;
     }
 
     // ___________________________________________________

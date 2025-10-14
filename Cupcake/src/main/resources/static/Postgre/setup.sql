@@ -3,7 +3,10 @@
     Lavet af Gruppe D
     Skole Projekt - Cupcake
     2. Semester
-    3NF skulle gerne være opfyldt...
+    3NF
+
+    Sidst opdateret af: Guacamoleboy
+    Dato: 14/10-2025
 
 */
 
@@ -11,10 +14,24 @@
 CREATE TABLE users (
 id SERIAL PRIMARY KEY,
 email VARCHAR(255) UNIQUE NOT NULL,
-password_hash TEXT NOT NULL, /* Safety */
-role VARCHAR(20) NOT NULL DEFAULT 'customer', /* Customer, Admin, Support (?), Diddy */
+password_hash TEXT NOT NULL,
+role VARCHAR(20) NOT NULL DEFAULT 'customer',
 username VARCHAR(100) UNIQUE NOT NULL,
-created_at TIMESTAMP DEFAULT NOW() /* Auto */
+phone VARCHAR(20) UNIQUE,
+payment_attached BOOLEAN DEFAULT FALSE,
+created_at TIMESTAMP DEFAULT NOW()
+);
+
+/* Payment info */
+CREATE TABLE payment_info (
+id SERIAL PRIMARY KEY,
+user_id INTEGER NOT NULL REFERENCES users(id) ON DELETE CASCADE,
+card_number VARCHAR(19) NOT NULL,
+cardholder_name VARCHAR(255) NOT NULL,
+expiry_month INTEGER NOT NULL CHECK (expiry_month BETWEEN 1 AND 12),
+expiry_year INTEGER NOT NULL CHECK (expiry_year BETWEEN 2025 AND 2100),
+cvv_hash TEXT NOT NULL,
+created_at TIMESTAMP DEFAULT NOW()
 );
 
 /* Cupcake bottoms */
@@ -60,8 +77,8 @@ created_at TIMESTAMP DEFAULT NOW() /* Auto */
 CREATE TABLE order_items (
 id SERIAL PRIMARY KEY,
 order_id INT REFERENCES orders(id) ON DELETE CASCADE,
-product_id INT REFERENCES products(id), -- hvis kunden køber et færdigt produkt
-bottom_id INT REFERENCES cupcake_flavor(id), -- hvis kunden bygger selv
+product_id INT REFERENCES products(id),
+bottom_id INT REFERENCES cupcake_flavor(id),
 topping_id INT REFERENCES cupcake_toppings(id),
 quantity INT NOT NULL DEFAULT 1
 );
