@@ -70,6 +70,9 @@ document.addEventListener("DOMContentLoaded", function() {
         case "wrongInfo":
             showNotification("Wrong username or password...", "red");
             break;
+        case "wrongPassword":
+            showNotification("Wrong password...", "orange");
+            break;
         case "accountCreated":
             showNotification("Account created! Please log in.", "green");
             break;
@@ -78,6 +81,9 @@ document.addEventListener("DOMContentLoaded", function() {
             break;
         case "accountExists":
             showNotification("Username already exists...", "orange");
+            break;
+        case "userNotFound":
+            showNotification("User not found...", "orange");
             break;
         case "missingFields":
             showNotification("Missing fields...", "red");

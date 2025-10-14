@@ -11,6 +11,8 @@ import java.util.List;
 
 public class UserMapper {
 
+    // Attributes
+
     // ________________________________________________________________
 
     public User getById(int id) throws SQLException {
@@ -24,6 +26,19 @@ public class UserMapper {
             }
             return null;
         }
+    }
+
+    // ________________________________________________________________
+
+    public boolean hasPaymentInfo(int userId) throws SQLException {
+        String sql = "SELECT EXISTS (SELECT 1 FROM payment_info WHERE user_id = ?)";
+        try (Connection conn = Database.getConnection();
+             PreparedStatement ps = conn.prepareStatement(sql)) {
+            ps.setInt(1, userId);
+            ResultSet rs = ps.executeQuery();
+            if (rs.next()) return rs.getBoolean(1);
+        }
+        return false;
     }
 
     // ________________________________________________________________
@@ -44,7 +59,7 @@ public class UserMapper {
     // ________________________________________________________________
 
     public void newUser(User user) throws DatabaseException {
-        String sql = "INSERT INTO users (email, password_hash, role, username) VALUES (?, ?, ?, ?)";
+        String sql = "INSERT INTO users (email, password_hash, role, username, phone, payment_attached) VALUES (?, ?, ?, ?, ?, ?)";
         try (Connection conn = Database.getConnection();
              PreparedStatement stmt = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
 
@@ -52,6 +67,8 @@ public class UserMapper {
             stmt.setString(2, user.getPasswordHash());
             stmt.setString(3, user.getRole());
             stmt.setString(4, user.getUsername());
+            stmt.setString(5, user.getPhone());
+            stmt.setBoolean(6, user.isPaymentAttached());
 
             stmt.executeUpdate();
 
@@ -72,14 +89,16 @@ public class UserMapper {
     // ________________________________________________________________
 
     public void update(User user) throws SQLException {
-        String sql = "UPDATE users SET email = ?, password_hash = ?, role = ?, username = ? WHERE id = ?";
+        String sql = "UPDATE users SET email = ?, password_hash = ?, role = ?, username = ?, phone = ?, payment_attached = ? WHERE id = ?";
         try (Connection conn = Database.getConnection();
              PreparedStatement stmt = conn.prepareStatement(sql)) {
             stmt.setString(1, user.getEmail());
             stmt.setString(2, user.getPasswordHash());
             stmt.setString(3, user.getRole());
             stmt.setString(4, user.getUsername());
-            stmt.setInt(5, user.getId());
+            stmt.setString(5, user.getPhone());
+            stmt.setBoolean(6, user.isPaymentAttached());
+            stmt.setInt(7, user.getId());
             stmt.executeUpdate();
         }
     }
@@ -119,6 +138,8 @@ public class UserMapper {
         u.setPasswordHash(rs.getString("password_hash"));
         u.setRole(rs.getString("role"));
         u.setUsername(rs.getString("username"));
+        u.setPhone(rs.getString("phone"));
+        u.setPaymentAttached(rs.getBoolean("payment_attached"));
         u.setCreatedAt(rs.getTimestamp("created_at"));
         return u;
     }
