@@ -2,10 +2,13 @@
 package dk.cupcake.controller;
 
 // Imports
+import dk.cupcake.entities.Product;
 import dk.cupcake.entities.User;
+import dk.cupcake.mapper.ProductMapper;
 import dk.cupcake.server.ThymeleafSetup;
 import io.javalin.Javalin;
-
+import java.sql.SQLException;
+import java.util.List;
 import java.util.Map;
 
 public class PageController {
@@ -48,7 +51,6 @@ public class PageController {
 
         // ______________________________________________________________
 
-        app.get("/admin", ctx -> ctx.html(ThymeleafSetup.render("admin.html", null)));
         app.get("/apply", ctx -> ctx.html(ThymeleafSetup.render("apply.html", null)));
         app.get("/carrer", ctx -> ctx.html(ThymeleafSetup.render("carrer.html", null)));
         app.get("/contact", ctx -> ctx.html(ThymeleafSetup.render("contact.html", null)));
@@ -56,9 +58,23 @@ public class PageController {
         app.get("/events", ctx -> ctx.html(ThymeleafSetup.render("events.html", null)));
         app.get("/galleri", ctx -> ctx.html(ThymeleafSetup.render("galleri.html", null)));
         app.get("/jobs", ctx -> ctx.html(ThymeleafSetup.render("jobs.html", null)));
-        app.get("/order", ctx -> ctx.html(ThymeleafSetup.render("order.html", null)));
         app.get("/payment", ctx -> ctx.html(ThymeleafSetup.render("payment.html", null)));
         app.get("/pay", ctx -> ctx.html(ThymeleafSetup.render("final-confirmation.html", null)));
+
+        // ______________________________________________________________
+
+        app.get("/admin", ctx -> {
+
+            User user = ctx.sessionAttribute("user");
+
+            if (user == null) {
+                ctx.redirect("/login");
+                return;
+            }
+
+            ctx.html(ThymeleafSetup.render("admin.html", Map.of("user", user)));
+
+        });
 
         // ______________________________________________________________
 

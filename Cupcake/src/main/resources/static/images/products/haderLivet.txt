@@ -1,0 +1,94 @@
+cupcake-1: 
+Bund: Red Velvet
+Top: Jordbær
+Title: Det røde bær
+
+cupcake-2:
+Bund: vanilje
+Top: Chokolade
+Title: Cherry On Top
+
+cupcake-3:
+Bund: vanilje
+Top: Hindbær
+Title: Hindbærdrøm
+
+cupcake-4:
+Bund: Chokolade
+Top: Flødeskum
+Title: Skumtop
+
+cupcake-5:
+Bund: vanilje
+Top: Marshmellow Sprinkle
+Title: XX
+
+cupcake-6:
+Bund: vanilje
+Top: Skum
+Title: XX
+
+cupcake-7:
+Bund: Sandkage
+Top: Skum
+Title: XX (Sommer)
+
+cupcake-8:
+Bund: Chokolade
+Top: Skum
+Title: XX (Jul)
+
+cupcake-9:
+Bund: Chokolade
+Top: Skum
+Title: XX
+
+cupcake-10:
+Bund: Chokolade
+Top: Chokolade
+Title: XX
+
+cupcake-11:
+Bund: vanilje
+Top: Flødeskum
+Title: XX
+
+cupcake-12:
+Bund: Red Velvet
+Top: Skum
+Title: XX
+
+cupcake-13:
+Bund: chokolade
+Top: chokolade flødeskum
+Title: XX (bær på toppen)
+
+cupcake-14:
+Bund: Chokolade
+Top: Intet
+Title: XX (Jul)
+
+cupcake-15:
+Bund: vanilje
+Top: Is
+Title: XX
+
+cupcake-16:
+Bund: Chokolade
+Top: Marshmellow fluff
+Title: XX
+
+cupcake-17:
+Bund: Chokolade
+Top: vanilje skum
+Title: XX
+
+cupcake-18:
+Bund: vanilje
+Top: Skum
+Title: XX (Jul)
+
+cupcake-19:
+Bund: chokolade
+Top: marengs
+Title: XX

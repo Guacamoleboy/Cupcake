@@ -11,7 +11,6 @@ import java.util.List;
 public class ProductMapper {
 
     // _________________________________________________________
-    // Gets a product by id
 
     public Product getById(int id) throws SQLException {
         String sql = "SELECT * FROM products WHERE id = ?";
@@ -44,17 +43,14 @@ public class ProductMapper {
     }
 
     // _________________________________________________________
-    // Gets products by category
 
     public List<Product> getByCategoryId(int categoryId) throws SQLException {
         List<Product> products = new ArrayList<>();
         String sql = "SELECT * FROM products WHERE category_id = ?";
         try (Connection conn = Database.getConnection();
              PreparedStatement stmt = conn.prepareStatement(sql)) {
-
             stmt.setInt(1, categoryId);
             ResultSet rs = stmt.executeQuery();
-
             while (rs.next()) {
                 products.add(toProduct(rs));
             }
@@ -63,7 +59,6 @@ public class ProductMapper {
     }
 
     // _________________________________________________________
-    // Creates a new product
 
     public void newProduct(Product p) throws SQLException {
         String sql = "INSERT INTO products (name, description, price, image_url, category_id) VALUES (?, ?, ?, ?, ?)";
@@ -86,7 +81,6 @@ public class ProductMapper {
     }
 
     // _________________________________________________________
-    // Updates a product
 
     public void update(Product p) throws SQLException {
         String sql = "UPDATE products SET name = ?, description = ?, price = ?, image_url = ?, category_id = ? WHERE id = ?";
@@ -105,7 +99,6 @@ public class ProductMapper {
     }
 
     // _________________________________________________________
-    // Deletes a product
 
     public void delete(int id) throws SQLException {
         String sql = "DELETE FROM products WHERE id = ?";
@@ -118,7 +111,6 @@ public class ProductMapper {
     }
 
     // _________________________________________________________
-    // Diddy
 
     private Product toProduct(ResultSet rs) throws SQLException {
         Product p = new Product();
@@ -130,6 +122,78 @@ public class ProductMapper {
         p.setCategoryId(rs.getInt("category_id"));
         p.setCreatedAt(rs.getTimestamp("created_at"));
         return p;
+    }
+
+    // _________________________________________________________
+
+    public List<Product> getByTopping(String topping) throws SQLException {
+        List<Product> products = new ArrayList<>();
+        String sql = "SELECT p.* FROM products p " +
+                "JOIN cupcake_toppings t ON t.id = p.topping_id " +
+                "WHERE LOWER(t.name) = LOWER(?)";
+        try (Connection conn = Database.getConnection();
+             PreparedStatement stmt = conn.prepareStatement(sql)) {
+            stmt.setString(1, topping);
+            ResultSet rs = stmt.executeQuery();
+            while (rs.next()) {
+                products.add(toProduct(rs));
+            }
+        }
+        return products;
+    }
+
+    // _________________________________________________________
+
+    public List<Product> getByBund(String bund) throws SQLException {
+        List<Product> products = new ArrayList<>();
+        String sql = "SELECT p.* FROM products p " +
+                "JOIN cupcake_flavor f ON f.id = p.flavor_id " +
+                "WHERE LOWER(f.name) = LOWER(?)";
+        try (Connection conn = Database.getConnection();
+             PreparedStatement stmt = conn.prepareStatement(sql)) {
+            stmt.setString(1, bund);
+            ResultSet rs = stmt.executeQuery();
+            while (rs.next()) {
+                products.add(toProduct(rs));
+            }
+        }
+        return products;
+    }
+
+    // _________________________________________________________
+
+    public List<Product> searchByName(String name) throws SQLException {
+        List<Product> products = new ArrayList<>();
+        String sql = "SELECT * FROM products WHERE LOWER(name) LIKE LOWER(?)";
+        try (Connection conn = Database.getConnection();
+             PreparedStatement stmt = conn.prepareStatement(sql)) {
+            stmt.setString(1, "%" + name + "%");
+            ResultSet rs = stmt.executeQuery();
+            while (rs.next()) {
+                products.add(toProduct(rs));
+            }
+        }
+        return products;
+    }
+
+    // _________________________________________________________
+
+    public List<Product> getByToppingAndBund(String topping, String bund) throws SQLException {
+        List<Product> products = new ArrayList<>();
+        String sql = "SELECT p.* FROM products p " +
+                "JOIN cupcake_toppings t ON t.id = p.topping_id " +
+                "JOIN cupcake_flavor f ON f.id = p.flavor_id " +
+                "WHERE t.name = ? AND f.name = ?";
+        try (Connection conn = Database.getConnection();
+             PreparedStatement stmt = conn.prepareStatement(sql)) {
+            stmt.setString(1, topping);
+            stmt.setString(2, bund);
+            ResultSet rs = stmt.executeQuery();
+            while (rs.next()) {
+                products.add(toProduct(rs));
+            }
+        }
+        return products;
     }
 
 } // ProductMapper end
