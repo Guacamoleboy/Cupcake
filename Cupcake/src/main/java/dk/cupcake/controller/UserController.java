@@ -173,7 +173,7 @@ public class UserController {
         String username = ctx.formParam("username");
         String password = ctx.formParam("password");
         String email = ctx.formParam("email");
-        String confirm = ctx.formParam("confirm"); // fx "ja" eller "nej"
+        String confirm = ctx.formParam("confirm");
 
         if (username == null || password == null || email == null || confirm == null) {
             ctx.redirect("/profile?error=missingFields");
