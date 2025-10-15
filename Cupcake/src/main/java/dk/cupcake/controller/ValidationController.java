@@ -6,7 +6,6 @@ import dk.cupcake.entities.User;
 import dk.cupcake.exceptions.DatabaseException;
 import dk.cupcake.mapper.OrderMapper;
 import dk.cupcake.mapper.UserMapper;
-import dk.cupcake.entities.Order;
 import io.javalin.Javalin;
 import org.mindrot.jbcrypt.BCrypt;
 
@@ -96,22 +95,6 @@ public class ValidationController {
 
         });
 
-        // __________________________________________________________________________________
-
-        // GET /ordertak/{id}
-        app.get("/ordertak/{id}", ctx -> {
-            int id = Integer.parseInt(ctx.pathParam("id"));
-            OrderMapper orderMapper = new OrderMapper();
-            Order order = orderMapper.getById(id);
-
-            if (order == null) {
-                ctx.status(404).redirect("/?error=500");
-                return;
-            }
-
-            ctx.render("tak-order.html", java.util.Map.of("order", order));
-
-        });
     }
 
 } // ValidationController end

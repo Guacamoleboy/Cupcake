@@ -7,11 +7,24 @@ public class OrderItem {
 
     // Attributes
     private int id;
-    private int orderId;
+    // private int orderId;
     private int productId;
     private int bottomId;
     private int toppingId;
     private int quantity;
+    private String title;
+    private String description;
+    private double price;
+
+    public OrderItem(int productId, String title, String description, double price, int quantity, int toppingId, int bottomId) {
+        this.productId = productId;
+        this.title = title;
+        this.description = description;
+        this.price = price;
+        this.quantity = quantity;
+        this.toppingId = toppingId;
+        this.bottomId = bottomId;
+    }
 
     // ___________________________________________________
 
@@ -27,7 +40,7 @@ public class OrderItem {
 
     // ___________________________________________________
 
-    public int getOrderId() {
+    /*public int getOrderId() {
         return orderId;
     }
 
@@ -35,7 +48,7 @@ public class OrderItem {
 
     public void setOrderId(int orderId) {
         this.orderId = orderId;
-    }
+    }*/
 
     // ___________________________________________________
 
@@ -85,4 +98,39 @@ public class OrderItem {
         this.id = id;
     }
 
+    // ___________________________________________________
+
+    public String getTitle() {
+        return title;
+    }
+
+    // ___________________________________________________
+
+    public void setTitle(String title) {
+        this.title = title;
+    }
+
+    // ___________________________________________________
+
+    public String getDescription() {
+        return description;
+    }
+
+    // ___________________________________________________
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    // ___________________________________________________
+
+    public double getPrice() {
+        return price;
+    }
+
+    // ___________________________________________________
+
+    public void setPrice(double price) {
+        this.price = price;
+    }
 } // OrderItem end

@@ -178,6 +178,8 @@ body::-webkit-scrollbar { /* All other browsers */
 }
 
 .subpage .hero {
+    background: url(../images/backgrounds/20.jpg) no-repeat center 90% fixed;
+    background-size: cover;
     position: relative;
     height: 45rem !important;
 }

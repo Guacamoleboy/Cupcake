@@ -134,6 +134,8 @@ public class ProductMapper {
         p.setImageUrl(rs.getString("image_url"));
         p.setCategoryId(rs.getInt("category_id"));
         p.setCreatedAt(rs.getTimestamp("created_at"));
+        p.setFlavor_id(rs.getInt("flavor_id"));
+        p.setTopping_id(rs.getInt("topping_id"));
         return p;
     }
 
