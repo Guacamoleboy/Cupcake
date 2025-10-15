@@ -17,6 +17,7 @@ public class Routing {
         ProductController.registerRoutes(app);
         ValidationController.registerRoutes(app);
         UserController.registerRoutes(app);
+        CartController.registerRoutes(app);
         registerErrorRoutes(app);
 
     }
