@@ -146,7 +146,7 @@
                         <div class="cupcake-hoverContent">
                             <p class="cupcake-desc guac-pt-3" th:text="${p.description}"></p>
                             <p class="cupcake-price guac-pt-3" th:text="${p.price + ' kr'}"></p>
-                            <a href="#" class="add-product">Tilføj til kurv</a>
+                            <a href="#" class="add-product" th:attr="data-product-id=${p.id}">Tilføj til kurv</a>
                         </div>
                     </div>
                 </div>

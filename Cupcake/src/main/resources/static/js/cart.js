@@ -7,21 +7,21 @@
 // _______________________________________________________________________
 
 document.addEventListener("DOMContentLoaded", () => {
-
-    // 5 Dummy Cupcakes
-    const cupcakes = [
-        { name: "Lorte Cupcake", qty: 1 },
-        { name: "Pik Cupcake", qty: 2 },
-        { name: "Narko Cupcake", qty: 1 },
-        { name: "Epstein Special", qty: 3 },
-        { name: "Halloween Cupcake", qty: 1 },
-        { name: "Kæmpe lort", qty: 1 },
-        { name: "Elsker majs bro..", qty: 1 },
-    ];
-
-    // 5000 is a dummy price.. NOT a timer for timeout.
-    showCartPopup(cupcakes, 5000);
-
+    document.body.addEventListener("click", async (e) => {
+        const target = e.target.closest(".add-product");
+        if (!target) return;
+        e.preventDefault();
+        const productId = target.getAttribute("data-product-id");
+        if (!productId) return;
+        const form = new FormData();
+        form.append("productId", productId);
+        form.append("quantity", "1");
+        const res = await fetch("/api/cart/items", { method: "POST", body: form });
+        if (!res.ok) return;
+        const data = await res.json();
+        const items = data.items.map(i => ({ name: i.name, qty: i.qty }));
+        showCartPopup(items, data.total);
+    });
 });
 
 // _______________________________________________________________________
