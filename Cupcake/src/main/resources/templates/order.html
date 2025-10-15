@@ -29,13 +29,13 @@
     <!-- Framwork load -->
     <link rel="stylesheet" href="css/guacamoleboy-wow.css">
     <link rel="stylesheet" href="css/guacamoleboy-framework.css">
-    <link rel="stylesheet" href="css/andreas.css">
     <script src="js/guacamoleboy-wow.js" defer></script>
 
     <!-- Modules -->
     <script type="module" src="js/components/navbar.js" defer></script>
     <script type="module" src="js/components/footer.js" defer></script>
     <script type="module" src="js/components/footer-nav.js" defer></script>
+    <script type="module" src="js/generic/toJava.js" defer></script>
 
 </head>
 <body class="subpage">
@@ -146,7 +146,12 @@
                         <div class="cupcake-hoverContent">
                             <p class="cupcake-desc guac-pt-3" th:text="${p.description}"></p>
                             <p class="cupcake-price guac-pt-3" th:text="${p.price + ' kr'}"></p>
-                            <a href="#" class="add-product">Tilføj til kurv</a>
+                            <button type="button" class="add-product"
+                                    th:attr="data-id=${p.id}, data-name=${p.name}, data-price=${p.price}, data-description=${p.description}"
+                                    onclick="callJavaMethod('/cart/add', this)">
+                                Tilføj til kurv
+                            </button>
+                            <!--<a href="#" class="add-product">Tilføj til kurv</a> -->
                         </div>
                     </div>
                 </div>

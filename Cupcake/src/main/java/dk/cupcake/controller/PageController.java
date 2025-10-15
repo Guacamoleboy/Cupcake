@@ -58,8 +58,6 @@ public class PageController {
         app.get("/events", ctx -> ctx.html(ThymeleafSetup.render("events.html", null)));
         app.get("/galleri", ctx -> ctx.html(ThymeleafSetup.render("galleri.html", null)));
         app.get("/jobs", ctx -> ctx.html(ThymeleafSetup.render("jobs.html", null)));
-        app.get("/payment", ctx -> ctx.html(ThymeleafSetup.render("payment.html", null)));
-        app.get("/pay", ctx -> ctx.html(ThymeleafSetup.render("final-confirmation.html", null)));
 
         // ______________________________________________________________
 
@@ -95,8 +93,6 @@ public class PageController {
 
         app.get("/register", ctx -> ctx.html(ThymeleafSetup.render("register.html", null)));
         app.get("/login", ctx -> ctx.html(ThymeleafSetup.render("login.html", null)));
-        app.get("/tak", ctx -> ctx.html(ThymeleafSetup.render("tak.html", null)));
-        app.get("/tak-ordre", ctx -> ctx.html(ThymeleafSetup.render("tak-order.html", null)));
 
     }
 

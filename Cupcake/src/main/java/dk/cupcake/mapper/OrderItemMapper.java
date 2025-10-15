@@ -46,7 +46,7 @@ public class OrderItemMapper {
     // _________________________________________________________
     // Gets all items for a specific order
 
-    public List<OrderItem> getByOrderId(int orderId) throws SQLException {
+    /*public List<OrderItem> getByOrderId(int orderId) throws SQLException {
         List<OrderItem> items = new ArrayList<>();
         String sql = "SELECT * FROM order_items WHERE order_id = ?";
         try (Connection conn = Database.getConnection();
@@ -56,7 +56,7 @@ public class OrderItemMapper {
             ResultSet rs = stmt.executeQuery();
 
             while (rs.next()) {
-                items.add(toOrderItem(rs));
+                //items.add(toOrderItem(rs));
             }
         }
         return items;
@@ -66,11 +66,11 @@ public class OrderItemMapper {
     // Creates a new order item
 
     public void newOrderItem(OrderItem item) throws SQLException {
-        String sql = "INSERT INTO order_items (order_id, product_id, bottom_id, topping_id, quantity) VALUES (?, ?, ?, ?, ?)";
+        String sql = "INSERT INTO order_items (order_id, product_id, quantity) VALUES (?, ?, ?)";
         try (Connection conn = Database.getConnection();
              PreparedStatement stmt = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
 
-            stmt.setInt(1, item.getOrderId());
+            //stmt.setInt(1, item.getOrderId());
             stmt.setInt(2, item.getProductId());
             stmt.setInt(3, item.getBottomId());
             stmt.setInt(4, item.getToppingId());
@@ -80,7 +80,7 @@ public class OrderItemMapper {
 
             ResultSet keys = stmt.getGeneratedKeys();
             if (keys.next()) {
-                item.setId(keys.getInt(1));
+                //item.setId(keys.getInt(1));
             }
         }
     }
@@ -93,12 +93,12 @@ public class OrderItemMapper {
         try (Connection conn = Database.getConnection();
              PreparedStatement stmt = conn.prepareStatement(sql)) {
 
-            stmt.setInt(1, item.getOrderId());
+            //stmt.setInt(1, item.getOrderId());
             stmt.setInt(2, item.getProductId());
             stmt.setInt(3, item.getBottomId());
             stmt.setInt(4, item.getToppingId());
             stmt.setInt(5, item.getQuantity());
-            stmt.setInt(6, item.getId());
+            //stmt.setInt(6, item.getId());
 
             stmt.executeUpdate();
         }
@@ -115,20 +115,128 @@ public class OrderItemMapper {
             stmt.setInt(1, id);
             stmt.executeUpdate();
         }
-    }
+    }*/
 
     // _________________________________________________________
     // Diddy
 
     private OrderItem toOrderItem(ResultSet rs) throws SQLException {
-        OrderItem item = new OrderItem();
+
+
+        int productId = rs.getInt("product_id");
+        String title = rs.getString("name");
+        String description = rs.getString("description");
+        double price = rs.getDouble("price");
+        int quantity = rs.getInt("quantity");
+
+        OrderItem item = new OrderItem(productId, title, description, price, quantity);
+
         item.setId(rs.getInt("id"));
-        item.setOrderId(rs.getInt("order_id"));
-        item.setProductId(rs.getInt("product_id"));
         item.setBottomId(rs.getInt("bottom_id"));
         item.setToppingId(rs.getInt("topping_id"));
-        item.setQuantity(rs.getInt("quantity"));
         return item;
     }
+
+    // _________________________________________________________
+
+    public static void AddOrderItem(int orderID, OrderItem item) throws SQLException {
+        String sql = "INSERT INTO order_items (order_id, product_id, quantity) VALUES (?, ?, ?)";
+        try (Connection conn = Database.getConnection();
+             PreparedStatement stmt = conn.prepareStatement(sql)) {
+            stmt.setInt(1, orderID);
+            stmt.setInt(2, item.getProductId());
+            stmt.setInt(3, item.getQuantity());
+            stmt.executeUpdate();
+        }
+    }
+
+    // _________________________________________________________
+
+    public static void updateQuantity(int orderID, int productID, int quantity) throws SQLException {
+        String sql = "UPDATE order_items SET quantity = ? WHERE order_id = ? AND product_id = ?";
+        try (Connection conn = Database.getConnection();
+             PreparedStatement stmt = conn.prepareStatement(sql)) {
+            stmt.setInt(1, quantity);
+            stmt.setInt(2, orderID);
+            stmt.setInt(3, productID);
+            stmt.executeUpdate();
+        }
+    }
+
+    // _________________________________________________________
+
+    public static void deleteOrderItem(int orderID, int productID) throws SQLException {
+        String sql = "DELETE FROM order_items WHERE order_id = ? AND product_id = ?";
+        try (Connection conn = Database.getConnection();
+             PreparedStatement stmt = conn.prepareStatement(sql)) {
+            stmt.setInt(1, orderID);
+            stmt.setInt(2, productID);
+            stmt.executeUpdate();
+        }
+    }
+
+    // _________________________________________________________
+
+    public static void deleteAmount(int orderID, int productID, int amount) throws SQLException {
+        String sql = "UPDATE order_items SET quantity = quantity - ? WHERE order_id = ? AND product_id = ? RETURNING quantity";
+        try (Connection conn = Database.getConnection();
+             PreparedStatement stmt = conn.prepareStatement(sql)) {
+            stmt.setInt(1, amount);
+            stmt.setInt(2, orderID);
+            stmt.setInt(3, productID);
+
+            ResultSet rs = stmt.executeQuery();
+
+
+            if (rs.next()) {
+                int newQuantity = rs.getInt("quantity");
+                if (newQuantity <= 0) {
+                    deleteOrderItem(orderID, productID);
+                }
+            }
+        }
+    }
+
+    // _________________________________________________________
+
+    public static void emptyBasket(int orderID) throws SQLException {
+        String sql = "DELETE FROM order_items WHERE order_id = ?";
+        try (Connection conn = Database.getConnection();
+             PreparedStatement stmt = conn.prepareStatement(sql)) {
+            stmt.setInt(1, orderID);
+            stmt.executeUpdate();
+        }
+    }
+
+    // _________________________________________________________
+
+    public static ArrayList<OrderItem> getOrderByID(int orderID) throws SQLException {
+        ArrayList<OrderItem> orderItems = new ArrayList<>();
+
+        String sql = "SELECT * FROM order_items " +
+                "JOIN products ON order_items.product_id = products.id " +
+                "WHERE order_items.order_id = ?";
+
+        try (Connection conn = Database.getConnection();
+             PreparedStatement stmt = conn.prepareStatement(sql)) {
+
+            stmt.setInt(1, orderID);
+
+            try (ResultSet rs = stmt.executeQuery()) {
+                while (rs.next()) {
+                    int productId = rs.getInt("product_id");
+                    String title = rs.getString("name");
+                    String description = rs.getString("description");
+                    double price = rs.getDouble("price");
+                    int quantity = rs.getInt("quantity");
+
+                    orderItems.add(new OrderItem(productId, title, description, price, quantity));
+                }
+            }
+        }
+
+        return orderItems;
+    }
+
 
 } // OrderItemMapper end
