@@ -50,7 +50,7 @@ public class CartController {
                 int productId = Integer.parseInt(productIdStr);
                 Product p = productMapper.getById(productId);
                 if (p == null) {
-                    ctx.status(404).result("NEJ ikke fundet");
+                    ctx.redirect("/order?error=productNotFound");
                     return;
                 }
                 item.setProductId(productId);
@@ -67,7 +67,7 @@ public class CartController {
                     ps.setInt(2, toppingId);
                     var rs = ps.executeQuery();
                     if (!rs.next()) {
-                        ctx.status(404).result("Kombination ikke fundet");
+                        ctx.redirect("/order?error=comboNotFound");
                         return;
                     }
                     String fname = rs.getString("fname");
@@ -81,7 +81,7 @@ public class CartController {
                     item.setUnitPrice(fprice + tprice);
                 }
             } else {
-                ctx.status(400).result("Ugyldige parametre");
+                ctx.redirect("/order?error=invalidParams");
                 return;
             }
 
@@ -100,9 +100,9 @@ public class CartController {
 
             ctx.json(payload);
         } catch (SQLException e) {
-            ctx.status(500).result("Database fejl");
+            ctx.redirect("/order?error=dbError");
         } catch (Exception e) {
-            ctx.status(400).result("Fejl");
+            ctx.redirect("/order?error=cartError");
         }
     }
 
