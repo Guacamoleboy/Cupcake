@@ -28,6 +28,7 @@
     <script src="/js/admin-menu.js" defer></script>
     <script src="/js/auth.js" defer></script>
     <script src="/js/notification.js" defer></script>
+    <script src="/js/scroll-fix.js" defer></script>
 
     <!-- Modules -->
     <script type="module" src="/js/components/navbar.js" defer></script>
@@ -244,8 +245,8 @@
             <div class="content-section">
                 <h2>Hurtig Navigation</h2>
                 <p>Vælg herunder for hurtigere navigation</p>
-                <button type="button" class="guac-btn action-btn">Søg efter ordre</button>
-                <button type="button" class="guac-btn action-btn">Se alle ordre</button>
+                <a class="guac-btn action-btn" href="#searchOrderSection">Søg efter ordre</a>
+                <a class="guac-btn action-btn" href="#seeAllOrdersSection">Se alle ordre</a>
             </div>
             <!--  Content Section -->
 
@@ -254,7 +255,7 @@
             <hr class="section-divider">
 
             <!--  Content Section -->
-            <div class="content-section">
+            <div class="content-section" id="searchOrderSection">
                 <h2>Søg efter ordre</h2>
                 <p>Indtast dine oplysninger herunder:</p>
                 <div class="guac-row input-group">
@@ -272,8 +273,8 @@
             <hr class="section-divider">
 
             <!--  Content Section -->
-            <div class="content-section">
-                <h2>Se alle ordre</h2>
+            <div class="content-section" id="seeAllOrdersSection">
+                <h2>Se alle dine ordre</h2>
                 <p>Her kan du se alle dine ordre</p>
                 <button type="button" class="guac-btn action-btn">Vis alle ordre</button>
             </div>
@@ -293,9 +294,9 @@
             <div class="content-section">
                 <h2>Hurtig Navigation</h2>
                 <p>Vælg herunder for hurtigere navigation</p>
-                <button type="button" class="guac-btn action-btn">Aktive returneringer</button>
-                <button type="button" class="guac-btn action-btn">Tidligere returneringer</button>
-                <button type="button" class="guac-btn action-btn">Opret ny returnering</button>
+                <a class="guac-btn action-btn" href="#activeReturnsSection">Aktive returneringer</a>
+                <a class="guac-btn action-btn" href="#pastReturnsSection">Tidligere returneringer</a>
+                <a class="guac-btn action-btn" href="#createReturnSection">Opret ny returnering</a>
             </div>
             <!--  Content Section -->
 
@@ -304,7 +305,7 @@
             <hr class="section-divider">
 
             <!--  Content Section -->
-            <div class="content-section">
+            <div class="content-section" id="activeReturnsSection">
                 <h2>Aktive returneringer</h2>
                 <p>Herunder kan du se dine aktive returneringer:</p>
                 <button type="button" class="guac-btn action-btn">Opdater</button>
@@ -316,7 +317,7 @@
             <hr class="section-divider">
 
             <!--  Content Section -->
-            <div class="content-section">
+            <div class="content-section" id="pastReturnsSection">
                 <h2>Tidligere returneringer</h2>
                 <p>Herunder kan du se dine tidligere returneringer:</p>
                 <button type="button" class="guac-btn action-btn">Opdater</button>
@@ -328,7 +329,7 @@
             <hr class="section-divider">
 
             <!--  Content Section -->
-            <div class="content-section">
+            <div class="content-section" id="createReturnSection">
                 <h2>Opret ny returnering</h2>
                 <p>Udfyld oplysningerne herunder:</p>
                 <div class="guac-row input-group">

@@ -74,35 +74,29 @@ public class OrderMapper {
     // _________________________________________________________
     // Create a new order
 
-    public void newOrder(Order order) throws SQLException {
-        String sql = "INSERT INTO orders (user_id, status) VALUES (?, ?)";
+    public Order newOrder(int userID) throws SQLException {
+        String sql = "INSERT INTO orders (user_id) VALUES (?)";
         try (Connection conn = Database.getConnection();
              PreparedStatement stmt = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
 
-            stmt.setInt(1, order.getUser().getId());
-            stmt.setString(2, order.getStatus());
+            stmt.setInt(1, userID);
 
             stmt.executeUpdate();
 
             ResultSet keys = stmt.getGeneratedKeys();
             if (keys.next()) {
-                order.setId(keys.getInt(1));
+                return new Order(keys.getInt(1), userID);
+                //order.setId(keys.getInt(1));
             }
 
-            // Insert order items if any
-            if (order.getItems() != null) {
-                for (OrderItem item : order.getItems()) {
-                    item.setOrderId(order.getId());
-                    orderItemMapper.newOrderItem(item);
-                }
-            }
         }
+        return null;
     }
 
     // _________________________________________________________
     // Update an order
 
-    public void update(Order order) throws SQLException {
+    /*public void update(Order order) throws SQLException {
         String sql = "UPDATE orders SET user_id = ?, status = ? WHERE id = ?";
         try (Connection conn = Database.getConnection();
              PreparedStatement stmt = conn.prepareStatement(sql)) {
@@ -119,13 +113,13 @@ public class OrderMapper {
                     if (item.getId() > 0) {
                         orderItemMapper.update(item);
                     } else {
-                        item.setOrderId(order.getId());
+                        //item.setOrderId(order.getId());
                         orderItemMapper.newOrderItem(item);
                     }
                 }
             }
         }
-    }
+    }*/
 
     // _________________________________________________________
     // Delete
@@ -155,7 +149,7 @@ public class OrderMapper {
         order.setUser(user);
 
         // Set items
-        List<OrderItem> items = orderItemMapper.getByOrderId(order.getId());
+        List<OrderItem> items = orderItemMapper.getOrderByID(order.getId());
         order.setItems(new ArrayList<>(items));
 
         return order;

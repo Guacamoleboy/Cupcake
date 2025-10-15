@@ -10,20 +10,27 @@
     <meta name="author" content="Gruppe D"> <!-- Author of Website -->
 
     <!-- Visuals -->
-    <title>Olsker Cupcakes</title>
+    <title>Olsker Cupcakes - Custom</title>
 
     <!-- Icon -->
     <link rel="icon" href="/images/icons/cupcake-1.png" type="image/x-icon"> <!-- That little logo thats next to the title in URL -->
     <link rel="apple-touch-icon" href="/images/icons/cupcake-1.png">
 
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href=css/font-awesome-4.7.0.min.css>
+
     <!-- CSS Load -->
     <link rel="stylesheet" href="/css/style.css">
 
-    <!-- Scripts can also be loaded here with defer -->
     <!-- Framwork load -->
     <link rel="stylesheet" href="/css/guacamoleboy-wow.css">
     <link rel="stylesheet" href="/css/guacamoleboy-framework.css">
     <script src="/js/guacamoleboy-wow.js" defer></script>
+
+    <!-- Script -->
+    <script src="/js/custom.js" defer></script>
+    <script src="js/cart.js" defer></script>
+    <script src="js/order.js" defer></script>
 
     <!-- Modules -->
     <script type="module" src="/js/components/navbar.js" defer></script>
@@ -71,38 +78,28 @@
                         <div class="cupcake-field">
                             <label for="top">Vælg top</label>
                             <select id="top" name="top">
-                                <option value="" disabled selected hidden>Vælg topping</option>
-                                <option value="jordbaer">Jordbær</option>
-                                <option value="blaabaer">Blåbær</option>
-                                <option value="hindbaer">Hindbær</option>
-                                <option value="chokoladeglasur">Chokoladeglasur</option>
-                                <option value="vaniljeglasur">Vaniljeglasur</option>
-                                <option value="karamelglasur">Karamelglasur</option>
-                                <option value="citron">Citron</option>
-                                <option value="lakrids">Lakrids</option>
-                                <option value="mandel">Mandel</option>
-                                <option value="kokos">Kokos</option>
-                                <option value="mokka">Mokka</option>
-                                <option value="hindbaerfrosting">Hindbærfrosting</option>
+                                <option value="">Topping</option>
+                                <option value="Jordbær">Jordbær</option>
+                                <option value="Hindbær">Hindbær</option>
+                                <option value="Chokolade">Chokolade</option>
+                                <option value="Flødeskum">Flødeskum</option>
+                                <option value="Marshmallow Sprinkle">Marshmallow Sprinkle</option>
+                                <option value="Skum">Skum</option>
+                                <option value="Marengs">Marengs</option>
+                                <option value="Vaniljeskum">Vaniljeskum</option>
+                                <option value="Is">Is</option>
+                                <option value="Marshmallow Fluff">Marshmallow Fluff</option>
                             </select>
                         </div>
 
                         <div class="cupcake-field">
                             <label for="bund">Vælg bund</label>
                             <select id="bund" name="bund">
-                                <option value="" disabled selected hidden>Vælg bund</option>
-                                <option value="chokolade">Chokolade</option>
-                                <option value="vanilje">Vanilje</option>
-                                <option value="karamel">Karamel</option>
-                                <option value="citron">Citron</option>
-                                <option value="banan">Banan</option>
-                                <option value="redvelvet">Red Velvet</option>
-                                <option value="lakrids">Lakrids</option>
-                                <option value="mandel">Mandel</option>
-                                <option value="kokos">Kokos</option>
-                                <option value="hindbaer">Hindbær</option>
-                                <option value="blomme">Blomme</option>
-                                <option value="mokka">Mokka</option>
+                                <option value="">Bund</option>
+                                <option value="Chokolade">Chokolade</option>
+                                <option value="Vanilje">Vanilje</option>
+                                <option value="Red Velvet">Red Velvet</option>
+                                <option value="Sandkage">Sandkage</option>>
                             </select>
                         </div>
 
@@ -138,6 +135,14 @@
     <!-- Footer Nav -->
     <div id="footer-nav-component"></div>
     <!-- Next Section End -->
+
+    <!-- Cart Button Start -->
+    <div class="cart-btn-wrapper"></div>
+    <!-- Cart Button End -->
+
+    <!-- Shopping Cart -->
+    <div id="cart-container"></div>
+    <!-- Shopping Cart -->
 
 
 </body>

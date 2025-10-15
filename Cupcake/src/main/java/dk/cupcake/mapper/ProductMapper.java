@@ -10,8 +10,20 @@ import java.util.List;
 
 public class ProductMapper {
 
+    public static class ComboResult {
+        private final String name;
+        private final double price;
+
+        public ComboResult(String name, double price) {
+            this.name = name;
+            this.price = price;
+        }
+
+        public String getName() { return name; }
+        public double getPrice() { return price; }
+    }
+
     // _________________________________________________________
-    // Gets a product by id
 
     public Product getById(int id) throws SQLException {
         String sql = "SELECT * FROM products WHERE id = ?";
@@ -44,17 +56,14 @@ public class ProductMapper {
     }
 
     // _________________________________________________________
-    // Gets products by category
 
     public List<Product> getByCategoryId(int categoryId) throws SQLException {
         List<Product> products = new ArrayList<>();
         String sql = "SELECT * FROM products WHERE category_id = ?";
         try (Connection conn = Database.getConnection();
              PreparedStatement stmt = conn.prepareStatement(sql)) {
-
             stmt.setInt(1, categoryId);
             ResultSet rs = stmt.executeQuery();
-
             while (rs.next()) {
                 products.add(toProduct(rs));
             }
@@ -63,7 +72,6 @@ public class ProductMapper {
     }
 
     // _________________________________________________________
-    // Creates a new product
 
     public void newProduct(Product p) throws SQLException {
         String sql = "INSERT INTO products (name, description, price, image_url, category_id) VALUES (?, ?, ?, ?, ?)";
@@ -86,7 +94,6 @@ public class ProductMapper {
     }
 
     // _________________________________________________________
-    // Updates a product
 
     public void update(Product p) throws SQLException {
         String sql = "UPDATE products SET name = ?, description = ?, price = ?, image_url = ?, category_id = ? WHERE id = ?";
@@ -105,7 +112,6 @@ public class ProductMapper {
     }
 
     // _________________________________________________________
-    // Deletes a product
 
     public void delete(int id) throws SQLException {
         String sql = "DELETE FROM products WHERE id = ?";
@@ -118,7 +124,6 @@ public class ProductMapper {
     }
 
     // _________________________________________________________
-    // Diddy
 
     private Product toProduct(ResultSet rs) throws SQLException {
         Product p = new Product();
@@ -129,7 +134,100 @@ public class ProductMapper {
         p.setImageUrl(rs.getString("image_url"));
         p.setCategoryId(rs.getInt("category_id"));
         p.setCreatedAt(rs.getTimestamp("created_at"));
+        p.setFlavor_id(rs.getInt("flavor_id"));
+        p.setTopping_id(rs.getInt("topping_id"));
         return p;
+    }
+
+    // _________________________________________________________
+
+    public List<Product> getByTopping(String topping) throws SQLException {
+        List<Product> products = new ArrayList<>();
+        String sql = "SELECT p.* FROM products p " +
+                "JOIN cupcake_toppings t ON t.id = p.topping_id " +
+                "WHERE LOWER(t.name) = LOWER(?)";
+        try (Connection conn = Database.getConnection();
+             PreparedStatement stmt = conn.prepareStatement(sql)) {
+            stmt.setString(1, topping);
+            ResultSet rs = stmt.executeQuery();
+            while (rs.next()) {
+                products.add(toProduct(rs));
+            }
+        }
+        return products;
+    }
+
+    // _________________________________________________________
+
+    public List<Product> getByBund(String bund) throws SQLException {
+        List<Product> products = new ArrayList<>();
+        String sql = "SELECT p.* FROM products p " +
+                "JOIN cupcake_flavor f ON f.id = p.flavor_id " +
+                "WHERE LOWER(f.name) = LOWER(?)";
+        try (Connection conn = Database.getConnection();
+             PreparedStatement stmt = conn.prepareStatement(sql)) {
+            stmt.setString(1, bund);
+            ResultSet rs = stmt.executeQuery();
+            while (rs.next()) {
+                products.add(toProduct(rs));
+            }
+        }
+        return products;
+    }
+
+    // _________________________________________________________
+
+    public List<Product> searchByName(String name) throws SQLException {
+        List<Product> products = new ArrayList<>();
+        String sql = "SELECT * FROM products WHERE LOWER(name) LIKE LOWER(?)";
+        try (Connection conn = Database.getConnection();
+             PreparedStatement stmt = conn.prepareStatement(sql)) {
+            stmt.setString(1, "%" + name + "%");
+            ResultSet rs = stmt.executeQuery();
+            while (rs.next()) {
+                products.add(toProduct(rs));
+            }
+        }
+        return products;
+    }
+
+    // _________________________________________________________
+
+    public List<Product> getByToppingAndBund(String topping, String bund) throws SQLException {
+        List<Product> products = new ArrayList<>();
+        String sql = "SELECT p.* FROM products p " +
+                "JOIN cupcake_toppings t ON t.id = p.topping_id " +
+                "JOIN cupcake_flavor f ON f.id = p.flavor_id " +
+                "WHERE t.name = ? AND f.name = ?";
+        try (Connection conn = Database.getConnection();
+             PreparedStatement stmt = conn.prepareStatement(sql)) {
+            stmt.setString(1, topping);
+            stmt.setString(2, bund);
+            ResultSet rs = stmt.executeQuery();
+            while (rs.next()) {
+                products.add(toProduct(rs));
+            }
+        }
+        return products;
+    }
+
+    // _________________________________________________________
+
+    public ComboResult getCupcakeCombo(int flavorId, int toppingId) throws SQLException {
+        String sql = "SELECT f.name AS fname, f.price AS fprice, t.name AS tname, t.price AS tprice " +
+                "FROM cupcake_flavor f, cupcake_toppings t WHERE f.id = ? AND t.id = ?";
+        try (Connection conn = Database.getConnection();
+             PreparedStatement ps = conn.prepareStatement(sql)) {
+            ps.setInt(1, flavorId);
+            ps.setInt(2, toppingId);
+            ResultSet rs = ps.executeQuery();
+            if (!rs.next()) return null;
+            String fname = rs.getString("fname");
+            double fprice = rs.getDouble("fprice");
+            String tname = rs.getString("tname");
+            double tprice = rs.getDouble("tprice");
+            return new ComboResult(fname + " + " + tname, fprice + tprice);
+        }
     }
 
 } // ProductMapper end

@@ -2,7 +2,14 @@
 package dk.cupcake.entities;
 
 // Imports
+import dk.cupcake.mapper.OrderItemMapper;
+import dk.cupcake.mapper.OrderMapper;
+import dk.cupcake.mapper.UserMapper;
+import dk.cupcake.server.ThymeleafSetup;
+import io.javalin.Javalin;
+import java.sql.SQLException;
 import java.sql.Timestamp;
+import java.time.Instant;
 import java.util.*;
 
 public class Order {
@@ -13,6 +20,26 @@ public class Order {
     private String status;
     private Timestamp createdAt;
     private ArrayList<OrderItem> items;
+    OrderItemMapper OrderItemMapper = new OrderItemMapper();
+
+    // ___________________________________________________
+
+    public Order(int id, int userID) throws SQLException {
+        UserMapper userMapper = new UserMapper();
+        this.id = id;
+        this.user = userMapper.getById(userID);
+        this.status = "open";
+        this.createdAt = Timestamp.from(Instant.now());
+        this.items = new ArrayList<>();
+    }
+
+    // ___________________________________________________
+
+    public Order() {
+        this.items = new ArrayList<>();
+        this.status = "open";
+        this.createdAt = Timestamp.from(Instant.now());
+    }
 
     // ___________________________________________________
 
@@ -72,6 +99,56 @@ public class Order {
 
     public void setStatus(String status) {
         this.status = status;
+    }
+
+    // ___________________________________________________
+
+    public void addToOrder(OrderItem newItem, int orderID) throws SQLException {
+
+        if (items == null) {
+            items = new ArrayList<>();
+        }
+
+        boolean found = false;
+
+        for (OrderItem item : items) {
+            if (item.getProductId() == newItem.getProductId()) {
+                item.setQuantity(item.getQuantity() + newItem.getQuantity());
+                found = true;
+                if (orderID > 0) {
+                    OrderItemMapper.updateQuantity(orderID, item.getProductId(), item.getQuantity());
+                }
+                break;
+            }
+        }
+
+        if (!found) {
+            if (orderID > 0) {
+                OrderItemMapper.addOrderItem(orderID, newItem);
+            }
+            items.add(newItem);
+        }
+    }
+
+    // ___________________________________________________
+
+    public void removeFromOrder(int productId, int amount, int orderID) throws SQLException {
+        for (int i = 0; i < items.size(); i++) {
+            OrderItem item = items.get(i);
+
+            if (item.getProductId() == productId) {
+                int newQuantity = item.getQuantity() - amount;
+
+                if (newQuantity > 0) {
+                    item.setQuantity(newQuantity);
+                    OrderItemMapper.deleteAmount(orderID, productId, amount);
+                } else {
+                    items.remove(i);
+                    OrderItemMapper.deleteOrderItem(orderID, productId);
+                }
+                return;
+            }
+        }
     }
 
 } // Order end

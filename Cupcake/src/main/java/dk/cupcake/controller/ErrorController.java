@@ -2,12 +2,25 @@
 package dk.cupcake.controller;
 
 // Imports
+import io.javalin.Javalin;
 import io.javalin.http.Context;
 import dk.cupcake.server.ThymeleafSetup;
 
 public class ErrorController {
 
     // Attributes
+
+    // ______________________________________________________________
+
+    public static void registerErrorRoutes(Javalin app) {
+        app.error(400, ErrorController::handle400);
+        app.error(401, ErrorController::handle401);
+        app.error(403, ErrorController::handle403);
+        app.error(404, ErrorController::handle404);
+        app.error(429, ErrorController::handle429);
+        app.error(500, ErrorController::handle500);
+        app.error(503, ErrorController::handle503);
+    }
 
     // ______________________________________________________________
 

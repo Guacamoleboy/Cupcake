@@ -16,11 +16,6 @@ const navbarHTML = `
             <ul class="navbar-menu guac-d-flex guac-gap-3">
                 <li class="dropdown">
                     <a href="/order">Menu</a>
-                    <ul class="dropdown-menu guac-animate guac-fade-in">
-                        <li><a href="/order">Chokolade</a></li>
-                        <li><a href="/order">Vanilje</a></li>
-                        <li><a href="/order">Red Velvet</a></li>
-                    </ul>
                 </li>
                 <li><a href="/custom">Custom Cupcake</a></li>
                 <li><a href="/galleri">Galleri</a></li>

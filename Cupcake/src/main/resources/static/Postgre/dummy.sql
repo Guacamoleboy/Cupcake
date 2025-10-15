@@ -9,30 +9,53 @@ INSERT INTO users (email, password_hash, role, username) VALUES
 ('ebou@live.dk', crypt('Ebou', gen_salt('bf')), 'customer', 'Ebou'),
 ('rovelt123@live.dk', crypt('rovelt123', gen_salt('bf')), 'customer', 'Rovelt123');
 
-/* Cupcake Flavor */
+/* Cupcake Flavor (bunde) */
 INSERT INTO cupcake_flavor (name, price) VALUES
 ('Chokolade', 15.00),
 ('Vanilje', 12.50),
-('Halloween', 17.00),
 ('Red Velvet', 16.00),
-('Double Chocolate', 19.00);
+('Sandkage', 13.50);
 
 /* Cupcake Toppings */
 INSERT INTO cupcake_toppings (name, price) VALUES
-('Jordbær', 7.50),
-('Chokoladeglasur', 8.00),
+('Jordbær', 6.00),
+('Chokolade', 6.50),
+('Hindbær', 6.00),
 ('Flødeskum', 5.00),
-('Nossehår', 20.00), /* Det vokser langsomt bby girl.. Derfor prisen jooooooooo */
-('Vaniljecreme', 12.00);
+('Marshmallow Sprinkle', 6.50),
+('Skum', 5.00),
+('Marshmallow Fluff', 6.50),
+('Is', 7.00),
+('Vaniljeskum', 5.50),
+('Marengs', 6.00);
 
 /* Categories */
 INSERT INTO categories (name) VALUES
-('Chokolade'), ('Frugt'), ('Creme');
+('Chokolade'),
+('Frugt'),
+('Creme');
 
-/* Products */
-INSERT INTO products (name, description, price, image_url, category_id) VALUES
-('Jordbær Cupcake', 'Et pust i nakken af Diddy', 25.00, '/static/images/products/cupcake-2.png', 2),
-('Chokolade Cupcake', 'Epstein for president', 28.00, '/static/images/products/cupcake-3.png', 1);
+/* Products (flavor_id = bund) */
+INSERT INTO products (name, description, price, image_url, category_id, topping_id, flavor_id) VALUES
+('Det røde bær', 'Red velvet bund med frisk jordbærtop.', 29.95, 'images/products/cupcake-1.png', 2, 1, 3),
+('Cherry On Top', 'Blød vaniljebund toppet med chokoladecreme.', 27.95, 'images/products/cupcake-2.png', 2, 2, 2),
+('Hindbærdrøm', 'Vaniljebund med sød hindbærtopping.', 27.95, 'images/products/cupcake-3.png', 2, 3, 2),
+('Skumtop', 'Rig chokoladebund toppet med let flødeskum.', 28.95, 'images/products/cupcake-4.png', 3, 4, 1),
+('Sweet Delight', 'Vanilje med marshmallow og farverige sprinkles.', 28.95, 'images/products/cupcake-5.png', 3, 5, 2),
+('Skykys', 'Luftig vanilje med luftig skumtopping.', 27.95, 'images/products/cupcake-6.png', 3, 6, 2),
+('Sommerdrøm', 'Sandkagebund med frisk skum – en sommerfavorit.', 27.95, 'images/products/cupcake-7.png', 2, 6, 4),
+('Julehjerte', 'Chokolade og skum i julet harmoni.', 28.95, 'images/products/cupcake-8.png', 1, 6, 1),
+('Midnatsskum', 'Dyb chokolade med mørk skumtop.', 28.95, 'images/products/cupcake-9.png', 1, 6, 1),
+('Double Trouble', 'Ren chokolade i to lag – for ægte chokoladeelskere.', 29.95, 'images/products/cupcake-10.png', 1, 2, 1),
+('Vanilla Cloud', 'Lys vanilje med let flødeskum.', 27.95, 'images/products/cupcake-11.png', 3, 4, 2),
+('Velvet Kiss', 'Red velvet og skum i blød harmoni.', 28.95, 'images/products/cupcake-12.png', 2, 6, 3),
+('Bærlyst', 'Chokolade med bær og flødeskum – frisk og intens.', 29.95, 'images/products/cupcake-13.png', 2, 1, 1),
+('Kakao Klassik (Jul)', 'Ren chokoladekage til juletid.', 26.95, 'images/products/cupcake-14.png', 1, 2, 1),
+('Frosty Dream', 'Vanilje med iskold topping – perfekt til sommer.', 29.95, 'images/products/cupcake-15.png', 3, 8, 2),
+('Fluffy Cocoa', 'Chokoladebund med marshmallow fluff.', 28.95, 'images/products/cupcake-16.png', 1, 7, 1),
+('Choco Creamy', 'Chokolade og vanilje i cremet balance.', 28.95, 'images/products/cupcake-17.png', 1, 2, 2),
+('Snefnug', 'Julens vaniljekage med let skum.', 28.95, 'images/products/cupcake-18.png', 3, 6, 2),
+('Crispy Cocoa', 'Chokoladebund toppet med sprød marengs.', 28.95, 'images/products/cupcake-19.png', 1, 10, 1);
 
 /* Orders (Total) */
 INSERT INTO orders (user_id, status) VALUES
@@ -55,3 +78,5 @@ INSERT INTO transactions (user_id, amount, description) VALUES
 INSERT INTO transactions (user_id, amount, description) VALUES
 (2, -48.00, 'Payment for your order (#591915915)'); -- Payment
 */
+
+TRUNCATE TABLE products RESTART IDENTITY CASCADE;

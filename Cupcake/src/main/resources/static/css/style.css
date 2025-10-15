@@ -178,6 +178,8 @@ body::-webkit-scrollbar { /* All other browsers */
 }
 
 .subpage .hero {
+    background: url(../images/backgrounds/20.jpg) no-repeat center 90% fixed;
+    background-size: cover;
     position: relative;
     height: 45rem !important;
 }
@@ -827,7 +829,7 @@ body::-webkit-scrollbar { /* All other browsers */
 .exit-btn-profile {
     text-decoration: none !important;
     position: absolute;
-    bottom: 3rem;
+    bottom: 5rem;
     left: 50%;
     transform: translateX(-50%);
     transform-origin: center;
@@ -855,8 +857,8 @@ body::-webkit-scrollbar { /* All other browsers */
 /* ___________________________________________ */
 
 .cart-btn-wrapper {
-    /*display: none !important;*/
-    text-decoration: none !important; /* Underline on <a> element */
+    display: none;
+    text-decoration: none !important;
     position: fixed;
     bottom: 1.5rem;
     right: 1.5rem;
@@ -1717,6 +1719,29 @@ body::-webkit-scrollbar { /* All other browsers */
     color: #c9b3b1;
     transform: translateY(2px);
     text-decoration: none;
+}
+
+.go-payment-btn {
+    font-family: 'Itim', cursive !important;
+    display: block;
+    width: 100%;
+    margin-top: 1rem;
+    padding: 0.5rem 0.5rem;
+    background-color: #a85252;
+    color: var(--cupcake-white);
+    border: 2px solid var(--cupcake-less-white);
+    border-radius: 8px;
+    font-size: 1.1rem;
+    font-weight: 600;
+    cursor: pointer;
+    text-align: center;
+    transition: background-color 0.3s ease, transform 0.2s ease, color 0.3s ease;
+}
+
+.go-payment-btn:hover {
+    background-color: var(--cart-button-background-hover);
+    color: var(--cart-button-background-hover-text);
+    transform: scale(1.02);
 }
 
 .menu-filters {
