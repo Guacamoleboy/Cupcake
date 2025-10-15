@@ -7,7 +7,6 @@ import dk.cupcake.mapper.OrderMapper;
 import dk.cupcake.mapper.UserMapper;
 import dk.cupcake.server.ThymeleafSetup;
 import io.javalin.Javalin;
-
 import java.sql.SQLException;
 import java.sql.Timestamp;
 import java.time.Instant;
@@ -23,6 +22,8 @@ public class Order {
     private ArrayList<OrderItem> items;
     OrderItemMapper OrderItemMapper = new OrderItemMapper();
 
+    // ___________________________________________________
+
     public Order(int id, int userID) throws SQLException {
         UserMapper userMapper = new UserMapper();
         this.id = id;
@@ -32,8 +33,13 @@ public class Order {
         this.items = new ArrayList<>();
     }
 
-    //Hvis man vil lave en order og sætte attributter efterfølgende (???) JONAS
-    public Order() {};
+    // ___________________________________________________
+
+    public Order() {
+        this.items = new ArrayList<>();
+        this.status = "open";
+        this.createdAt = Timestamp.from(Instant.now());
+    }
 
     // ___________________________________________________
 
@@ -98,22 +104,28 @@ public class Order {
     // ___________________________________________________
 
     public void addToOrder(OrderItem newItem, int orderID) throws SQLException {
+
+        if (items == null) {
+            items = new ArrayList<>();
+        }
+
         boolean found = false;
 
         for (OrderItem item : items) {
             if (item.getProductId() == newItem.getProductId()) {
-
                 item.setQuantity(item.getQuantity() + newItem.getQuantity());
                 found = true;
-
-
-                OrderItemMapper.updateQuantity(orderID, item.getProductId(), item.getQuantity());
+                if (orderID > 0) {
+                    OrderItemMapper.updateQuantity(orderID, item.getProductId(), item.getQuantity());
+                }
                 break;
             }
         }
 
         if (!found) {
-            OrderItemMapper.addOrderItem(orderID, newItem);
+            if (orderID > 0) {
+                OrderItemMapper.addOrderItem(orderID, newItem);
+            }
             items.add(newItem);
         }
     }

@@ -9,9 +9,9 @@ import java.sql.SQLException;
 public class Database {
 
     // Attributes
-    private static final String URL = "jdbc:postgresql://localhost:5432/Cupcake";
+    private static final String URL = "jdbc:postgresql://localhost:5433/Cupcake";
     private static final String USER = "postgres";
-    private static final String PASSWORD = "postgres";
+    private static final String PASSWORD = "dinmor";
 
     // ________________________________________________
 
