@@ -19,7 +19,7 @@ public class OrderController {
 
     // ______________________________________________________________
 
-    public static void registerErrorRoutes(Javalin app) {
+    public static void registerRoutes(Javalin app) {
         app.get("/tak", ctx -> ctx.html(ThymeleafSetup.render("tak.html", null)));
         app.get("/tak-ordre", ctx -> ctx.html(ThymeleafSetup.render("tak-order.html", null)));
         app.get("/payment", ctx -> ctx.html(ThymeleafSetup.render("payment.html", null)));
@@ -42,7 +42,6 @@ public class OrderController {
         });
 
         app.post("/cart/add", ctx -> {
-
             User user = ctx.sessionAttribute("user");
             if(user == null) return;
 
@@ -56,7 +55,7 @@ public class OrderController {
             double price = Double.parseDouble(ctx.formParam("price"));
             String description = ctx.formParam("description");
             int top = Integer.parseInt(ctx.formParam("topping"));
-            int buttom = Integer.parseInt(ctx.formParam("buttom"));
+            int buttom = Integer.parseInt(ctx.formParam("bottom"));
 
 
 

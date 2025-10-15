@@ -125,6 +125,21 @@ document.addEventListener("DOMContentLoaded", function() {
                 localStorage.setItem("seenNewCupcakeMessage", "true");
             }
             break;
+        case "productNotFound":
+            showNotification("Produktet blev ikke fundet.", "red");
+            break;
+        case "comboNotFound":
+            showNotification("Cupcake-kombinationen blev ikke fundet.", "red");
+            break;
+        case "invalidParams":
+            showNotification("Ugyldige parametre tilføjet.", "red");
+            break;
+        case "dbError":
+            showNotification("Database fejl. Prøv igen.", "red");
+            break;
+        case "cartError":
+            showNotification("Der opstod en fejl i kurven.", "red");
+            break;
     }
 
 });

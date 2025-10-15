@@ -13,6 +13,8 @@ public class Product {
     private double price;
     private String imageUrl;
     private int categoryId;
+    private int topping_id;
+    private int flavor_id;
     private Timestamp createdAt;
 
     // ___________________________________________________
@@ -99,5 +101,28 @@ public class Product {
         this.createdAt = createdAt;
     }
 
+    // ___________________________________________________
+
+    public int getTopping_id() {
+        return topping_id;
+    }
+
+    // ___________________________________________________
+
+    public void setTopping_id(int topping_id) {
+        this.topping_id = topping_id;
+    }
+
+    // ___________________________________________________
+
+    public int getFlavor_id() {
+        return flavor_id;
+    }
+
+    // ___________________________________________________
+
+    public void setFlavor_id(int flavor_id) {
+        this.flavor_id = flavor_id;
+    }
 
 } // Product end

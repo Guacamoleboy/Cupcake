@@ -37,6 +37,7 @@
     <script type="module" src="js/components/footer-nav.js" defer></script>
     <script type="module" src="js/generic/toJava.js" defer></script>
 
+
 </head>
 <body class="subpage">
 
@@ -147,11 +148,16 @@
                             <p class="cupcake-desc guac-pt-3" th:text="${p.description}"></p>
                             <p class="cupcake-price guac-pt-3" th:text="${p.price + ' kr'}"></p>
                             <button type="button" class="add-product"
-                                    th:attr="data-id=${p.id}, data-name=${p.name}, data-price=${p.price}, data-description=${p.description}, data-topping=${p.topping_id}, data-bottom=${p.bottom_id}"
+                                    th:attr="
+                                        data-id=${p.id},
+                                        data-name=${p.name},
+                                        data-price=${p.price},
+                                        data-description=${p.description},
+                                        data-topping=${p.topping_id},
+                                        data-bottom=${p.flavor_id}"
                                     onclick="callJavaMethod('/cart/add', this)">
                                 Tilføj til kurv
                             </button>
-                            <!--<a href="#" class="add-product">Tilføj til kurv</a> -->
                         </div>
                     </div>
                 </div>

@@ -140,7 +140,7 @@ public class OrderItemMapper {
     // _________________________________________________________
 
     public static void addOrderItem(int orderID, OrderItem item) throws SQLException {
-        String sql = "INSERT INTO order_items (order_id, product_id, quantity, topping_id, buttom_id) VALUES (?, ?, ?, ?, ?)";
+        String sql = "INSERT INTO order_items (order_id, product_id, quantity, topping_id, bottom_id) VALUES (?, ?, ?, ?, ?)";
         try (Connection conn = Database.getConnection();
              PreparedStatement stmt = conn.prepareStatement(sql)) {
             stmt.setInt(1, orderID);

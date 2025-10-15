@@ -10,6 +10,19 @@ import java.util.List;
 
 public class ProductMapper {
 
+    public static class ComboResult {
+        private final String name;
+        private final double price;
+
+        public ComboResult(String name, double price) {
+            this.name = name;
+            this.price = price;
+        }
+
+        public String getName() { return name; }
+        public double getPrice() { return price; }
+    }
+
     // _________________________________________________________
 
     public Product getById(int id) throws SQLException {
@@ -121,6 +134,8 @@ public class ProductMapper {
         p.setImageUrl(rs.getString("image_url"));
         p.setCategoryId(rs.getInt("category_id"));
         p.setCreatedAt(rs.getTimestamp("created_at"));
+        p.setFlavor_id(rs.getInt("flavor_id"));
+        p.setTopping_id(rs.getInt("topping_id"));
         return p;
     }
 
@@ -194,6 +209,25 @@ public class ProductMapper {
             }
         }
         return products;
+    }
+
+    // _________________________________________________________
+
+    public ComboResult getCupcakeCombo(int flavorId, int toppingId) throws SQLException {
+        String sql = "SELECT f.name AS fname, f.price AS fprice, t.name AS tname, t.price AS tprice " +
+                "FROM cupcake_flavor f, cupcake_toppings t WHERE f.id = ? AND t.id = ?";
+        try (Connection conn = Database.getConnection();
+             PreparedStatement ps = conn.prepareStatement(sql)) {
+            ps.setInt(1, flavorId);
+            ps.setInt(2, toppingId);
+            ResultSet rs = ps.executeQuery();
+            if (!rs.next()) return null;
+            String fname = rs.getString("fname");
+            double fprice = rs.getDouble("fprice");
+            String tname = rs.getString("tname");
+            double tprice = rs.getDouble("tprice");
+            return new ComboResult(fname + " + " + tname, fprice + tprice);
+        }
     }
 
 } // ProductMapper end
