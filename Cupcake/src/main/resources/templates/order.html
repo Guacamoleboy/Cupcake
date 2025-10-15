@@ -51,8 +51,6 @@
     <div class="guac-container">
         <div class="guac-row">
 
-
-
         </div>
     </div>
 
@@ -154,9 +152,8 @@
                                         data-price=${p.price},
                                         data-description=${p.description},
                                         data-topping=${p.topping_id},
-                                        data-bottom=${p.flavor_id}"
-                                    onclick="callJavaMethod('/cart/add', this)">
-                                Tilføj til kurv
+                                        data-bottom=${p.flavor_id}">
+                                    Tilføj til kurv
                             </button>
                         </div>
                     </div>
@@ -179,11 +176,12 @@
 <!-- Cupcake Section End -->
 
 <!-- Cart Button Start -->
-<!-- onClick fremfor href. Den skal kalde vores funktion i cart.js fremfor et link -->
-<div class="cart-btn-wrapper">
-    <a class="cart-btn" onClick="showCartPopup()"><i class="fa fa-shopping-cart" aria-hidden="true"></i></a>
-</div>
+<div class="cart-btn-wrapper"></div>
 <!-- Cart Button End -->
+
+<!-- Shopping Cart -->
+<div id="cart-container"></div>
+<!-- Shopping Cart -->
 
 <!-- Footer -->
 <div id="footer-component"></div>
@@ -192,10 +190,6 @@
 <!-- Footer Nav -->
 <div id="footer-nav-component"></div>
 <!-- Footer Nav -->
-
-<!-- Shopping Cart -->
-<div id="cart-container"></div>
-<!-- Shopping Cart -->
 
 </body>
 </html>
