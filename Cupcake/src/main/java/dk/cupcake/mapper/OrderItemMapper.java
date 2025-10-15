@@ -122,30 +122,33 @@ public class OrderItemMapper {
 
     private OrderItem toOrderItem(ResultSet rs) throws SQLException {
 
-
         int productId = rs.getInt("product_id");
         String title = rs.getString("name");
         String description = rs.getString("description");
         double price = rs.getDouble("price");
         int quantity = rs.getInt("quantity");
+        int top = rs.getInt("topping_id");
+        int buttom = rs.getInt("bottom_id");
 
-        OrderItem item = new OrderItem(productId, title, description, price, quantity);
+        OrderItem item = new OrderItem(productId, title, description, price, quantity, top, buttom);
 
         item.setId(rs.getInt("id"));
-        item.setBottomId(rs.getInt("bottom_id"));
-        item.setToppingId(rs.getInt("topping_id"));
+
         return item;
     }
 
     // _________________________________________________________
 
-    public static void AddOrderItem(int orderID, OrderItem item) throws SQLException {
-        String sql = "INSERT INTO order_items (order_id, product_id, quantity) VALUES (?, ?, ?)";
+    public static void addOrderItem(int orderID, OrderItem item) throws SQLException {
+        String sql = "INSERT INTO order_items (order_id, product_id, quantity, topping_id, buttom_id) VALUES (?, ?, ?, ?, ?)";
         try (Connection conn = Database.getConnection();
              PreparedStatement stmt = conn.prepareStatement(sql)) {
             stmt.setInt(1, orderID);
             stmt.setInt(2, item.getProductId());
             stmt.setInt(3, item.getQuantity());
+            stmt.setInt(4, item.getToppingId());
+            stmt.setInt(5, item.getBottomId());
+
             stmt.executeUpdate();
         }
     }
@@ -229,8 +232,10 @@ public class OrderItemMapper {
                     String description = rs.getString("description");
                     double price = rs.getDouble("price");
                     int quantity = rs.getInt("quantity");
+                    int top = rs.getInt("topping_id");
+                    int buttom = rs.getInt("flavor_id");
 
-                    orderItems.add(new OrderItem(productId, title, description, price, quantity));
+                    orderItems.add(new OrderItem(productId, title, description, price, quantity, top, buttom));
                 }
             }
         }

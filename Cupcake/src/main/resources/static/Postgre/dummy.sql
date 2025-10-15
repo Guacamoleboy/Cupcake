@@ -35,7 +35,7 @@ INSERT INTO categories (name) VALUES
 ('Frugt'),
 ('Creme');
 
-/* Products */
+/* Products (flavor_id = bund) */
 INSERT INTO products (name, description, price, image_url, category_id, topping_id, flavor_id) VALUES
 ('Det røde bær', 'Red velvet bund med frisk jordbærtop.', 29.95, 'images/products/cupcake-1.png', 2, 1, 3),
 ('Cherry On Top', 'Blød vaniljebund toppet med chokoladecreme.', 27.95, 'images/products/cupcake-2.png', 2, 2, 2),

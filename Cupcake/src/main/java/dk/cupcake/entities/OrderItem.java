@@ -7,7 +7,7 @@ public class OrderItem {
 
     // Attributes
     private int id;
-    //private int orderId; //Hvorfor have orderID?
+    // private int orderId;
     private int productId;
     private int bottomId;
     private int toppingId;
@@ -16,13 +16,14 @@ public class OrderItem {
     private String description;
     private double price;
 
-
-    public OrderItem(int productId, String title, String description, double price, int quantity) {
+    public OrderItem(int productId, String title, String description, double price, int quantity, int toppingId, int bottomId) {
         this.productId = productId;
         this.title = title;
         this.description = description;
         this.price = price;
         this.quantity = quantity;
+        this.toppingId = toppingId;
+        this.bottomId = bottomId;
     }
 
     // ___________________________________________________
@@ -39,8 +40,6 @@ public class OrderItem {
 
     // ___________________________________________________
 
-    //Hvorfor have orderID under order ???
-
     /*public int getOrderId() {
         return orderId;
     }
@@ -49,7 +48,7 @@ public class OrderItem {
 
     public void setOrderId(int orderId) {
         this.orderId = orderId;
-    } */
+    }*/
 
     // ___________________________________________________
 

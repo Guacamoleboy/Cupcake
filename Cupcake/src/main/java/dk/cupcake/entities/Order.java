@@ -113,7 +113,7 @@ public class Order {
         }
 
         if (!found) {
-            OrderItemMapper.AddOrderItem(orderID, newItem);
+            OrderItemMapper.addOrderItem(orderID, newItem);
             items.add(newItem);
         }
     }

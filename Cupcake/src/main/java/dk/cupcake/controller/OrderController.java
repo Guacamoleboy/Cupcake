@@ -1,18 +1,24 @@
+// Package
 package dk.cupcake.controller;
 
+// Imports
 import dk.cupcake.entities.Order;
 import dk.cupcake.entities.OrderItem;
 import dk.cupcake.entities.User;
 import dk.cupcake.mapper.OrderMapper;
 import dk.cupcake.server.ThymeleafSetup;
 import io.javalin.Javalin;
-
 import java.util.ArrayList;
 import java.util.Map;
 
 public class OrderController {
+
+    // Attributes
     static Order order;
     static OrderMapper orderMapper = new OrderMapper();
+
+    // ______________________________________________________________
+
     public static void registerErrorRoutes(Javalin app) {
         app.get("/tak", ctx -> ctx.html(ThymeleafSetup.render("tak.html", null)));
         app.get("/tak-ordre", ctx -> ctx.html(ThymeleafSetup.render("tak-order.html", null)));
@@ -49,10 +55,12 @@ public class OrderController {
             String name = ctx.formParam("name");
             double price = Double.parseDouble(ctx.formParam("price"));
             String description = ctx.formParam("description");
+            int top = Integer.parseInt(ctx.formParam("topping"));
+            int buttom = Integer.parseInt(ctx.formParam("buttom"));
 
 
 
-            order.addToOrder(new OrderItem(id, name, description, price, 1), order.getId());
+            order.addToOrder(new OrderItem(id, name, description, price, 1, top, buttom), order.getId());
             ctx.sessionAttribute("order", order);
 
             double total = order.getItems().stream()
@@ -60,7 +68,11 @@ public class OrderController {
                     .sum();
 
             //TODO Total og orderItems skal så sendes til frontend, så det kan vises i kurven
-            //TODO Backend virker!
+
+            ctx.json(Map.of(
+                    "items", order.getItems(),
+                    "total", total
+            ));
 
 
             // Her kan du se kurven i backend!
@@ -96,8 +108,6 @@ public class OrderController {
                     .mapToDouble(i -> i.getPrice() * i.getQuantity())
                     .sum();
 
-            //TODO Vi skal have lavet en knap til at fjerne x antal af product
-            //TODO (Tænker det er under kurven at der skal være + knap og - knap)
             //TODO Backend virker!
 
         });
