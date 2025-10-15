@@ -60,26 +60,16 @@ public class CartController {
                 int flavorId = Integer.parseInt(flavorIdStr);
                 int toppingId = Integer.parseInt(toppingIdStr);
 
-                String sql = "SELECT f.name AS fname, f.price AS fprice, t.name AS tname, t.price AS tprice FROM cupcake_flavor f, cupcake_toppings t WHERE f.id = ? AND t.id = ?";
-                var conn = dk.cupcake.db.Database.getConnection();
-                try (var ps = conn.prepareStatement(sql)) {
-                    ps.setInt(1, flavorId);
-                    ps.setInt(2, toppingId);
-                    var rs = ps.executeQuery();
-                    if (!rs.next()) {
-                        ctx.redirect("/order?error=comboNotFound");
-                        return;
-                    }
-                    String fname = rs.getString("fname");
-                    double fprice = rs.getDouble("fprice");
-                    String tname = rs.getString("tname");
-                    double tprice = rs.getDouble("tprice");
-
-                    item.setFlavorId(flavorId);
-                    item.setToppingId(toppingId);
-                    item.setName(fname + " + " + tname);
-                    item.setUnitPrice(fprice + tprice);
+                var combo = productMapper.getCupcakeCombo(flavorId, toppingId);
+                if (combo == null) {
+                    ctx.redirect("/order?error=comboNotFound");
+                    return;
                 }
+
+                item.setFlavorId(flavorId);
+                item.setToppingId(toppingId);
+                item.setName(combo.getName());
+                item.setUnitPrice(combo.getPrice());
             } else {
                 ctx.redirect("/order?error=invalidParams");
                 return;
