@@ -132,11 +132,11 @@ function showCartPopup(items, total, isInitial = false) {
 
     if (hideTimer) clearTimeout(hideTimer);
 
-    hideTimer = setTimeout(() => hidePopup(), 5000);
+    hideTimer = setTimeout(() => hidePopup(), 2500);
 
     // TODO 5sec virker meget længe. Måske 3sec er fint. Skal lige testes lidt senere...
     popup.addEventListener("mouseenter", () => clearTimeout(hideTimer));
-    popup.addEventListener("mouseleave", () => hideTimer = setTimeout(() => hidePopup(), 5000));
+    popup.addEventListener("mouseleave", () => hideTimer = setTimeout(() => hidePopup(), 2500));
 
     function hidePopup() {
         popup.style.opacity = "0";

@@ -108,12 +108,15 @@ public class OrderController {
         // ______________________________________________________________________________
 
         app.get("/cart/get", ctx -> {
+
             User user = ctx.sessionAttribute("user");
 
+            /*
             if (user == null) {
                 ctx.json(Map.of("items", Collections.emptyList(), "total", 0));
                 return;
             }
+            */
 
             Order order = ctx.sessionAttribute("order");
 

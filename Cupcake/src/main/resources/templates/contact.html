@@ -88,7 +88,7 @@
                     <div class="section-2-intro">
                         <h2 class="">Kontakt os</h2>
                     </div>
-                    <form class="contact-form" action="../templates/tak.html" method="get">
+                    <form class="contact-form" action="/tak" method="get">
                         <div class="guac-row">
                             <div class="guac-col-12">
                                 <label for="navn">Navn</label>
@@ -100,7 +100,7 @@
                             </div>
                             <div class="guac-col-12">
                                 <label for="telefon">Telefon</label>
-                                <input type="tel" id="telefon" name="telefon" placeholder="Valgfrit">
+                                <input type="tel" id="telefon" name="telefon" placeholder="Valgfrit" pattern="\d{8}" maxlength="8" inputmode="numeric" title="Telefonnummer skal bestå af 8 cifre">
                             </div>
                             <div class="guac-col-12">
                                 <label for="emne">Emne</label>
