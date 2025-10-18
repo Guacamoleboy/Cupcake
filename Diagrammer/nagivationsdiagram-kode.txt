@@ -1,0 +1,38 @@
+@startuml
+title Cupcake Shop Navigation Diagram
+
+rectangle "Forside" #87CEEB
+rectangle "Login" #32CD32
+rectangle "Register" #32CD32
+rectangle "Order / Kurv" #FFA500
+rectangle "Custom / Kurv" #FFA500
+rectangle "Kontakt" #87CEEB
+rectangle "Gallery" #87CEEB
+rectangle "Events" #87CEEB
+rectangle "Payment" #FFA500
+rectangle "Pay" #FFA500
+rectangle "Tak (Kontakt)" #9370DB
+rectangle "Tak-Order" #9370DB
+
+"Forside" --> "Login" : Optional login
+"Forside" --> "Register" : Optional register
+"Forside" --> "Order / Kurv" : Start shopping
+"Forside" --> "Custom / Kurv" : Start custom order
+"Forside" --> "Kontakt" : Navigate to contact page
+"Forside" --> "Gallery"
+"Forside" --> "Events"
+
+"Login" --> "Forside" : After login
+"Register" --> "Forside" : After register
+
+"Order / Kurv" --> "Payment" : Proceed to payment
+"Custom / Kurv" --> "Payment" : Proceed to payment
+"Payment" --> "Pay" : Final review & pay
+"Pay" --> "Tak-Order" : Order confirmed
+
+"Kontakt" --> "Tak (Kontakt)" : Form submitted
+
+"Order / Kurv" --> "Order / Kurv" : Open/close cart
+"Custom / Kurv" --> "Custom / Kurv" : Open/close cart
+
+@enduml
