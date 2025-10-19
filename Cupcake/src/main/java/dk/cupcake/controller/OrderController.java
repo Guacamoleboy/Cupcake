@@ -45,7 +45,7 @@ public class OrderController {
         // ______________________________________________________________________________
 
         app.post("/cart/add", ctx -> {
-
+            System.out.println("Tilføjer?");
             User user = ctx.sessionAttribute("user");
 
             order = ctx.sessionAttribute("order");
@@ -66,6 +66,7 @@ public class OrderController {
             int top = Integer.parseInt(ctx.formParam("topping"));
             int bottom = Integer.parseInt(ctx.formParam("bottom"));
 
+
             order.addToOrder(new OrderItem(id, name, description, price, 1, top, bottom), order.getId());
 
             ctx.sessionAttribute("order", order);
@@ -84,45 +85,65 @@ public class OrderController {
         // ______________________________________________________________________________
 
         app.post("/cart/remove", ctx -> {
-
             User user = ctx.sessionAttribute("user");
-            if(user == null) return;
 
             order = ctx.sessionAttribute("order");
+
             if (order == null) {
-                order = orderMapper.newOrder(user.getId());
+                if (user != null) {
+                    order = orderMapper.newOrder(user.getId());
+                } else {
+                    order = new Order();
+                    order.setId(-1);
+                }
             }
 
             int id = Integer.parseInt(ctx.formParam("id"));
             int amount = Integer.parseInt(ctx.formParam("amount"));
 
+            OrderItem item = order.getItems().stream()
+                    .filter(i -> i.getProductId() == id)
+                    .findFirst()
+                    .orElse(null);
+
+            if (item == null) {
+                ctx.status(400).result("Item findes ikke i kurven");
+                return;
+            }
+
+            if (amount > item.getQuantity()) {
+                amount = item.getQuantity();
+            }
+
             order.removeFromOrder(id, amount, order.getId());
+
             ctx.sessionAttribute("order", order);
 
             double total = order.getItems().stream()
                     .mapToDouble(i -> i.getPrice() * i.getQuantity())
                     .sum();
 
+            ctx.json(Map.of(
+                    "items", order.getItems(),
+                    "total", total
+            ));
         });
+
 
         // ______________________________________________________________________________
 
         app.get("/cart/get", ctx -> {
-
             User user = ctx.sessionAttribute("user");
 
-            /*
-            if (user == null) {
-                ctx.json(Map.of("items", Collections.emptyList(), "total", 0));
-                return;
-            }
-            */
-
-            Order order = ctx.sessionAttribute("order");
+            order = ctx.sessionAttribute("order");
 
             if (order == null) {
-                order = new Order();
-                ctx.sessionAttribute("order", order);
+                if (user != null) {
+                    order = orderMapper.newOrder(user.getId());
+                } else {
+                    order = new Order();
+                    order.setId(-1);
+                }
             }
 
             double total = order.getItems().stream()

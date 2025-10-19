@@ -892,6 +892,23 @@ body::-webkit-scrollbar { /* All other browsers */
     color: var(--cart-button-background-hover-text) !important;
 }
 
+button.plus,
+button.minus {
+    width: 1.7rem;
+    height: 1.7rem;
+    border: none;
+    border-radius: 50%;
+    cursor: pointer;
+    transition: background-color 0.2s, transform 0.1s;
+}
+
+
+button.plus:hover,
+button.minus:hover {
+    background-color: #e0e0e0;
+    transform: scale(1.1);
+}
+
 /* ___________________________________________ */
 
 /* Login */
@@ -2331,3 +2348,4 @@ body::-webkit-scrollbar { /* All other browsers */
     0%, 80% { opacity: 1; }
     100% { opacity: 0; pointer-events: none; }
 }
+
