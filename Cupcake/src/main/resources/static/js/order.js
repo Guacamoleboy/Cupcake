@@ -71,7 +71,6 @@ document.addEventListener("DOMContentLoaded", () => {
 
     // ___________________________________________________________________
 
-
     const deliveryButtons = document.querySelectorAll(".delivery-options button");
     deliveryButtons.forEach(btn => {
         btn.addEventListener("click", () => {
@@ -80,6 +79,7 @@ document.addEventListener("DOMContentLoaded", () => {
         });
     });
 
+    // ___________________________________________________________________
 
     const paymentButtons = document.querySelectorAll(".payment-options button");
     paymentButtons.forEach(btn => {
