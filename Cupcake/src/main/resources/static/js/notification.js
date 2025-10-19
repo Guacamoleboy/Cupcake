@@ -140,6 +140,12 @@ document.addEventListener("DOMContentLoaded", function() {
         case "cartError":
             showNotification("Der opstod en fejl i kurven.", "red");
             break;
+        case "emptyCart":
+            showNotification("Du har ingen kurv", "red");
+            break;
+        case "missingSelection":
+            showNotification("Vælg venligst levering og betaling", "orange");
+            break;
     }
 
 });

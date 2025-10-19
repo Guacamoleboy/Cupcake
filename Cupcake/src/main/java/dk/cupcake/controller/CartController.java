@@ -16,13 +16,18 @@ import java.util.Map;
 
 public class CartController {
 
+    // Attributes
     private final ProductMapper productMapper = new ProductMapper();
+
+    // _________________________________________________________________
 
     public static void registerRoutes(Javalin app) {
         CartController controller = new CartController();
         app.post("/api/cart/items", controller::addItem);
         app.get("/api/cart", controller::getCart);
     }
+
+    // _________________________________________________________________
 
     private Cart getSessionCart(Context ctx) {
         Cart cart = ctx.sessionAttribute("cart");
@@ -32,6 +37,8 @@ public class CartController {
         }
         return cart;
     }
+
+    // _________________________________________________________________
 
     public void addItem(Context ctx) {
         try {
@@ -96,6 +103,8 @@ public class CartController {
         }
     }
 
+    // _________________________________________________________________
+
     public void getCart(Context ctx) {
         Cart cart = getSessionCart(ctx);
         Map<String, Object> payload = new HashMap<>();
@@ -109,6 +118,5 @@ public class CartController {
         )).toArray());
         ctx.json(payload);
     }
+
 }
-
-
