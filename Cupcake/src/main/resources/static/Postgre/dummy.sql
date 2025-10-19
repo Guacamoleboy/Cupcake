@@ -72,13 +72,27 @@ INSERT INTO order_items (order_id, bottom_id, topping_id, quantity) VALUES
 (1, 2, 2, 1);
 
 /* test cupon code */
-INSERT INTO coupons (code, discount_percent, valid_from, valid_until)
-VALUES (
-   '10procent',
-   10,
-   NOW(),
-   NOW() + INTERVAL '1 month'
+INSERT INTO coupons (code, discount_percent, valid_from, valid_until) VALUES (
+'10procent',
+10,
+NOW(),
+NOW() + INTERVAL '1 month'
 );
+
+/* Delivery methods */
+INSERT INTO delivery_methods (name, price) VALUES
+('GLS', 35.00),
+('PostNord', 45.00),
+('DAO', 30.00),
+('Bring', 40.00),
+('Afhent i butik', 0.00);
+
+/* Payment methods */
+INSERT INTO payment_methods (name) VALUES
+('MobilePay'),
+('VISA'),
+('MasterCard'),
+('Apple Pay');
 
 /*
 INSERT INTO transactions (user_id, amount, description) VALUES

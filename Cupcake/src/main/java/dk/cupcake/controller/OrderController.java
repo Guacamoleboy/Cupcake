@@ -26,8 +26,6 @@ public class OrderController {
 
         app.get("/tak", ctx -> ctx.html(ThymeleafSetup.render("tak.html", null)));
         app.get("/tak-ordre", ctx -> ctx.html(ThymeleafSetup.render("tak-order.html", null)));
-        //app.get("/payment", ctx -> ctx.html(ThymeleafSetup.render("payment.html", null)));
-        //app.get("/pay", ctx -> ctx.html(ThymeleafSetup.render("final-confirmation.html", null)));
 
         // ______________________________________________________________________________
 
@@ -53,6 +51,7 @@ public class OrderController {
 
             order = ctx.sessionAttribute("order");
 
+            /* TODO Fjern det her fis. Brugeren har ikke behov for at se sit ID før der er placeret en ordre. */
             if (order == null) {
                 if (user != null) {
                     order = orderMapper.newOrder(user.getId());
@@ -94,6 +93,7 @@ public class OrderController {
 
             order = ctx.sessionAttribute("order");
 
+            /* TODO Fjern det her fis. Brugeren har ikke behov for at se sit ID før der er placeret en ordre. */
             if (order == null) {
                 if (user != null) {
                     order = orderMapper.newOrder(user.getId());
@@ -143,6 +143,7 @@ public class OrderController {
 
             order = ctx.sessionAttribute("order");
 
+            /* TODO Fjern det her fis. Brugeren har ikke behov for at se sit ID før der er placeret en ordre. */
             if (order == null) {
                 if (user != null) {
                     order = orderMapper.newOrder(user.getId());
@@ -168,20 +169,20 @@ public class OrderController {
         // ______________________________________________________________________________
 
         app.get("/payment", ctx -> {
-            User user = ctx.sessionAttribute("user");
 
+            User user = ctx.sessionAttribute("user");
             Order order = ctx.sessionAttribute("order");
 
-            if (order == null) {
-                if (user != null) {
-                    order = orderMapper.newOrder(user.getId());
-                } else {
-                    order = new Order();
-                    order.setId(-1);
-                }
-                ctx.sessionAttribute("order", order);
+            // Validation. No access if no cart.
+            if (order == null || order.getItems().isEmpty()) {
+                ctx.redirect("/?error=emptyCart");
+                return;
             }
 
+            if (order.getId() <= 0 && user != null) {
+                order = orderMapper.newOrder(user.getId());
+                ctx.sessionAttribute("order", order);
+            }
 
             double total = order.getItems().stream()
                     .mapToDouble(i -> i.getPrice() * i.getQuantity())
@@ -201,33 +202,39 @@ public class OrderController {
         // ______________________________________________________________________________
 
         app.post("/apply-coupon", ctx -> {
+
             String code = ctx.formParam("couponCode");
             CouponMapper couponMapper = new CouponMapper();
-
             Coupon coupon = couponMapper.getCouponByCode(code);
+
             if (coupon != null) {
+
                 Order order = ctx.sessionAttribute("order");
+
                 if (order != null) {
+
                     double total = order.getItems().stream()
                             .mapToDouble(i -> i.getPrice() * i.getQuantity())
                             .sum();
                     double discountedTotal = total * (1 - coupon.getDiscountPercent() / 100.0);
 
-
                     ctx.sessionAttribute("coupon", coupon);
                     ctx.sessionAttribute("discountedTotal", discountedTotal);
-
                     ctx.json(Map.of(
                             "success", true,
                             "discountPercent", coupon.getDiscountPercent(),
                             "discountedTotal", discountedTotal
                     ));
+
                 }
+
             } else {
+
                 ctx.json(Map.of(
                         "success", false,
                         "message", "Ugyldig rabatkode eller udløbet"
                 ));
+
             }
         });
 
@@ -239,14 +246,21 @@ public class OrderController {
 
             ctx.sessionAttribute("deliveryMethod", deliveryMethod);
             ctx.sessionAttribute("paymentMethod", paymentMethod);
-
             ctx.json(Map.of("success", true));
         });
 
         // ______________________________________________________________________________
 
         app.get("/pay", ctx -> {
+
             Order order = ctx.sessionAttribute("order");
+
+            // Validation. No access if no cart.
+            if (order == null || order.getItems().isEmpty()) {
+                ctx.redirect("/?error=emptyCart");
+                return;
+            }
+
             List<OrderItem> cartItems = order.getItems();
             Double originalTotal = ctx.sessionAttribute("total");
             Double discountedTotal = ctx.sessionAttribute("discountedTotal");
@@ -263,8 +277,8 @@ public class OrderController {
             model.put("paymentMethod", paymentMethod);
             model.put("coupon", coupon);
 
-
             ctx.html(ThymeleafSetup.render("final-confirmation.html", Map.of("data", model)));
+
         });
 
     }

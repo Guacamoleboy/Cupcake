@@ -20,6 +20,9 @@ public class Order {
     private String status;
     private Timestamp createdAt;
     private ArrayList<OrderItem> items;
+    private Integer deliveryMethodId;
+    private Integer paymentMethodId;
+    private String deliveryAddress;
     OrderItemMapper OrderItemMapper = new OrderItemMapper();
 
     // ___________________________________________________
@@ -39,6 +42,42 @@ public class Order {
         this.items = new ArrayList<>();
         this.status = "open";
         this.createdAt = Timestamp.from(Instant.now());
+    }
+
+    // ___________________________________________________
+
+    public Integer getDeliveryMethodId() {
+        return deliveryMethodId;
+    }
+
+    // ___________________________________________________
+
+    public void setDeliveryMethodId(Integer deliveryMethodId) {
+        this.deliveryMethodId = deliveryMethodId;
+    }
+
+    // ___________________________________________________
+
+    public Integer getPaymentMethodId() {
+        return paymentMethodId;
+    }
+
+    // ___________________________________________________
+
+    public void setPaymentMethodId(Integer paymentMethodId) {
+        this.paymentMethodId = paymentMethodId;
+    }
+
+    // ___________________________________________________
+
+    public String getDeliveryAddress() {
+        return deliveryAddress;
+    }
+
+    // ___________________________________________________
+
+    public void setDeliveryAddress(String deliveryAddress) {
+        this.deliveryAddress = deliveryAddress;
     }
 
     // ___________________________________________________

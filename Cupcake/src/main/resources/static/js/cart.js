@@ -2,7 +2,7 @@
 
     Shopping Cart Menu & Buttons
     Written by Guacamoleboy
-    Last Updated: 15/10-2025
+    Last Updated: 19/10-2025
 
 */
 
@@ -25,25 +25,14 @@ document.addEventListener("DOMContentLoaded", async () => {
     cartBtnWrapper.appendChild(openCartBtn);
 
     openCartBtn.addEventListener("click", () => {
+        const existingPopup = cartContainer.querySelector(".cart-popup");
+
+        if (existingPopup) existingPopup.remove();
+
         if (cartItems.length > 0) {
-            showCartPopup(cartItems, cartTotal);
+            showCartPopup(cartItems, cartTotal, false);
         }
     });
-
-    try {
-        const res = await fetch("/cart/get");
-        if (res.ok) {
-            const data = await res.json();
-            cartItems = data.items;
-            cartTotal = data.total;
-
-            if (cartItems.length > 0) {
-                showCartPopup(cartItems, cartTotal, true);
-            }
-        }
-    } catch (err) {
-        console.error("Kunne ikke hente Diddys kurv", err);
-    }
 
     document.body.addEventListener("click", async (e) => {
 
@@ -75,6 +64,7 @@ document.addEventListener("DOMContentLoaded", async () => {
 // _______________________________________________________________
 
 let listItems = "";
+
 function showCartPopup(items, total, isInitial = false) {
     const container = document.getElementById("cart-container");
     const cartBtnWrapper = document.querySelector(".cart-btn-wrapper");
@@ -87,16 +77,15 @@ function showCartPopup(items, total, isInitial = false) {
 
     listItems = "";
 
-    // Readonly for now. Not sure how to make it work with update just yet.
-    // TODO remove readonly and fix it so it allows input.
-
     for (let i = 0; i < items.length; i++) {
         listItems += `
     <li>
-      <button class="minus" onclick="removeFromCart(${i}, 1)">−</button>
-      <input type='number' id='qty-${i}' value='${items[i].quantity}' min='1' readonly>
-      <button class="plus" onclick="addToCart(${i}, 1)">+</button>
-      <span>${items[i].title}</span>
+        <span>${items[i].title}</span>
+        <div class="cart-controls">
+            <button class="minus" onclick="removeFromCart(${i}, 1)">-</button>
+            <input type='number' id='qty-${i}' value='${items[i].quantity}' min='1' readonly>
+            <button class="plus" onclick="addToCart(${i}, 1)">+</button>
+        </div>
     </li>`;
     }
 
@@ -123,8 +112,6 @@ function showCartPopup(items, total, isInitial = false) {
         popup.style.transform = "translateX(0)";
     });
 
-    // Mindes ikke at denne bliver brugt. Har lukket mit Docker, så fjerner den ikke lige nu.
-    // TODO Kig om denne bliver brugt, ellers YEET den.
     if (!isInitial) {
         openCartBtn.style.display = "none";
         cartBtnWrapper.style.display = "none";
@@ -132,7 +119,6 @@ function showCartPopup(items, total, isInitial = false) {
 
     const goPaymentBtn = popup.querySelector(".go-payment-btn");
 
-    // TODO Link content to /payment, så payment har korrekt data ved load
     goPaymentBtn.addEventListener("click", () => {
         window.location.href = "/payment";
     });
@@ -141,7 +127,6 @@ function showCartPopup(items, total, isInitial = false) {
 
     hideTimer = setTimeout(() => hidePopup(), 2500);
 
-    // TODO 5sec virker meget længe. Måske 3sec er fint. Skal lige testes lidt senere...
     popup.addEventListener("mouseenter", () => clearTimeout(hideTimer));
     popup.addEventListener("mouseleave", () => hideTimer = setTimeout(() => hidePopup(), 2500));
 
@@ -156,6 +141,8 @@ function showCartPopup(items, total, isInitial = false) {
     }
 
 } // Cart end
+
+// _______________________________________________________________
 
 async function addToCart(index, amount = 1) {
 
@@ -207,6 +194,8 @@ async function addToCart(index, amount = 1) {
         cartItems = data.items || cartItems;
         cartTotal = data.total ?? cartTotal;
 
+        showCartPopup(cartItems, cartTotal, true);
+
     } catch (err) {
 
         console.error("Kunne ikke opdatere kurv:", err);
@@ -214,6 +203,8 @@ async function addToCart(index, amount = 1) {
     }
 
 }
+
+// _______________________________________________________________
 
 async function removeFromCart(index, amount = 1) {
 
@@ -227,7 +218,6 @@ async function removeFromCart(index, amount = 1) {
     if (isNaN(newValue) || newValue < 1) newValue = 0;
     input.value = newValue; item.quantity = newValue;
     const safeId = item.id || item.productId || item.cupcakeId || 0;
-
 
     const form = new FormData();
     form.append("id", String(safeId));
@@ -254,6 +244,8 @@ async function removeFromCart(index, amount = 1) {
         cartItems = data.items || cartItems;
         cartTotal = data.total ?? cartTotal;
 
+        showCartPopup(cartItems, cartTotal, true);
+
         if (newValue <= 0) {
 
             const li = input.closest("li");
@@ -267,12 +259,3 @@ async function removeFromCart(index, amount = 1) {
 
     }
 }
-
-
-
-
-
-
-
-
-
