@@ -46,7 +46,6 @@ public class OrderController {
         // ______________________________________________________________________________
 
         app.post("/cart/add", ctx -> {
-            System.out.println("Tilføjer?");
             User user = ctx.sessionAttribute("user");
 
             order = ctx.sessionAttribute("order");

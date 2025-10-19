@@ -194,7 +194,7 @@ async function addToCart(index, amount = 1) {
         cartItems = data.items || cartItems;
         cartTotal = data.total ?? cartTotal;
 
-        showCartPopup(cartItems, cartTotal, true);
+        //showCartPopup(cartItems, cartTotal, true);
 
     } catch (err) {
 
@@ -244,12 +244,12 @@ async function removeFromCart(index, amount = 1) {
         cartItems = data.items || cartItems;
         cartTotal = data.total ?? cartTotal;
 
-        showCartPopup(cartItems, cartTotal, true);
 
         if (newValue <= 0) {
 
             const li = input.closest("li");
             if (li) li.remove();
+            showCartPopup(cartItems, cartTotal, true);
 
         }
 
