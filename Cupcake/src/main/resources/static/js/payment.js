@@ -34,7 +34,7 @@ document.addEventListener("DOMContentLoaded", () => {
         button.addEventListener("click", () => {
             deliveryButtons.forEach(b => b.classList.remove("active"));
             button.classList.add("active");
-            selectedDelivery = button.textContent.trim();
+            selectedDelivery = button.dataset.id;
             updateNextBtnState();
         });
     });
@@ -45,7 +45,7 @@ document.addEventListener("DOMContentLoaded", () => {
         button.addEventListener("click", () => {
             paymentButtons.forEach(b => b.classList.remove("active"));
             button.classList.add("active");
-            selectedPayment = button.textContent.trim();
+            selectedPayment = button.dataset.id;
             updateNextBtnState();
         });
     });

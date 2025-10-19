@@ -243,9 +243,11 @@ public class OrderController {
         app.post("/update-payment-info", ctx -> {
             String deliveryMethod = ctx.formParam("deliveryMethod");
             String paymentMethod = ctx.formParam("paymentMethod");
+            String deliveryAddress = ctx.formParam("deliveryAddress");
 
             ctx.sessionAttribute("deliveryMethod", deliveryMethod);
             ctx.sessionAttribute("paymentMethod", paymentMethod);
+            ctx.sessionAttribute("deliveryAddress", deliveryAddress);
             ctx.json(Map.of("success", true));
         });
 
@@ -279,6 +281,41 @@ public class OrderController {
 
             ctx.html(ThymeleafSetup.render("final-confirmation.html", Map.of("data", model)));
 
+        });
+
+        // ______________________________________________________________________________
+
+        app.get("/pay/{id}", ctx -> {
+            int orderId = Integer.parseInt(ctx.pathParam("id"));
+
+            Order order = ctx.sessionAttribute("order");
+            
+            if (order == null || order.getId() != orderId) {
+                ctx.redirect("/?error=orderNotFound");
+                return;
+            }
+
+            String deliveryMethod = ctx.sessionAttribute("deliveryMethod");
+            String paymentMethod = ctx.sessionAttribute("paymentMethod");
+            String deliveryAddress = ctx.sessionAttribute("deliveryAddress");
+            
+            try {
+                Integer deliveryMethodId = Integer.parseInt(deliveryMethod);
+                Integer paymentMethodId = Integer.parseInt(paymentMethod);
+                
+                orderMapper.updateMethodsAndAddress(orderId, deliveryMethodId, paymentMethodId, deliveryAddress);
+                
+                ctx.sessionAttribute("order", null);
+                ctx.sessionAttribute("total", null);
+                ctx.sessionAttribute("discountedTotal", null);
+                ctx.sessionAttribute("deliveryMethod", null);
+                ctx.sessionAttribute("paymentMethod", null);
+                ctx.sessionAttribute("deliveryAddress", null);
+                ctx.sessionAttribute("coupon", null);
+                ctx.redirect("/ordertak/" + orderId);
+            } catch (Exception e) {
+                ctx.redirect("/?error=500");
+            }
         });
 
     }
