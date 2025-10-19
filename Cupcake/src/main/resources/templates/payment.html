@@ -26,6 +26,9 @@
 
     <!-- Script Load -->
     <script src="/js/payment.js" defer></script>
+    <script src="/js/coupon.js" defer></script>
+    <script src="/js/order.js" defer></script>
+    <script src="/js/notification.js" defer></script>
 
 </head>
 <body class="subpage">
@@ -39,7 +42,7 @@
         <div class="guac-container">
 
             <!-- Order Header -->
-            <h2>Order Confirmation #694206969</h2>
+            <h2>Order Confirmation</h2>
             <p class="payment-p">Venligst kig om alt stemmer overens herunder</p>
             <!-- Order Header -->
 
@@ -59,37 +62,21 @@
 
             <!-- Order List -->
             <div class="order-list">
-                <div class="order-item guac-row guac-col-auto">
-                    <p>Jordbær Top / Chokolade Bund</p>
-                    <p>2</p>
-                    <p>49 kr</p>
-                </div>
-                <div class="order-item guac-row guac-col-auto">
-                    <p>Blåbær Cupcake</p>
-                    <p>1</p>
-                    <p>15 kr</p>
-                </div>
-                <div class="order-item guac-row guac-col-auto">
-                    <p>Halloween Cupcake</p>
-                    <p>7</p>
-                    <p>24 kr</p>
-                </div>
-                <div class="order-item guac-row guac-col-auto">
-                    <p>Jordbær Cupcake</p>
-                    <p>9</p>
-                    <p>30 kr</p>
+                <div class="order-item guac-row guac-col-auto" th:each="item : ${order.items}">
+                    <p th:text="${item.title}">Produktnavn</p>
+                    <p th:text="${item.quantity}">Antal</p>
+                    <p th:text="${item.price} + ' kr'">Pris</p>
                 </div>
             </div>
-            <!-- Order List -->
 
             <hr class="section-divider">
 
-            <!-- Info Under Order List -->
+            <!-- Total -->
             <div class="order-list">
                 <div class="order-item guac-row guac-col-auto">
                     <p>Total</p>
                     <p></p>
-                    <p>560 kr</p>
+                    <p><span id="totalDisplay" th:text="${order.total} + ' kr'">0 kr</span></p>
                 </div>
             </div>
             <!-- Info Under Order List -->
@@ -99,11 +86,11 @@
             <!-- Delivery -->
             <h3>Vælg leveringsmetode</h3>
             <div class="delivery-options guac-row">
-                <button type="button">GLS</button>
-                <button type="button">PostNord</button>
-                <button type="button">DAO</button>
-                <button type="button">Bring</button>
-                <button type="button">Afhent i butik</button>
+                <button type="button" data-id="1">GLS</button>
+                <button type="button" data-id="2">PostNord</button>
+                <button type="button" data-id="3">DAO</button>
+                <button type="button" data-id="4">Bring</button>
+                <button type="button" data-id="5">Afhent i butik</button>
             </div>
             <!-- Delivery -->
 
@@ -111,13 +98,14 @@
 
             <!-- Coupon -->
             <h3>Har du en rabatkode?</h3>
-            <input type="text" placeholder="5005-1050-51CU-PCAKE" class="discount-code">
+            <input type="text" id="couponCode" placeholder="5005-1050-51CU-PCAKE" class="discount-code">
             <div class="coupon-options guac-row">
-                <button type="button">Benyt</button>
+                <button type="button" id="applyCouponBtn">Benyt</button>
             </div>
-            <div class="hidden-coupon">
-                <p>Rabatkode: 5005-1050-51CU-PCAKE anvendt</p>
-                <p>Rabat: 10%</p>
+
+            <div class="hidden-coupon" id="couponInfo" style="display:none;">
+                <p id="couponCodeText"></p>
+                <p id="couponDiscountText"></p>
             </div>
             <!-- Coupon -->
 
@@ -126,22 +114,26 @@
             <!-- Payment Method -->
             <h3>Vælg betalingsmetode</h3>
             <div class="payment-options guac-row">
-                <button type="button">MobilePay</button>
-                <button type="button">VISA</button>
-                <button type="button">MasterCard</button>
-                <button type="button">Apple Pay</button>
+                <button type="button" data-id="1">MobilePay</button>
+                <button type="button" data-id="2">VISA</button>
+                <button type="button" data-id="3">MasterCard</button>
+                <button type="button" data-id="4">Apple Pay</button>
             </div>
             <!-- Payment Method -->
 
             <hr class="section-divider">
 
             <!-- Next Button -->
-            <a href="/pay" class="next-btn">Se ordre og betal</a>
+            <a href="/pay" class="next-btn" data-order-id="${order.id}">Videre</a>
             <!-- Next Button -->
 
         </div>
     </section>
     <!-- Payment Section End -->
+
+    <!-- Notification -->
+    <div id="guac-notification-container"></div>
+    <!-- Notification -->
 
 </body>
 </html>

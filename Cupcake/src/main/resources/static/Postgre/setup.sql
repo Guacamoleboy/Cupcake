@@ -6,7 +6,7 @@
     3NF
 
     Sidst opdateret af: Guacamoleboy
-    Dato: 14/10-2025
+    Dato: 19/10-2025
 
 */
 
@@ -47,14 +47,12 @@ id SERIAL PRIMARY KEY,
 name VARCHAR(100) NOT NULL UNIQUE
 );
 
-
 /* Cupcake toppings */
 CREATE TABLE cupcake_toppings (
 id SERIAL PRIMARY KEY,
 name VARCHAR(100) NOT NULL,
 price DECIMAL(10,2) NOT NULL
 );
-
 
 /* Products */
 CREATE TABLE products (
@@ -73,8 +71,11 @@ created_at TIMESTAMP DEFAULT NOW()
 CREATE TABLE orders (
 id SERIAL PRIMARY KEY,
 user_id INT REFERENCES users(id) ON DELETE CASCADE,
-status VARCHAR(20) NOT NULL DEFAULT 'open', /* Open, Pending, Accepted, Refunded, Denied etc... */
-created_at TIMESTAMP DEFAULT NOW() /* Auto */
+status VARCHAR(20) NOT NULL DEFAULT 'open',
+delivery_method_id INT REFERENCES delivery_methods(id) ON DELETE SET NULL,
+payment_method_id INT REFERENCES payment_methods(id) ON DELETE SET NULL,
+delivery_address TEXT,
+created_at TIMESTAMP DEFAULT NOW()
 );
 
 /* Per order (order lines) */
@@ -94,4 +95,26 @@ user_id INT REFERENCES users(id) ON DELETE CASCADE,
 amount DECIMAL(10,2) NOT NULL,
 created_at TIMESTAMP DEFAULT NOW(), /* Auto */
 description TEXT
+);
+
+/* Coupons */
+CREATE TABLE coupons (
+ id SERIAL PRIMARY KEY,
+ code VARCHAR(50) UNIQUE NOT NULL,
+ discount_percent INT NOT NULL CHECK (discount_percent BETWEEN 1 AND 100),
+ valid_from TIMESTAMP DEFAULT NOW(),
+ valid_until TIMESTAMP
+);
+
+/* Delivery Method */
+CREATE TABLE delivery_methods (
+id SERIAL PRIMARY KEY,
+name VARCHAR(50) NOT NULL UNIQUE,
+price DECIMAL(10,2) NOT NULL DEFAULT 0.0
+);
+
+/* Payment Method */
+CREATE TABLE payment_methods (
+id SERIAL PRIMARY KEY,
+name VARCHAR(50) NOT NULL UNIQUE
 );

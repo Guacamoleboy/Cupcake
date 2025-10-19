@@ -7,6 +7,9 @@ document.addEventListener("DOMContentLoaded", () => {
     const cupcakeContainer = document.querySelector(".cupcake-cards");
     const resetBtn = document.querySelector(".filter-select.reset-btn");
     const searchInput = document.querySelector(".filter-input");
+    const deliveryBtn = document.querySelector(".delivery-options button");
+    const paymentBtn = document.querySelector(".payment-options button");
+    const paybtn = document.querySelector(".next-btn");
 
     // ___________________________________________________________________
 
@@ -63,6 +66,60 @@ document.addEventListener("DOMContentLoaded", () => {
         bundFilter.selectedIndex = 0;
 
         loadCupcakes(`/order`);
+
+    });
+
+    // ___________________________________________________________________
+
+    const deliveryButtons = document.querySelectorAll(".delivery-options button");
+    deliveryButtons.forEach(btn => {
+        btn.addEventListener("click", () => {
+            deliveryButtons.forEach(b => b.classList.remove("selected"));
+            btn.classList.add("selected");
+        });
+    });
+
+    // ___________________________________________________________________
+
+    const paymentButtons = document.querySelectorAll(".payment-options button");
+    paymentButtons.forEach(btn => {
+        btn.addEventListener("click", () => {
+            paymentButtons.forEach(b => b.classList.remove("selected"));
+            btn.classList.add("selected");
+        });
+    });
+
+    // ___________________________________________________________________
+    // TODO Somethings wrong with this button. Need to find out what and fix it. Getting errors in Browser Inspect
+
+    paybtn.addEventListener("click", async () => {
+
+        const deliveryMethod = document.querySelector(".delivery-options button.selected")?.textContent || "GLS";
+        const paymentMethod = document.querySelector(".payment-options button.selected")?.textContent || "MobilePay";
+        const couponCode = document.getElementById("couponCode")?.value || "";
+        const formData = new URLSearchParams();
+        formData.append("deliveryMethod", deliveryMethod);
+        formData.append("paymentMethod", paymentMethod);
+        formData.append("couponCode", couponCode);
+
+        try {
+
+            const response = await fetch("/update-payment-info", {
+                method: "POST",
+                body: formData
+            });
+
+            const data = await response.json();
+
+            if (!data.success) {
+                console.error("Noget gik galt ved opdatering af betalingsinfo");
+            } else {
+                console.log("Betaling info gemt!");
+            }
+
+        } catch (err) {
+            console.error("Fejl i fetch:", err);
+        }
 
     });
 

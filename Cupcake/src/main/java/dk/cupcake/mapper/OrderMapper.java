@@ -94,34 +94,6 @@ public class OrderMapper {
     }
 
     // _________________________________________________________
-    // Update an order
-
-    /*public void update(Order order) throws SQLException {
-        String sql = "UPDATE orders SET user_id = ?, status = ? WHERE id = ?";
-        try (Connection conn = Database.getConnection();
-             PreparedStatement stmt = conn.prepareStatement(sql)) {
-
-            stmt.setInt(1, order.getUser().getId());
-            stmt.setString(2, order.getStatus());
-            stmt.setInt(3, order.getId());
-
-            stmt.executeUpdate();
-
-            // Update order items if any
-            if (order.getItems() != null) {
-                for (OrderItem item : order.getItems()) {
-                    if (item.getId() > 0) {
-                        orderItemMapper.update(item);
-                    } else {
-                        //item.setOrderId(order.getId());
-                        orderItemMapper.newOrderItem(item);
-                    }
-                }
-            }
-        }
-    }*/
-
-    // _________________________________________________________
     // Delete
 
     public void delete(int id) throws SQLException {
@@ -135,24 +107,66 @@ public class OrderMapper {
     }
 
     // _________________________________________________________
-    // Epstein
 
     private Order toOrder(ResultSet rs) throws SQLException {
 
         Order order = new Order();
+
         order.setId(rs.getInt("id"));
         order.setStatus(rs.getString("status"));
         order.setCreatedAt(rs.getTimestamp("created_at"));
 
-        // Set user
-        User user = userMapper.getById(rs.getInt("user_id"));
+        int userId = rs.getInt("user_id");
+        User user = userMapper.getById(userId);
         order.setUser(user);
 
-        // Set items
+        int deliveryId = rs.getInt("delivery_method_id");
+        if (!rs.wasNull()) {
+            order.setDeliveryMethodId(deliveryId);
+        }
+
+        int paymentId = rs.getInt("payment_method_id");
+        if (!rs.wasNull()) {
+            order.setPaymentMethodId(paymentId);
+        }
+
+        String address = rs.getString("delivery_address");
+        if (address != null) {
+            order.setDeliveryAddress(address);
+        }
+
         List<OrderItem> items = orderItemMapper.getOrderByID(order.getId());
         order.setItems(new ArrayList<>(items));
 
         return order;
+    }
+
+    // _________________________________________________________
+
+    public void updateMethodsAndAddress(int orderId, Integer deliveryMethodId, Integer paymentMethodId, String deliveryAddress) throws SQLException {
+        String sql = "UPDATE orders SET delivery_method_id = ?, payment_method_id = ?, delivery_address = ? WHERE id = ?";
+
+        try (Connection conn = Database.getConnection();
+             PreparedStatement stmt = conn.prepareStatement(sql)) {
+
+            if (deliveryMethodId != null) {
+                stmt.setInt(1, deliveryMethodId);
+            } else {
+                stmt.setNull(1, Types.INTEGER);
+            }
+
+            if (paymentMethodId != null) {
+                stmt.setInt(2, paymentMethodId);
+            } else {
+                stmt.setNull(2, Types.INTEGER);
+            }
+
+            stmt.setString(3, deliveryAddress);
+            stmt.setInt(4, orderId);
+            stmt.executeUpdate();
+
+        }
+
     }
 
 } // OrderMapper end
