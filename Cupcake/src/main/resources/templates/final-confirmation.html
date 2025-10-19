@@ -37,7 +37,7 @@
     <div class="guac-container">
 
         <!-- Order Header -->
-        <h2>Order Confirmation #694206969</h2>
+        <h2>Order Confirmation #<span th:text="${data.order.id}">420</span></h2>
         <p class="payment-p">Venligst kig om alt stemmer overens herunder</p>
         <!-- Order Header -->
 
@@ -46,7 +46,7 @@
         <!-- Delivery -->
         <h3>Leveringsmetode</h3>
         <div class="delivery-options guac-row">
-            <button type="button">Afhent i butik</button>
+            <button type="button" th:text="${data.deliveryMethod}">Afhent i butik</button>
         </div>
         <p>Olskervej 1, 3770 Allinge</p>
         <p>Din ordre er klar inden for ca 30 min efter godkendelse</p>
@@ -57,7 +57,8 @@
 
         <!-- Coupon -->
         <h3>Rabatkode</h3>
-        <p>5005-1050-51CU-PCAKE</p>
+        <p th:if="${data.coupon != null}" th:text="${data.coupon.code}">Ingen rabatkode anvendt</p>
+        <p th:if="${data.coupon == null}">Ingen rabatkode anvendt</p>
         <!-- Coupon -->
 
         <hr class="section-divider">
@@ -76,30 +77,10 @@
 
         <!-- Order List -->
         <div class="order-list">
-            <div class="order-item guac-row guac-col-auto">
-                <p>Jordbær Top / Chokolade Bund</p>
-                <p>2</p>
-                <p>49 kr</p>
-            </div>
-            <div class="order-item guac-row guac-col-auto">
-                <p>Blåbær Cupcake</p>
-                <p>1</p>
-                <p>15 kr</p>
-            </div>
-            <div class="order-item guac-row guac-col-auto">
-                <p>Halloween Cupcake</p>
-                <p>7</p>
-                <p>24 kr</p>
-            </div>
-            <div class="order-item guac-row guac-col-auto">
-                <p>Jordbær Cupcake</p>
-                <p>9</p>
-                <p>30 kr</p>
-            </div>
-            <div class="order-item guac-row guac-col-auto">
-                <p>5005-1050-51CU-PCAKE</p>
-                <p>1</p>
-                <p>- 50 kr</p>
+            <div class="order-item guac-row guac-col-auto" th:each="item : ${data.cartItems}">
+                <p th:text="${item.title} + ' / ' + ${item.description}">Produktnavn</p>
+                <p th:text="${item.quantity}">Antal</p>
+                <p th:text="${item.price} + ' kr'">Pris</p>
             </div>
         </div>
         <!-- Order List -->
@@ -111,7 +92,7 @@
             <div class="order-item guac-row guac-col-auto">
                 <p>Total</p>
                 <p></p>
-                <p>510 kr</p>
+                <p th:text="${data.discountedTotal != null ? data.discountedTotal : data.originalTotal} + ' kr'">0 kr</p>
             </div>
         </div>
         <!-- Info Under Order List -->
@@ -121,18 +102,14 @@
         <!-- Payment Method -->
         <h3>Betalingsmetode</h3>
         <div class="payment-options guac-row">
-            <button type="button">VISA</button>
+            <button type="button" th:text="${data.paymentMethod}">VISA</button>
         </div>
-        <p>Kurt Ingebrickseen Jensen</p>
-        <p>4571-2276-XXXX-XX17</p>
-        <p>CVR: 679</p>
-        <p>Exp: 07/28</p>
         <!-- Payment Method -->
 
         <hr class="section-divider">
 
         <!-- Next Button -->
-        <a href="/pay/{id}?confirm" class="next-btn">Betal nu</a>
+        <a th:href="'/pay/' + ${data.order.id} + '?confirm=true'" class="next-btn">Betal nu</a>
         <!-- Next Button -->
 
     </div>

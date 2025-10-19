@@ -2,9 +2,12 @@
 package dk.cupcake.controller;
 
 // Imports
+import dk.cupcake.db.Database;
+import dk.cupcake.entities.Coupon;
 import dk.cupcake.entities.Order;
 import dk.cupcake.entities.OrderItem;
 import dk.cupcake.entities.User;
+import dk.cupcake.mapper.CouponMapper;
 import dk.cupcake.mapper.OrderMapper;
 import dk.cupcake.server.ThymeleafSetup;
 import io.javalin.Javalin;
@@ -23,8 +26,8 @@ public class OrderController {
 
         app.get("/tak", ctx -> ctx.html(ThymeleafSetup.render("tak.html", null)));
         app.get("/tak-ordre", ctx -> ctx.html(ThymeleafSetup.render("tak-order.html", null)));
-        app.get("/payment", ctx -> ctx.html(ThymeleafSetup.render("payment.html", null)));
-        app.get("/pay", ctx -> ctx.html(ThymeleafSetup.render("final-confirmation.html", null)));
+        //app.get("/payment", ctx -> ctx.html(ThymeleafSetup.render("payment.html", null)));
+        //app.get("/pay", ctx -> ctx.html(ThymeleafSetup.render("final-confirmation.html", null)));
 
         // ______________________________________________________________________________
 
@@ -45,7 +48,7 @@ public class OrderController {
         // ______________________________________________________________________________
 
         app.post("/cart/add", ctx -> {
-
+            System.out.println("Tilføjer?");
             User user = ctx.sessionAttribute("user");
 
             order = ctx.sessionAttribute("order");
@@ -66,6 +69,7 @@ public class OrderController {
             int top = Integer.parseInt(ctx.formParam("topping"));
             int bottom = Integer.parseInt(ctx.formParam("bottom"));
 
+
             order.addToOrder(new OrderItem(id, name, description, price, 1, top, bottom), order.getId());
 
             ctx.sessionAttribute("order", order);
@@ -73,6 +77,8 @@ public class OrderController {
             double total = order.getItems().stream()
                     .mapToDouble(i -> i.getPrice() * i.getQuantity())
                     .sum();
+
+            ctx.sessionAttribute("total", total);
 
             ctx.json(Map.of(
                     "items", order.getItems(),
@@ -84,56 +90,181 @@ public class OrderController {
         // ______________________________________________________________________________
 
         app.post("/cart/remove", ctx -> {
-
             User user = ctx.sessionAttribute("user");
-            if(user == null) return;
 
             order = ctx.sessionAttribute("order");
+
             if (order == null) {
-                order = orderMapper.newOrder(user.getId());
+                if (user != null) {
+                    order = orderMapper.newOrder(user.getId());
+                } else {
+                    order = new Order();
+                    order.setId(-1);
+                }
             }
 
             int id = Integer.parseInt(ctx.formParam("id"));
             int amount = Integer.parseInt(ctx.formParam("amount"));
 
+            OrderItem item = order.getItems().stream()
+                    .filter(i -> i.getProductId() == id)
+                    .findFirst()
+                    .orElse(null);
+
+            if (item == null) {
+                ctx.status(400).result("Item findes ikke i kurven");
+                return;
+            }
+
+            if (amount > item.getQuantity()) {
+                amount = item.getQuantity();
+            }
+
             order.removeFromOrder(id, amount, order.getId());
+
             ctx.sessionAttribute("order", order);
 
             double total = order.getItems().stream()
                     .mapToDouble(i -> i.getPrice() * i.getQuantity())
                     .sum();
 
+            ctx.sessionAttribute("total", total);
+
+            ctx.json(Map.of(
+                    "items", order.getItems(),
+                    "total", total
+            ));
         });
 
         // ______________________________________________________________________________
 
         app.get("/cart/get", ctx -> {
-
             User user = ctx.sessionAttribute("user");
 
-            /*
-            if (user == null) {
-                ctx.json(Map.of("items", Collections.emptyList(), "total", 0));
-                return;
-            }
-            */
-
-            Order order = ctx.sessionAttribute("order");
+            order = ctx.sessionAttribute("order");
 
             if (order == null) {
-                order = new Order();
-                ctx.sessionAttribute("order", order);
+                if (user != null) {
+                    order = orderMapper.newOrder(user.getId());
+                } else {
+                    order = new Order();
+                    order.setId(-1);
+                }
             }
 
             double total = order.getItems().stream()
                     .mapToDouble(i -> i.getPrice() * i.getQuantity())
                     .sum();
 
+            ctx.sessionAttribute("total", total);
+
             ctx.json(Map.of(
                     "items", order.getItems(),
                     "total", total
             ));
 
+        });
+
+        // ______________________________________________________________________________
+
+        app.get("/payment", ctx -> {
+            User user = ctx.sessionAttribute("user");
+
+            Order order = ctx.sessionAttribute("order");
+
+            if (order == null) {
+                if (user != null) {
+                    order = orderMapper.newOrder(user.getId());
+                } else {
+                    order = new Order();
+                    order.setId(-1);
+                }
+                ctx.sessionAttribute("order", order);
+            }
+
+
+            double total = order.getItems().stream()
+                    .mapToDouble(i -> i.getPrice() * i.getQuantity())
+                    .sum();
+
+            ctx.sessionAttribute("total", total);
+
+            Map<String, Object> model = new HashMap<>();
+            model.put("id", order.getId());
+            model.put("items", order.getItems());
+            model.put("total", total);
+
+
+            ctx.html(ThymeleafSetup.render("payment.html", Map.of("order", model)));
+        });
+
+        // ______________________________________________________________________________
+
+        app.post("/apply-coupon", ctx -> {
+            String code = ctx.formParam("couponCode");
+            CouponMapper couponMapper = new CouponMapper();
+
+            Coupon coupon = couponMapper.getCouponByCode(code);
+            if (coupon != null) {
+                Order order = ctx.sessionAttribute("order");
+                if (order != null) {
+                    double total = order.getItems().stream()
+                            .mapToDouble(i -> i.getPrice() * i.getQuantity())
+                            .sum();
+                    double discountedTotal = total * (1 - coupon.getDiscountPercent() / 100.0);
+
+
+                    ctx.sessionAttribute("coupon", coupon);
+                    ctx.sessionAttribute("discountedTotal", discountedTotal);
+
+                    ctx.json(Map.of(
+                            "success", true,
+                            "discountPercent", coupon.getDiscountPercent(),
+                            "discountedTotal", discountedTotal
+                    ));
+                }
+            } else {
+                ctx.json(Map.of(
+                        "success", false,
+                        "message", "Ugyldig rabatkode eller udløbet"
+                ));
+            }
+        });
+
+        // ______________________________________________________________________________
+
+        app.post("/update-payment-info", ctx -> {
+            String deliveryMethod = ctx.formParam("deliveryMethod");
+            String paymentMethod = ctx.formParam("paymentMethod");
+
+            ctx.sessionAttribute("deliveryMethod", deliveryMethod);
+            ctx.sessionAttribute("paymentMethod", paymentMethod);
+
+            ctx.json(Map.of("success", true));
+        });
+
+        // ______________________________________________________________________________
+
+        app.get("/pay", ctx -> {
+            Order order = ctx.sessionAttribute("order");
+            List<OrderItem> cartItems = order.getItems();
+            Double originalTotal = ctx.sessionAttribute("total");
+            Double discountedTotal = ctx.sessionAttribute("discountedTotal");
+            String deliveryMethod = ctx.sessionAttribute("deliveryMethod");
+            String paymentMethod = ctx.sessionAttribute("paymentMethod");
+            Coupon coupon = ctx.sessionAttribute("coupon");
+
+            Map<String, Object> model = new HashMap<>();
+            model.put("order", order);
+            model.put("cartItems", cartItems);
+            model.put("originalTotal", originalTotal);
+            model.put("discountedTotal", discountedTotal);
+            model.put("deliveryMethod", deliveryMethod);
+            model.put("paymentMethod", paymentMethod);
+            model.put("coupon", coupon);
+
+
+            ctx.html(ThymeleafSetup.render("final-confirmation.html", Map.of("data", model)));
         });
 
     }

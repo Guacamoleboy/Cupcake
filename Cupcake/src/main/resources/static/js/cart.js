@@ -74,6 +74,7 @@ document.addEventListener("DOMContentLoaded", async () => {
 
 // _______________________________________________________________
 
+let listItems = "";
 function showCartPopup(items, total, isInitial = false) {
     const container = document.getElementById("cart-container");
     const cartBtnWrapper = document.querySelector(".cart-btn-wrapper");
@@ -84,13 +85,19 @@ function showCartPopup(items, total, isInitial = false) {
 
     if (existing) existing.remove();
 
-    let listItems = "";
+    listItems = "";
 
     // Readonly for now. Not sure how to make it work with update just yet.
     // TODO remove readonly and fix it so it allows input.
 
     for (let i = 0; i < items.length; i++) {
-        listItems += `<li><span>${items[i].title}</span><input type='number' value='${items[i].quantity}' min='1' readonly></li>`;
+        listItems += `
+    <li>
+      <button class="minus" onclick="removeFromCart(${i}, 1)">−</button>
+      <input type='number' id='qty-${i}' value='${items[i].quantity}' min='1' readonly>
+      <button class="plus" onclick="addToCart(${i}, 1)">+</button>
+      <span>${items[i].title}</span>
+    </li>`;
     }
 
     const popup = document.createElement("div");
@@ -149,3 +156,123 @@ function showCartPopup(items, total, isInitial = false) {
     }
 
 } // Cart end
+
+async function addToCart(index, amount = 1) {
+
+    const input = document.getElementById(`qty-${index}`);
+    if (!input) return;
+
+    const item = cartItems[index];
+    if (!item) return;
+
+    let newValue = parseInt(input.value) + amount;
+    if (isNaN(newValue) || newValue < 1) newValue = 1;
+    input.value = newValue; item.quantity = newValue;
+
+    const safeId = item.id || item.productId || item.cupcakeId || 0;
+    const safeName = item.title || item.name || "Ukendt produkt";
+    const safePrice = item.price ?? 0.0;
+    const safeDesc = item.description || "";
+    const safeTop = item.topping || item.top || 0;
+    const safeBottom = item.bottom || item.base || 0;
+
+    const form = new FormData();
+    form.append("id", String(safeId));
+    form.append("name", safeName);
+    form.append("price", String(safePrice));
+    form.append("description", safeDesc);
+    form.append("topping", String(safeTop));
+    form.append("bottom", String(safeBottom));
+    form.append("quantity", String(newValue));
+
+    try {
+
+        const res = await fetch("/cart/add", { method: "POST", body: form });
+
+        if (!res.ok) {
+
+            console.error("Fejl fra server:", res.status, res.statusText);
+            return;
+
+        }
+
+        const text = await res.text();
+        if (!text || text.trim() === "") {
+
+            console.warn("Server returnerede intet JSON (tom response).");
+            return;
+        }
+
+        const data = JSON.parse(text);
+        cartItems = data.items || cartItems;
+        cartTotal = data.total ?? cartTotal;
+
+    } catch (err) {
+
+        console.error("Kunne ikke opdatere kurv:", err);
+
+    }
+
+}
+
+async function removeFromCart(index, amount = 1) {
+
+    const input = document.getElementById(`qty-${index}`);
+    if (!input) return;
+
+    const item = cartItems[index];
+    if (!item) return;
+
+    let newValue = parseInt(input.value) - amount;
+    if (isNaN(newValue) || newValue < 1) newValue = 0;
+    input.value = newValue; item.quantity = newValue;
+    const safeId = item.id || item.productId || item.cupcakeId || 0;
+
+
+    const form = new FormData();
+    form.append("id", String(safeId));
+    form.append("amount", String(amount));
+
+    try {
+
+        const res = await fetch("/cart/remove", { method: "POST", body: form });
+
+        if (!res.ok) {
+            console.error("Fejl fra server:", res.status, res.statusText);
+            return;
+        }
+
+        const text = await res.text();
+        if (!text || text.trim() === "") {
+
+            console.warn("Server returnerede intet JSON (tom response).");
+            return;
+
+        }
+
+        const data = JSON.parse(text);
+        cartItems = data.items || cartItems;
+        cartTotal = data.total ?? cartTotal;
+
+        if (newValue <= 0) {
+
+            const li = input.closest("li");
+            if (li) li.remove();
+
+        }
+
+    } catch (err) {
+
+        console.error("Kunne ikke opdatere kurv:", err);
+
+    }
+}
+
+
+
+
+
+
+
+
+
