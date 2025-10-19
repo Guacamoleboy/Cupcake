@@ -71,6 +71,15 @@ INSERT INTO order_items (order_id, bottom_id, topping_id, quantity) VALUES
 (1, 1, 1, 2),
 (1, 2, 2, 1);
 
+/* test cupon code */
+INSERT INTO coupons (code, discount_percent, valid_from, valid_until)
+VALUES (
+   '10procent',
+   10,
+   NOW(),
+   NOW() + INTERVAL '1 month'
+);
+
 /*
 INSERT INTO transactions (user_id, amount, description) VALUES
 (2, 100.00, 'Refund'); -- Refund

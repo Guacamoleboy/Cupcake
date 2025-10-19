@@ -5,8 +5,8 @@
     2. Semester
     3NF
 
-    Sidst opdateret af: Guacamoleboy
-    Dato: 14/10-2025
+    Sidst opdateret af: Rovelt123
+    Dato: 19/10-2025
 
 */
 
@@ -94,4 +94,12 @@ user_id INT REFERENCES users(id) ON DELETE CASCADE,
 amount DECIMAL(10,2) NOT NULL,
 created_at TIMESTAMP DEFAULT NOW(), /* Auto */
 description TEXT
+);
+
+CREATE TABLE coupons (
+ id SERIAL PRIMARY KEY,
+ code VARCHAR(50) UNIQUE NOT NULL,
+ discount_percent INT NOT NULL CHECK (discount_percent BETWEEN 1 AND 100),
+ valid_from TIMESTAMP DEFAULT NOW(),
+ valid_until TIMESTAMP
 );
