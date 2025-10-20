@@ -194,6 +194,10 @@ async function addToCart(index, amount = 1) {
         cartItems = data.items || cartItems;
         cartTotal = data.total ?? cartTotal;
 
+        const totalElement = document.querySelector(".cart-popup .total span:last-child");
+        if (totalElement) {
+            totalElement.textContent = `${cartTotal.toFixed(2)} kr`;
+        }
         //showCartPopup(cartItems, cartTotal, true);
 
     } catch (err) {
@@ -244,12 +248,15 @@ async function removeFromCart(index, amount = 1) {
         cartItems = data.items || cartItems;
         cartTotal = data.total ?? cartTotal;
 
+        const totalElement = document.querySelector(".cart-popup .total span:last-child");
+        if (totalElement) {
+            totalElement.textContent = `${cartTotal.toFixed(2)} kr`;
+        }
 
         if (newValue <= 0) {
 
             const li = input.closest("li");
             if (li) li.remove();
-            showCartPopup(cartItems, cartTotal, true);
 
         }
 
