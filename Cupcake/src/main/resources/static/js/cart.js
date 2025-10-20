@@ -255,8 +255,9 @@ async function removeFromCart(index, amount = 1) {
 
         if (newValue <= 0) {
 
-            const li = input.closest("li");
-            if (li) li.remove();
+            // TODO Vi skal fixe så vi ikke behøver at skulle bruge showCartPopup!!!
+            /*const li = input.closest("li");
+            if (li) li.remove(); */
 
             if (!cartItems || cartItems.length === 0) {
                 const popup = document.querySelector(".cart-popup");
