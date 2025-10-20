@@ -7,7 +7,8 @@ INSERT INTO users (email, password_hash, role, username) VALUES
 ('customer@olskercupcakes.dk', crypt('customer', gen_salt('bf')), 'customer', 'Customer'),
 ('jonas68@live.dk', crypt('1', gen_salt('bf')), 'customer', 'Guacamoleboy'),
 ('ebou@live.dk', crypt('Ebou', gen_salt('bf')), 'customer', 'Ebou'),
-('rovelt123@live.dk', crypt('rovelt123', gen_salt('bf')), 'customer', 'Rovelt123');
+('rovelt123@live.dk', crypt('rovelt123', gen_salt('bf')), 'customer', 'Rovelt123'),
+('guest@guest.dk', crypt('thisShouldNotBeGuessed', gen_salt('bf')), 'customer', 'guest');
 
 /* Cupcake Flavor (bunde) */
 INSERT INTO cupcake_flavor (name, price) VALUES

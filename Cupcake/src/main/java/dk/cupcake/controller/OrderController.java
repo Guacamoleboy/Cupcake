@@ -55,8 +55,7 @@ public class OrderController {
                 if (user != null) {
                     order = orderMapper.newOrder(user.getId());
                 } else {
-                    order = new Order();
-                    order.setId(-1);
+                    order = orderMapper.newOrder(0);
                 }
             }
 
@@ -97,8 +96,7 @@ public class OrderController {
                 if (user != null) {
                     order = orderMapper.newOrder(user.getId());
                 } else {
-                    order = new Order();
-                    order.setId(-1);
+                    order = orderMapper.newOrder(0);
                 }
             }
 
@@ -147,8 +145,7 @@ public class OrderController {
                 if (user != null) {
                     order = orderMapper.newOrder(user.getId());
                 } else {
-                    order = new Order();
-                    order.setId(-1);
+                    order = orderMapper.newOrder(0);
                 }
             }
 
