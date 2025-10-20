@@ -146,6 +146,26 @@ document.addEventListener("DOMContentLoaded", function() {
         case "missingSelection":
             showNotification("Vælg venligst levering og betaling", "orange");
             break;
+        case "postCreated":
+            showNotification("Galleri opslag oprettet!", "green");
+            break;
+        case "postDeleted":
+            showNotification("Galleri opslag slettet!", "orange");
+            break;
+        case "missingImageUrl":
+            showNotification("Mangler billede URL", "red");
+            break;
+        case "missingDescription":
+            showNotification("Mangler beskrivelse", "red");
+            break;
+        case "noPermission":
+            showNotification("Du har ikke tilladelse til denne handling", "red");
+            break;
+        case "notLoggedIn":
+            showNotification("Du skal være logget ind", "orange");
+            break;
+        case "missingPostId":
+            showNotification("Mangler opslag ID", "red");
         case "passwordIsReset":
             showNotification("Kig i din mail - Password Reset", "orange");
             break;

@@ -118,3 +118,31 @@ CREATE TABLE payment_methods (
 id SERIAL PRIMARY KEY,
 name VARCHAR(50) NOT NULL UNIQUE
 );
+
+/* Gallery Posts */
+CREATE TABLE gallery_posts (
+id SERIAL PRIMARY KEY,
+image_url TEXT NOT NULL,
+description TEXT NOT NULL,
+user_id INT REFERENCES users(id) ON DELETE CASCADE,
+size_class VARCHAR(50),
+created_at TIMESTAMP DEFAULT NOW()
+);
+
+/* Gallery Likes */
+CREATE TABLE gallery_likes (
+id SERIAL PRIMARY KEY,
+post_id INT REFERENCES gallery_posts(id) ON DELETE CASCADE,
+user_id INT REFERENCES users(id) ON DELETE CASCADE,
+created_at TIMESTAMP DEFAULT NOW(),
+UNIQUE(post_id, user_id)
+);
+
+/* Gallery Comments */
+CREATE TABLE gallery_comments (
+id SERIAL PRIMARY KEY,
+post_id INT REFERENCES gallery_posts(id) ON DELETE CASCADE,
+user_id INT REFERENCES users(id) ON DELETE CASCADE,
+comment_text TEXT NOT NULL,
+created_at TIMESTAMP DEFAULT NOW()
+);
