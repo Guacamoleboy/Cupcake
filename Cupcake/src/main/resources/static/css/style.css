@@ -152,7 +152,7 @@
 
 html, body {
     font-family: 'Itim', cursive !important; /* Site Identity DO NOT REMOVE */
-    background: url(../images/textures/background-texture-1.svg) no-repeat center 70% fixed;
+    background: url(../images/backgrounds/wallpaper.png) no-repeat center 70% fixed;
     background-color: var(--background) !important;
     background-size: cover;
     overflow-x: hidden !important;

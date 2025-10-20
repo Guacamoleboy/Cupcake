@@ -53,7 +53,6 @@ public class PageController {
 
         app.get("/apply", ctx -> ctx.html(ThymeleafSetup.render("apply.html", null)));
         app.get("/carrer", ctx -> ctx.html(ThymeleafSetup.render("carrer.html", null)));
-        app.get("/contact", ctx -> ctx.html(ThymeleafSetup.render("contact.html", null)));
         app.get("/custom", ctx -> ctx.html(ThymeleafSetup.render("custom.html", null)));
         app.get("/events", ctx -> ctx.html(ThymeleafSetup.render("events.html", null)));
         app.get("/galleri", ctx -> ctx.html(ThymeleafSetup.render("galleri.html", null)));
