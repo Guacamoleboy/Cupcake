@@ -146,6 +146,15 @@ document.addEventListener("DOMContentLoaded", function() {
         case "missingSelection":
             showNotification("Vælg venligst levering og betaling", "orange");
             break;
+        case "passwordIsReset":
+            showNotification("Kig i din mail - Password Reset", "orange");
+            break;
+        case "emailIsReset":
+            showNotification("Kig i din mail - Email Reset", "orange");
+            break;
+        case "usernameIsReset":
+            showNotification("Kig i din mail - Username Reset", "orange");
+            break;
     }
 
 });

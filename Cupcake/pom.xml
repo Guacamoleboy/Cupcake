@@ -65,6 +65,7 @@
             <version>42.6.0</version>
         </dependency>
 
+        <!-- Mail -->
         <dependency>
             <groupId>com.sun.mail</groupId>
             <artifactId>javax.mail</artifactId>
