@@ -100,6 +100,33 @@ INSERT INTO payment_methods (name) VALUES
 ('MasterCard'),
 ('Apple Pay');
 
+/* Gallery Posts */
+INSERT INTO gallery_posts (image_url, description, user_id, size_class) VALUES
+('/images/gallery/birthday.png', 'Fødselsdags Cupcake – bagt til Jonas og Mark som en del af vores festlige samling!', 1, 'gallery-item--extreme'),
+('/images/gallery/pride.png', 'Regnbuecupcakes til Kulturfestivalen – Andreas stod for det farverige design!', 1, 'gallery-item--large'),
+('/images/gallery/nice.png', 'Friske jordbærcupcakes med et strejf af sommerstemning.', 1, 'gallery-item--medium'),
+('/images/gallery/andreas.png', 'Andreas’ signaturcupcake med cremet frosting og et elegant finish.', 1, 'gallery-item--large'),
+('/images/gallery/jew.png', 'Blåbærmuffins med farverig pynt – en hyldest til mangfoldighed og smag!', 1, 'gallery-item--medium'),
+('/images/gallery/ebou.png', 'Cookie Monster cupcakes – Olskers sjove specialitet, altid et hit til fester!', 1, 'gallery-item--large');
+
+/* Gallery Likes  */
+INSERT INTO gallery_likes (post_id, user_id) VALUES
+(1, 1),
+(1, 2),
+(2, 1),
+(2, 3),
+(3, 2),
+(4, 1),
+(5, 3);
+
+/* Gallery Comments */
+INSERT INTO gallery_comments (post_id, user_id, comment_text) VALUES
+(1, 1, 'Add.. Hvorfor spiser jeg det ikke?'),
+(1, 1, 'Lækkert! Godt klaret.'),
+(2, 1, 'Wtf! Godt lavet jo...'),
+(3, 3, 'Nice! Bruger 3'),
+(4, 1, 'Andreas laver altid de bedste cupcakes');
+
 /*
 INSERT INTO transactions (user_id, amount, description) VALUES
 (2, 100.00, 'Refund'); -- Refund

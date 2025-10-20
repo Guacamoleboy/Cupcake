@@ -5,7 +5,6 @@ package dk.cupcake.mapper;
 import dk.cupcake.db.Database;
 import dk.cupcake.entities.GalleryLike;
 import dk.cupcake.exceptions.DatabaseException;
-
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;

@@ -27,7 +27,7 @@ public class GalleryController {
     // _______________________________________________
 
     public static void registerRoutes(Javalin app) {
-        app.get("/galleri", getGalleryPage);
+        app.get("/gallery", getGalleryPage);
         app.post("/gallery/post", createPost);
         app.post("/gallery/like", toggleLike);
         app.post("/gallery/comment", addComment);
