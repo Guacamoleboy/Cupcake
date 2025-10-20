@@ -19,6 +19,7 @@ public class Routing {
         UserController.registerRoutes(app);
         registerErrorRoutes(app);
         OrderController.registerRoutes(app);
+        ContactController.registerRoutes(app);
 
     }
 

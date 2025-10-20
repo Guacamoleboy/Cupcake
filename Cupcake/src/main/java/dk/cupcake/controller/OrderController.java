@@ -24,7 +24,6 @@ public class OrderController {
 
     public static void registerRoutes(Javalin app) {
 
-        app.get("/tak", ctx -> ctx.html(ThymeleafSetup.render("tak.html", null)));
         app.get("/tak-ordre", ctx -> ctx.html(ThymeleafSetup.render("tak-order.html", null)));
 
         // ______________________________________________________________________________
