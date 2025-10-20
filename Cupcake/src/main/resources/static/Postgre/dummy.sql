@@ -10,6 +10,11 @@ INSERT INTO users (email, password_hash, role, username) VALUES
 ('rovelt123@live.dk', crypt('rovelt123', gen_salt('bf')), 'customer', 'Rovelt123'),
 ('guest@guest.dk', crypt('thisShouldNotBeGuessed', gen_salt('bf')), 'customer', 'guest');
 
+/* Fixes Rovelt123 annoying fix */
+UPDATE users
+SET id = 0
+WHERE username = 'guest';
+
 /* Cupcake Flavor (bunde) */
 INSERT INTO cupcake_flavor (name, price) VALUES
 ('Chokolade', 15.00),
