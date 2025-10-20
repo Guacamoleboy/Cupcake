@@ -18,7 +18,7 @@ const navbarHTML = `
                     <a href="/order">Menu</a>
                 </li>
                 <li><a href="/custom">Custom Cupcake</a></li>
-                <li><a href="/galleri">Galleri</a></li>
+                <li><a href="/gallery">Galleri</a></li>
                 <li><a href="/events">Events</a></li>
                 <li><a href="/contact">Kontakt</a></li>
             </ul>
