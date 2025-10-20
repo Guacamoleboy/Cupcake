@@ -265,8 +265,8 @@ async function removeFromCart(index, amount = 1) {
                 popup.style.transform = "translateX(120%)";
                 setTimeout(() => popup.remove(), 400);
 
-                openCartBtn.style.display = "block";
-                document.querySelector(".cart-btn-wrapper").style.display = "block";
+                openCartBtn.style.display = "none";
+                document.querySelector(".cart-btn-wrapper").style.display = "none";
                 return;
             }
 
