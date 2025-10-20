@@ -30,16 +30,14 @@ public class OrderController {
         // ______________________________________________________________________________
 
         app.get("/ordertak/{id}", ctx -> {
-            int id = Integer.parseInt(ctx.pathParam("id"));
-            OrderMapper orderMapper = new OrderMapper();
-            Order order = orderMapper.getById(id);
+            order = ctx.sessionAttribute("order");
 
             if (order == null) {
                 ctx.status(404).redirect("/?error=500");
                 return;
             }
 
-            ctx.render("tak-order.html", java.util.Map.of("order", order));
+            ctx.html(ThymeleafSetup.render("tak-order.html", java.util.Map.of("order", order)));
 
         });
 
