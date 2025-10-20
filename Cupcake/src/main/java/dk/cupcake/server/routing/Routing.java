@@ -20,6 +20,7 @@ public class Routing {
         registerErrorRoutes(app);
         OrderController.registerRoutes(app);
         ContactController.registerRoutes(app);
+        GalleryController.registerRoutes(app);
 
     }
 

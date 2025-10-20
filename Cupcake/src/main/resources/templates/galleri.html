@@ -34,6 +34,8 @@
     
     <!-- Scripts -->
     <script src="/js/heart-button.js" defer></script>
+    <script src="/js/gallery.js" defer></script>
+    <script src="/js/notification.js" defer></script>
 
 </head>
 <body class="subpage galleri-page">
@@ -70,180 +72,55 @@
                     <h2>Galleri</h2>
                     <p>Se, like og kommenter vores nyeste opslag!</p>
                     
+                    <!-- Admin Create Post Button -->
+                    <div th:if="${user != null and user.role == 'admin'}" class="admin-controls">
+                        <button class="guac-btn guac-btn-primary" onclick="document.getElementById('create-post-modal').style.display='flex'">
+                            <i class="fa-solid fa-plus"></i> Opret Nyt Opslag
+                        </button>
+                    </div>
+                    
                     <!-- Grid Showcase Start -->
                     <div class="gallery-grid">
-                        <div class="gallery-item gallery-item--extreme">
-                            <img src="/images/gallery/birthday.png" alt="Fødselsdags Cupcake" class="gallery-item__img">
-                            <button class="heart-btn">
-                                <i class="fa-regular fa-heart"></i>
+                        <div th:each="post : ${posts}" 
+                             th:classappend="${post.sizeClass}" 
+                             th:attr="data-post-id=${post.id}"
+                             class="gallery-item">
+                            <img th:src="${post.imageUrl}" alt="Galleri Billede" class="gallery-item__img">
+                            <button class="heart-btn" 
+                                    th:classappend="${userLikes.get(post.id) ? 'liked' : ''}"
+                                    th:onclick="'toggleLike(' + ${post.id} + ', this)'">
+                                <i th:class="${userLikes.get(post.id) ? 'fa-solid fa-heart' : 'fa-regular fa-heart'}"></i>
                             </button>
                             <div class="gallery-item__details">
-                                Fødselsdags Cupcake - denne gav vi til Jonas og hans boyfriend på deres fødselsdag!
+                                <p th:text="${post.description}">Beskrivelse</p>
                                 
                                 <!-- Likes and Comments -->
                                 <div class="gallery-item__lac">
-                                    <span><i class="fa-regular fa-heart"></i> 12</span>
-                                    <span><i class="fa-regular fa-comment"></i> 3</span>
+                                    <span>
+                                        <i class="fa-regular fa-heart"></i> 
+                                        <span class="like-count" th:text="${likeCounts.get(post.id)}">0</span>
+                                    </span>
+                                    <span style="cursor: pointer;" th:onclick="'showComments(' + ${post.id} + ')'">
+                                        <i class="fa-regular fa-comment"></i> 
+                                        <span class="comment-count" th:text="${commentCounts.get(post.id)}">0</span>
+                                    </span>
                                 </div>
                                 <!-- Likes and Comments -->
 
-                            </div>
-                        </div>
-                        <div class="gallery-item gallery-item--large">
-                            <img src="/images/gallery/pride.png" alt="Fødselsdags Cupcake" class="gallery-item__img">
-                            <button class="heart-btn">
-                                <i class="fa-regular fa-heart"></i>
-                            </button>
-                            <div class="gallery-item__details">
-                                Fejring af Jødisk Kulturfestival - Andreas stod for at lave regnbuecupcakes til fejringen!
-
-                                <!-- Likes and Comments -->
-                                <div class="gallery-item__lac">
-                                    <span><i class="fa-regular fa-heart"></i> 12</span>
-                                    <span><i class="fa-regular fa-comment"></i> 3</span>
+                                <!-- Admin Delete Button -->
+                                <div th:if="${user != null and user.role == 'admin'}" class="admin-delete">
+                                    <form method="post" action="/gallery/post/delete" style="display: inline;">
+                                        <input type="hidden" name="postId" th:value="${post.id}">
+                                        <button type="submit" class="delete-btn" onclick="return confirm('Er du sikker på du vil slette dette opslag?')">
+                                            <i class="fa-solid fa-trash"></i>
+                                        </button>
+                                    </form>
                                 </div>
-                                <!-- Likes and Comments -->
-
-                            </div>
-                        </div>
-                        <div class="gallery-item gallery-item--medium">
-                            <img src="/images/gallery/nice.png" alt="Fødselsdags Cupcake" class="gallery-item__img">
-                            <button class="heart-btn">
-                                <i class="fa-regular fa-heart"></i>
-                            </button>
-                            <div class="gallery-item__details">
-                                Lækker jordbær LOL
-
-                                <!-- Likes and Comments -->
-                                <div class="gallery-item__lac">
-                                    <span><i class="fa-regular fa-heart"></i> 12</span>
-                                    <span><i class="fa-regular fa-comment"></i> 3</span>
-                                </div>
-                                <!-- Likes and Comments -->
-
-                            </div>
-                        </div>
-                        <div class="gallery-item gallery-item--large">
-                            <img src="/images/gallery/andreas.png" alt="Fødselsdags Cupcake" class="gallery-item__img">
-                            <button class="heart-btn">
-                                <i class="fa-regular fa-heart"></i>
-                            </button>
-                            <div class="gallery-item__details">
-                                Andreas Special
-
-                                <!-- Likes and Comments -->
-                                <div class="gallery-item__lac">
-                                    <span><i class="fa-regular fa-heart"></i> 12</span>
-                                    <span><i class="fa-regular fa-comment"></i> 3</span>
-                                </div>
-                                <!-- Likes and Comments -->
-
-                            </div>
-                        </div>
-                        <div class="gallery-item gallery-item--half">
-                            <img src="/images/gallery/jonasmonster.png" alt="Fødselsdags Cupcake" class="gallery-item__img">
-                            <button class="heart-btn">
-                                <i class="fa-regular fa-heart"></i>
-                            </button>
-                            <div class="gallery-item__details">
-                                Ebou's Favorit
-
-                                <!-- Likes and Comments -->
-                                <div class="gallery-item__lac">
-                                    <span><i class="fa-regular fa-heart"></i> 12</span>
-                                    <span><i class="fa-regular fa-comment"></i> 3</span>
-                                </div>
-                                <!-- Likes and Comments -->
-
-                            </div>
-                        </div>
-                        <div class="gallery-item gallery-item--medium">
-                            <img src="/images/gallery/jew.png" alt="Fødselsdags Cupcake" class="gallery-item__img">
-                            <button class="heart-btn">
-                                <i class="fa-regular fa-heart"></i>
-                            </button>
-                            <div class="gallery-item__details">
-                                Blåbær muffins med et twist af LGTBQ+ krymmel! We don't discriminate.
-
-                                <!-- Likes and Comments -->
-                                <div class="gallery-item__lac">
-                                    <span><i class="fa-regular fa-heart"></i> 12</span>
-                                    <span><i class="fa-regular fa-comment"></i> 3</span>
-                                </div>
-                                <!-- Likes and Comments -->
-
-                            </div>
-                        </div>
-                        <div class="gallery-item gallery-item--large">
-                            <img src="/images/gallery/ebou.png" alt="Fødselsdags Cupcake" class="gallery-item__img">
-                            <button class="heart-btn">
-                                <i class="fa-regular fa-heart"></i>
-                            </button>
-                            <div class="gallery-item__details">
-                                Olskers Special Cookie Monster cupcakes, som vores elskede Jonas fik spist et par af!
-
-                                <!-- Likes and Comments -->
-                                <div class="gallery-item__lac">
-                                    <span><i class="fa-regular fa-heart"></i> 12</span>
-                                    <span><i class="fa-regular fa-comment"></i> 3</span>
-                                </div>
-                                <!-- Likes and Comments -->
-
-                            </div>
-                        </div>
-                        <div class="gallery-item">
-                            <img src="/images/gallery/shit.png" alt="Fødselsdags Cupcake" class="gallery-item__img">
-                            <button class="heart-btn">
-                                <i class="fa-regular fa-heart"></i>
-                            </button>
-                            <div class="gallery-item__details">
-                                Flotte cupcakes på bestilling fra Andreas Rovelt's bogklub
-
-                                <!-- Likes and Comments -->
-                                <div class="gallery-item__lac">
-                                    <span><i class="fa-regular fa-heart"></i> 12</span>
-                                    <span><i class="fa-regular fa-comment"></i> 3</span>
-                                </div>
-                                <!-- Likes and Comments -->
-
-                            </div>
-                        </div>
-                        <div class="gallery-item gallery-item--medium">
-                            <img src="/images/gallery/pride.png" alt="Fødselsdags Cupcake" class="gallery-item__img">
-                            <button class="heart-btn">
-                                <i class="fa-regular fa-heart"></i>
-                            </button>
-                            <div class="gallery-item__details">
-                                Flotte cupcakes på bestilling fra Andreas Rovelt's bogklub
-
-                                <!-- Likes and Comments -->
-                                <div class="gallery-item__lac">
-                                    <span><i class="fa-regular fa-heart"></i> 12</span>
-                                    <span><i class="fa-regular fa-comment"></i> 3</span>
-                                </div>
-                                <!-- Likes and Comments -->
-
-                            </div>
-                        </div>
-                        <div class="gallery-item">
-                            <img src="/images/gallery/ebou.png" alt="Fødselsdags Cupcake" class="gallery-item__img">
-                            <button class="heart-btn">
-                                <i class="fa-regular fa-heart"></i>
-                            </button>
-                            <div class="gallery-item__details">
-                                Flotte cupcakes på bestilling fra Andreas Rovelt's bogklub
-
-                                <!-- Likes and Comments -->
-                                <div class="gallery-item__lac">
-                                    <span><i class="fa-regular fa-heart"></i> 12</span>
-                                    <span><i class="fa-regular fa-comment"></i> 3</span>
-                                </div>
-                                <!-- Likes and Comments -->
 
                             </div>
                         </div>
                     </div>
-                    <!-- Grid Showcase Start -->
+                    <!-- Grid Showcase End -->
 
                 </div>
                 <!-- Gallery col-12 End -->
@@ -267,6 +144,63 @@
     <!-- Footer Nav -->
     <div id="footer-nav-component"></div>
     <!-- Footer Nav -->
+
+    <!-- Create Post Modal (Admin Only) -->
+    <div id="create-post-modal" class="modal" style="display: none;">
+        <div class="modal-content">
+            <span class="modal-close" onclick="document.getElementById('create-post-modal').style.display='none'">&times;</span>
+            <h2>Opret Nyt Galleri Opslag</h2>
+            <form method="post" action="/gallery/post">
+                <div class="form-group">
+                    <label for="imageUrl">Billede URL:</label>
+                    <input type="text" id="imageUrl" name="imageUrl" placeholder="/images/gallery/cupcake.png" required>
+                </div>
+                <div class="form-group">
+                    <label for="description">Beskrivelse:</label>
+                    <textarea id="description" name="description" rows="4" required></textarea>
+                </div>
+                <div class="form-group">
+                    <label for="sizeClass">Størrelse (valgfrit):</label>
+                    <select id="sizeClass" name="sizeClass">
+                        <option value="">Normal</option>
+                        <option value="gallery-item--extreme">Ekstra Stor</option>
+                        <option value="gallery-item--large">Stor</option>
+                        <option value="gallery-item--medium">Medium</option>
+                        <option value="gallery-item--half">Halv</option>
+                    </select>
+                </div>
+                <div class="modal-buttons">
+                    <button type="button" class="guac-btn guac-btn-secondary" onclick="document.getElementById('create-post-modal').style.display='none'">
+                        Annuller
+                    </button>
+                    <button type="submit" class="guac-btn guac-btn-primary">
+                        Opret Opslag
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Comments Modal -->
+    <div id="comments-modal" class="modal" style="display: none;">
+        <div class="modal-content">
+            <span class="modal-close" onclick="closeCommentsModal()">&times;</span>
+            <h2>Kommentarer</h2>
+            <div id="comments-list" class="comments-list">
+                <!-- Comments will be loaded here dynamically -->
+            </div>
+            <div class="comment-form" id="comment-form">
+                <textarea id="comment-input" placeholder="Skriv en kommentar..." rows="3"></textarea>
+                <button class="guac-btn guac-btn-primary" onclick="submitComment()">
+                    <i class="fa-solid fa-paper-plane"></i> Send
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Notification -->
+    <div id="guac-notification-container"></div>
+    <!-- Notification -->
 
 </body>
 </html>
