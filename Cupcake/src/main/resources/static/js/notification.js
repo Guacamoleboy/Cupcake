@@ -166,6 +166,14 @@ document.addEventListener("DOMContentLoaded", function() {
             break;
         case "missingPostId":
             showNotification("Mangler opslag ID", "red");
+        case "passwordIsReset":
+            showNotification("Kig i din mail - Password Reset", "orange");
+            break;
+        case "emailIsReset":
+            showNotification("Kig i din mail - Email Reset", "orange");
+            break;
+        case "usernameIsReset":
+            showNotification("Kig i din mail - Username Reset", "orange");
             break;
     }
 

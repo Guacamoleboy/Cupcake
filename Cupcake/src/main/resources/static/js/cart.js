@@ -79,14 +79,14 @@ function showCartPopup(items, total, isInitial = false) {
 
     for (let i = 0; i < items.length; i++) {
         listItems += `
-    <li>
-        <span>${items[i].title}</span>
-        <div class="cart-controls">
-            <button class="minus" onclick="removeFromCart(${i}, 1)">-</button>
-            <input type='number' id='qty-${i}' value='${items[i].quantity}' min='1' readonly>
-            <button class="plus" onclick="addToCart(${i}, 1)">+</button>
-        </div>
-    </li>`;
+        <li>
+            <span>${items[i].title}</span>
+            <div class="cart-controls">
+                <button class="minus" onclick="removeFromCart(${i}, 1)">-</button>
+                <input type='number' id='qty-${i}' value='${items[i].quantity}' min='1' readonly>
+                <button class="plus" onclick="addToCart(${i}, 1)">+</button>
+            </div>
+        </li>`;
     }
 
     const popup = document.createElement("div");
@@ -255,8 +255,22 @@ async function removeFromCart(index, amount = 1) {
 
         if (newValue <= 0) {
 
-            const li = input.closest("li");
-            if (li) li.remove();
+            // TODO Vi skal fixe så vi ikke behøver at skulle bruge showCartPopup!!!
+            /*const li = input.closest("li");
+            if (li) li.remove(); */
+
+            if (!cartItems || cartItems.length === 0) {
+                const popup = document.querySelector(".cart-popup");
+                popup.style.opacity = "0";
+                popup.style.transform = "translateX(120%)";
+                setTimeout(() => popup.remove(), 400);
+
+                openCartBtn.style.display = "none";
+                document.querySelector(".cart-btn-wrapper").style.display = "none";
+                return;
+            }
+
+            showCartPopup(cartItems, cartTotal, true);
 
         }
 

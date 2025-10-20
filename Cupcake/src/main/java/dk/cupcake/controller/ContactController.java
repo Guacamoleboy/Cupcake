@@ -3,7 +3,6 @@ package dk.cupcake.controller;
 import dk.cupcake.server.ThymeleafSetup;
 import io.javalin.Javalin;
 import io.javalin.http.Context;
-
 import javax.mail.*;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
@@ -11,51 +10,62 @@ import java.util.Properties;
 
 public class ContactController {
 
+    // Attributes
+
+    // ___________________________________________________________
+
     public static void registerRoutes(Javalin app) {
         ContactController controller = new ContactController();
 
         app.get("/contact", ctx -> ctx.html(ThymeleafSetup.render("contact.html", null)));
-        app.get("/tak", controller::contactUs);
+        app.post("/tak", controller::contactUs);
+
     }
 
+    // ___________________________________________________________
+
     public void contactUs(Context ctx) {
+
+        // Our Info
         String ourEmail = "cupcake@travlr.dk";
         String ourPassword = "Nyepasswordssuttermax123!";
-        String sendToThisEmail = "andreas.sggamin@gmail.com";
 
-        String name = ctx.queryParam("navn");
-        String email = ctx.queryParam("email");
-        String phoneParam = ctx.queryParam("telefon");
+        // Input Info
+        String name = ctx.formParam("navn");
+        String email = ctx.formParam("email");
+        String phoneParam = ctx.formParam("telefon");
+        String title = ctx.formParam("emne");
+        String msg = ctx.formParam("besked");
+
+        // Validation
         String phone = phoneParam != null && !phoneParam.isEmpty() ? phoneParam : "Ikke angivet";
-        String title = ctx.queryParam("emne");
-        String msg = ctx.queryParam("besked");
 
         String mailBody = String.format("""
-                    Name:
+                    Ny besked modtaget
+                    
+                    Navn:
                     %s
 
                     E-mail:
                     %s
 
-                    Phone:
+                    Telefonnummer:
                     %s
 
-                    Title:
+                    Emne:
                     %s
 
-                    Description:
+                    Besked:
                     %s
-                    """,name, email,
-                phone,
-                title, msg);
+                    """,name, email, phone, title, msg);
 
 
         // Email setup
         Properties p = new Properties();
         p.put("mail.smtp.auth", "true");
-        p.put("mail.smtp.starttls.enable", "true");
         p.put("mail.smtp.host", "send.one.com");
         p.put("mail.smtp.port", "465");
+        p.put("mail.smtp.ssl.enable", "true"); // Important
 
         // Starting our send session
         Session s = Session.getInstance(p,
@@ -72,7 +82,7 @@ public class ContactController {
             Message message = new MimeMessage(s);
             message.setFrom(new InternetAddress(ourEmail));
             message.setRecipients(
-                    Message.RecipientType.TO, InternetAddress.parse(sendToThisEmail)
+                    Message.RecipientType.TO, InternetAddress.parse(ourEmail)
             );
 
             // Adds our subject and msg (text)
@@ -82,16 +92,15 @@ public class ContactController {
             // Sends it
             Transport.send(message);
 
+            // Redirects
             ctx.html(ThymeleafSetup.render("tak.html", null));
 
         } catch (MessagingException e) {
 
-            System.out.println("Mailen kunne ikke findes!!!");
             e.printStackTrace();
 
         }
 
-
     }
 
-}
+} // ContactController end
