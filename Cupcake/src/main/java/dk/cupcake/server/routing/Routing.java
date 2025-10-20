@@ -17,9 +17,12 @@ public class Routing {
         ProductController.registerRoutes(app);
         ValidationController.registerRoutes(app);
         UserController.registerRoutes(app);
-        registerErrorRoutes(app);
         OrderController.registerRoutes(app);
         ContactController.registerRoutes(app);
+        AccountController.registerRoutes(app);
+
+        // Last
+        registerErrorRoutes(app);
 
     }
 
