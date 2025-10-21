@@ -58,6 +58,21 @@ public class UserMapper {
 
     // ________________________________________________________________
 
+    public User getByEmail(String email) throws SQLException {
+        String sql = "SELECT * FROM users WHERE LOWER(email) = LOWER(?)"; /* LOWER is very important here. Do not remove... */
+        try (Connection conn = Database.getConnection();
+             PreparedStatement stmt = conn.prepareStatement(sql)) {
+            stmt.setString(1, email);
+            ResultSet rs = stmt.executeQuery();
+            if (rs.next()) {
+                return toUser(rs);
+            }
+            return null;
+        }
+    }
+
+    // ________________________________________________________________
+
     public void newUser(User user) throws DatabaseException {
         String sql = "INSERT INTO users (email, password_hash, role, username, phone, payment_attached) VALUES (?, ?, ?, ?, ?, ?)";
         try (Connection conn = Database.getConnection();
@@ -89,6 +104,7 @@ public class UserMapper {
     // ________________________________________________________________
 
     public void update(User user) throws SQLException {
+        if (user.getId() <= 0) throw new IllegalArgumentException("User id invalid");
         String sql = "UPDATE users SET email = ?, password_hash = ?, role = ?, username = ?, phone = ?, payment_attached = ? WHERE id = ?";
         try (Connection conn = Database.getConnection();
              PreparedStatement stmt = conn.prepareStatement(sql)) {
@@ -99,7 +115,8 @@ public class UserMapper {
             stmt.setString(5, user.getPhone());
             stmt.setBoolean(6, user.isPaymentAttached());
             stmt.setInt(7, user.getId());
-            stmt.executeUpdate();
+            int rows = stmt.executeUpdate();
+            if (rows == 0) System.out.println("Warning: No user updated!");
         }
     }
 

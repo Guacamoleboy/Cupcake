@@ -3,7 +3,6 @@ package dk.cupcake.mapper;
 import dk.cupcake.db.Database;
 import dk.cupcake.entities.Order;
 import dk.cupcake.entities.Refund;
-
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -21,7 +20,7 @@ public class RefundMapper {
             ps.setInt(2, order.getUser().getId());
             ps.setString(3, reason);
             ps.setTimestamp(4, new Timestamp(System.currentTimeMillis()));
-            ps.setString(5, "active");
+            ps.setString(5, "open");
 
             ps.executeUpdate();
 

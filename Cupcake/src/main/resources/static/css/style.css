@@ -157,8 +157,9 @@
 
 html, body {
     font-family: 'Itim', cursive !important; /* Site Identity DO NOT REMOVE */
-    background: url(../images/backgrounds/wallpaper.png) center 70% fixed;
+    background: url(../images/backgrounds/wallpaper-fix-2.png) no-repeat center 70% fixed;
     background-color: var(--background) !important;
+    background-size: cover;
     overflow-x: hidden !important;
     overflow-y: scroll; /* Makes sure users can still Scroll */
     scrollbar-width: none;
@@ -2534,3 +2535,48 @@ button.minus:active {
     100% { opacity: 0; pointer-events: none; }
 }
 
+/* ___________________________________________ */
+
+/* Forgot Something */
+
+/* ___________________________________________ */
+
+.forgot-btn-group {
+    text-align: center;
+    margin-top: 1rem;
+}
+
+.forgot-link {
+    color: var(--cupcake-white);
+    text-decoration: none;
+    font-weight: 500;
+    display: inline-block;
+    transition: transform 0.25s ease, color 0.25s ease;
+}
+
+.forgot-link:hover {
+    transform: scale(1.03);
+}
+
+.forgot-link:active {
+    transform: scale(1.0);
+    color: #ccc;
+}
+
+.forgot-choice-group {
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+    margin-top: 1rem;
+    flex-wrap: wrap;
+}
+
+#forgot-form-container form {
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+}
+
+#forgot-form-container input {
+    text-align: center;
+}

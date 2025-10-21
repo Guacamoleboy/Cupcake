@@ -70,6 +70,12 @@ document.addEventListener("DOMContentLoaded", function() {
         case "wrongInfo":
             showNotification("Wrong username or password...", "red");
             break;
+        case "passwordResetSent":
+            showNotification("Kig i din mail", "orange");
+            break;
+        case "passwordReset":
+            showNotification("Adgangskode nulstillet!", "green");
+            break;
         case "wrongPassword":
             showNotification("Wrong password...", "orange");
             break;
@@ -90,6 +96,9 @@ document.addEventListener("DOMContentLoaded", function() {
             break;
         case "500":
             showNotification("Server error: 500", "red");
+            break;
+        case "usernameChanged":
+            showNotification("Dit brugernavn er ændret!", "green");
             break;
         case "accountDeleted":
             showNotification("Your account has been deleted.", "orange");
@@ -118,6 +127,9 @@ document.addEventListener("DOMContentLoaded", function() {
         case "UsernameError":
             showNotification("An error has occurred!", "red");
             break;
+        case "contactError":
+            showNotification("An error has occurred!", "red");
+            break;
         case "newMessage1": // Fixes localStorage notification issues
             const hasSeenCupcakeMessage = localStorage.getItem("seenNewCupcakeMessage");
             if (!hasSeenCupcakeMessage) {
@@ -139,6 +151,9 @@ document.addEventListener("DOMContentLoaded", function() {
             break;
         case "cartError":
             showNotification("Der opstod en fejl i kurven.", "red");
+            break;
+        case "invalidToken":
+            showNotification("Koden er ugyldig eller udløbet.", "red");
             break;
         case "emptyCart":
             showNotification("Du har ingen kurv", "red");
