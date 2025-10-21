@@ -3,6 +3,7 @@ package dk.cupcake.server.routing;
 
 // Imports
 import dk.cupcake.controller.*;
+import dk.cupcake.controller.Profile.ProfileOrderController;
 import io.javalin.Javalin;
 
 public class Routing {
@@ -20,6 +21,7 @@ public class Routing {
         OrderController.registerRoutes(app);
         ContactController.registerRoutes(app);
         AccountController.registerRoutes(app);
+        ProfileOrderController.registerRoutes(app);
 
         // Last
         registerErrorRoutes(app);

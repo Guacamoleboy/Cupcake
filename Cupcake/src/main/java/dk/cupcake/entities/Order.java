@@ -23,6 +23,7 @@ public class Order {
     private Integer deliveryMethodId;
     private Integer paymentMethodId;
     private String deliveryAddress;
+    private double totalPrice;
     OrderItemMapper OrderItemMapper = new OrderItemMapper();
 
     // ___________________________________________________
@@ -188,6 +189,18 @@ public class Order {
                 return;
             }
         }
+    }
+
+    // ___________________________________________________
+
+    public double getTotalPrice() {
+        return totalPrice;
+    }
+
+    // ___________________________________________________
+
+    public void setTotalPrice(double totalPrice) {
+        this.totalPrice = totalPrice;
     }
 
 } // Order end

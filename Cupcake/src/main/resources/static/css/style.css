@@ -50,6 +50,11 @@
     --profile-sidemenu-buttons: var(--profile-background);
     --profile-sidemenu-buttons-text: white;
     --profile-button-hover: #331f1f;
+    --profile-orderCard-background: rgba(0, 0, 0, 0.51);
+    --profile-order-continue-btn: #28a745;
+    --profile-order-continue-btn-hover: #218838;
+    --profile-order-delete-btn: #a72828;
+    --profile-order-delete-btn-hover: #882121;
 
     /* Inputs */
     --input-box: #D9D9D9;
@@ -1212,6 +1217,79 @@ body::-webkit-scrollbar { /* All other browsers */
     transition: all 0.2s ease-in-out;
 }
 
+#ordersContainer{
+    display: none;
+    max-height: 31.25rem;
+    overflow-y: auto;
+}
+
+#orderResult{
+    max-height: 31.25rem;
+    overflow-y: auto;
+}
+
+#nextAndPrevNav {
+    display: none;
+    text-align: center;
+    margin-top: 10px;
+}
+
+#ordersContainer .order-card,
+#orderResult .order-card{
+    border: 0.0625rem solid var(--profile-sidemenu-border);
+    border-radius: 0.5rem;
+    padding: 1rem;
+    margin-bottom: 1rem;
+    background-color: var(--profile-orderCard-background);
+    box-shadow: 0 0.125rem 0.5rem rgba(0,0,0,0.1);
+}
+
+#ordersContainer::-webkit-scrollbar,
+#orderResult::-webkit-scrollbar{
+    width: 0.5rem;
+}
+#ordersContainer::-webkit-scrollbar-thumb,
+#orderResult::-webkit-scrollbar-thumb{
+    background-color: rgba(0,0,0,0.2);
+    border-radius: 0.25rem;
+}
+#ordersContainer::-webkit-scrollbar-track,
+#orderResult::-webkit-scrollbar-track{
+    background-color: var(--cupcake-white);
+}
+
+#ordersContainer .finish-btn,
+#orderResult .finish-btn{
+    background-color: var(--profile-order-continue-btn);
+    color: var(--cupcake-white);
+    border: none;
+    padding: 0.5rem 1rem;
+    margin-top: 0.625rem;
+    border-radius: 0.25rem;
+    cursor: pointer;
+}
+
+#ordersContainer .finish-btn:hover,
+#orderResult .finish-btn:hover {
+    background-color: var(--profile-order-continue-btn-hover);
+}
+
+#ordersContainer .delete-btn,
+#orderResult .delete-btn{
+    background-color: var(--profile-order-delete-btn);
+    color: var(--cupcake-white);
+    border: none;
+    padding: 0.5rem 1rem;
+    margin-top: 0.625rem;
+    border-radius: 0.25rem;
+    cursor: pointer;
+}
+
+#ordersContainer .delete-btn:hover,
+#orderResult .delete-btn:hover {
+    background-color: var(--profile-order-delete-btn-hover);
+}
+
 /* ___________________________________________ */
 
 /* Events */
@@ -2367,4 +2445,5 @@ button.minus:active {
     0%, 80% { opacity: 1; }
     100% { opacity: 0; pointer-events: none; }
 }
+
 

@@ -29,9 +29,9 @@
     <script src="/js/auth.js" defer></script>
     <script src="/js/notification.js" defer></script>
     <script src="/js/scroll-fix.js" defer></script>
+    <script src="/js/profile.js" defer></script>
 
     <!-- Modules -->
-    <script type="module" src="/js/components/navbar.js" defer></script>
 
 </head>
 <body class="profile-initial">
@@ -261,10 +261,17 @@
                 <div class="guac-row input-group">
                     <div class="guac-col">
                         <label>Ordre ID</label>
-                        <input type="text" placeholder="41414...">
+                        <input type="text" id="orderIdInput" placeholder="41414...">
                     </div>
                 </div>
-                <button type="button" class="guac-btn action-btn">Søg efter ordre</button>
+
+                <div id="orderResult"></div>
+
+                <div class="guac-pt-2">
+                    <button type="button" class="guac-btn action-btn" id="searchOrderBtn">Søg efter ordre</button>
+                    <button type="button" class="guac-btn action-btn" id="hideOrderBtn" style="display:none;" >Skjul ordre</button>
+                </div>
+
             </div>
             <!--  Content Section -->
 
@@ -275,8 +282,56 @@
             <!--  Content Section -->
             <div class="content-section" id="seeAllOrdersSection">
                 <h2>Se alle dine ordre</h2>
-                <p>Her kan du se alle dine ordre</p>
-                <button type="button" class="guac-btn action-btn">Vis alle ordre</button>
+                <p>Her kan du se alle dine tidligere ordrer</p>
+
+                <div id="ordersContainer">
+                    <div th:if="${orders != null}">
+                        <div th:each="order : ${orders}" class="order-card">
+                            <div class="order-header">
+                                <h3>Ordre ID: <span th:text="${order.id}"></span></h3>
+                                <p>Status: <span th:text="${order.status}"></span></p>
+                            </div>
+
+                            <div class="order-items">
+                                <p><strong>Produkter:</strong></p>
+                                <ul>
+                                    <li th:each="item : ${order.items}">
+                                        <span th:text="${item.title}"></span> —
+                                        <span th:text="${item.quantity}"></span> stk
+                                        <span th:text="${item.price}"></span>,- kr
+                                    </li>
+                                </ul>
+                            </div>
+
+                            <p><strong>Total:</strong> <span th:text="${order.totalPrice}"></span> kr</p>
+
+
+                            <div class="guac-pt-2">
+                                <a th:if="${order.status.equals('open')}"
+                                   th:href="'/orderContinue?orderId=' + ${order.id}"
+                                   class="guac-btn finish-btn">
+                                    Fortsæt køb
+                                </a>
+                                <a
+                                   th:href="'/removeOrder?orderId=' + ${order.id}"
+                                   class="guac-btn delete-btn">
+                                    Slet
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div th:if="${orders == null}">
+                        <p>Du har ingen ordrer endnu.</p>
+                    </div>
+                </div>
+
+                <div id="nextAndPrevNav">
+                    <button id="prevOrderBtn" class="guac-btn action-btn">Forrige ordre</button>
+                    <button id="nextOrderBtn" class="guac-btn action-btn">Næste ordre</button>
+                </div>
+
+                <button type="button" class="guac-btn action-btn" id="showOrdersBtn">Vis ordre</button>
             </div>
             <!--  Content Section -->
 

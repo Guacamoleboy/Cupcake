@@ -169,4 +169,41 @@ public class OrderMapper {
 
     }
 
+    // _________________________________________________________
+
+    public void updateOrderStatus(Order order) throws SQLException {
+
+        String sql = "UPDATE orders SET status = ? WHERE id = ?";
+
+        try (Connection conn = Database.getConnection();
+             PreparedStatement stmt = conn.prepareStatement(sql)) {
+
+            stmt.setString(1, order.getStatus());
+            stmt.setInt(2, order.getId());
+            stmt.executeUpdate();
+
+        }
+
+    }
+
+    // _________________________________________________________
+
+    public Order getUserOrderByID(int id, int user_id) throws SQLException {
+
+        String sql = "SELECT * FROM orders WHERE id = ? AND user_id = ?";
+
+        try (Connection conn = Database.getConnection();
+             PreparedStatement stmt = conn.prepareStatement(sql)) {
+
+            stmt.setInt(1, id);
+            stmt.setInt(2, user_id);
+            ResultSet rs = stmt.executeQuery();
+
+            if (rs.next()) return toOrder(rs);
+
+            return null;
+
+        }
+
+    }
 } // OrderMapper end

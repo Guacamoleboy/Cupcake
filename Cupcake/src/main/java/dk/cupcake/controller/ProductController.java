@@ -1,6 +1,8 @@
 package dk.cupcake.controller;
 
+import dk.cupcake.entities.Order;
 import dk.cupcake.entities.Product;
+import dk.cupcake.mapper.OrderMapper;
 import dk.cupcake.mapper.ProductMapper;
 import dk.cupcake.server.ThymeleafSetup;
 import io.javalin.Javalin;
@@ -21,6 +23,7 @@ public class ProductController {
         ProductController controller = new ProductController();
 
         app.get("/order", controller::showAll);
+        app.get("/orderContinue", controller::showAllContinue);
         app.get("/order/category/{id}", controller::showByCategory);
         app.get("/order/topping/{name}", controller::showByTopping);
         app.get("/order/bund/{name}", controller::showByBund);
@@ -32,6 +35,22 @@ public class ProductController {
     // ____________________________________________
 
     public void showAll(Context ctx) {
+        try {
+            List<Product> products = productMapper.getAll();
+            ctx.html(ThymeleafSetup.render("order.html", Map.of("products", products)));
+        } catch (SQLException e) {
+            e.printStackTrace();
+            ctx.status(500).result("Database fejl: " + e.getMessage());
+        }
+    }
+
+    // ____________________________________________
+
+    public void showAllContinue(Context ctx) throws SQLException {
+        String orderIdParam = ctx.queryParam("orderId");
+        OrderMapper orderMapper = new OrderMapper();
+        Order order = orderMapper.getById(Integer.parseInt(orderIdParam));
+        ctx.sessionAttribute("order", order);
         try {
             List<Product> products = productMapper.getAll();
             ctx.html(ThymeleafSetup.render("order.html", Map.of("products", products)));
