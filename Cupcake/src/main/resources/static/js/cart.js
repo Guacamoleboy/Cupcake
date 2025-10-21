@@ -11,6 +11,7 @@ let cartItems = [];
 let cartTotal = 0;
 let openCartBtn = null;
 let hideTimer = null;
+let listItems = "";
 
 // _______________________________________________________________
 
@@ -59,11 +60,29 @@ document.addEventListener("DOMContentLoaded", async () => {
         showCartPopup(cartItems, cartTotal);
 
     });
+
+    try {
+
+        const res = await fetch("/cart/get");
+        if (!res.ok) return;
+
+        const data = await res.json();
+        cartItems = data.items || [];
+        cartTotal = data.total || 0;
+
+        if (cartItems.length > 0) {
+            showCartPopup(cartItems, cartTotal, true);
+        }
+
+    } catch (err) {
+
+        console.error("Kunne ikke hente kurv:", err);
+
+    }
 });
 
 // _______________________________________________________________
 
-let listItems = "";
 
 function showCartPopup(items, total, isInitial = false) {
     const container = document.getElementById("cart-container");
