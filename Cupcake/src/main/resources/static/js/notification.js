@@ -155,6 +155,10 @@ document.addEventListener("DOMContentLoaded", function() {
         case "usernameIsReset":
             showNotification("Kig i din mail - Username Reset", "orange");
             break;
+        case "noOrderFound":
+            showNotification("Kunne ikke finde ordren!", "orange");
+            break;
+
     }
 
 });

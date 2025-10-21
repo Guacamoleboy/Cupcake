@@ -30,7 +30,8 @@ public class OrderController {
 
         app.get("/ordertak/{id}", ctx -> {
             order = ctx.sessionAttribute("order");
-
+            order.setStatus("closed");
+            orderMapper.updateOrderStatus(order);
             if (order == null) {
                 ctx.status(404).redirect("/?error=500");
                 return;
@@ -38,6 +39,8 @@ public class OrderController {
 
             ctx.html(ThymeleafSetup.render("tak-order.html", java.util.Map.of("order", order)));
 
+            ctx.sessionAttribute("order", null);
+            order = null;
         });
 
         // ______________________________________________________________________________
@@ -72,6 +75,7 @@ public class OrderController {
                     .mapToDouble(i -> i.getPrice() * i.getQuantity())
                     .sum();
 
+            order.setTotalPrice(total);
             ctx.sessionAttribute("total", total);
 
             ctx.json(Map.of(
@@ -122,6 +126,7 @@ public class OrderController {
                     .mapToDouble(i -> i.getPrice() * i.getQuantity())
                     .sum();
 
+            order.setTotalPrice(total);
             ctx.sessionAttribute("total", total);
 
             ctx.json(Map.of(
@@ -149,7 +154,7 @@ public class OrderController {
             double total = order.getItems().stream()
                     .mapToDouble(i -> i.getPrice() * i.getQuantity())
                     .sum();
-
+            order.setTotalPrice(total);
             ctx.sessionAttribute("total", total);
 
             ctx.json(Map.of(
