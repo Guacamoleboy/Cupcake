@@ -75,11 +75,11 @@ public class PageController {
 
         });
 
-
         // ______________________________________________________________
 
         app.get("/register", ctx -> ctx.html(ThymeleafSetup.render("register.html", null)));
         app.get("/login", ctx -> ctx.html(ThymeleafSetup.render("login.html", null)));
+        app.get("/forgot", ctx -> ctx.html(ThymeleafSetup.render("forgot.html", null)));
 
     }
 
