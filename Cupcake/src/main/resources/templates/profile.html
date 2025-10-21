@@ -288,36 +288,67 @@
                     <div th:if="${orders != null}">
                         <div th:each="order : ${orders}" class="order-card">
                             <div class="order-header">
-                                <h3>Ordre ID: <span th:text="${order.id}"></span></h3>
-                                <p>Status: <span th:text="${order.status}"></span></p>
+                                <h3>Ordre ID: #<span th:text="${order.id}"></span></h3>
+                                <p>Status:
+                                    <span th:text="${order.status}"
+                                          th:classappend="${#strings.toLowerCase(order.status) == 'open' ? ' status-open' :
+                                                          (#strings.toLowerCase(order.status) == 'pending' ? ' status-pending' :
+                                                          (#strings.toLowerCase(order.status) == 'finished' ? ' status-finished' : ' status-default'))}">
+                                    </span>
+                                </p>
                             </div>
 
                             <div class="order-items">
-                                <p><strong>Produkter:</strong></p>
-                                <ul>
-                                    <li th:each="item : ${order.items}">
-                                        <span th:text="${item.title}"></span> —
-                                        <span th:text="${item.quantity}"></span> stk
-                                        <span th:text="${item.price}"></span>,- kr
-                                    </li>
-                                </ul>
+
+                                <!-- Header row -->
+                                <div class="order-list">
+                                    <div class="order-item guac-row guac-col-auto">
+                                        <p><strong>Produkt</strong></p>
+                                        <p><strong>Antal</strong></p>
+                                        <p><strong>Pris pr stk</strong></p>
+                                    </div>
+                                </div>
+
+                                <hr class="section-divider">
+
+                                <!-- Produkter -->
+                                <div class="order-list">
+                                    <div class="order-item guac-row guac-col-auto" th:each="item : ${order.items}">
+                                        <p th:text="${item.title}">Produktnavn</p>
+                                        <p th:text="${item.quantity}">Antal</p>
+                                        <p th:text="${item.price} + ' kr'">Pris</p>
+                                    </div>
+                                </div>
+
+                                <hr class="section-divider">
+
+                                <!-- Total -->
+                                <div class="order-list">
+                                    <div class="order-item guac-row guac-col-auto">
+                                        <p><strong>Total</strong></p>
+                                        <p></p>
+                                        <p><span th:text="${order.totalPrice} + ' kr'">0 kr</span></p>
+                                    </div>
+                                </div>
+
                             </div>
 
-                            <p><strong>Total:</strong> <span th:text="${order.totalPrice}"></span> kr</p>
+                            <hr class="section-divider">
 
-
-                            <div class="guac-pt-2">
+                            <div class=""> <!-- TODO Fix lige padding fra hr til knappen -->
                                 <a th:if="${order.status.equals('open')}"
                                    th:href="'/orderContinue?orderId=' + ${order.id}"
                                    class="guac-btn finish-btn">
                                     Fortsæt køb
                                 </a>
+                                <!--
                                 <a th:if="${order.status.equals('open')}"
 
                                    th:href="'/removeOrder?orderId=' + ${order.id}"
                                    class="guac-btn delete-btn">
                                     Slet
                                 </a>
+                                -->
                             </div>
                         </div>
                     </div>
@@ -327,12 +358,14 @@
                     </div>
                 </div>
 
-                <div id="nextAndPrevNav">
-                    <button id="prevOrderBtn" class="guac-btn action-btn">Forrige ordre</button>
-                    <button id="nextOrderBtn" class="guac-btn action-btn">Næste ordre</button>
+                <div class="order-nav-row">
+                    <div id="nextAndPrevNav" style="display: none;">
+                        <button id="prevOrderBtn" class="guac-btn action-btn">Forrige ordre</button>
+                        <button id="nextOrderBtn" class="guac-btn action-btn">Næste ordre</button>
+                    </div>
+                    <button type="button" class="guac-btn action-btn" id="showOrdersBtn">Vis ordre</button>
                 </div>
 
-                <button type="button" class="guac-btn action-btn" id="showOrdersBtn">Vis ordre</button>
             </div>
             <!--  Content Section -->
 

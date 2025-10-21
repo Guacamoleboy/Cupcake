@@ -51,8 +51,8 @@
     --profile-sidemenu-buttons-text: white;
     --profile-button-hover: #331f1f;
     --profile-orderCard-background: rgba(0, 0, 0, 0.51);
-    --profile-order-continue-btn: #28a745;
-    --profile-order-continue-btn-hover: #218838;
+    --profile-order-continue-btn: #00c00a;
+    --profile-order-continue-btn-hover: #00a608;
     --profile-order-delete-btn: #a72828;
     --profile-order-delete-btn-hover: #882121;
 
@@ -157,9 +157,8 @@
 
 html, body {
     font-family: 'Itim', cursive !important; /* Site Identity DO NOT REMOVE */
-    background: url(../images/backgrounds/wallpaper.png) no-repeat center 70% fixed;
+    background: url(../images/backgrounds/wallpaper.png) center 70% fixed;
     background-color: var(--background) !important;
-    background-size: cover;
     overflow-x: hidden !important;
     overflow-y: scroll; /* Makes sure users can still Scroll */
     scrollbar-width: none;
@@ -1217,31 +1216,32 @@ body::-webkit-scrollbar { /* All other browsers */
     transition: all 0.2s ease-in-out;
 }
 
+/* ___________________________________________ */
+
+/* Profile Menu - Orders */
+
+/* ___________________________________________ */
+
 #ordersContainer{
     display: none;
-    max-height: 31.25rem;
     overflow-y: auto;
 }
 
 #orderResult{
-    max-height: 31.25rem;
     overflow-y: auto;
 }
 
-#nextAndPrevNav {
-    display: none;
-    text-align: center;
-    margin-top: 10px;
-}
-
 #ordersContainer .order-card,
-#orderResult .order-card{
+#orderResult .order-card {
     border: 0.0625rem solid var(--profile-sidemenu-border);
     border-radius: 0.5rem;
     padding: 1rem;
     margin-bottom: 1rem;
     background-color: var(--profile-orderCard-background);
     box-shadow: 0 0.125rem 0.5rem rgba(0,0,0,0.1);
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
 }
 
 #ordersContainer::-webkit-scrollbar,
@@ -1261,10 +1261,10 @@ body::-webkit-scrollbar { /* All other browsers */
 #ordersContainer .finish-btn,
 #orderResult .finish-btn{
     background-color: var(--profile-order-continue-btn);
+    border-radius: 10px !important;
     color: var(--cupcake-white);
     border: none;
     padding: 0.5rem 1rem;
-    margin-top: 0.625rem;
     border-radius: 0.25rem;
     cursor: pointer;
 }
@@ -1277,10 +1277,10 @@ body::-webkit-scrollbar { /* All other browsers */
 #ordersContainer .delete-btn,
 #orderResult .delete-btn{
     background-color: var(--profile-order-delete-btn);
+    border-radius: 10px !important;
     color: var(--cupcake-white);
     border: none;
     padding: 0.5rem 1rem;
-    margin-top: 0.625rem;
     border-radius: 0.25rem;
     cursor: pointer;
 }
@@ -1288,6 +1288,73 @@ body::-webkit-scrollbar { /* All other browsers */
 #ordersContainer .delete-btn:hover,
 #orderResult .delete-btn:hover {
     background-color: var(--profile-order-delete-btn-hover);
+}
+
+.order-nav-row {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    gap: 0.25rem !important;
+    margin-top: 1rem;
+}
+
+#nextAndPrevNav {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem !important;
+    margin: 0;
+}
+
+.order-card h3 {
+    margin-top: 0;
+}
+
+.order-items ul {
+    list-style-type: none;
+    padding-left: 0;
+    margin: 0;
+}
+
+.status-open {
+    color: #16dc00;
+    font-weight: 600;
+}
+
+.status-pending {
+    color: var(--cupcake-orange);
+    font-weight: 600;
+}
+
+.status-finished {
+    color: var(--cupcake-red);
+    font-weight: 600;
+}
+
+.status-default {
+    color: var(--cupcake-grey);
+    font-weight: 500;
+}
+
+.order-item.guac-row {
+    width: 100%;
+    box-sizing: border-box;
+    gap: 1rem;
+}
+
+.order-item.guac-row p { /* Produkter */
+    flex: 0 1 auto;
+    margin: 0;
+}
+
+.order-item.guac-row p:nth-child(2) { /* Antal */
+    flex: 1;
+    text-align: center;
+}
+
+.order-item.guac-row p:last-child { /* Pris */
+    margin-left: auto;
+    margin-right: 1rem !important;
+    text-align: right;
 }
 
 /* ___________________________________________ */
@@ -2321,6 +2388,10 @@ button.minus:active {
     height: 100vh;
 }
 
+.profile-menu-visuals button {
+    border-radius: 10px !important;
+}
+
 .profile-actual {
     flex: 1;
     height: 100vh;
@@ -2331,6 +2402,10 @@ button.minus:active {
 .content-section {
     text-align: left;
     padding: 2rem;
+}
+
+.content-section button {
+    border-radius: 10px !important;
 }
 
 .content-section h2 {
@@ -2370,7 +2445,7 @@ button.minus:active {
     background-color: #ad4343;
     color: white;
     padding: 0.7rem 1.5rem;
-    border-radius: 6px;
+    border-radius: 10px !important;
     cursor: pointer;
     border: none;
     transition: background 0.2s ease;
@@ -2384,6 +2459,13 @@ button.minus:active {
     border: none;
     border-top: 1px solid #ddd;
     margin: 2rem 0;
+}
+
+.section-divider-small {
+    border: none;
+    border-top: 1px solid #ddd;
+    margin: 2rem 0;
+    max-width: 35rem;
 }
 
 /* ___________________________________________ */

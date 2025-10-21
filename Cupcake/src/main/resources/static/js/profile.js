@@ -98,25 +98,55 @@ document.addEventListener('DOMContentLoaded', () => {
 
             }
 
+            // Colors for status
+            const statusClass = (() => {
+                switch (data.status.toLowerCase()) {
+                    case "open":
+                        return "status-open";
+                    case "pending":
+                        return "status-pending";
+                    case "finished":
+                        return "status-finished";
+                    default:
+                        return "status-default";
+                }
+            })();
+
             resultDiv.innerHTML = `
                 <div class="order-card">
-                    <h3>Ordre ID: ${data.id}</h3>
-                    <p>Status: ${data.status}</p>
-                    <ul>
-                        ${data.items.map(item => `
-                            <li>${item.title} — ${item.quantity} stk ${item.price},- kr</li>
-                        `).join("")}
-                    </ul>
+                    <div class="order-header">
+                        <h3>Ordre ID: #${data.id}</h3>
+                        <p>Status: <span class="${statusClass}">${data.status}</span></p>
+                    </div>
+
+                    <div class="order-items">
+                        <p><strong>Produkter:</strong></p>
+                        <hr class="section-divider">
+                        <ul>
+                            ${data.items.map(item => `
+                                <li>
+                                    <span>${item.title}</span> x
+                                    <span>${item.quantity}</span>
+                                    <span>${item.price}</span> kr
+                                </li>
+                            `).join("")}
+                        </ul>
+                    </div>
+
+                    <hr class="section-divider">
+
                     <p><strong>Total:</strong> ${data.totalPrice} kr</p>
+
                     <div class="guac-pt-2">
-                        ${data.status === "open" ? `
+                        ${data.status.toLowerCase() === "open" ? `
                             <a href="/orderContinue?orderId=${data.id}" class="guac-btn finish-btn">
                                 Fortsæt køb
                             </a>
-                            
+                            <!--
                             <a href="/removeOrder?orderId=${data.id}" class="guac-btn delete-btn">
                                 Slet
                             </a>
+                            -->
                         ` : ""}
                     </div>
                 </div>
@@ -140,4 +170,5 @@ document.addEventListener('DOMContentLoaded', () => {
         searchBtn.style.display = "inline-block";
 
     });
+
 });
