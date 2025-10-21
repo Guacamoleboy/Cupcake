@@ -24,29 +24,28 @@ public class OrderController {
 
     public static void registerRoutes(Javalin app) {
 
-        app.get("/tak", ctx -> ctx.html(ThymeleafSetup.render("tak.html", null)));
         app.get("/tak-ordre", ctx -> ctx.html(ThymeleafSetup.render("tak-order.html", null)));
 
         // ______________________________________________________________________________
 
         app.get("/ordertak/{id}", ctx -> {
-            int id = Integer.parseInt(ctx.pathParam("id"));
-            OrderMapper orderMapper = new OrderMapper();
-            Order order = orderMapper.getById(id);
-
+            order = ctx.sessionAttribute("order");
+            order.setStatus("closed");
+            orderMapper.updateOrderStatus(order);
             if (order == null) {
                 ctx.status(404).redirect("/?error=500");
                 return;
             }
 
-            ctx.render("tak-order.html", java.util.Map.of("order", order));
+            ctx.html(ThymeleafSetup.render("tak-order.html", java.util.Map.of("order", order)));
 
+            ctx.sessionAttribute("order", null);
+            order = null;
         });
 
         // ______________________________________________________________________________
 
         app.post("/cart/add", ctx -> {
-            System.out.println("Tilføjer?");
             User user = ctx.sessionAttribute("user");
 
             order = ctx.sessionAttribute("order");
@@ -56,8 +55,7 @@ public class OrderController {
                 if (user != null) {
                     order = orderMapper.newOrder(user.getId());
                 } else {
-                    order = new Order();
-                    order.setId(-1);
+                    order = orderMapper.newOrder(0);
                 }
             }
 
@@ -77,6 +75,7 @@ public class OrderController {
                     .mapToDouble(i -> i.getPrice() * i.getQuantity())
                     .sum();
 
+            order.setTotalPrice(total);
             ctx.sessionAttribute("total", total);
 
             ctx.json(Map.of(
@@ -98,8 +97,7 @@ public class OrderController {
                 if (user != null) {
                     order = orderMapper.newOrder(user.getId());
                 } else {
-                    order = new Order();
-                    order.setId(-1);
+                    order = orderMapper.newOrder(0);
                 }
             }
 
@@ -128,6 +126,7 @@ public class OrderController {
                     .mapToDouble(i -> i.getPrice() * i.getQuantity())
                     .sum();
 
+            order.setTotalPrice(total);
             ctx.sessionAttribute("total", total);
 
             ctx.json(Map.of(
@@ -148,15 +147,14 @@ public class OrderController {
                 if (user != null) {
                     order = orderMapper.newOrder(user.getId());
                 } else {
-                    order = new Order();
-                    order.setId(-1);
+                    order = orderMapper.newOrder(0);
                 }
             }
 
             double total = order.getItems().stream()
                     .mapToDouble(i -> i.getPrice() * i.getQuantity())
                     .sum();
-
+            order.setTotalPrice(total);
             ctx.sessionAttribute("total", total);
 
             ctx.json(Map.of(

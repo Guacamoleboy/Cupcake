@@ -118,3 +118,15 @@ CREATE TABLE payment_methods (
 id SERIAL PRIMARY KEY,
 name VARCHAR(50) NOT NULL UNIQUE
 );
+
+/* Refunds */
+CREATE TABLE refunds (
+    id SERIAL PRIMARY KEY,
+    order_id INT NOT NULL,
+    user_id INT NOT NULL,
+    reason VARCHAR(255) NOT NULL,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    status VARCHAR(50) NOT NULL DEFAULT 'active',
+    FOREIGN KEY (order_id) REFERENCES orders(id) ON DELETE CASCADE,
+    FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE
+);

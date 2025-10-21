@@ -10,7 +10,7 @@
     <meta name="author" content="Gruppe D"> <!-- Author of Website -->
 
     <!-- Visuals -->
-    <title>Olsker Cupcakes - Login</title>
+    <title>Olsker Cupcakes - Forgot</title>
 
     <!-- Icon -->
     <link rel="icon" href="/images/icons/cupcake-1.png" type="image/x-icon"> <!-- That little logo thats next to the title in URL -->
@@ -30,42 +30,37 @@
     <!-- Script Load -->
     <script src="/js/bubble-spawn.js" defer></script>
     <script src="/js/notification.js" defer></script>
+    <script src="/js/forgot.js" defer></script>
 
 
 </head>
-<body> 
+<body>
 
-    <a href="/" class="exit-btn" title="Tilbage til forsiden">&#10006;</a>
+<a href="/login" class="exit-btn" title="Tilbage til login">&#10006;</a>
 
-    <section class="login-section-1">
-        <div class="login-container">
-            <h2>Log Ind</h2>
+<section class="login-section-1">
+    <div class="login-container">
 
-            <form method="post" action="/login">
-                <input type="text" name="username" placeholder="Brugernavn" required>
-                <input type="password" name="password" placeholder="Adgangskode" required>
+        <h2>Forgot Something?</h2>
 
-                <div class="login-btn-group">
-                    <button type="submit" class="guac-btn guac-btn-form">
-                        Log Ind
-                    </button>
-                    <button type="button" class="guac-btn guac-btn-form" onclick="window.location.href='/register'">
-                        Opret Bruger
-                    </button>
-                </div>
-
-                <div class="forgot-btn-group guac-mt-4">
-                    <a href="/forgot" class="forgot-link">Forgot something?</a>
-                </div>
-
-                <p th:if="${error}" th:text="${error}" style="color: red;"></p>
-            </form>
+        <!-- Buttons -->
+        <div class="forgot-choice-group">
+            <button class="guac-btn guac-btn-form" onclick="showForgotForm('username')">Username</button>
+            <button class="guac-btn guac-btn-form" onclick="showForgotForm('email')">Email</button>
+            <button class="guac-btn guac-btn-form" onclick="showForgotForm('password')">Password</button>
         </div>
-    </section>
+        <!-- Buttons -->
 
-    <!-- Notification -->
-    <div id="guac-notification-container"></div>
-    <!-- Notification -->
+        <!-- Form Container -->
+        <div id="forgot-form-container" class="guac-mt-4"></div>
+        <!-- Form Container -->
+
+    </div>
+</section>
+
+<!-- Notification -->
+<div id="guac-notification-container"></div>
+<!-- Notification -->
 
 </body>
 </html>

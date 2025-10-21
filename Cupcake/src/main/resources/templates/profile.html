@@ -29,9 +29,9 @@
     <script src="/js/auth.js" defer></script>
     <script src="/js/notification.js" defer></script>
     <script src="/js/scroll-fix.js" defer></script>
+    <script src="/js/profile.js" defer></script>
 
     <!-- Modules -->
-    <script type="module" src="/js/components/navbar.js" defer></script>
 
 </head>
 <body class="profile-initial">
@@ -261,10 +261,17 @@
                 <div class="guac-row input-group">
                     <div class="guac-col">
                         <label>Ordre ID</label>
-                        <input type="text" placeholder="41414...">
+                        <input type="text" id="orderIdInput" placeholder="41414...">
                     </div>
                 </div>
-                <button type="button" class="guac-btn action-btn">Søg efter ordre</button>
+
+                <div id="orderResult"></div>
+
+                <div class="guac-pt-2">
+                    <button type="button" class="guac-btn action-btn" id="searchOrderBtn">Søg efter ordre</button>
+                    <button type="button" class="guac-btn action-btn" id="hideOrderBtn" style="display:none;" >Skjul ordre</button>
+                </div>
+
             </div>
             <!--  Content Section -->
 
@@ -275,8 +282,90 @@
             <!--  Content Section -->
             <div class="content-section" id="seeAllOrdersSection">
                 <h2>Se alle dine ordre</h2>
-                <p>Her kan du se alle dine ordre</p>
-                <button type="button" class="guac-btn action-btn">Vis alle ordre</button>
+                <p>Her kan du se alle dine tidligere ordrer</p>
+
+                <div id="ordersContainer">
+                    <div th:if="${orders != null}">
+                        <div th:each="order : ${orders}" class="order-card">
+                            <div class="order-header">
+                                <h3>Ordre ID: #<span th:text="${order.id}"></span></h3>
+                                <p>Status:
+                                    <span th:text="${order.status}"
+                                          th:classappend="${#strings.toLowerCase(order.status) == 'open' ? ' status-open' :
+                                                          (#strings.toLowerCase(order.status) == 'pending' ? ' status-pending' :
+                                                          (#strings.toLowerCase(order.status) == 'closed' ? ' status-finished' : ' status-default'))}">
+                                    </span>
+                                </p>
+                            </div>
+
+                            <div class="order-items">
+
+                                <!-- Header row -->
+                                <div class="order-list">
+                                    <div class="order-item guac-row guac-col-auto">
+                                        <p><strong>Produkt</strong></p>
+                                        <p><strong>Antal</strong></p>
+                                        <p><strong>Pris pr stk</strong></p>
+                                    </div>
+                                </div>
+
+                                <hr class="section-divider">
+
+                                <!-- Produkter -->
+                                <div class="order-list">
+                                    <div class="order-item guac-row guac-col-auto" th:each="item : ${order.items}">
+                                        <p th:text="${item.title}">Produktnavn</p>
+                                        <p th:text="${item.quantity}">Antal</p>
+                                        <p th:text="${item.price} + ' kr'">Pris</p>
+                                    </div>
+                                </div>
+
+                                <hr class="section-divider">
+
+                                <!-- Total -->
+                                <div class="order-list">
+                                    <div class="order-item guac-row guac-col-auto">
+                                        <p><strong>Total</strong></p>
+                                        <p></p>
+                                        <p><span th:text="${order.totalPrice} + ' kr'">0 kr</span></p>
+                                    </div>
+                                </div>
+
+                            </div>
+
+                            <hr class="section-divider">
+
+                            <div class=""> <!-- TODO Fix lige padding fra hr til knappen -->
+                                <a th:if="${order.status.equals('open')}"
+                                   th:href="'/orderContinue?orderId=' + ${order.id}"
+                                   class="guac-btn finish-btn">
+                                    Fortsæt køb
+                                </a>
+                                <!--
+                                <a th:if="${order.status.equals('open')}"
+
+                                   th:href="'/removeOrder?orderId=' + ${order.id}"
+                                   class="guac-btn delete-btn">
+                                    Slet
+                                </a>
+                                -->
+                            </div>
+                        </div>
+                    </div>
+
+                    <div th:if="${orders == null}">
+                        <p>Du har ingen ordrer endnu.</p>
+                    </div>
+                </div>
+
+                <div class="order-nav-row">
+                    <button type="button" class="guac-btn action-btn" id="showOrdersBtn">Vis ordre</button>
+                    <div id="nextAndPrevNav" style="display: none;">
+                        <button id="prevOrderBtn" class="guac-btn action-btn">Forrige ordre</button>
+                        <button id="nextOrderBtn" class="guac-btn action-btn">Næste ordre</button>
+                    </div>
+                </div>
+
             </div>
             <!--  Content Section -->
 
@@ -308,7 +397,16 @@
             <div class="content-section" id="activeReturnsSection">
                 <h2>Aktive returneringer</h2>
                 <p>Herunder kan du se dine aktive returneringer:</p>
-                <button type="button" class="guac-btn action-btn">Opdater</button>
+
+                <div id="activeReturnsContainer"></div>
+
+                <div class="order-nav-row">
+                    <button type="button" class="guac-btn action-btn" id="showActiveRefundsBtn">Vis returneringer</button>
+                    <div id="activeNextAndPrevNav" style="display: none;">
+                        <button id="prevActiveRefundBtn" class="guac-btn action-btn">Forrige</button>
+                        <button id="nextActiveRefundBtn" class="guac-btn action-btn">Næste</button>
+                    </div>
+                </div>
             </div>
             <!--  Content Section -->
 
@@ -320,7 +418,16 @@
             <div class="content-section" id="pastReturnsSection">
                 <h2>Tidligere returneringer</h2>
                 <p>Herunder kan du se dine tidligere returneringer:</p>
-                <button type="button" class="guac-btn action-btn">Opdater</button>
+
+                <div id="pastReturnsContainer"></div>
+
+                <div class="order-nav-row">
+                    <button type="button" class="guac-btn action-btn" id="showPastRefundsBtn">Vis returneringer</button>
+                    <div id="pastNextAndPrevNav" style="display: none;">
+                        <button id="prevPastRefundBtn" class="guac-btn action-btn">Forrige</button>
+                        <button id="nextPastRefundBtn" class="guac-btn action-btn">Næste</button>
+                    </div>
+                </div>
             </div>
             <!--  Content Section -->
 
@@ -335,10 +442,15 @@
                 <div class="guac-row input-group">
                     <div class="guac-col">
                         <label>Ordre ID</label>
-                        <input type="text" placeholder="51115...">
+                        <input type="text" id="refundOrderId" placeholder="51115...">
+                    </div>
+                    <div class="guac-col">
+                        <label>Grundlag</label>
+                        <input type="text" id="refundReason" placeholder="Angiv grundlag for returnering">
                     </div>
                 </div>
-                <button type="button" class="guac-btn action-btn">Start returnering</button>
+                <button type="button" class="guac-btn action-btn" id="createRefundBtn">Start returnering</button>
+                <div id="refundResult" style="margin-top: 10px;"></div>
             </div>
             <!--  Content Section -->
 

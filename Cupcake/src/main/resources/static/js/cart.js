@@ -11,6 +11,7 @@ let cartItems = [];
 let cartTotal = 0;
 let openCartBtn = null;
 let hideTimer = null;
+let listItems = "";
 
 // _______________________________________________________________
 
@@ -59,11 +60,29 @@ document.addEventListener("DOMContentLoaded", async () => {
         showCartPopup(cartItems, cartTotal);
 
     });
+
+    try {
+
+        const res = await fetch("/cart/get");
+        if (!res.ok) return;
+
+        const data = await res.json();
+        cartItems = data.items || [];
+        cartTotal = data.total || 0;
+
+        if (cartItems.length > 0) {
+            showCartPopup(cartItems, cartTotal, true);
+        }
+
+    } catch (err) {
+
+        console.error("Kunne ikke hente kurv:", err);
+
+    }
 });
 
 // _______________________________________________________________
 
-let listItems = "";
 
 function showCartPopup(items, total, isInitial = false) {
     const container = document.getElementById("cart-container");
@@ -79,14 +98,14 @@ function showCartPopup(items, total, isInitial = false) {
 
     for (let i = 0; i < items.length; i++) {
         listItems += `
-    <li>
-        <span>${items[i].title}</span>
-        <div class="cart-controls">
-            <button class="minus" onclick="removeFromCart(${i}, 1)">-</button>
-            <input type='number' id='qty-${i}' value='${items[i].quantity}' min='1' readonly>
-            <button class="plus" onclick="addToCart(${i}, 1)">+</button>
-        </div>
-    </li>`;
+        <li>
+            <span>${items[i].title}</span>
+            <div class="cart-controls">
+                <button class="minus" onclick="removeFromCart(${i}, 1)">-</button>
+                <input type='number' id='qty-${i}' value='${items[i].quantity}' min='1' readonly>
+                <button class="plus" onclick="addToCart(${i}, 1)">+</button>
+            </div>
+        </li>`;
     }
 
     const popup = document.createElement("div");
@@ -194,7 +213,11 @@ async function addToCart(index, amount = 1) {
         cartItems = data.items || cartItems;
         cartTotal = data.total ?? cartTotal;
 
-        showCartPopup(cartItems, cartTotal, true);
+        const totalElement = document.querySelector(".cart-popup .total span:last-child");
+        if (totalElement) {
+            totalElement.textContent = `${cartTotal.toFixed(2)} kr`;
+        }
+        //showCartPopup(cartItems, cartTotal, true);
 
     } catch (err) {
 
@@ -244,12 +267,29 @@ async function removeFromCart(index, amount = 1) {
         cartItems = data.items || cartItems;
         cartTotal = data.total ?? cartTotal;
 
-        showCartPopup(cartItems, cartTotal, true);
+        const totalElement = document.querySelector(".cart-popup .total span:last-child");
+        if (totalElement) {
+            totalElement.textContent = `${cartTotal.toFixed(2)} kr`;
+        }
 
         if (newValue <= 0) {
 
-            const li = input.closest("li");
-            if (li) li.remove();
+            // TODO Vi skal fixe så vi ikke behøver at skulle bruge showCartPopup!!!
+            /*const li = input.closest("li");
+            if (li) li.remove(); */
+
+            if (!cartItems || cartItems.length === 0) {
+                const popup = document.querySelector(".cart-popup");
+                popup.style.opacity = "0";
+                popup.style.transform = "translateX(120%)";
+                setTimeout(() => popup.remove(), 400);
+
+                openCartBtn.style.display = "none";
+                document.querySelector(".cart-btn-wrapper").style.display = "none";
+                return;
+            }
+
+            showCartPopup(cartItems, cartTotal, true);
 
         }
 
