@@ -312,7 +312,8 @@
                                    class="guac-btn finish-btn">
                                     Fortsæt køb
                                 </a>
-                                <a
+                                <a th:if="${order.status.equals('open')}"
+
                                    th:href="'/removeOrder?orderId=' + ${order.id}"
                                    class="guac-btn delete-btn">
                                     Slet

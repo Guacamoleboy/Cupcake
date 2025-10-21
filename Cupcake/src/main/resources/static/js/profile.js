@@ -113,10 +113,11 @@ document.addEventListener('DOMContentLoaded', () => {
                             <a href="/orderContinue?orderId=${data.id}" class="guac-btn finish-btn">
                                 Fortsæt køb
                             </a>
+                            
+                            <a href="/removeOrder?orderId=${data.id}" class="guac-btn delete-btn">
+                                Slet
+                            </a>
                         ` : ""}
-                        <a href="/removeOrder?orderId=${data.id}" class="guac-btn delete-btn">
-                            Slet
-                        </a>
                     </div>
                 </div>
             `;
