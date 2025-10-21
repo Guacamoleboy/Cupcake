@@ -359,11 +359,11 @@
                 </div>
 
                 <div class="order-nav-row">
+                    <button type="button" class="guac-btn action-btn" id="showOrdersBtn">Vis ordre</button>
                     <div id="nextAndPrevNav" style="display: none;">
                         <button id="prevOrderBtn" class="guac-btn action-btn">Forrige ordre</button>
                         <button id="nextOrderBtn" class="guac-btn action-btn">Næste ordre</button>
                     </div>
-                    <button type="button" class="guac-btn action-btn" id="showOrdersBtn">Vis ordre</button>
                 </div>
 
             </div>
@@ -397,7 +397,16 @@
             <div class="content-section" id="activeReturnsSection">
                 <h2>Aktive returneringer</h2>
                 <p>Herunder kan du se dine aktive returneringer:</p>
-                <button type="button" class="guac-btn action-btn">Opdater</button>
+
+                <div id="activeReturnsContainer"></div>
+
+                <div class="order-nav-row">
+                    <button type="button" class="guac-btn action-btn" id="showActiveRefundsBtn">Vis returneringer</button>
+                    <div id="activeNextAndPrevNav" style="display: none;">
+                        <button id="prevActiveRefundBtn" class="guac-btn action-btn">Forrige</button>
+                        <button id="nextActiveRefundBtn" class="guac-btn action-btn">Næste</button>
+                    </div>
+                </div>
             </div>
             <!--  Content Section -->
 
@@ -409,7 +418,16 @@
             <div class="content-section" id="pastReturnsSection">
                 <h2>Tidligere returneringer</h2>
                 <p>Herunder kan du se dine tidligere returneringer:</p>
-                <button type="button" class="guac-btn action-btn">Opdater</button>
+
+                <div id="pastReturnsContainer"></div>
+
+                <div class="order-nav-row">
+                    <button type="button" class="guac-btn action-btn" id="showPastRefundsBtn">Vis returneringer</button>
+                    <div id="pastNextAndPrevNav" style="display: none;">
+                        <button id="prevPastRefundBtn" class="guac-btn action-btn">Forrige</button>
+                        <button id="nextPastRefundBtn" class="guac-btn action-btn">Næste</button>
+                    </div>
+                </div>
             </div>
             <!--  Content Section -->
 
@@ -424,10 +442,15 @@
                 <div class="guac-row input-group">
                     <div class="guac-col">
                         <label>Ordre ID</label>
-                        <input type="text" placeholder="51115...">
+                        <input type="text" id="refundOrderId" placeholder="51115...">
+                    </div>
+                    <div class="guac-col">
+                        <label>Grundlag</label>
+                        <input type="text" id="refundReason" placeholder="Angiv grundlag for returnering">
                     </div>
                 </div>
-                <button type="button" class="guac-btn action-btn">Start returnering</button>
+                <button type="button" class="guac-btn action-btn" id="createRefundBtn">Start returnering</button>
+                <div id="refundResult" style="margin-top: 10px;"></div>
             </div>
             <!--  Content Section -->
 

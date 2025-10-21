@@ -8,10 +8,23 @@ document.addEventListener('DOMContentLoaded', () => {
     const nav = document.getElementById('nextAndPrevNav');
     const hideBtn = document.getElementById("hideOrderBtn");
     const searchBtn = document.getElementById("searchOrderBtn");
+    const createRefundBtn = document.getElementById("createRefundBtn");
+    const refundResult = document.getElementById("refundResult");
+    const activeContainer = document.getElementById("activeReturnsContainer");
+    const pastContainer = document.getElementById("pastReturnsContainer");
+    const showActiveBtn = document.getElementById("showActiveRefundsBtn");
+    const showPastBtn = document.getElementById("showPastRefundsBtn");
+    const prevActiveBtn = document.getElementById("prevActiveRefundBtn");
+    const nextActiveBtn = document.getElementById("nextActiveRefundBtn");
+    const prevPastBtn = document.getElementById("prevPastRefundBtn");
+    const nextPastBtn = document.getElementById("nextPastRefundBtn");
+    const activeNav = document.getElementById("activeNextAndPrevNav");
+    const pastNav = document.getElementById("pastNextAndPrevNav");
 
+    let activeIndex = 0, pastIndex = 0;
+    let activeRefunds = [], pastRefunds = [];
     let currentIndex = 0;
     let resultDiv;
-
 
     function showOrder(index) {
 
@@ -170,5 +183,224 @@ document.addEventListener('DOMContentLoaded', () => {
         searchBtn.style.display = "inline-block";
 
     });
+
+    createRefundBtn.addEventListener("click", async () => {
+
+        const orderId = document.getElementById("refundOrderId").value.trim();
+        const reason = document.getElementById("refundReason").value.trim();
+
+        if (!orderId || !reason) {
+
+            refundResult.textContent = "Udfyld både ordre ID og grundlag!";
+            refundResult.style.color = "red";
+            return;
+
+        }
+
+        try {
+
+            const form = new FormData();
+            form.append("orderId", orderId);
+            form.append("reason", reason);
+
+            const res = await fetch("/createRefund", {
+
+                method: "POST",
+                body: form
+
+            });
+
+            const data = await res.json();
+
+            if (!res.ok) {
+
+                console.log(`Fejl: ${data.error}`)
+
+            }
+
+        } catch (err) {
+
+            console.log("Noget gik galt ved oprettelse af returnering!")
+            console.error(err);
+
+        }
+
+    });
+
+    function convertDate(refund) {
+
+        // Ved ikke hvorfor json ikke kan finde ud af LocalDateTime, men fandt denne metode til at convert TimeStamp
+        return new Date(refund.createdAt).toLocaleString("da-DK", {
+            year: "numeric",
+            month: "2-digit",
+            day: "2-digit",
+            hour: "2-digit",
+            minute: "2-digit"
+        })
+
+    }
+
+    prevActiveBtn.addEventListener("click", () => {
+
+        if (activeIndex > 0) activeIndex--;
+        showActiveRefund(activeIndex);
+
+    });
+
+    nextActiveBtn.addEventListener("click", () => {
+
+        if (activeIndex < activeRefunds.length - 1) activeIndex++;
+        showActiveRefund(activeIndex);
+
+    });
+
+    prevPastBtn.addEventListener("click", () => {
+
+        if (pastIndex > 0) pastIndex--;
+        showPastRefund(pastIndex);
+
+    });
+
+    nextPastBtn.addEventListener("click", () => {
+
+        if (pastIndex < pastRefunds.length - 1) pastIndex++;
+        showPastRefund(pastIndex);
+
+    });
+
+    showActiveBtn.addEventListener("click", async () => {
+
+        if (activeContainer.style.display === "block") {
+
+            activeContainer.style.display = "none";
+            activeNav.style.display = "none";
+            showActiveBtn.textContent = "Vis returneringer";
+
+        } else {
+
+            await loadActiveRefunds();
+            showActiveBtn.textContent = "Skjul returneringer";
+
+        }
+    });
+
+    showPastBtn.addEventListener("click", async () => {
+
+        if (pastContainer.style.display === "block") {
+
+            pastContainer.style.display = "none";
+            pastNav.style.display = "none";
+            showPastBtn.textContent = "Vis returneringer";
+
+        } else {
+
+            await loadPastRefunds();
+            showPastBtn.textContent = "Skjul returneringer";
+
+        }
+    });
+
+    async function loadActiveRefunds() {
+
+        try {
+
+            const res = await fetch("/getActiveRefunds", { method: "POST" });
+            activeRefunds = await res.json();
+
+            if (!res.ok) {
+
+                console.log("Kunne ikke hente aktive returneringer.");
+                return;
+
+            }
+
+            if (activeRefunds.length === 0) {
+
+                activeContainer.innerHTML = "<p>Ingen aktive returneringer.</p>";
+                activeContainer.style.display = "block";
+                activeNav.style.display = "none";
+                return;
+
+            }
+
+            activeIndex = 0;
+            showActiveRefund(activeIndex);
+            activeContainer.style.display = "block";
+            activeNav.style.display = "flex";
+
+        } catch (err) {
+
+            console.error(err);
+        }
+    }
+
+    async function loadPastRefunds() {
+
+        try {
+
+            const res = await fetch("/getClosedRefunds", { method: "POST" });
+            pastRefunds = await res.json();
+            if (!res.ok) {
+
+                console.log("Kunne ikke hente tidligere returneringer.");
+                return;
+
+            }
+
+            if (pastRefunds.length === 0) {
+
+                pastContainer.innerHTML = "<p>Ingen tidligere returneringer.</p>";
+                pastContainer.style.display = "block";
+                pastNav.style.display = "none";
+                return;
+
+            }
+
+            pastIndex = 0;
+            showPastRefund(pastIndex);
+            pastContainer.style.display = "block";
+            pastNav.style.display = "flex";
+
+        } catch (err) {
+
+            console.error(err);
+            alert(err.message);
+
+        }
+    }
+
+    function showActiveRefund(index) {
+
+        activeContainer.innerHTML = `
+            <div class="order-card">
+                <p>Returnering ID: #${activeRefunds[index].id}</p>
+                <p>Ordre ID: #${activeRefunds[index].orderId}</p>
+                <p>Grund: ${activeRefunds[index].reason}</p>
+                <p>Status: ${activeRefunds[index].status}</p>
+                <p>Oprettet: ${convertDate(activeRefunds[index])}</p>
+            </div>
+        `;
+
+        prevActiveBtn.style.display = index === 0 ? "none" : "inline-block";
+        nextActiveBtn.style.display = index === activeRefunds.length - 1 ? "none" : "inline-block";
+
+    }
+
+    function showPastRefund(index) {
+
+        pastContainer.innerHTML = `
+            <div class="order-card">
+                <p>Returnering ID: #${activeRefunds[index].id}</p>
+                <p>Ordre ID: #${activeRefunds[index].orderId}</p>
+                <p>Grund: ${activeRefunds[index].reason}</p>
+                <p>Status: ${activeRefunds[index].status}</p>
+                <p>Oprettet: ${convertDate(activeRefunds[index])}</p>
+            </div>
+        `;
+
+        prevPastBtn.style.display = index === 0 ? "none" : "inline-block";
+        nextPastBtn.style.display = index === pastRefunds.length - 1 ? "none" : "inline-block";
+
+    }
 
 });
