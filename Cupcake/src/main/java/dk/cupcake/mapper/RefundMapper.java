@@ -38,25 +38,25 @@ public class RefundMapper {
     }
 
     public List<Refund> getAllRefunds(int userId) throws SQLException {
-        String sql = "SELECT * FROM refunds WHERE user_id = ? AND status IN ('active', 'closed') ORDER BY created_at DESC";
+        String sql = "SELECT * FROM refunds WHERE user_id = ? AND status IN ('open', 'closed') ORDER BY created_at DESC";
         return getRefunds(sql, userId);
     }
 
     // Til admin
     public List<Refund> getAllRefunds() throws SQLException {
-        String sql = "SELECT * FROM refunds WHERE status IN ('active', 'closed') ORDER BY created_at DESC";
+        String sql = "SELECT * FROM refunds WHERE status IN ('open', 'closed') ORDER BY created_at DESC";
         return getRefunds(sql, null);
     }
 
 
     public List<Refund> getAllActiveRefunds(int userId) throws SQLException {
-        String sql = "SELECT * FROM refunds WHERE user_id = ? AND status = 'active' ORDER BY created_at DESC";
+        String sql = "SELECT * FROM refunds WHERE user_id = ? AND status = 'open' ORDER BY created_at DESC";
         return getRefunds(sql, userId);
     }
 
     // Til admin
     public List<Refund> getAllActiveRefunds() throws SQLException {
-        String sql = "SELECT * FROM refunds WHERE status = 'active' ORDER BY created_at DESC";
+        String sql = "SELECT * FROM refunds WHERE status = 'open' ORDER BY created_at DESC";
         return getRefunds(sql, null);
     }
 

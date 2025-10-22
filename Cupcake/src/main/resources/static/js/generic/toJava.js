@@ -1,5 +1,7 @@
 export function callJavaMethod(url, element) {
+
     const data = {};
+
     for (let newData of element.attributes) {
         if (newData.name.startsWith('data-')) {
             const key = newData.name.substring(5);
