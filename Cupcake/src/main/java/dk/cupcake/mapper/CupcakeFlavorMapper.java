@@ -13,7 +13,6 @@ public class CupcakeFlavorMapper {
     // Attributes
 
     // _________________________________________________________
-    // Get a cupcake flavor by id
 
     public CupcakeFlavor getById(int id) throws SQLException {
         String sql = "SELECT * FROM cupcake_flavor WHERE id = ?";
@@ -29,7 +28,6 @@ public class CupcakeFlavorMapper {
     }
 
     // _________________________________________________________
-    // Get all cupcake flavors
 
     public List<CupcakeFlavor> getAll() throws SQLException {
         List<CupcakeFlavor> flavors = new ArrayList<>();
@@ -46,26 +44,18 @@ public class CupcakeFlavorMapper {
     }
 
     // _________________________________________________________
-    // Create a new cupcake flavor
 
     public void newFlavor(CupcakeFlavor flavor) throws SQLException {
         String sql = "INSERT INTO cupcake_flavor (name, price) VALUES (?, ?)";
         try (Connection conn = Database.getConnection();
-             PreparedStatement stmt = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
-
+             PreparedStatement stmt = conn.prepareStatement(sql)) {
             stmt.setString(1, flavor.getName());
             stmt.setDouble(2, flavor.getPrice());
             stmt.executeUpdate();
-
-            ResultSet keys = stmt.getGeneratedKeys();
-            if (keys.next()) {
-                flavor.setId(keys.getInt(1));
-            }
         }
     }
 
     // _________________________________________________________
-    // Update a cupcake flavor
 
     public void update(CupcakeFlavor flavor) throws SQLException {
         String sql = "UPDATE cupcake_flavor SET name = ?, price = ? WHERE id = ?";
@@ -81,7 +71,6 @@ public class CupcakeFlavorMapper {
     }
 
     // _________________________________________________________
-    // Delete a cupcake flavor
 
     public void delete(int id) throws SQLException {
         String sql = "DELETE FROM cupcake_flavor WHERE id = ?";
@@ -94,7 +83,6 @@ public class CupcakeFlavorMapper {
     }
 
     // _________________________________________________________
-    // J.Cole
 
     private CupcakeFlavor toCupcakeFlavor(ResultSet rs) throws SQLException {
         CupcakeFlavor flavor = new CupcakeFlavor();
