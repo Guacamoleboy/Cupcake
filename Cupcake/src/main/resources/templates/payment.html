@@ -63,7 +63,7 @@
             <!-- Order List -->
             <div class="order-list">
                 <div class="order-item guac-row guac-col-auto" th:each="item : ${order.items}">
-                    <p th:text="${item.title}">Produktnavn</p>
+                    <p th:text="${item.displayName}">Produktnavn</p>
                     <p th:text="${item.quantity}">Antal</p>
                     <p th:text="${item.price} + ' kr'">Pris</p>
                 </div>
@@ -76,7 +76,7 @@
                 <div class="order-item guac-row guac-col-auto">
                     <p>Total</p>
                     <p></p>
-                    <p><span id="totalDisplay" th:text="${order.total} + ' kr'">0 kr</span></p>
+                    <p><span id="totalDisplay" th:text="${order.totalPrice} + ' kr'">0 kr</span></p>
                 </div>
             </div>
             <!-- Info Under Order List -->

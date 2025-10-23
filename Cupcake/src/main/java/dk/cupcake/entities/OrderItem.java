@@ -11,10 +11,16 @@ public class OrderItem {
     private int productId;
     private int bottomId;
     private int toppingId;
+    private String toppingName;
+    private String bottomName;
     private int quantity;
     private String title;
     private String description;
     private double price;
+    private String displayName;
+    private boolean customCupcake = false;
+
+    // ___________________________________________________
 
     public OrderItem(int productId, String title, String description, double price, int quantity, int toppingId, int bottomId) {
         this.productId = productId;
@@ -24,6 +30,30 @@ public class OrderItem {
         this.quantity = quantity;
         this.toppingId = toppingId;
         this.bottomId = bottomId;
+    }
+
+    // ___________________________________________________
+
+    public void setToppingName(String toppingName) {
+        this.toppingName = toppingName;
+    }
+
+    // ___________________________________________________
+
+    public void setBottomName(String bottomName) {
+        this.bottomName = bottomName;
+    }
+
+    // ___________________________________________________
+
+    public boolean isCustomCupcake() {
+        return customCupcake;
+    }
+
+    // ___________________________________________________
+
+    public void setCustomCupcake(boolean customCupcake) {
+        this.customCupcake = customCupcake;
     }
 
     // ___________________________________________________
@@ -133,4 +163,32 @@ public class OrderItem {
     public void setPrice(double price) {
         this.price = price;
     }
+
+    // ___________________________________________________
+
+    public String getDisplayName() {
+        if (customCupcake) {
+            return "Custom Cupcake | " + toppingName + " Top | " + bottomName + " Bund";
+        } else {
+            return title;
+        }
+    }
+
+    // ___________________________________________________
+
+    public void setDisplayName(String displayName) {
+        this.displayName = displayName;
+    }
+
+    // ___________________________________________________
+
+    public boolean isMergeableWith(OrderItem other) {
+        if (other == null) return false;
+
+        boolean sameProduct = this.productId > 0 && this.productId == other.productId;
+        boolean sameCustom = this.productId <= 0 && other.productId <= 0 && this.toppingId == other.toppingId && this.bottomId == other.bottomId;
+
+        return sameProduct || sameCustom;
+    }
+
 } // OrderItem end

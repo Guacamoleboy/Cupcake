@@ -17,20 +17,17 @@ document.addEventListener("DOMContentLoaded", async () => {
 
     showBtn.addEventListener("click", async () => {
 
-        // hent værdierne fra select felterne
         const topValue = topSelect.value;
         const bundValue = bundSelect.value;
         const topText = topSelect.options[topSelect.selectedIndex]?.text;
         const bundText = bundSelect.options[bundSelect.selectedIndex]?.text;
 
         if (!topValue || !bundValue) {
-            // TODO skal laves som notification
-            alert("Vælg både top og bund!");
+            showNotification("Vælg både Top & Bund", "orange");
             return;
         }
 
         try {
-            // brug text værdierne til preview da backend forventer navne
             const res = await fetch(`/custom/preview?topping=${encodeURIComponent(topText)}&bund=${encodeURIComponent(bundText)}`);
             if (!res.ok) throw new Error("Ingen cupcake fundet");
             const data = await res.json();
@@ -45,25 +42,23 @@ document.addEventListener("DOMContentLoaded", async () => {
     addBtn.addEventListener("click", async (e) => {
         e.preventDefault();
 
-        // hent både id og text værdier
         const topId = topSelect.value;
         const bundId = bundSelect.value;
         const topText = topSelect.options[topSelect.selectedIndex]?.text;
         const bundText = bundSelect.options[bundSelect.selectedIndex]?.text;
 
         if (!topId || !bundId) {
-            alert("Vælg både top og bund før du tilføjer til kurven!");
+            showNotification("Vælg både Top & Bund", "orange");
             return;
         }
 
-        // custom cupcake med rigtige id'er fra databasen
         const product = {
-            id: 1, // custom cupcake product id
+            id: 1,
             name: "Custom Cupcake",
             price: 49,
-            description: `Custom cupcake med ${topText} top og ${bundText} bund`,
-            topping: parseInt(topId), // topping id fra database
-            bottom: parseInt(bundId)  // bund id fra database
+            description: `Custom cupcake | ${topText} Top | ${bundText} Bund`,
+            topping: parseInt(topId),
+            bottom: parseInt(bundId)
         };
 
         const formData = new FormData();

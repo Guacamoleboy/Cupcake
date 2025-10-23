@@ -7,6 +7,8 @@ import dk.cupcake.entities.CartItem;
 import dk.cupcake.entities.CupcakeFlavor;
 import dk.cupcake.entities.CupcakeTopping;
 import dk.cupcake.entities.Product;
+import dk.cupcake.mapper.CupcakeFlavorMapper;
+import dk.cupcake.mapper.CupcakeToppingMapper;
 import dk.cupcake.mapper.ProductMapper;
 import io.javalin.Javalin;
 import io.javalin.http.Context;
@@ -18,6 +20,8 @@ public class CartController {
 
     // Attributes
     private final ProductMapper productMapper = new ProductMapper();
+    private final CupcakeFlavorMapper flavorMapper = new CupcakeFlavorMapper();
+    private final CupcakeToppingMapper toppingMapper = new CupcakeToppingMapper();
 
     // _________________________________________________________________
 
@@ -67,16 +71,22 @@ public class CartController {
                 int flavorId = Integer.parseInt(flavorIdStr);
                 int toppingId = Integer.parseInt(toppingIdStr);
 
-                var combo = productMapper.getCupcakeCombo(flavorId, toppingId);
-                if (combo == null) {
+                CupcakeFlavor flavor = flavorMapper.getById(flavorId);
+                CupcakeTopping topping = toppingMapper.getById(toppingId);
+
+                if (flavor == null || topping == null) {
                     ctx.redirect("/order?error=comboNotFound");
                     return;
                 }
 
+                double price = flavor.getPrice() + topping.getPrice();
+
                 item.setFlavorId(flavorId);
                 item.setToppingId(toppingId);
-                item.setName(combo.getName());
-                item.setUnitPrice(combo.getPrice());
+                item.setName("Custom Cupcake");
+                item.setDisplayName("Custom Cupcake | " + topping.getName() + " | " + flavor.getName());
+                item.setUnitPrice(price);
+
             } else {
                 ctx.redirect("/order?error=invalidParams");
                 return;
@@ -90,6 +100,7 @@ public class CartController {
             payload.put("total", cart.getTotal());
             payload.put("items", cart.getItems().stream().map(ci -> Map.of(
                     "name", ci.getName(),
+                    "displayName", ci.getDisplayName(),
                     "qty", ci.getQuantity(),
                     "unitPrice", ci.getUnitPrice(),
                     "lineTotal", ci.getLineTotal()
@@ -112,6 +123,7 @@ public class CartController {
         payload.put("total", cart.getTotal());
         payload.put("items", cart.getItems().stream().map(ci -> Map.of(
                 "name", ci.getName(),
+                "displayName", ci.getDisplayName(),
                 "qty", ci.getQuantity(),
                 "unitPrice", ci.getUnitPrice(),
                 "lineTotal", ci.getLineTotal()

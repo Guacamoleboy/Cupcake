@@ -8,6 +8,8 @@ import dk.cupcake.entities.Order;
 import dk.cupcake.entities.OrderItem;
 import dk.cupcake.entities.User;
 import dk.cupcake.mapper.CouponMapper;
+import dk.cupcake.mapper.CupcakeFlavorMapper;
+import dk.cupcake.mapper.CupcakeToppingMapper;
 import dk.cupcake.mapper.OrderMapper;
 import dk.cupcake.server.ThymeleafSetup;
 import io.javalin.Javalin;
@@ -19,6 +21,8 @@ public class OrderController {
     // Attributes
     static Order order;
     static OrderMapper orderMapper = new OrderMapper();
+    static CupcakeToppingMapper toppingMapper = new CupcakeToppingMapper();
+    static CupcakeFlavorMapper bottomMapper = new CupcakeFlavorMapper();
 
     // ______________________________________________________________
 
@@ -50,7 +54,6 @@ public class OrderController {
 
             order = ctx.sessionAttribute("order");
 
-            /* TODO Fjern det her fis. Brugeren har ikke behov for at se sit ID før der er placeret en ordre. */
             if (order == null) {
                 if (user != null) {
                     order = orderMapper.newOrder(user.getId());
@@ -65,7 +68,6 @@ public class OrderController {
             String description = ctx.formParam("description");
             int top = Integer.parseInt(ctx.formParam("topping"));
             int bottom = Integer.parseInt(ctx.formParam("bottom"));
-
 
             order.addToOrder(new OrderItem(id, name, description, price, 1, top, bottom), order.getId());
 
@@ -167,11 +169,9 @@ public class OrderController {
         // ______________________________________________________________________________
 
         app.get("/payment", ctx -> {
-
             User user = ctx.sessionAttribute("user");
             Order order = ctx.sessionAttribute("order");
 
-            // Validation. No access if no cart.
             if (order == null || order.getItems().isEmpty()) {
                 ctx.redirect("/?error=emptyCart");
                 return;
@@ -185,16 +185,11 @@ public class OrderController {
             double total = order.getItems().stream()
                     .mapToDouble(i -> i.getPrice() * i.getQuantity())
                     .sum();
+            order.setTotalPrice(total);
 
             ctx.sessionAttribute("total", total);
 
-            Map<String, Object> model = new HashMap<>();
-            model.put("id", order.getId());
-            model.put("items", order.getItems());
-            model.put("total", total);
-
-
-            ctx.html(ThymeleafSetup.render("payment.html", Map.of("order", model)));
+            ctx.html(ThymeleafSetup.render("payment.html", Map.of("order", order)));
         });
 
         // ______________________________________________________________________________
