@@ -3,7 +3,6 @@ package dk.cupcake.mapper;
 import dk.cupcake.db.Database;
 import dk.cupcake.entities.Order;
 import dk.cupcake.entities.Refund;
-
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -21,7 +20,7 @@ public class RefundMapper {
             ps.setInt(2, order.getUser().getId());
             ps.setString(3, reason);
             ps.setTimestamp(4, new Timestamp(System.currentTimeMillis()));
-            ps.setString(5, "active");
+            ps.setString(5, "open");
 
             ps.executeUpdate();
 
@@ -39,25 +38,25 @@ public class RefundMapper {
     }
 
     public List<Refund> getAllRefunds(int userId) throws SQLException {
-        String sql = "SELECT * FROM refunds WHERE user_id = ? AND status IN ('active', 'closed') ORDER BY created_at DESC";
+        String sql = "SELECT * FROM refunds WHERE user_id = ? AND status IN ('open', 'closed') ORDER BY created_at DESC";
         return getRefunds(sql, userId);
     }
 
     // Til admin
     public List<Refund> getAllRefunds() throws SQLException {
-        String sql = "SELECT * FROM refunds WHERE status IN ('active', 'closed') ORDER BY created_at DESC";
+        String sql = "SELECT * FROM refunds WHERE status IN ('open', 'closed') ORDER BY created_at DESC";
         return getRefunds(sql, null);
     }
 
 
     public List<Refund> getAllActiveRefunds(int userId) throws SQLException {
-        String sql = "SELECT * FROM refunds WHERE user_id = ? AND status = 'active' ORDER BY created_at DESC";
+        String sql = "SELECT * FROM refunds WHERE user_id = ? AND status = 'open' ORDER BY created_at DESC";
         return getRefunds(sql, userId);
     }
 
     // Til admin
     public List<Refund> getAllActiveRefunds() throws SQLException {
-        String sql = "SELECT * FROM refunds WHERE status = 'active' ORDER BY created_at DESC";
+        String sql = "SELECT * FROM refunds WHERE status = 'open' ORDER BY created_at DESC";
         return getRefunds(sql, null);
     }
 

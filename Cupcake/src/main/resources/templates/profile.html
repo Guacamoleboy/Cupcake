@@ -293,7 +293,7 @@
                                     <span th:text="${order.status}"
                                           th:classappend="${#strings.toLowerCase(order.status) == 'open' ? ' status-open' :
                                                           (#strings.toLowerCase(order.status) == 'pending' ? ' status-pending' :
-                                                          (#strings.toLowerCase(order.status) == 'finished' ? ' status-finished' : ' status-default'))}">
+                                                          (#strings.toLowerCase(order.status) == 'closed' ? ' status-finished' : ' status-default'))}">
                                     </span>
                                 </p>
                             </div>

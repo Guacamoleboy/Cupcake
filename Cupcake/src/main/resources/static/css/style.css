@@ -157,8 +157,9 @@
 
 html, body {
     font-family: 'Itim', cursive !important; /* Site Identity DO NOT REMOVE */
-    background: url(../images/backgrounds/wallpaper.png) center 70% fixed;
+    background: url(../images/backgrounds/wallpaper-fix-2.png) no-repeat center 70% fixed;
     background-color: var(--background) !important;
+    background-size: cover;
     overflow-x: hidden !important;
     overflow-y: scroll; /* Makes sure users can still Scroll */
     scrollbar-width: none;
@@ -2534,3 +2535,158 @@ button.minus:active {
     100% { opacity: 0; pointer-events: none; }
 }
 
+/* ___________________________________________ */
+
+/* Forgot Something */
+
+/* ___________________________________________ */
+
+.forgot-btn-group {
+    text-align: center;
+    margin-top: 1rem;
+}
+
+.forgot-link {
+    color: var(--cupcake-white);
+    text-decoration: none;
+    font-weight: 500;
+    display: inline-block;
+    transition: transform 0.25s ease, color 0.25s ease;
+}
+
+.forgot-link:hover {
+    transform: scale(1.03);
+}
+
+.forgot-link:active {
+    transform: scale(1.0);
+    color: #ccc;
+}
+
+.forgot-choice-group {
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+    margin-top: 1rem;
+    flex-wrap: wrap;
+}
+
+#forgot-form-container form {
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+}
+
+#forgot-form-container input {
+    text-align: center;
+}
+
+/* ___________________________________________ */
+
+/* Payment Modal */
+
+/* ___________________________________________ */
+
+#paymentModalContainer {
+    display: none;
+    position: fixed;
+    z-index: 10000;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.4);
+    backdrop-filter: blur(0.25rem);
+    -webkit-backdrop-filter: blur(0.25rem);
+}
+
+#paymentModalContent {
+    backdrop-filter: blur(1.25rem);
+    -webkit-backdrop-filter: blur(1.25rem);
+    background: rgba(255, 255, 255, 0.2);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    margin: 10% auto;
+    padding: 1.5rem;
+    width: 90%;
+    max-width: 25rem;
+    border-radius: 1rem;
+    box-shadow: 0 0 2rem rgba(0, 0, 0, 0.4);
+    color: #fff;
+    position: relative;
+}
+
+#paymentModalClose {
+    position: absolute;
+    top: 0.75rem;
+    right: 1.5rem;
+    font-size: 1.5rem;
+    cursor: pointer;
+    color: var(--cupcake-less-white);
+    transition: color 0.2s ease;
+}
+
+#paymentModalClose:hover {
+    color: #fff;
+}
+
+#paymentModalContent h2 {
+    font-size: 1.25rem;
+    margin-bottom: 1rem;
+    font-weight: 600;
+    text-align: center;
+    position: relative;
+}
+
+#paymentModalContent h2::after {
+    content: "";
+    display: block;
+    width: 5rem;
+    height: 0.125rem;
+    background: rgba(255, 255, 255, 0.8);
+    margin: 0.5rem auto 0;
+    border-radius: 1rem;
+}
+
+#paymentModalContent p {
+    margin: 0.5rem 0;
+    text-align: center;
+    color: rgba(255, 255, 255, 0.9);
+}
+
+#paymentInputs {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+    margin-top: 1.5rem;
+}
+
+#paymentInputs input {
+    padding: 0.75rem 1rem;
+    border-radius: 0.75rem;
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    background: rgba(255, 255, 255, 0.15);
+    color: rgba(255, 255, 255, 0.9);
+    font-size: 0.9rem;
+    outline: none;
+    pointer-events: none;
+}
+
+#paymentInputs input::placeholder {
+    color: rgba(255, 255, 255, 0.7);
+}
+
+#confirmPaymentBtn {
+    display: block;
+    margin: 1.75rem auto 0;
+    padding: 0.75rem 2rem;
+    background: var(--cupcake-orange);
+    color: #fff;
+    border-radius: 0.75rem;
+    text-decoration: none;
+    font-weight: 600;
+    text-align: center;
+    transition: all 0.2s ease;
+}
+#confirmPaymentBtn:hover {
+    background: #d58600;
+    transform: translateY(2px);
+}

@@ -26,6 +26,8 @@ document.addEventListener('DOMContentLoaded', () => {
     let currentIndex = 0;
     let resultDiv;
 
+    // _________________________________________________________________________
+
     function showOrder(index) {
 
         orderCards.forEach(card => card.style.display = 'none');
@@ -35,6 +37,8 @@ document.addEventListener('DOMContentLoaded', () => {
         nextBtn.style.display = index === orderCards.length - 1 ? 'none' : 'inline-block';
 
     }
+
+    // _________________________________________________________________________
 
     showOrdersBtn.addEventListener('click', () => {
 
@@ -60,6 +64,8 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
 
+    // _________________________________________________________________________
+
     nextBtn.addEventListener('click', () => {
 
         if (currentIndex < orderCards.length - 1) {
@@ -71,6 +77,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
     });
 
+    // _________________________________________________________________________
+
     prevBtn.addEventListener('click', () => {
 
         if (currentIndex > 0) {
@@ -81,6 +89,8 @@ document.addEventListener('DOMContentLoaded', () => {
         }
 
     });
+
+    // _________________________________________________________________________
 
     searchBtn.addEventListener("click", async () => {
 
@@ -111,14 +121,13 @@ document.addEventListener('DOMContentLoaded', () => {
 
             }
 
-            // Colors for status
             const statusClass = (() => {
                 switch (data.status.toLowerCase()) {
                     case "open":
                         return "status-open";
                     case "pending":
                         return "status-pending";
-                    case "finished":
+                    case "closed":
                         return "status-finished";
                     default:
                         return "status-default";
@@ -129,29 +138,59 @@ document.addEventListener('DOMContentLoaded', () => {
                 <div class="order-card">
                     <div class="order-header">
                         <h3>Ordre ID: #${data.id}</h3>
-                        <p>Status: <span class="${statusClass}">${data.status}</span></p>
+                        <p>Status:
+                            <span class="${
+                                    data.status.toLowerCase() === 'open' ? 'status-open' :
+                                    data.status.toLowerCase() === 'pending' ? 'status-pending' :
+                                    data.status.toLowerCase() === 'closed' ? 'status-finished' :
+                                    'status-default'
+                                    }">
+                                ${data.status}
+                            </span>
+                        </p>
                     </div>
-
+            
                     <div class="order-items">
-                        <p><strong>Produkter:</strong></p>
+            
+                        <!-- Header row -->
+                        <div class="order-list">
+                            <div class="order-item guac-row guac-col-auto">
+                                <p><strong>Produkt</strong></p>
+                                <p><strong>Antal</strong></p>
+                                <p><strong>Pris pr stk</strong></p>
+                            </div>
+                        </div>
+            
                         <hr class="section-divider">
-                        <ul>
+            
+                        <!-- Produkter -->
+                        <div class="order-list">
                             ${data.items.map(item => `
-                                <li>
-                                    <span>${item.title}</span> x
-                                    <span>${item.quantity}</span>
-                                    <span>${item.price}</span> kr
-                                </li>
-                            `).join("")}
-                        </ul>
+                                <div class="order-item guac-row guac-col-auto">
+                                    <p>${item.title}</p>
+                                    <p>${item.quantity}</p>
+                                    <p>${item.price} kr</p>
+                                </div>
+                            `).join('')}
+                        </div>
+            
+                        <hr class="section-divider">
+            
+                        <!-- Total -->
+                        <div class="order-list">
+                            <div class="order-item guac-row guac-col-auto">
+                                <p><strong>Total</strong></p>
+                                <p></p>
+                                <p>${data.totalPrice} kr</p>
+                            </div>
+                        </div>
+            
                     </div>
-
+            
                     <hr class="section-divider">
-
-                    <p><strong>Total:</strong> ${data.totalPrice} kr</p>
-
-                    <div class="guac-pt-2">
-                        ${data.status.toLowerCase() === "open" ? `
+            
+                    <div>
+                        ${data.status.toLowerCase() === 'open' ? `
                             <a href="/orderContinue?orderId=${data.id}" class="guac-btn finish-btn">
                                 Fortsæt køb
                             </a>
@@ -160,7 +199,7 @@ document.addEventListener('DOMContentLoaded', () => {
                                 Slet
                             </a>
                             -->
-                        ` : ""}
+                        ` : ''}
                     </div>
                 </div>
             `;
@@ -176,6 +215,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
     });
 
+    // _________________________________________________________________________
+
     hideBtn.addEventListener("click", () => {
 
         resultDiv.innerHTML = "";
@@ -184,52 +225,49 @@ document.addEventListener('DOMContentLoaded', () => {
 
     });
 
+    // _________________________________________________________________________
+
     createRefundBtn.addEventListener("click", async () => {
 
         const orderId = document.getElementById("refundOrderId").value.trim();
         const reason = document.getElementById("refundReason").value.trim();
 
         if (!orderId || !reason) {
-
-            refundResult.textContent = "Udfyld både ordre ID og grundlag!";
-            refundResult.style.color = "red";
+            showNotification("Udfyld både ordre ID og grundlag!", "red");
             return;
-
         }
 
         try {
-
             const form = new FormData();
             form.append("orderId", orderId);
             form.append("reason", reason);
 
             const res = await fetch("/createRefund", {
-
                 method: "POST",
                 body: form
-
             });
 
             const data = await res.json();
 
-            if (!res.ok) {
-
-                console.log(`Fejl: ${data.error}`)
-
+            if (res.ok) {
+                showNotification("Returnering oprettet!", "green");
+                document.getElementById("refundOrderId").value = "";
+                document.getElementById("refundReason").value = "";
+            } else {
+                const errorMessage = data.error || "Noget gik galt...";
+                showNotification(errorMessage, "red");
             }
 
         } catch (err) {
-
-            console.log("Noget gik galt ved oprettelse af returnering!")
             console.error(err);
-
+            showNotification("Noget gik galt...", "red");
         }
-
     });
+
+    // _________________________________________________________________________
 
     function convertDate(refund) {
 
-        // Ved ikke hvorfor json ikke kan finde ud af LocalDateTime, men fandt denne metode til at convert TimeStamp
         return new Date(refund.createdAt).toLocaleString("da-DK", {
             year: "numeric",
             month: "2-digit",
@@ -240,12 +278,16 @@ document.addEventListener('DOMContentLoaded', () => {
 
     }
 
+    // _________________________________________________________________________
+
     prevActiveBtn.addEventListener("click", () => {
 
         if (activeIndex > 0) activeIndex--;
         showActiveRefund(activeIndex);
 
     });
+
+    // _________________________________________________________________________
 
     nextActiveBtn.addEventListener("click", () => {
 
@@ -254,6 +296,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
     });
 
+    // _________________________________________________________________________
+
     prevPastBtn.addEventListener("click", () => {
 
         if (pastIndex > 0) pastIndex--;
@@ -261,12 +305,16 @@ document.addEventListener('DOMContentLoaded', () => {
 
     });
 
+    // _________________________________________________________________________
+
     nextPastBtn.addEventListener("click", () => {
 
         if (pastIndex < pastRefunds.length - 1) pastIndex++;
         showPastRefund(pastIndex);
 
     });
+
+    // _________________________________________________________________________
 
     showActiveBtn.addEventListener("click", async () => {
 
@@ -284,6 +332,8 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
 
+    // _________________________________________________________________________
+
     showPastBtn.addEventListener("click", async () => {
 
         if (pastContainer.style.display === "block") {
@@ -299,6 +349,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
         }
     });
+
+    // _________________________________________________________________________
 
     async function loadActiveRefunds() {
 
@@ -333,6 +385,8 @@ document.addEventListener('DOMContentLoaded', () => {
             console.error(err);
         }
     }
+
+    // _________________________________________________________________________
 
     async function loadPastRefunds() {
 
@@ -369,38 +423,60 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 
+    // _________________________________________________________________________
+
     function showActiveRefund(index) {
+        const data = activeRefunds[index];
+
+        const statusClass = (() => {
+            switch (data.status.toLowerCase()) {
+                case "open": return "status-open";
+                case "pending": return "status-pending";
+                case "closed": return "status-finished";
+                default: return "status-default";
+            }
+        })();
 
         activeContainer.innerHTML = `
             <div class="order-card">
-                <p>Returnering ID: #${activeRefunds[index].id}</p>
-                <p>Ordre ID: #${activeRefunds[index].orderId}</p>
-                <p>Grund: ${activeRefunds[index].reason}</p>
-                <p>Status: ${activeRefunds[index].status}</p>
-                <p>Oprettet: ${convertDate(activeRefunds[index])}</p>
+                <p>Returnering ID: #${data.id}</p>
+                <p>Ordre ID: #${data.orderId}</p>
+                <p>Grund: ${data.reason}</p>
+                <p>Status: <span class="${statusClass}">${data.status}</span></p>
+                <p>Oprettet: ${convertDate(data)}</p>
             </div>
         `;
 
         prevActiveBtn.style.display = index === 0 ? "none" : "inline-block";
         nextActiveBtn.style.display = index === activeRefunds.length - 1 ? "none" : "inline-block";
-
     }
 
+    // _________________________________________________________________________
+
     function showPastRefund(index) {
+        const data = pastRefunds[index];
+
+        const statusClass = (() => {
+            switch (data.status.toLowerCase()) {
+                case "open": return "status-open";
+                case "pending": return "status-pending";
+                case "closed": return "status-finished";
+                default: return "status-default";
+            }
+        })();
 
         pastContainer.innerHTML = `
             <div class="order-card">
-                <p>Returnering ID: #${activeRefunds[index].id}</p>
-                <p>Ordre ID: #${activeRefunds[index].orderId}</p>
-                <p>Grund: ${activeRefunds[index].reason}</p>
-                <p>Status: ${activeRefunds[index].status}</p>
-                <p>Oprettet: ${convertDate(activeRefunds[index])}</p>
+                <p>Returnering ID: #${data.id}</p>
+                <p>Ordre ID: #${data.orderId}</p>
+                <p>Grund: ${data.reason}</p>
+                <p>Status: <span class="${statusClass}">${data.status}</span></p>
+                <p>Oprettet: ${convertDate(data)}</p>
             </div>
         `;
 
         prevPastBtn.style.display = index === 0 ? "none" : "inline-block";
         nextPastBtn.style.display = index === pastRefunds.length - 1 ? "none" : "inline-block";
-
     }
 
 });
