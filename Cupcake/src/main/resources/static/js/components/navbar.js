@@ -35,6 +35,38 @@ const navbarHTML = `
         
     </div>
 </div>
+
+<!-- Mobile Navbar Start -->
+<div class="navbar-responsive">
+
+  <button class="navbar-toggle" aria-label="Åbn menu">&#9776;</button>
+  <div class="navbar-logo-responsive">
+    <a href="/"><img src="/images/logo/logo-3.svg" alt="Logo Her Broski"></a>
+  </div>
+  
+</div>
+
+<!-- Mobile Overlay Start -->
+<div class="navbar-overlay">
+
+  <button class="overlay-close" aria-label="Luk menu">&#10006;</button>
+  <ul class="overlay-menu">
+    <li><a href="/order">Menu</a></li>
+    <li><a href="/custom">Custom Cupcake</a></li>
+    <li><a href="/galleri">Galleri</a></li>
+    <li><a href="/events">Events</a></li>
+    <li><a href="/contact">Kontakt</a></li>
+  </ul>
+  
+  <div class="overlay-login">
+    <a href="/login">
+      <button class="navbar-login-button">Log Ind</button>
+    </a>
+  </div>
+  
+</div>
+<!-- Mobile Navbar End -->
+
 <!-- Navbar End -->
 `;
 
@@ -56,39 +88,71 @@ export async function loadNavbar(containerId = "navbar-component") {
         const response = await fetch("/api/auth/status");
         const data = await response.json();
         const profileButtonContainer = container.querySelector(".navbar-profile");
+        const overlayLoginContainer = container.querySelector(".overlay-login");
 
         if (!profileButtonContainer) return;
 
-        if (!data.loggedIn) {
-            profileButtonContainer.innerHTML = `
-                <a href="/login">
-                    <button class="navbar-login-button">Log Ind</button>
-                </a>
-            `;
-            return;
-        }
+        const setLoginButton = (containerElement) => {
 
-        switch (data.role?.toLowerCase()) {
-            case "admin":
-                profileButtonContainer.innerHTML = `
-                    <a href="/admin">
-                        <button class="navbar-login-button">Admin Menu</button>
+            if (!containerElement) return;
+
+            if (!data.loggedIn) {
+                containerElement.innerHTML = `
+                    <a href="/login">
+                        <button class="navbar-login-button">Log Ind</button>
                     </a>
                 `;
-                break;
+                return;
+            }
 
-            default:
-                profileButtonContainer.innerHTML = `
-                    <a href="/profile">
-                        <button class="navbar-login-button">Min Profil</button>
-                    </a>
-                `;
-                break;
-        }
+            switch (data.role?.toLowerCase()) {
+                case "admin":
+                    containerElement.innerHTML = `
+                        <a href="/admin">
+                            <button class="navbar-login-button">Admin Menu</button>
+                        </a>
+                    `;
+                    break;
+
+                default:
+                    containerElement.innerHTML = `
+                        <a href="/profile">
+                            <button class="navbar-login-button">Min Profil</button>
+                        </a>
+                    `;
+                    break;
+            }
+        };
+
+        setLoginButton(profileButtonContainer);
+        setLoginButton(overlayLoginContainer);
 
     } catch (err) {
         console.error("Could not fetch auth status:", err);
     }
 }
 
-loadNavbar();
+loadNavbar().then(() => {
+
+    const toggleButton = document.querySelector(".navbar-toggle");
+    const overlay = document.querySelector(".navbar-overlay");
+    const closeButton = document.querySelector(".overlay-close");
+
+    if (toggleButton && overlay && closeButton) {
+
+        toggleButton.addEventListener("click", () => {
+            overlay.style.display = "flex";
+        });
+
+        closeButton.addEventListener("click", () => {
+            overlay.style.display = "none";
+        });
+
+        overlay.querySelectorAll("a").forEach(link => {
+            link.addEventListener("click", () => {
+                overlay.style.display = "none";
+            });
+        });
+    }
+
+});
