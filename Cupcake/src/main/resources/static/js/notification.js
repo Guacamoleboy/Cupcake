@@ -94,6 +94,9 @@ document.addEventListener("DOMContentLoaded", function() {
         case "missingFields":
             showNotification("Missing fields...", "red");
             break;
+        case "balanceAdded":
+            showNotification("Balance added!", "green");
+            break;
         case "500":
             showNotification("Server error: 500", "red");
             break;

@@ -38,25 +38,25 @@ public class RefundMapper {
     }
 
     public List<Refund> getAllRefunds(int userId) throws SQLException {
-        String sql = "SELECT * FROM refunds WHERE user_id = ? AND status IN ('active', 'closed') ORDER BY created_at DESC";
+        String sql = "SELECT * FROM refunds WHERE user_id = ? AND status IN ('open', 'closed') ORDER BY created_at DESC";
         return getRefunds(sql, userId);
     }
 
     // Til admin
     public List<Refund> getAllRefunds() throws SQLException {
-        String sql = "SELECT * FROM refunds WHERE status IN ('active', 'closed') ORDER BY created_at DESC";
+        String sql = "SELECT * FROM refunds";
         return getRefunds(sql, null);
     }
 
 
     public List<Refund> getAllActiveRefunds(int userId) throws SQLException {
-        String sql = "SELECT * FROM refunds WHERE user_id = ? AND status = 'active' ORDER BY created_at DESC";
+        String sql = "SELECT * FROM refunds WHERE user_id = ? AND status = 'open' ORDER BY created_at DESC";
         return getRefunds(sql, userId);
     }
 
     // Til admin
     public List<Refund> getAllActiveRefunds() throws SQLException {
-        String sql = "SELECT * FROM refunds WHERE status = 'active' ORDER BY created_at DESC";
+        String sql = "SELECT * FROM refunds WHERE status = 'open' ORDER BY created_at DESC";
         return getRefunds(sql, null);
     }
 
@@ -71,6 +71,33 @@ public class RefundMapper {
         return getRefunds(sql, null);
     }
 
+    public Refund getRefundByID(int id) throws SQLException {
+
+        String sql = "SELECT * FROM refunds WHERE id = ?";
+        try (Connection conn = Database.getConnection();
+             PreparedStatement stmt = conn.prepareStatement(sql)) {
+
+            stmt.setInt(1, id);
+            ResultSet rs = stmt.executeQuery();
+
+            if (rs.next()) return mapRefund(rs);
+            return null;
+
+        }
+    }
+
+    public void updateRefundStatus(int refundId, String status) throws SQLException {
+
+        String sql = "UPDATE refunds SET status = ? WHERE id = ?";
+        try (Connection conn = Database.getConnection();
+             PreparedStatement ps = conn.prepareStatement(sql)) {
+
+            ps.setString(1, status);
+            ps.setInt(2, refundId);
+            ps.executeUpdate();
+
+        }
+    }
 
     private List<Refund> getRefunds(String sql, Integer userId) throws SQLException {
         List<Refund> refunds = new ArrayList<>();

@@ -152,7 +152,7 @@ public class Order {
         boolean found = false;
 
         for (OrderItem item : items) {
-            if (item.getProductId() == newItem.getProductId()) {
+            if (item.isMergeableWith(newItem)) {
                 item.setQuantity(item.getQuantity() + newItem.getQuantity());
                 found = true;
                 if (orderID > 0) {

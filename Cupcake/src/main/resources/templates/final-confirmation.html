@@ -19,6 +19,10 @@
     <!-- CSS Load -->
     <link rel="stylesheet" href="/css/style.css">
 
+    <!-- Script Load -->
+    <script src="/js/payment-modal.js" defer></script>
+    <script src="/js/notification.js" defer></script>
+
     <!-- Framwork load -->
     <link rel="stylesheet" href="/css/guacamoleboy-wow.css">
     <link rel="stylesheet" href="/css/guacamoleboy-framework.css">
@@ -78,7 +82,7 @@
         <!-- Order List -->
         <div class="order-list">
             <div class="order-item guac-row guac-col-auto" th:each="item : ${data.cartItems}">
-                <p th:text="${item.title}">Produktnavn</p>
+                <p th:text="${item.displayName}">Produktnavn</p>
                 <p th:text="${item.quantity}">Antal</p>
                 <p th:text="${item.price} + ' kr'">Pris</p>
             </div>
@@ -108,13 +112,39 @@
 
         <hr class="section-divider">
 
-        <!-- Next Button -->
-        <a th:href="'/ordertak/' + ${data.order.id}" class="next-btn">Betal nu</a>
+        <!-- Next Button (opens modal) -->
+        <a href="#" class="next-btn" id="openPaymentModalBtn">Betal nu</a>
         <!-- Next Button -->
 
     </div>
 </section>
 <!-- Payment Section End -->
+
+<!-- Payment Modal Start -->
+<div id="paymentModalContainer">
+    <div id="paymentModalContent">
+        <span id="paymentModalClose">&times;</span>
+        <h2>Bekræft betaling</h2>
+        <p>Betalingsmetode: <span th:text="${data.paymentMethod}"></span></p>
+        <p>Din balance: <span th:text="${data.user.balance}"></span> DKK</p>
+
+        <!-- Fake. Won't be connected! -->
+        <div id="paymentInputs">
+            <input type="text" placeholder="Kortnummer" readonly />
+            <input type="text" placeholder="Navn på kort" readonly />
+            <input type="text" placeholder="CVR" readonly />
+            <input type="text" placeholder="Udløbsdato (MM/YY)" readonly />
+        </div>
+        <!-- Fake. Won't be connected! -->
+
+        <a th:href="'/ordertak/' + ${data.order.id}" id="confirmPaymentBtn">Betal</a>
+    </div>
+</div>
+<!-- Payment Modal End -->
+
+<!-- Notification -->
+<div id="guac-notification-container"></div>
+<!-- Notification -->
 
 </body>
 </html>
