@@ -362,11 +362,12 @@ document.addEventListener("DOMContentLoaded", () => {
                             <p>${order.totalPrice} kr</p>
                         </div>
                     </div>
-                    <div class="guac-pt-2">
-                        <button class="guac-btn action-btn" id="saveManageOrderBtn">Gem ændringer</button>
-                        <button class="guac-btn action-btn" id="deleteManageOrderBtn">Slet ordre</button>
-                    </div>
                 </div>
+            </div>
+            
+            <div class="guac-pt-2">
+                <button class="guac-btn action-btn" id="saveManageOrderBtn">Gem ændringer</button>
+                <button class="guac-btn action-btn" id="deleteManageOrderBtn">Slet ordre</button>
             </div>
         `;
 
