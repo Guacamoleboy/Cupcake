@@ -29,6 +29,7 @@
     <script src="/js/auth.js" defer></script>
     <script src="/js/notification.js" defer></script>
     <script src="/js/scroll-fix.js" defer></script>
+    <script src="/js/admin/adminOrders.js" defer></script>
 
     <!-- Modules -->
     <script type="module" src="/js/components/navbar.js" defer></script>
@@ -188,10 +189,12 @@
                 <div class="content-section">
                     <h2>Hurtig Navigation</h2>
                     <p>Vælg herunder for hurtigere navigation</p>
-                    <a class="guac-btn action-btn" href="#searchOrderAdmin">Søg efter ordre</a>
-                    <a class="guac-btn action-btn" href="#seeAllOrdersAdmin">Se alle ordre</a>
+                    <a class="guac-btn action-btn" href="#searchOrderSection">Søg efter ordre</a>
+                    <a class="guac-btn action-btn" href="#searchOrderAdmin">Søg efter brugers ordre</a>
                     <a class="guac-btn action-btn" href="#updateDeleteOrderAdmin">Opdater / slet ordre</a>
-                    <a class="guac-btn action-btn" href="#createNewOrderAdmin">Opret ny ordre</a>
+                    <a class="guac-btn action-btn" href="#seeAllOrdersAdmin">Se alle ordre</a>
+                    <!-- Hvorfor er denne nødvendig? -->
+                    <!--<a class="guac-btn action-btn" href="#createNewOrderAdmin">Opret ny ordre</a>-->
                     <a class="guac-btn action-btn" href="#refundAdmin">Refusion</a>
                     <a class="guac-btn action-btn" href="#returnAdmin">Retur</a>
                 </div>
@@ -200,24 +203,62 @@
                 <hr class="section-divider">
 
                 <!--  Content Section -->
-                <div class="content-section" id="searchOrderAdmin">
+                <div class="content-section" id="searchOrderSection">
                     <h2>Søg efter ordre</h2>
-                    <p>Indtast brugerens ID og/eller brugernavn:</p>
+                    <p>Indtast dine oplysninger herunder:</p>
                     <div class="guac-row input-group">
                         <div class="guac-col">
-                            <label>ID</label>
-                            <input type="text"  placeholder="41414...">
-                        </div>
-                        <div class="guac-col">
-                            <label>Brugernavn</label>
-                            <input type="text" placeholder="Diddy69...">
-                        </div>
-                        <div class="guac-col">
-                            <label>email</label>
-                            <input type="email" placeholder="narko@narko.dk">
+                            <label>Ordre ID</label>
+                            <input type="text" id="orderIdInput" placeholder="41414...">
                         </div>
                     </div>
-                    <button type="button" class="guac-btn action-btn">Søg efter ordre</button>
+
+                    <div id="orderResult"></div>
+
+                    <div class="guac-pt-2">
+                        <button type="button" class="guac-btn action-btn" id="searchOrderBtn">Søg efter ordre</button>
+                        <button type="button" class="guac-btn action-btn" id="hideOrderBtn" style="display:none;" >Skjul ordre</button>
+                    </div>
+
+                </div>
+                <!--  Content Section -->
+
+                <hr class="section-divider">
+
+                <!--  Content Section -->
+                <div class="content-section" id="searchOrderAdmin">
+                    <h2>Søg efter brugers ordre</h2>
+                    <p>Indtast brugerens ID, brugernavn eller e-mail:</p>
+
+                    <div class="guac-row input-group">
+                        <div class="guac-col">
+                            <label for="user-id">ID</label>
+                            <input type="text" id="searchOrderAdminUserId" placeholder="41414...">
+                        </div>
+                        <div class="guac-col">
+                            <label for="username">Brugernavn</label>
+                            <input type="text" id="searchOrderAdminUsername" placeholder="Diddy69...">
+                        </div>
+                        <div class="guac-col">
+                            <label for="email">Email</label>
+                            <input type="email" id="searchOrderAdminEmail" placeholder="narko@narko.dk">
+                        </div>
+                    </div>
+
+
+                    <div id="userOrdersContainer"></div>
+
+                    <div class="order-nav-row">
+                        <button type="button" class="guac-btn action-btn" id="searchUserOrdersBtn">Søg ordrer</button>
+                        <button type="button" class="guac-btn action-btn" id="hideUserOrdersBtn" style="display:none;">Skjul ordrer</button>
+
+                        <div id="userNextAndPrevNav" style="display:none;">
+                            <button id="prevUserOrderBtn" class="guac-btn action-btn">Forrige ordre</button>
+                            <button id="nextUserOrderBtn" class="guac-btn action-btn">Næste ordre</button>
+                        </div>
+                    </div>
+
+
                 </div>
                 <!--  Content Section -->
 
@@ -241,7 +282,16 @@
                             <input type="email" placeholder="narko@narko.dk">
                         </div>
                     </div>
-                    <button type="button" class="guac-btn action-btn">Søg efter ordre</button>
+                    <div id="updateDeleteOrderContainer"></div>
+
+                    <div class="order-nav-row">
+                        <button type="button" class="guac-btn action-btn" id="searchManageOrderBtn">Søg ordre</button>
+                        <button type="button" class="guac-btn action-btn" id="hideManageOrderBtn" style="display:none;">Skjul</button>
+                        <div id="manageOrderNextPrev" style="display:none;">
+                            <button id="prevManageOrderBtn" class="guac-btn action-btn">Forrige</button>
+                            <button id="nextManageOrderBtn" class="guac-btn action-btn">Næste</button>
+                        </div>
+                    </div>
                 </div>
                 <!--  Content Section -->
 
@@ -251,21 +301,35 @@
                 <div class="content-section" id="seeAllOrdersAdmin">
                     <h2>Se alle ordre</h2>
                     <p>Her kan du se alle ordre</p>
-                    <button type="button" class="guac-btn action-btn">Vis alle ordre</button>
+
+                    <div id="ShowAllOrdersContainer"></div>
+
+                    <div class="order-nav-row">
+                        <button type="button" class="guac-btn action-btn" id="ShowAllOrdersBtn">Søg ordrer</button>
+                        <button type="button" class="guac-btn action-btn" id="hideAllOrdersBtn" style="display:none;">Skjul ordrer</button>
+
+                        <div id="ShowAllNextAndPrevNav" style="display:none;">
+                            <button id="prevShowAllOrderBtn" class="guac-btn action-btn">Forrige ordre</button>
+                            <button id="nextShowAllOrderBtn" class="guac-btn action-btn">Næste ordre</button>
+                        </div>
+                    </div>
+
                 </div>
                 <!--  Content Section -->
 
                 <hr class="section-divider">
 
                 <!--  Content Section -->
+                <!--
                 <div class="content-section" id="createNewOrderAdmin">
                     <h2>Opret ny ordre</h2>
                     <p>Indtast oplysninger herunder:</p>
                     <button type="button" class="guac-btn action-btn">Opret ny ordre</button>
                 </div>
-                <!--  Content Section -->
 
-                <hr class="section-divider">
+                  Content Section
+
+                <hr class="section-divider">-->
 
                 <!--  Content Section -->
                 <div class="content-section" id="refundAdmin">
@@ -281,7 +345,24 @@
                 <div class="content-section" id="returnAdmin">
                     <h2>Retur</h2>
                     <p>Administrér returordrer:</p>
-                    <button type="button" class="guac-btn action-btn">Se returordrer</button>
+                    <div class="guac-row input-group">
+                        <div class="guac-col">
+                            <label>Retur ID</label>
+                            <input type="text" id="returnIdInput" placeholder="123...">
+                        </div>
+                    </div>
+
+                    <div id="returnContainer"></div>
+
+                    <div class="order-nav-row">
+                        <button type="button" class="guac-btn action-btn" id="searchReturnBtn">Søg retur</button>
+                        <button type="button" class="guac-btn action-btn" id="showAllReturnsBtn">Vis alle returneringer</button>
+                        <button type="button" class="guac-btn action-btn" id="hideReturnsBtn" style="display:none;">Skjul</button>
+                        <div id="returnNav" style="display:none;">
+                            <button id="prevReturnBtn" class="guac-btn action-btn">Forrige</button>
+                            <button id="nextReturnBtn" class="guac-btn action-btn">Næste</button>
+                        </div>
+                    </div>
                 </div>
                 <!--  Content Section -->
 
