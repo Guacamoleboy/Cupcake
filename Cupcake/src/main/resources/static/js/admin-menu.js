@@ -65,13 +65,13 @@ document.addEventListener('DOMContentLoaded', () => {
 
         // Validation
         if ((!username && !id) || (username && id)) {
-            showNotification("Please only fill out one of the fields", "orange")
+            showNotification("Udfyld venligst kun ét af felterne", "orange")
             return;
         }
 
         // Checks if there's an amount entered
         if (!amount) {
-            showNotification("Add amount", "orange")
+            showNotification("Tilføj beløb", "orange")
             return;
         }
 
@@ -97,7 +97,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
         } catch (err) {
             console.error(err);
-            showNotification("Connection error", "red")
+            showNotification("Forbindelsesfejl", "red")
         }
     });
 
