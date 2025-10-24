@@ -2733,3 +2733,477 @@ button.minus:active {
     background: #d58600;
     transform: translateY(2px);
 }
+
+/* ___________________________________________ */
+
+/* Navbar Responsive */
+
+/* ___________________________________________ */
+
+.navbar-responsive {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 1000;
+    display: none;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    padding: 1rem;
+    background-color: var(--navbar-background);
+}
+
+.navbar-logo-responsive {
+    display: flex;
+    justify-content: flex-end;
+}
+
+.navbar-logo-responsive img {
+    width: 18rem;
+    height: auto;
+    display: block;
+}
+
+.navbar-toggle {
+    font-size: 2rem;
+    background: none;
+    border: none;
+    color: var(--cupcake-white);
+    cursor: pointer;
+    margin: 0;
+}
+
+.overlay-menu {
+    position: absolute;
+    top: 100%;
+    display: none;
+    flex-direction: column;
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    gap: 1rem;
+}
+
+.overlay-menu a {
+    color: var(--cupcake-white);
+    text-decoration: none;
+    font-weight: bold;
+    font-size: 1.2rem;
+}
+
+.navbar-responsive .overlay-menu {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.navbar-responsive .overlay-menu a {
+    text-decoration: none;
+    color: var(--cupcake-white);
+    font-weight: bold;
+    font-size: 1.2rem;
+}
+
+.navbar-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: var(--navbar-background);
+    display: none;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    z-index: 2000;
+}
+
+.overlay-close {
+    position: absolute;
+    top: 1rem;
+    left: 1rem;
+    font-size: 2rem;
+    background: none;
+    border: none;
+    color: var(--cupcake-white);
+    cursor: pointer;
+}
+
+.navbar-overlay .overlay-menu {
+    position: static; /* VERY IMPORTANT DO NOT REMOVE */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 2rem;
+}
+
+.navbar-overlay .overlay-menu li {
+    margin: 0;
+    padding: 0;
+}
+
+.navbar-overlay .overlay-menu li a {
+    font-size: 2rem;
+    font-weight: bold;
+    color: var(--cupcake-white);
+    text-decoration: none;
+}
+
+.navbar-overlay .overlay-menu a {
+    font-size: 2rem;
+    font-weight: bold;
+    color: var(--cupcake-white);
+    text-decoration: none;
+    text-align: center;
+}
+
+.overlay-login {
+    margin-top: 2rem;
+    display: flex;
+    justify-content: center;
+    width: 100%;
+}
+
+.overlay-login .navbar-login-button {
+    font-size: 1.8rem;
+    padding: 0.8rem 1.2rem;
+}
+
+/* ___________________________________________ */
+
+/* Responsive - Portrait - IPad 14.7.2 */
+
+/* ___________________________________________ */
+
+@media screen and (max-width: 1080px) and (orientation: portrait) {
+
+    /* _________________________________________________________ */
+
+    /* Index.html */
+
+    /* _________________________________________________________ */
+
+    .hero {
+        height: 35rem;
+    }
+
+    .section-2-man {
+        display: none !important;
+    }
+
+    .navbar-responsive {
+        display: flex !important;
+    }
+
+    .navbar-sticky {
+        display: none !important;
+    }
+
+    /* _________________________________________________________ */
+
+    /* Subpage Heroes */
+
+    /* _________________________________________________________ */
+
+    .subpage .hero {
+        background-size: 140% auto;
+        background-position: center center;
+        background-attachment: scroll;
+        height: 35rem !important;
+    }
+
+    /* _________________________________________________________ */
+
+    /* Contact.html */
+
+    /* _________________________________________________________ */
+
+    .contact-section .guac-container {
+        padding-left: 4rem;
+        padding-right: 4rem;
+    }
+
+    .contact-section .guac-grid-2 {
+        display: flex;
+        flex-direction: column;
+        gap: 2rem;
+    }
+
+    /* _________________________________________________________ */
+
+    /* galleri.html + section-1 padding */
+
+    /* _________________________________________________________ */
+
+    .section-1 .guac-container {
+        padding-left: 2rem;
+        padding-right: 2rem;
+    }
+
+    /* _________________________________________________________ */
+
+    /* custom.html */
+
+    /* _________________________________________________________ */
+
+    .cupcake-forms-row {
+        display: flex;
+        flex-direction: row;
+        flex-wrap: wrap;
+        gap: 0;
+        justify-content: center;
+    }
+
+    /* Calculations for 2 boxes on a row with a little margin between */
+    /* DO NOT REMOVE */
+    .cupcake-form-box {
+        flex: 0 1 calc(50% - 1rem);
+        margin: 0;
+        min-width: 15rem;
+    }
+
+    /* _________________________________________________________ */
+
+    /* Profile + Admin Menu */
+
+    /* _________________________________________________________ */
+
+    .profile-nav {
+        flex: 0 0 25%;
+        max-width: 25%;
+        min-width: 12rem;
+    }
+
+    #minProfil .guac-btn.action-btn {
+        margin-bottom: 0.5rem;
+    }
+
+    #minProfil .content-section .guac-btn.action-btn {
+        flex: 0 0 auto;
+    }
+
+    #minProfil .content-section .guac-btn-wrapper {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.5rem 1rem;
+    }
+
+    /* _________________________________________________________ */
+
+    /* Order.html */
+
+    /* _________________________________________________________ */
+
+    .cupcake-cards {
+        gap: 1rem;
+    }
+
+    .cupcake-card {
+        min-height: auto !important;
+        flex: 1 1 45%;
+    }
+
+    @media (hover: none) and (pointer: coarse) {
+
+        .cupcake-card {
+            position: relative;
+            overflow: visible;
+            transition: all 0.5s ease;
+        }
+
+        .cupcake-card .cupcake-hoverContent {
+            position: absolute;
+            top: 30%;
+            left: 50%;
+            transform: translate(-50%, 0.5rem);
+            opacity: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            transition: opacity 0.5s ease, transform 0.5s ease;
+            width: 90%;
+            z-index: 10;
+        }
+
+        .cupcake-card.active .cupcake-hoverContent {
+            opacity: 1;
+            transform: translate(-50%, 0);
+        }
+
+        .cupcake-card .cupcake-imgBox img {
+            transition: transform 0.5s ease;
+        }
+
+        .cupcake-card.active .cupcake-imgBox img {
+            transform: translateY(-1rem) scale(0.7);
+        }
+
+        .cupcake-card.active .cupcake-contentBox {
+            margin-top: 0.5rem;
+        }
+
+    }
+
+}
+
+/* ___________________________________________ */
+
+/* Responsive - Landscape - IPad 14.7.2 */
+
+/* ___________________________________________ */
+
+@media screen and (max-width: 1080px) and (orientation: landscape) {
+
+    /* _________________________________________________________ */
+
+    /* Index.html */
+
+    /* _________________________________________________________ */
+
+    .hero {
+        height: 35rem;
+    }
+
+    .section-2-man {
+        display: none !important;
+    }
+
+    .navbar-responsive {
+        display: flex !important;
+    }
+
+    .navbar-sticky {
+        display: none !important;
+    }
+
+    /* _________________________________________________________ */
+
+    /* Subpage Heroes */
+
+    /* _________________________________________________________ */
+
+    .subpage .hero {
+        background-size: 140% auto;
+        background-position: center center;
+        background-attachment: scroll;
+        height: 45rem !important;
+    }
+
+    /* _________________________________________________________ */
+
+    /* Contact.html */
+
+    /* _________________________________________________________ */
+
+    .contact-section .guac-container {
+        padding-left: 4rem;
+        padding-right: 4rem;
+    }
+
+    .contact-section .guac-grid-2 {
+        display: flex;
+        flex-direction: row;
+        gap: 2rem;
+    }
+
+    /* _________________________________________________________ */
+
+    /* galleri.html + section-1 padding */
+
+    /* _________________________________________________________ */
+
+    .section-1 .guac-container {
+        padding-left: 2rem;
+        padding-right: 2rem;
+    }
+
+    /* _________________________________________________________ */
+
+    /* Profile + Admin Menu */
+
+    /* _________________________________________________________ */
+
+    .profile-nav {
+        flex: 0 0 25%;
+        max-width: 25%;
+        min-width: 12rem;
+    }
+
+    #minProfil .guac-btn.action-btn {
+        margin-bottom: 0.5rem;
+    }
+
+    #minProfil .content-section .guac-btn.action-btn {
+        flex: 0 0 auto;
+    }
+
+    #minProfil .content-section .guac-btn-wrapper {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.5rem 1rem;
+    }
+
+    /* _________________________________________________________ */
+
+    /* Order.html */
+
+    /* _________________________________________________________ */
+
+    .cupcake-cards {
+        gap: 1rem;
+    }
+
+    .cupcake-card {
+        min-height: auto !important;
+        flex: 1 1 45%;
+    }
+
+    @media (hover: none) and (pointer: coarse) {
+
+        .cupcake-card {
+            position: relative;
+            overflow: visible;
+            transition: all 0.5s ease;
+        }
+
+        .cupcake-card .cupcake-hoverContent {
+            position: absolute;
+            top: 30%;
+            left: 50%;
+            transform: translate(-50%, 0.5rem);
+            opacity: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            transition: opacity 0.5s ease, transform 0.5s ease;
+            width: 90%;
+            z-index: 10;
+        }
+
+        .cupcake-card.active .cupcake-hoverContent {
+            opacity: 1;
+            transform: translate(-50%, 0);
+        }
+
+        .cupcake-card .cupcake-imgBox img {
+            transition: transform 0.5s ease;
+        }
+
+        .cupcake-card.active .cupcake-imgBox img {
+            transform: translateY(-1rem) scale(0.7);
+        }
+
+        .cupcake-card.active .cupcake-contentBox {
+            margin-top: 0.5rem;
+        }
+
+    }
+
+}
