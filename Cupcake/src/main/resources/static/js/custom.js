@@ -17,17 +17,18 @@ document.addEventListener("DOMContentLoaded", async () => {
 
     showBtn.addEventListener("click", async () => {
 
-        const top = topSelect.options[topSelect.selectedIndex]?.text;
-        const bund = bundSelect.options[bundSelect.selectedIndex]?.text;
+        const topValue = topSelect.value;
+        const bundValue = bundSelect.value;
+        const topText = topSelect.options[topSelect.selectedIndex]?.text;
+        const bundText = bundSelect.options[bundSelect.selectedIndex]?.text;
 
-        if (!top || !bund) {
-            // TODO skal laves som notification
-            alert("Vælg både top og bund!");
+        if (!topValue || !bundValue) {
+            showNotification("Vælg både Top & Bund", "orange");
             return;
         }
 
         try {
-            const res = await fetch(`/custom/preview?topping=${encodeURIComponent(top)}&bund=${encodeURIComponent(bund)}`);
+            const res = await fetch(`/custom/preview?topping=${encodeURIComponent(topText)}&bund=${encodeURIComponent(bundText)}`);
             if (!res.ok) throw new Error("Ingen cupcake fundet");
             const data = await res.json();
             previewImg.src = data.imageUrl;
@@ -41,22 +42,23 @@ document.addEventListener("DOMContentLoaded", async () => {
     addBtn.addEventListener("click", async (e) => {
         e.preventDefault();
 
-        const top = topSelect.options[topSelect.selectedIndex]?.text;
-        const bund = bundSelect.options[bundSelect.selectedIndex]?.text;
+        const topId = topSelect.value;
+        const bundId = bundSelect.value;
+        const topText = topSelect.options[topSelect.selectedIndex]?.text;
+        const bundText = bundSelect.options[bundSelect.selectedIndex]?.text;
 
-        if (!top || !bund) {
-            alert("Vælg både top og bund før du tilføjer til kurven!");
+        if (!topId || !bundId) {
+            showNotification("Vælg både Top & Bund", "orange");
             return;
         }
 
-        //TODO Det er hardcodede værdier. Vi skal convertere dem til vores værdier i databasen!!!
         const product = {
             id: 1,
             name: "Custom Cupcake",
             price: 49,
-            description: `Custom cupcake med ${top} top og ${bund} bund`,
-            topping: 1,
-            bottom: 1
+            description: `Custom cupcake | ${topText} Top | ${bundText} Bund`,
+            topping: parseInt(topId),
+            bottom: parseInt(bundId)
         };
 
         const formData = new FormData();

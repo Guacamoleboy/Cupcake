@@ -75,6 +75,7 @@
                     <a class="guac-btn action-btn" href="#searchForUserAdmin">Søg efter bruger</a>
                     <a class="guac-btn action-btn" href="#addNewUserAdmin">Tilføj ny bruger</a>
                     <a class="guac-btn action-btn" href="#deleteUserAdmin">Slet bruger</a>
+                    <a class="guac-btn action-btn" href="#addMoneyAdmin">Tilføj beløb</a>
                 </div>
                 <!--  Content Section -->
 
@@ -147,6 +148,30 @@
                         </div>
                     </div>
                     <button type="button" class="guac-btn action-btn">Fjern bruger</button>
+                </div>
+                <!--  Content Section -->
+
+                <hr class="section-divider"> <!-- Important to have in the end for sticky UI feel -->
+
+                <!--  Content Section -->
+                <div class="content-section" id="addMoneyAdmin">
+                    <h2>Tilføj beløb</h2>
+                    <p>Udfyld oplysninger for at tilføje et beløb:</p>
+                    <div class="guac-row input-group">
+                        <div class="guac-col">
+                            <label>Brugernavn</label>
+                            <input type="text" id="usernameInput" placeholder="Brugernavn...">
+                        </div>
+                        <div class="guac-col">
+                            <label>ID</label>
+                            <input type="text" id="idInput" placeholder="ID...">
+                        </div>
+                        <div class="guac-col">
+                            <label>Beløb</label>
+                            <input type="text" id="amountInput" placeholder="Beløb...">
+                        </div>
+                    </div>
+                    <button type="button" id="addBalanceBtn" class="guac-btn action-btn">Tilføj beløb</button>
                 </div>
                 <!--  Content Section -->
 

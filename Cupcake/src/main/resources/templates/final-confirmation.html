@@ -82,7 +82,7 @@
         <!-- Order List -->
         <div class="order-list">
             <div class="order-item guac-row guac-col-auto" th:each="item : ${data.cartItems}">
-                <p th:text="${item.title}">Produktnavn</p>
+                <p th:text="${item.displayName}">Produktnavn</p>
                 <p th:text="${item.quantity}">Antal</p>
                 <p th:text="${item.price} + ' kr'">Pris</p>
             </div>
@@ -125,8 +125,8 @@
     <div id="paymentModalContent">
         <span id="paymentModalClose">&times;</span>
         <h2>Bekræft betaling</h2>
-        <p>Betalingsmetode:<span th:text="${data.paymentMethod}"></span></p>
-        <p>Din balance:0</p>
+        <p>Betalingsmetode: <span th:text="${data.paymentMethod}"></span></p>
+        <p>Din balance: <span th:text="${data.user.balance}"></span> DKK</p>
 
         <!-- Fake. Won't be connected! -->
         <div id="paymentInputs">

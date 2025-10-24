@@ -44,7 +44,7 @@ public class UserMapper {
     // ________________________________________________________________
 
     public User getByUserName(String username) throws SQLException {
-        String sql = "SELECT * FROM users WHERE username = ?";
+        String sql = "SELECT * FROM users WHERE LOWER(username) = LOWER(?)";
         try (Connection conn = Database.getConnection();
              PreparedStatement stmt = conn.prepareStatement(sql)) {
             stmt.setString(1, username);
@@ -74,7 +74,7 @@ public class UserMapper {
     // ________________________________________________________________
 
     public void newUser(User user) throws DatabaseException {
-        String sql = "INSERT INTO users (email, password_hash, role, username, phone, payment_attached) VALUES (?, ?, ?, ?, ?, ?)";
+        String sql = "INSERT INTO users (email, password_hash, role, username, phone, payment_attached, balance) VALUES (?, ?, ?, ?, ?, ?, ?)";
         try (Connection conn = Database.getConnection();
              PreparedStatement stmt = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
 
@@ -84,6 +84,7 @@ public class UserMapper {
             stmt.setString(4, user.getUsername());
             stmt.setString(5, user.getPhone());
             stmt.setBoolean(6, user.isPaymentAttached());
+            stmt.setDouble(7, user.getBalance());
 
             stmt.executeUpdate();
 
@@ -105,7 +106,7 @@ public class UserMapper {
 
     public void update(User user) throws SQLException {
         if (user.getId() <= 0) throw new IllegalArgumentException("User id invalid");
-        String sql = "UPDATE users SET email = ?, password_hash = ?, role = ?, username = ?, phone = ?, payment_attached = ? WHERE id = ?";
+        String sql = "UPDATE users SET email = ?, password_hash = ?, role = ?, username = ?, phone = ?, payment_attached = ?, balance = ? WHERE id = ?";
         try (Connection conn = Database.getConnection();
              PreparedStatement stmt = conn.prepareStatement(sql)) {
             stmt.setString(1, user.getEmail());
@@ -114,7 +115,8 @@ public class UserMapper {
             stmt.setString(4, user.getUsername());
             stmt.setString(5, user.getPhone());
             stmt.setBoolean(6, user.isPaymentAttached());
-            stmt.setInt(7, user.getId());
+            stmt.setDouble(7, user.getBalance());
+            stmt.setInt(8, user.getId());
             int rows = stmt.executeUpdate();
             if (rows == 0) System.out.println("Warning: No user updated!");
         }
@@ -157,8 +159,39 @@ public class UserMapper {
         u.setUsername(rs.getString("username"));
         u.setPhone(rs.getString("phone"));
         u.setPaymentAttached(rs.getBoolean("payment_attached"));
+        u.setBalance(rs.getDouble("balance"));
         u.setCreatedAt(rs.getTimestamp("created_at"));
         return u;
+    }
+
+    // ________________________________________________________________
+
+    public void addBalance(int userId, double amount) throws SQLException {
+        String sql = "UPDATE users SET balance = balance + ? WHERE id = ?";
+        try (Connection conn = Database.getConnection();
+             PreparedStatement stmt = conn.prepareStatement(sql)) {
+            stmt.setDouble(1, amount);
+            stmt.setInt(2, userId);
+            int rows = stmt.executeUpdate();
+            if (rows == 0) {
+                throw new SQLException("User not found with the specific ID: " + userId);
+            }
+        }
+    }
+
+    // ________________________________________________________________
+
+    public void addBalance(String username, double amount) throws SQLException {
+        String sql = "UPDATE users SET balance = balance + ? WHERE LOWER(username) = LOWER(?)";
+        try (Connection conn = Database.getConnection();
+             PreparedStatement stmt = conn.prepareStatement(sql)) {
+            stmt.setDouble(1, amount);
+            stmt.setString(2, username);
+            int rows = stmt.executeUpdate();
+            if (rows == 0) {
+                throw new SQLException("User not found with the specific Username: " + username);
+            }
+        }
     }
 
     // ________________________________________________________________

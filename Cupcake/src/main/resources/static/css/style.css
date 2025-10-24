@@ -180,6 +180,19 @@ body::-webkit-scrollbar { /* All other browsers */
 .hero {
     position: relative;
     height: 55rem;
+    overflow: hidden;
+}
+
+#heroVideo {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: auto;
+    height: 100%;
+    min-width: 100%;
+    z-index: 1;
+    transform: translate(-50%, -50%);
+    object-fit: cover;
 }
 
 .subpage .hero {
@@ -495,6 +508,7 @@ body::-webkit-scrollbar { /* All other browsers */
     left: 0;
     width: 100%;
     transform: translateY(0.125rem);
+    z-index: 500;
 }
 
 .wave-1 img,
