@@ -685,12 +685,27 @@ document.addEventListener("DOMContentLoaded", () => {
                         </div>
                     </div>
                 </div>
+                <div class="guac-pt-2">
+                    <button class="guac-btn action-btn" id="deleteAllOrdersListBtn">Slet ordre</button>
+                </div>
             </div>
         `;
 
         prevShowAllOrderBtn.style.display = index === 0 ? "none" : "inline-block";
         nextShowAllOrderBtn.style.display = index === allOrders.length - 1 ? "none" : "inline-block";
 
+        document.getElementById("deleteAllOrdersListBtn").addEventListener("click", async () => {
+            const form = new FormData();
+            form.append("orderId", order.id);
+            form.append("delete", "true");
+            form.append("anchor", "seeAllOrdersAdmin");
+            const res = await fetch("/admin/manageOrder", { method: "POST", body: form });
+            if (res.redirected) {
+                window.location.href = res.url;
+                return;
+            }
+            if (!res.ok) console.log("Der skete en fejl!");
+        });
     }
 
     // _________________________________________________________________________

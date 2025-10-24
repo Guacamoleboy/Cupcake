@@ -137,7 +137,9 @@ public class AdminOrderController {
 
             if ("true".equals(ctx.formParam("delete"))) {
                 orderMapper.delete(orderId);
-                ctx.redirect("/admin?error=orderDeleted#updateDeleteOrderAdmin");
+                String anchor = ctx.formParam("anchor");
+                if (anchor == null || anchor.isBlank()) anchor = "updateDeleteOrderAdmin";
+                ctx.redirect("/admin?error=orderDeleted#" + anchor);
                 return;
             }
 
