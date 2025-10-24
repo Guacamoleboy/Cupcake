@@ -74,7 +74,7 @@
                     
                     <!-- Admin Create Post Button -->
                     <div th:if="${user != null and user.role == 'admin'}" class="admin-controls">
-                        <button class="guac-btn guac-btn-primary" onclick="document.getElementById('create-post-modal').style.display='flex'">
+                        <button class="guac-btn" onclick="document.getElementById('create-post-modal').style.display='flex'">
                             <i class="fa-solid fa-plus"></i> Opret Nyt Opslag
                         </button>
                     </div>
@@ -91,6 +91,17 @@
                                     th:onclick="'toggleLike(' + ${post.id} + ', this)'">
                                 <i th:class="${userLikes.get(post.id) ? 'fa-solid fa-heart' : 'fa-regular fa-heart'}"></i>
                             </button>
+                            
+                            <!-- Admin Delete Button -->
+                            <div th:if="${user != null and user.role == 'admin'}" class="admin-delete">
+                                <form method="post" action="/gallery/post/delete" style="display: inline;">
+                                    <input type="hidden" name="postId" th:value="${post.id}">
+                                    <button type="submit" class="delete-btn" onclick="return confirm('Er du sikker på du vil slette dette opslag?')">
+                                        <i class="fa-solid fa-trash"></i>
+                                    </button>
+                                </form>
+                            </div>
+                            
                             <div class="gallery-item__details">
                                 <p th:text="${post.description}">Beskrivelse</p>
                                 
@@ -106,16 +117,6 @@
                                     </span>
                                 </div>
                                 <!-- Likes and Comments -->
-
-                                <!-- Admin Delete Button -->
-                                <div th:if="${user != null and user.role == 'admin'}" class="admin-delete">
-                                    <form method="post" action="/gallery/post/delete" style="display: inline;">
-                                        <input type="hidden" name="postId" th:value="${post.id}">
-                                        <button type="submit" class="delete-btn" onclick="return confirm('Er du sikker på du vil slette dette opslag?')">
-                                            <i class="fa-solid fa-trash"></i>
-                                        </button>
-                                    </form>
-                                </div>
 
                             </div>
                         </div>
@@ -173,7 +174,7 @@
                     <button type="button" class="guac-btn guac-btn-secondary" onclick="document.getElementById('create-post-modal').style.display='none'">
                         Annuller
                     </button>
-                    <button type="submit" class="guac-btn guac-btn-primary">
+                    <button type="submit" class="guac-btn">
                         Opret Opslag
                     </button>
                 </div>
@@ -191,7 +192,7 @@
             </div>
             <div class="comment-form" id="comment-form">
                 <textarea id="comment-input" placeholder="Skriv en kommentar..." rows="3"></textarea>
-                <button class="guac-btn guac-btn-primary" onclick="submitComment()">
+                <button class="guac-btn" onclick="submitComment()">
                     <i class="fa-solid fa-paper-plane"></i> Send
                 </button>
             </div>

@@ -1439,6 +1439,7 @@ body::-webkit-scrollbar { /* All other browsers */
     color: var(--cupcake-grey); /* Color fix */
     font-weight: 600;
     font-size: 0.9rem;
+    font-family: 'Itim', cursive !important;
 }
 
 .gallery-item__details:before {
@@ -1463,11 +1464,12 @@ body::-webkit-scrollbar { /* All other browsers */
     margin-top: 0.5rem; /* Distance between description and meta data */
     font-size: 0.9rem;
     color: var(--cupcake-grey);
+    font-family: 'Itim', cursive !important;
 }
 
 .gallery-item__lac i {
     /* margin-right: 0.3rem; Add and see the difference. Maybe u like it with it on */
-    color: var(--heart);
+    color: var(--cupcake-orange);
 }
 
 
@@ -1492,26 +1494,57 @@ body::-webkit-scrollbar { /* All other browsers */
     cursor: pointer;
     z-index: 2;
     transition: all 0.3s ease-in-out; /* Animation on the heart  */
+    font-family: 'Itim', cursive !important;
 }
 
 .heart-btn i {
     font-size: 1rem;
-    color: var(--heart); /* :root colors */
+    color: var(--cupcake-orange);
 }
 
 .heart-btn.liked {
-    background: var(--heart); /* :root colors */
+    background: var(--cupcake-orange);
 }
 
 .heart-btn.liked i {
-    color: var(--cupcake-white); /* :root colors */
+    color: var(--cupcake-white);
 }
 
-/* ___________________________________________ */
 
-/* Gallery Responsive */
+.delete-btn {
+    position: absolute;
+    top: 1rem;
+    left: 1rem;
+    background: var(--cupcake-white);
+    border: none;
+    border-radius: 50%;
+    width: 2rem;
+    height: 2rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    z-index: 2;
+    transition: all 0.3s ease-in-out;
+    font-family: 'Itim', cursive !important;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+}
 
-/* ___________________________________________ */
+.delete-btn i {
+    font-size: 1rem;
+    color: var(--cupcake-red);
+}
+
+.delete-btn:hover {
+    background: var(--cupcake-red);
+    transform: scale(1.1);
+}
+
+.delete-btn:hover i {
+    color: var(--cupcake-white);
+}
+
+
 
 @media screen and (min-width: 768px) { /* Phone sizes mainly */
     .gallery-item--full {

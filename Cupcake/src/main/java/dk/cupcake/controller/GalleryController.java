@@ -67,7 +67,7 @@ public class GalleryController {
             ctx.html(ThymeleafSetup.render("galleri.html", model));
             
         } catch (Exception e) {
-            ctx.redirect("/galleri?error=dbError");
+            ctx.redirect("/gallery?error=dbError");
         }
     };
 
@@ -82,7 +82,7 @@ public class GalleryController {
         }
         
         if (!user.getRole().equals("admin")) {
-            ctx.redirect("/galleri?error=noPermission");
+            ctx.redirect("/gallery?error=noPermission");
             return;
         }
         
@@ -91,12 +91,12 @@ public class GalleryController {
         String sizeClass = ctx.formParam("sizeClass");
         
         if (imageUrl == null || imageUrl.isEmpty()) {
-            ctx.redirect("/galleri?error=missingImageUrl");
+            ctx.redirect("/gallery?error=missingImageUrl");
             return;
         }
         
         if (description == null || description.isEmpty()) {
-            ctx.redirect("/galleri?error=missingDescription");
+            ctx.redirect("/gallery?error=missingDescription");
             return;
         }
         
@@ -108,10 +108,10 @@ public class GalleryController {
             post.setSizeClass(sizeClass != null ? sizeClass : "");
             
             postMapper.create(post);
-            ctx.redirect("/galleri?success=postCreated");
+            ctx.redirect("/gallery?success=postCreated");
             
         } catch (Exception e) {
-            ctx.redirect("/galleri?error=500");
+            ctx.redirect("/gallery?error=500");
         }
     };
 
@@ -273,7 +273,7 @@ public class GalleryController {
         }
         
         if (!user.getRole().equals("admin")) {
-            ctx.redirect("/galleri?error=noPermission");
+            ctx.redirect("/gallery?error=noPermission");
             return;
         }
         
@@ -287,10 +287,10 @@ public class GalleryController {
         try {
             int postId = Integer.parseInt(postIdStr);
             postMapper.delete(postId);
-            ctx.redirect("/galleri?success=postDeleted");
+            ctx.redirect("/gallery?success=postDeleted");
             
         } catch (Exception e) {
-            ctx.redirect("/galleri?error=500");
+            ctx.redirect("/gallery?error=500");
         }
     };
 
