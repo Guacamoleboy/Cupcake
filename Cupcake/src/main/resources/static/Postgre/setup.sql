@@ -6,7 +6,7 @@
     3NF
 
     Sidst opdateret af: Guacamoleboy
-    Dato: 19/10-2025
+    Dato: 24/10-2025
 
 */
 
@@ -19,6 +19,7 @@ role VARCHAR(20) NOT NULL DEFAULT 'customer',
 username VARCHAR(100) UNIQUE NOT NULL,
 phone VARCHAR(20) UNIQUE,
 payment_attached BOOLEAN DEFAULT FALSE,
+balance DECIMAL(12, 2) DEFAULT 0.00,
 created_at TIMESTAMP DEFAULT NOW()
 );
 
@@ -99,11 +100,11 @@ description TEXT
 
 /* Coupons */
 CREATE TABLE coupons (
- id SERIAL PRIMARY KEY,
- code VARCHAR(50) UNIQUE NOT NULL,
- discount_percent INT NOT NULL CHECK (discount_percent BETWEEN 1 AND 100),
- valid_from TIMESTAMP DEFAULT NOW(),
- valid_until TIMESTAMP
+id SERIAL PRIMARY KEY,
+code VARCHAR(50) UNIQUE NOT NULL,
+discount_percent INT NOT NULL CHECK (discount_percent BETWEEN 1 AND 100),
+valid_from TIMESTAMP DEFAULT NOW(),
+valid_until TIMESTAMP
 );
 
 /* Delivery Method */
