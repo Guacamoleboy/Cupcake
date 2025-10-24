@@ -11,7 +11,6 @@ import io.javalin.Javalin;
 import io.javalin.http.Context;
 import org.mindrot.jbcrypt.BCrypt;
 import java.sql.SQLException;
-import java.util.Map;
 
 public class AccountController {
 
@@ -28,6 +27,56 @@ public class AccountController {
         app.post("/forgot/email", controller::forgotEmail);
         app.get("/forgot/resetPassword", ctx -> { ctx.html(ThymeleafSetup.render("passwordhash.html", null));});
         app.post("/forgot/resetPassword", controller::handleResetPassword);
+
+        // ______________________________________________________
+
+        app.post("/admin/add-balance", ctx -> {
+
+            String username = ctx.formParam("username");
+            String idString = ctx.formParam("id");
+            String amountString = ctx.formParam("amount");
+            double amount;
+
+            // TODO Might be able to do this validation in .js instead. Not sure.
+            // TODO If you're bored go ahead and fix it. For now it works.
+
+            // Fixes our "Both Fields Entered" bug
+            if ((username == null || username.isEmpty()) && (idString == null || idString.isEmpty())) {
+                ctx.redirect("/admin?error=missingFields");
+                return;
+            }
+
+            if (username != null && !username.isEmpty() && idString != null && !idString.isEmpty()) {
+                ctx.redirect("/admin?error=onlyOneField");
+                return;
+            }
+
+            if (amountString == null || amountString.isEmpty()) {
+                ctx.redirect("/admin?error=missingAmount");
+                return;
+            }
+
+            try {
+                amount = Double.parseDouble(amountString);
+            } catch (NumberFormatException e) {
+                ctx.redirect("/admin?error=invalidAmount");
+                return;
+            }
+
+            UserMapper userMapper = new UserMapper();
+
+            try {
+                if (idString != null && !idString.isEmpty()) {
+                    int userId = Integer.parseInt(idString);
+                    userMapper.addBalance(userId, amount);
+                } else {
+                    userMapper.addBalance(username, amount);
+                }
+                ctx.redirect("/admin?error=balanceAdded");
+            } catch (SQLException e) {
+                ctx.redirect("/admin?error=dbError");
+            }
+        });
 
     }
 
@@ -119,5 +168,6 @@ public class AccountController {
         // TODO her skal man kunne se sin mail. Dvs man skriver Password + Username, og så displayer den din mail
         ctx.redirect("/login?error=emailIsReset");
     }
+
 
 } // AccountController end

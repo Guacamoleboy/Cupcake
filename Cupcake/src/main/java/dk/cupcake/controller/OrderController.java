@@ -248,11 +248,12 @@ public class OrderController {
 
             Order order = ctx.sessionAttribute("order");
 
-            // Validation. No access if no cart.
             if (order == null || order.getItems().isEmpty()) {
                 ctx.redirect("/?error=emptyCart");
                 return;
             }
+
+            User user = ctx.sessionAttribute("user");
 
             List<OrderItem> cartItems = order.getItems();
             Double originalTotal = ctx.sessionAttribute("total");
@@ -269,6 +270,7 @@ public class OrderController {
             model.put("deliveryMethod", deliveryMethod);
             model.put("paymentMethod", paymentMethod);
             model.put("coupon", coupon);
+            model.put("user", user);
 
             ctx.html(ThymeleafSetup.render("final-confirmation.html", Map.of("data", model)));
 

@@ -15,6 +15,19 @@ public class User {
     private Timestamp createdAt;
     private String phone;
     private boolean paymentAttached;
+    private double balance;
+
+    // ___________________________________________________
+
+    public double getBalance(){
+        return this.balance;
+    }
+
+    // ___________________________________________________
+
+    public void setBalance(double balance){
+        this.balance = balance;
+    }
 
     // ___________________________________________________
 
