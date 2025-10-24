@@ -1,10 +1,13 @@
 package dk.cupcake.controller.Admin;
 
 import dk.cupcake.entities.Order;
+import dk.cupcake.entities.OrderItem;
 import dk.cupcake.entities.Refund;
 import dk.cupcake.entities.User;
 import dk.cupcake.mapper.OrderMapper;
 import dk.cupcake.mapper.RefundMapper;
+import dk.cupcake.mapper.OrderItemMapper;
+import dk.cupcake.mapper.ProductMapper;
 import dk.cupcake.mapper.UserMapper;
 import io.javalin.Javalin;
 import io.javalin.http.Context;
@@ -70,13 +73,10 @@ public class AdminOrderController {
 
         List<Order> orders = orderMapper.getByUserId(user.getId());
         orders.forEach(o -> {
-
             double total = o.getItems().stream()
                     .mapToDouble(i -> i.getPrice() * i.getQuantity())
                     .sum();
-
             o.setTotalPrice(total);
-
         });
 
         ctx.json(orders);
@@ -127,22 +127,87 @@ public class AdminOrderController {
     // ______________________________________________________
 
     public void manageOrder(Context ctx) {
+        try {
+            String orderIdParam = ctx.formParam("orderId");
+            if (orderIdParam == null) {
+                ctx.redirect("/admin?error=invalidParams#updateDeleteOrderAdmin");
+                return;
+            }
+            int orderId = Integer.parseInt(orderIdParam);
 
-        //TODO Jeg laver denne når jeg ikke er helt smadret - Rovelt123456789
+            if ("true".equals(ctx.formParam("delete"))) {
+                orderMapper.delete(orderId);
+                String anchor = ctx.formParam("anchor");
+                if (anchor == null || anchor.isBlank()) anchor = "updateDeleteOrderAdmin";
+                ctx.redirect("/admin?error=orderDeleted#" + anchor);
+                return;
+            }
 
-        int orderId = Integer.parseInt(ctx.formParam("orderId"));
-        boolean delete = "true".equals(ctx.formParam("delete"));
-        String itemsJson = ctx.formParam("items");
-        System.out.println(orderId);
-        System.out.println(itemsJson);
+            Map<String, List<String>> form = ctx.formParamMap();
+            List<String> titles = form.get("title");
+            List<String> quantities = form.get("quantity");
+            List<String> prices = form.get("price");
 
-        if (delete) {
+            if (titles == null || quantities == null || prices == null ||
+                titles.size() != quantities.size() || titles.size() != prices.size()) 
+            {
+                ctx.redirect("/admin?error=invalidParams#updateDeleteOrderAdmin");
+                return;
+            }
 
-            System.out.println("Slet her!");
+            Order order = orderMapper.getById(orderId);
+            if (order == null) {
+                ctx.redirect("/admin?error=noOrderFound#updateDeleteOrderAdmin");
+                return;
+            }
 
+            List<OrderItem> items = order.getItems();
+            java.util.Set<String> kept = new java.util.HashSet<>();
+            ProductMapper productMapper = new ProductMapper();
+
+            for (int i = 0; i < titles.size(); i++) {
+                String title = String.valueOf(titles.get(i));
+                int quantity;
+                double price;
+                try {
+                    quantity = Integer.parseInt(String.valueOf(quantities.get(i)));
+                    price = Double.parseDouble(String.valueOf(prices.get(i)));
+                } catch (Exception ignore) {
+                    continue;
+                }
+                if (quantity <= 0) quantity = 1;
+
+                OrderItem match = items.stream()
+                .filter(oi -> title.equals(oi.getTitle()))
+                .findFirst()
+                .orElse(null);
+
+                if (match == null) continue;
+
+                kept.add(title);
+                OrderItemMapper.updateQuantity(order.getId(), match.getProductId(), quantity);
+
+                if (Double.compare(price, match.getPrice()) != 0) {
+                    var product = productMapper.getById(match.getProductId());
+                    if (product != null) {
+                        product.setPrice(price);
+                        productMapper.update(product);
+                    }
+                }
+            }
+
+            for (OrderItem oi : items) {
+                if (!kept.contains(oi.getTitle())) {
+                    OrderItemMapper.deleteOrderItem(order.getId(), oi.getProductId());
+                }
+            }
+
+            ctx.redirect("/admin?error=orderUpdated#updateDeleteOrderAdmin");
+        } catch (NumberFormatException e) {
+            ctx.redirect("/admin?error=invalidParams#updateDeleteOrderAdmin");
+        } catch (Exception e) {
+            ctx.redirect("/admin?error=dbError#updateDeleteOrderAdmin");
         }
-
-        System.out.println("Backend her!");
     }
 
     // ______________________________________________________
@@ -177,45 +242,56 @@ public class AdminOrderController {
 
     public void returnOrder(Context ctx) {
 
-        //TODO Skal lige laves så man får penge tilbage også
-
         try {
 
             String action = ctx.formParam("action");
             String returnIdParam = ctx.formParam("returnId");
 
             if (returnIdParam == null) {
-
-                ctx.json(refundMapper.getAllActiveRefunds());
+                ctx.redirect("/admin?error=invalidParams#returnAdmin");
                 return;
-
             }
 
             int returnId = Integer.parseInt(returnIdParam);
 
             if (action == null) {
-
-                ctx.json(List.of(refundMapper.getRefundByID(returnId)));
+                ctx.redirect("/admin?error=invalidParams#returnAdmin");
                 return;
-
             }
 
             if ("confirm".equals(action)) {
 
-                refundMapper.updateRefundStatus(returnId, "returned");
+                Refund refund = refundMapper.getRefundByID(returnId);
+                if (refund == null) {
+                    ctx.redirect("/admin?error=noOrderFound#returnAdmin");
+                    return;
+                }
+
+                Order order = orderMapper.getById(refund.getOrderId());
+                if (order == null) {
+                    ctx.redirect("/admin?error=noOrderFound#returnAdmin");
+                    return;
+                }
+
+                double total = order.getItems().stream()
+                        .mapToDouble(i -> i.getPrice() * i.getQuantity())
+                        .sum();
+
+                userMapper.addBalance(refund.getUserId(), total);
+                refundMapper.updateRefundStatus(returnId, "Confirmed");
+                ctx.redirect("/admin?error=returnConfirmed#returnAdmin");
+                return;
 
             } else if ("reject".equals(action)) {
 
-                refundMapper.updateRefundStatus(returnId, "closed");
+                refundMapper.updateRefundStatus(returnId, "Rejected");
+                ctx.redirect("/admin?error=returnRejected#returnAdmin");
+                return;
 
             }
 
-            ctx.json(Map.of("success", "Status opdateret"));
-
         } catch (Exception e) {
-
-            ctx.status(500).json(Map.of("error", e.getMessage()));
-
+            ctx.redirect("/admin?error=dbError#returnAdmin");
         }
     }
 
@@ -229,3 +305,4 @@ public class AdminOrderController {
 
 
 }
+
