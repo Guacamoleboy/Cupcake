@@ -1225,7 +1225,8 @@ body::-webkit-scrollbar { /* All other browsers */
 
 #ordersContainer,
 #activeReturnsContainer,
-#pastReturnsContainer{
+#pastReturnsContainer,
+#userOrdersContainer{
     display: none;
     overflow-y: auto;
 }
@@ -1237,7 +1238,11 @@ body::-webkit-scrollbar { /* All other browsers */
 #ordersContainer .order-card,
 #orderResult .order-card,
 #activeReturnsContainer .order-card,
-#pastReturnsContainer .order-card {
+#pastReturnsContainer .order-card,
+#userOrdersContainer .order-card,
+#updateDeleteOrderAdmin .order-card,
+#seeAllOrdersAdmin .order-card,
+#returnAdmin .order-card{
     border: 0.0625rem solid var(--profile-sidemenu-border);
     border-radius: 0.5rem;
     padding: 1rem;
@@ -1252,23 +1257,30 @@ body::-webkit-scrollbar { /* All other browsers */
 
 
 #ordersContainer::-webkit-scrollbar,
-#orderResult::-webkit-scrollbar{
+#orderResult::-webkit-scrollbar,
+#userOrdersContainer::-webkit-scrollbar,
+#updateDeleteOrderAdmin::-webkit-scrollbar{
     width: 0.5rem;
 }
+
 #ordersContainer::-webkit-scrollbar-thumb,
-#orderResult::-webkit-scrollbar-thumb{
+#orderResult::-webkit-scrollbar-thumb,
+#userOrdersContainer::-webkit-scrollbar-thumb,
+#updateDeleteOrderAdmin::-webkit-scrollbar-thumb{
     background-color: rgba(0,0,0,0.2);
     border-radius: 0.25rem;
 }
+
 #ordersContainer::-webkit-scrollbar-track,
-#orderResult::-webkit-scrollbar-track{
+#orderResult::-webkit-scrollbar-track,
+#userOrdersContainer::-webkit-scrollbar-track,
+#updateDeleteOrderAdmin::-webkit-scrollbar-track{
     background-color: var(--cupcake-white);
 }
 
 #ordersContainer .finish-btn,
 #orderResult .finish-btn{
     background-color: var(--profile-order-continue-btn);
-    border-radius: 10px !important;
     color: var(--cupcake-white);
     border: none;
     padding: 0.5rem 1rem;
@@ -1284,7 +1296,6 @@ body::-webkit-scrollbar { /* All other browsers */
 #ordersContainer .delete-btn,
 #orderResult .delete-btn{
     background-color: var(--profile-order-delete-btn);
-    border-radius: 10px !important;
     color: var(--cupcake-white);
     border: none;
     padding: 0.5rem 1rem;
@@ -1305,12 +1316,14 @@ body::-webkit-scrollbar { /* All other browsers */
     margin-top: 1rem;
 }
 
-#nextAndPrevNav {
-    display: flex;
+#nextAndPrevNav,
+#userNextAndPrevNav,
+#returnNav{
     align-items: center;
     gap: 0.5rem !important;
     margin: 0;
 }
+
 
 .order-card h3 {
     margin-top: 0;
@@ -1362,6 +1375,22 @@ body::-webkit-scrollbar { /* All other browsers */
     margin-left: auto;
     margin-right: 1rem !important;
     text-align: right;
+}
+
+.manage-order-input {
+    width: 5rem;
+    padding: 0.3rem 0.5rem;
+    border: 0.06rem solid var(--cupcake-white);
+    border-radius: 0.3rem;
+    text-align: center;
+    font-size: 0.8rem;
+    transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+.manage-order-input:focus {
+    border-color: var(--profile-order-delete-btn-hover);
+    box-shadow: 0 0 0 0.1rem #591515;
+    outline: none;
 }
 
 /* ___________________________________________ */
