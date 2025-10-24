@@ -22,6 +22,7 @@ public class UserController {
         app.post("/user/change-password", changePassword);
         app.post("/user/change-email", changeEmail);
         app.post("/user/delete-account", deleteAccount);
+        app.get("/user/logout", logout);
     }
 
     // ________________________________________________
@@ -207,6 +208,15 @@ public class UserController {
         } catch (Exception e) {
             ctx.redirect("/profile?error=500");
         }
+    };
+
+    // ________________________________________________
+
+    public static Handler logout = ctx -> {
+
+        ctx.sessionAttribute("user", null);
+        ctx.redirect("/");
+
     };
 
 } // UserController end
