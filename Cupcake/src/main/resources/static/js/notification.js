@@ -176,6 +176,18 @@ document.addEventListener("DOMContentLoaded", function() {
         case "noOrderFound":
             showNotification("Kunne ikke finde ordren!", "orange");
             break;
+        case "orderUpdated":
+            showNotification("Ordre opdateret!", "green");
+            break;
+        case "orderDeleted":
+            showNotification("Ordre slettet.", "orange");
+            break;
+        case "returnConfirmed":
+            showNotification("Retur godkendt – beløbet er tilbageført.", "green");
+            break;
+        case "returnRejected":
+            showNotification("Retur afvist.", "orange");
+            break;
 
     }
 

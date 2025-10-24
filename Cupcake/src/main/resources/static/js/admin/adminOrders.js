@@ -376,20 +376,22 @@ document.addEventListener("DOMContentLoaded", () => {
 
         document.getElementById("saveManageOrderBtn").addEventListener("click", async () => {
 
-            const updatedItems = order.items.map((item, i) => ({
-
-                title: item.title,
-                quantity: parseInt(document.getElementById(`qty_${i}`).value),
-                price: parseFloat(document.getElementById(`price_${i}`).value)
-
-            }));
-
             const form = new FormData();
             form.append("orderId", order.id);
-            form.append("items", JSON.stringify(updatedItems));
+
+            order.items.forEach((item, i) => {
+                const qty = parseInt(document.getElementById(`qty_${i}`).value);
+                const price = parseFloat(document.getElementById(`price_${i}`).value);
+                form.append("title", item.title);
+                form.append("quantity", isNaN(qty) ? item.quantity : qty);
+                form.append("price", isNaN(price) ? item.price : price);
+            });
 
             const res = await fetch("/admin/manageOrder", { method: "POST", body: form });
-
+            if (res.redirected) {
+                window.location.href = res.url;
+                return;
+            }
             if (!res.ok) console.log("Der skete en fejl?");
 
         });
@@ -402,7 +404,10 @@ document.addEventListener("DOMContentLoaded", () => {
             form.append("orderId", order.id);
             form.append("delete", "true");
             const res = await fetch("/admin/manageOrder", { method: "POST", body: form });
-
+            if (res.redirected) {
+                window.location.href = res.url;
+                return;
+            }
             if (!res.ok) console.log("Der skete en fejl!");
         });
     }
