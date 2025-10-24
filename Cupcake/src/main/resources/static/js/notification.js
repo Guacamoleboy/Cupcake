@@ -62,13 +62,13 @@ document.addEventListener("DOMContentLoaded", function() {
     const hasWelcomed = sessionStorage.getItem("welcomeMessageShown");
 
     if (document.getElementById('map') && !hasWelcomed) {
-        showNotification("Welcome Back", "green");
+        showNotification("Velkommen tilbage", "green");
         sessionStorage.setItem("welcomeMessageShown", "true");
     }
 
     switch(error) {
         case "wrongInfo":
-            showNotification("Wrong username or password...", "red");
+            showNotification("Forkert brugernavn eller adgangskode...", "red");
             break;
         case "passwordResetSent":
             showNotification("Kig i din mail", "orange");
@@ -77,61 +77,61 @@ document.addEventListener("DOMContentLoaded", function() {
             showNotification("Adgangskode nulstillet!", "green");
             break;
         case "wrongPassword":
-            showNotification("Wrong password...", "orange");
+            showNotification("Forkert adgangskode...", "orange");
             break;
         case "accountCreated":
-            showNotification("Account created! Please log in.", "green");
+            showNotification("Konto oprettet! Log venligst ind.", "green");
             break;
         case "wrongPassMatch":
-            showNotification("Passwords don't match...", "red");
+            showNotification("Adgangskoderne matcher ikke...", "red");
             break;
         case "accountExists":
-            showNotification("Username already exists...", "orange");
+            showNotification("Brugernavnet findes allerede...", "orange");
             break;
         case "userNotFound":
-            showNotification("User not found...", "orange");
+            showNotification("Bruger ikke fundet...", "orange");
             break;
         case "missingFields":
-            showNotification("Missing fields...", "red");
+            showNotification("Manglende felter...", "red");
             break;
         case "balanceAdded":
-            showNotification("Balance added!", "green");
+            showNotification("Saldo tilføjet!", "green");
             break;
         case "500":
-            showNotification("Server error: 500", "red");
+            showNotification("Serverfejl: 500", "red");
             break;
         case "usernameChanged":
             showNotification("Dit brugernavn er ændret!", "green");
             break;
         case "accountDeleted":
-            showNotification("Your account has been deleted.", "orange");
+            showNotification("Din konto er blevet slettet.", "orange");
             break;
         case "deleteCancelled":
-            showNotification("Deletion cancelled.", "orange");
+            showNotification("Sletning annulleret.", "orange");
             break;
         case "deleteMissingFields":
-            showNotification("Please fill out both fields.", "red");
+            showNotification("Udfyld venligst begge felter.", "red");
             break;
         case "deleteEmailMismatch":
-            showNotification("Confirmation email mismatch.", "red");
+            showNotification("Bekræftelsesmail stemmer ikke overens.", "red");
             break;
         case "deleteNameMismatch":
-            showNotification("Username does not match the current user.", "red");
+            showNotification("Brugernavnet matcher ikke den aktuelle bruger.", "red");
             break;
         case "deleteNotLoggedIn":
-            showNotification("You must be logged in.", "red");
+            showNotification("Du skal være logget ind.", "red");
             break;
         case "deleteError":
-            showNotification("Could not delete account right now.", "red");
+            showNotification("Kunne ikke slette konto lige nu.", "red");
             break;
         case "usernameChanged":
-            showNotification("You changed your username.", "green");
+            showNotification("Du ændrede dit brugernavn.", "green");
             break;
         case "UsernameError":
-            showNotification("An error has occurred!", "red");
+            showNotification("Der er opstået en fejl!", "red");
             break;
         case "contactError":
-            showNotification("An error has occurred!", "red");
+            showNotification("Der er opstået en fejl!", "red");
             break;
         case "newMessage1": // Fixes localStorage notification issues
             const hasSeenCupcakeMessage = localStorage.getItem("seenNewCupcakeMessage");
