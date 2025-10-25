@@ -48,10 +48,14 @@ public class CupcakeFlavorMapper {
     public void newFlavor(CupcakeFlavor flavor) throws SQLException {
         String sql = "INSERT INTO cupcake_flavor (name, price) VALUES (?, ?)";
         try (Connection conn = Database.getConnection();
-             PreparedStatement stmt = conn.prepareStatement(sql)) {
+             PreparedStatement stmt = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
             stmt.setString(1, flavor.getName());
             stmt.setDouble(2, flavor.getPrice());
             stmt.executeUpdate();
+            ResultSet keys = stmt.getGeneratedKeys();
+            if (keys.next()) {
+                flavor.setId(keys.getInt(1));
+            }
         }
     }
 
