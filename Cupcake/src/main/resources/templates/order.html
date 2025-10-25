@@ -16,8 +16,8 @@
     <link rel="icon" href="images/icons/cupcake-1.png" type="image/x-icon"> <!-- That little logo thats next to the title in URL -->
     <link rel="apple-touch-icon" href="images/icons/cupcake-1.png">
 
-    <!-- Font Awesome -->
-    <link rel="stylesheet" href=css/font-awesome-4.7.0.min.css>
+    <!-- Font Awesome Load -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 
     <!-- CSS Load -->
     <link rel="stylesheet" href="css/style.css">
@@ -40,6 +40,10 @@
 
 </head>
 <body class="subpage">
+
+<!-- Scroll Button Start -->
+<button id="scrollToTopBtn" class="scroll-btn" onclick="scrollToSection()"><i class="fa fa-arrow-up"></i></button>
+<!-- Scroll Button End -->
 
 <!-- Navbar -->
 <div id="navbar-component"></div>
@@ -77,12 +81,12 @@
 <section id="menu">
     <div class="guac-container">
         <div class="guac-row guac-justify-center">
-            <div class="menu-wrapper">
+            <div class="menu-wrapper guac-animate guac-fade-slide-up">
                 <h2>Vores Cupcakes</h2>
                 <p>Se vores store udvalg af cupcakes herunder...</p>
 
                 <!-- Input Menu Start -->
-                <div class="menu-filters guac-pt-5">
+                <div class="menu-filters guac-pt-5 guac-animate guac-fade-slide-up">
 
                     <input type="text" placeholder="Søg..." class="filter-input">
 

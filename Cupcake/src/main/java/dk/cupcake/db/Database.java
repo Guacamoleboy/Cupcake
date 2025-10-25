@@ -1,3 +1,15 @@
+/*
+
+    Database.java | Sat op så Unit Test kan køres fra ekstern database
+    navngivet Cupcake_test (Se Unit Test).
+
+    Fungerer som normalt, men med forbedret implementering så unit tests kan køres.
+
+    Sidst opdateret af: Guacamoleboy
+    Dato: 25/10-2025
+
+*/
+
 // Package
 package dk.cupcake.db;
 
