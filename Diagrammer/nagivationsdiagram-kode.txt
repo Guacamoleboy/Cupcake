@@ -1,38 +1,57 @@
 @startuml
-title Cupcake Shop Navigation Diagram
 
-rectangle "Forside" #87CEEB
-rectangle "Login" #32CD32
-rectangle "Register" #32CD32
-rectangle "Order / Kurv" #FFA500
-rectangle "Custom / Kurv" #FFA500
-rectangle "Kontakt" #87CEEB
-rectangle "Gallery" #87CEEB
-rectangle "Events" #87CEEB
-rectangle "Payment" #FFA500
-rectangle "Pay" #FFA500
-rectangle "Tak (Kontakt)" #9370DB
-rectangle "Tak-Order" #9370DB
+title Navigationsdiagram – Olsker Cupcakes
+
+skinparam rectangle {
+    BorderColor #000
+    RoundCorner 15
+    FontSize 12
+}
+
+package "Generel Information" {
+    rectangle "Forside" #B0E0E6
+    rectangle "Gallery" #B0E0E6
+    rectangle "Events" #B0E0E6
+    rectangle "Kontakt" #B0E0E6 
+}
+
+package "Bruger" {
+    rectangle "Login" #90EE90
+    rectangle "Register" #90EE90
+}
+
+package "Shop / Bestilling" {
+    rectangle "Order / Kurv" #FFD580
+    rectangle "Custom / Kurv" #FFD580
+}
+
+package "Betaling" {
+    rectangle "Payment" #FFB6C1
+    rectangle "Pay" #FFB6C1
+}
+
+package "Bekræftelse" {
+    rectangle "Tak-Order" #D8BFD8
+    rectangle "Tak (Kontakt)" #D8BFD8
+}
+
 
 "Forside" --> "Login" : Optional login
 "Forside" --> "Register" : Optional register
 "Forside" --> "Order / Kurv" : Start shopping
-"Forside" --> "Custom / Kurv" : Start custom order
-"Forside" --> "Kontakt" : Navigate to contact page
+"Forside" --> "Custom / Kurv" : Custom cupcake
+"Forside" --> "Kontakt"
 "Forside" --> "Gallery"
 "Forside" --> "Events"
 
-"Login" --> "Forside" : After login
-"Register" --> "Forside" : After register
+"Login" --> "Forside" : Efter login
+"Register" --> "Forside" : Efter register
 
-"Order / Kurv" --> "Payment" : Proceed to payment
-"Custom / Kurv" --> "Payment" : Proceed to payment
-"Payment" --> "Pay" : Final review & pay
-"Pay" --> "Tak-Order" : Order confirmed
+"Order / Kurv" --> "Payment" : Gå til betaling
+"Custom / Kurv" --> "Payment" : Gå til betaling
+"Payment" --> "Pay" : Gennemse & betal
+"Pay" --> "Tak-Order" : Ordre bekræftet
 
-"Kontakt" --> "Tak (Kontakt)" : Form submitted
-
-"Order / Kurv" --> "Order / Kurv" : Open/close cart
-"Custom / Kurv" --> "Custom / Kurv" : Open/close cart
+"Kontakt" --> "Tak (Kontakt)" : Formular sendt
 
 @enduml
