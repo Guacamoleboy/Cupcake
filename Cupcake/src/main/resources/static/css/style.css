@@ -1098,13 +1098,20 @@ body::-webkit-scrollbar { /* All other browsers */
     border-radius: 0.9375rem;
     font-size: 16px;
     opacity: 0;
+    display: none;
     pointer-events: none;
     cursor: pointer;
     z-index: 1000;
     transition: all 0.3s ease;
 }
 
+.scroll-btn i {
+    font-size: 1.3rem;
+    color: white;
+}
+
 .scroll-btn.show {
+    display: block;
     opacity: 1;
     pointer-events: auto;
 }

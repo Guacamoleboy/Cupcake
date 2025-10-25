@@ -20,7 +20,8 @@ window.onscroll = function() {
 // ___________________________________________________________________________________
 
 function scrollToSection() {
-    document.querySelector("#start").scrollIntoView({
-        behavior: "smooth" 
+    window.scrollTo({
+        top: 0,
+        behavior: "smooth"
     });
 }
