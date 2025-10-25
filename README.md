@@ -26,7 +26,7 @@ We have blockers for that, but please be aware that the program is designed for 
 Thank you for downloading and using our Application. We've spent a lot of time developing it and 
 learned a few things during so.
 
-## Coding programs used
+## Languages used
 
 - HTML
 - CSS
