@@ -5,7 +5,6 @@ package dk.cupcake;
 import dk.cupcake.server.Server;
 import java.sql.SQLException;
 
-
 public class Main {
 
     // Attributes
@@ -16,6 +15,7 @@ public class Main {
 
         Server server = new Server();
         server.start(7000);
+
     }
 
 } // Main end

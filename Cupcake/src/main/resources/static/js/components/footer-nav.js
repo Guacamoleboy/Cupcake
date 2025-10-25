@@ -28,7 +28,7 @@ export async function loadFooterNav(containerId = "footer-nav-component") {
             const footerText = container.querySelector("#footer-text");
             if (footerText) {
                 footerText.innerHTML += `
-                    <span> | Your email: pik@narko.dk</span>
+                    <span> | Your email: Email@her.dk</span>
                 `;
             }
         }
