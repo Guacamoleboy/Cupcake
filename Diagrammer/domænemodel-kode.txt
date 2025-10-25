@@ -1,80 +1,116 @@
 @startuml
-' Domænemodel - Olsker Cupcakes
 
 class User {
-    +id
-    +email
-    +username
-    +passwordHash
-    +role
-    +phone
-    +paymentAttached
+    - int id
+    - String email
+    - String passwordHash
+    - String role
+    - String username
+    - String phone
+    - boolean paymentAttached
+    - double balance
+    - Timestamp createdAt
 }
 
 class PaymentInfo {
-    +id
-    +cardNumber
-    +cardholderName
-    +expiryMonth
-    +expiryYear
-    +cvvHash
+    - int id
+    - String cardNumber
+    - String cardholderName
+    - int expiryMonth
+    - int expiryYear
+    - String cvvHash
+    - Timestamp createdAt
 }
 
 class CupcakeFlavor {
-    +id
-    +name
-    +price
+    - int id
+    - String name
+    - double price
 }
 
 class CupcakeTopping {
-    +id
-    +name
-    +price
+    - int id
+    - String name
+    - double price
 }
 
 class Category {
-    +id
-    +name
+    - int id
+    - String name
 }
 
 class Product {
-    +id
-    +name
-    +description
-    +price
-    +imageUrl
+    - int id
+    - String name
+    - String description
+    - double price
+    - String imageUrl
+    - Timestamp createdAt
+}
+
+class DeliveryMethod {
+    - int id
+    - String name
+    - double price
+}
+
+class PaymentMethod {
+    - int id
+    - String name
 }
 
 class Order {
-    +id
-    +status
-    +createdAt
+    - int id
+    - String status
+    - String deliveryAddress
+    - Timestamp createdAt
 }
 
 class OrderItem {
-    +id
-    +quantity
+    - int id
+    - int quantity
 }
 
 class Transaction {
-    +id
-    +amount
-    +description
-    +createdAt
+    - int id
+    - double amount
+    - String description
+    - Timestamp createdAt
 }
 
-User "1" -- "0..*" PaymentInfo
-User "1" -- "0..*" Order
-User "1" -- "0..*" Transaction
+class Coupon {
+    - int id
+    - String code
+    - int discountPercent
+    - Timestamp validFrom
+    - Timestamp validUntil
+}
 
-Order "1" -- "0..*" OrderItem
-Product "1" -- "0..*" OrderItem
+class Refund {
+    - int id
+    - String reason
+    - Timestamp createdAt
+    - String status
+}
 
-CupcakeFlavor "1" -- "0..*" Product
-CupcakeTopping "1" -- "0..*" Product
-Category "1" -- "0..*" Product
 
-CupcakeFlavor "1" -- "0..*" OrderItem
-CupcakeTopping "1" -- "0..*" OrderItem
+User "1" -- "0..*" PaymentInfo : has
+User "1" -- "0..*" Order : places
+User "1" -- "0..*" Transaction : owns
+User "1" -- "0..*" Refund : requests
+
+Order "1" -- "1..*" OrderItem : contains
+Order "0..1" -- "0..*" DeliveryMethod : uses
+Order "0..1" -- "0..*" PaymentMethod : paysWith
+Order "0..1" -- "0..*" Coupon : applies
+Order "1" -- "0..*" Refund : generates
+
+OrderItem "1" -- "1" Product : refersTo
+Product "0..1" -- "0..*" Category : belongsTo
+Product "0..1" -- "0..*" CupcakeFlavor : hasFlavor
+Product "0..1" -- "0..*" CupcakeTopping : hasTopping
+
+OrderItem "0..1" -- "0..*" CupcakeFlavor : selectedFlavor
+OrderItem "0..1" -- "0..*" CupcakeTopping : selectedTopping
 
 @enduml

@@ -2,22 +2,24 @@ Table users {
   id serial [pk]
   email varchar(255) [unique, not null]
   password_hash text [not null]
-  role varchar(20) [default: 'customer', not null]
+  role varchar(20) [not null, default: 'customer']
   username varchar(100) [unique, not null]
   phone varchar(20) [unique]
   payment_attached boolean [default: false]
+  balance decimal(12,2) [default: 0.00]
   created_at timestamp [default: `now()`]
 }
 
 Table payment_info {
   id serial [pk]
-  user_id int [ref: > users.id]
+  user_id int [not null, ref: > users.id]
   card_number varchar(19) [not null]
   cardholder_name varchar(255) [not null]
   expiry_month int [not null]
   expiry_year int [not null]
   cvv_hash text [not null]
   created_at timestamp [default: `now()`]
+  Note: 'expiry_month CHECK (1-12), expiry_year CHECK (2025-2100)'
 }
 
 Table cupcake_flavor {
@@ -49,10 +51,24 @@ Table products {
   created_at timestamp [default: `now()`]
 }
 
+Table delivery_methods {
+  id serial [pk]
+  name varchar(50) [unique, not null]
+  price decimal(10,2) [not null, default: 0.0]
+}
+
+Table payment_methods {
+  id serial [pk]
+  name varchar(50) [unique, not null]
+}
+
 Table orders {
   id serial [pk]
   user_id int [ref: > users.id]
-  status varchar(20) [default: 'open', not null]
+  status varchar(20) [not null, default: 'open']
+  delivery_method_id int [ref: > delivery_methods.id]
+  payment_method_id int [ref: > payment_methods.id]
+  delivery_address text
   created_at timestamp [default: `now()`]
 }
 
@@ -62,7 +78,7 @@ Table order_items {
   product_id int [ref: > products.id]
   bottom_id int [ref: > cupcake_flavor.id]
   topping_id int [ref: > cupcake_toppings.id]
-  quantity int [default: 1, not null]
+  quantity int [not null, default: 1]
 }
 
 Table transactions {
@@ -71,4 +87,22 @@ Table transactions {
   amount decimal(10,2) [not null]
   created_at timestamp [default: `now()`]
   description text
+}
+
+Table coupons {
+  id serial [pk]
+  code varchar(50) [unique, not null]
+  discount_percent int [not null]
+  valid_from timestamp [default: `now()`]
+  valid_until timestamp
+  Note: 'discount_percent CHECK (1–100)'
+}
+
+Table refunds {
+  id serial [pk]
+  order_id int [not null, ref: > orders.id]
+  user_id int [not null, ref: > users.id]
+  reason varchar(255) [not null]
+  created_at timestamp [default: `now()`]
+  status varchar(50) [not null, default: 'active']
 }
