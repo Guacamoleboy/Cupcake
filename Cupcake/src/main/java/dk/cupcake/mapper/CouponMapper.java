@@ -2,7 +2,6 @@ package dk.cupcake.mapper;
 
 import dk.cupcake.db.Database;
 import dk.cupcake.entities.Coupon;
-
 import java.sql.*;
 import java.time.Instant;
 

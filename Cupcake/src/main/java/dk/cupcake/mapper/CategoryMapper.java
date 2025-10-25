@@ -13,7 +13,6 @@ public class CategoryMapper {
     // Attributes
 
     // _________________________________________________________
-    // Get a category by id
 
     public Category getById(int id) throws SQLException {
         String sql = "SELECT * FROM categories WHERE id = ?";
@@ -29,7 +28,6 @@ public class CategoryMapper {
     }
 
     // _________________________________________________________
-    // Get all categories
 
     public List<Category> getAll() throws SQLException {
         List<Category> categories = new ArrayList<>();
@@ -46,7 +44,6 @@ public class CategoryMapper {
     }
 
     // _________________________________________________________
-    // Create a new category
 
     public void newCategory(Category category) throws SQLException {
         String sql = "INSERT INTO categories (name) VALUES (?)";
@@ -64,8 +61,6 @@ public class CategoryMapper {
     }
 
     // _________________________________________________________
-    // Update a category
-
     public void update(Category category) throws SQLException {
         String sql = "UPDATE categories SET name = ? WHERE id = ?";
         try (Connection conn = Database.getConnection();
@@ -78,7 +73,6 @@ public class CategoryMapper {
     }
 
     // _________________________________________________________
-    // Delete a category
 
     public void delete(int id) throws SQLException {
         String sql = "DELETE FROM categories WHERE id = ?";
@@ -91,7 +85,6 @@ public class CategoryMapper {
     }
 
     // _________________________________________________________
-    // Trump
 
     private Category toCategory(ResultSet rs) throws SQLException {
         Category c = new Category();

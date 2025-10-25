@@ -6,7 +6,7 @@
     3NF
 
     Sidst opdateret af: Guacamoleboy
-    Dato: 24/10-2025
+    Dato: 25/10-2025
 
 */
 
@@ -68,6 +68,19 @@ flavor_id INT REFERENCES cupcake_flavor(id) ON DELETE SET NULL,
 created_at TIMESTAMP DEFAULT NOW()
 );
 
+/* Delivery Method */
+CREATE TABLE delivery_methods (
+id SERIAL PRIMARY KEY,
+name VARCHAR(50) NOT NULL UNIQUE,
+price DECIMAL(10,2) NOT NULL DEFAULT 0.0
+);
+
+/* Payment Method */
+CREATE TABLE payment_methods (
+id SERIAL PRIMARY KEY,
+name VARCHAR(50) NOT NULL UNIQUE
+);
+
 /* Orders */
 CREATE TABLE orders (
 id SERIAL PRIMARY KEY,
@@ -105,19 +118,6 @@ code VARCHAR(50) UNIQUE NOT NULL,
 discount_percent INT NOT NULL CHECK (discount_percent BETWEEN 1 AND 100),
 valid_from TIMESTAMP DEFAULT NOW(),
 valid_until TIMESTAMP
-);
-
-/* Delivery Method */
-CREATE TABLE delivery_methods (
-id SERIAL PRIMARY KEY,
-name VARCHAR(50) NOT NULL UNIQUE,
-price DECIMAL(10,2) NOT NULL DEFAULT 0.0
-);
-
-/* Payment Method */
-CREATE TABLE payment_methods (
-id SERIAL PRIMARY KEY,
-name VARCHAR(50) NOT NULL UNIQUE
 );
 
 /* Refunds */

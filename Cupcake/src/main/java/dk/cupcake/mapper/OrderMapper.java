@@ -17,7 +17,6 @@ public class OrderMapper {
     private final UserMapper userMapper = new UserMapper();
 
     // _________________________________________________________
-    // Get order by id (not user_id).
 
     public Order getById(int id) throws SQLException {
 
@@ -36,7 +35,6 @@ public class OrderMapper {
     }
 
     // _________________________________________________________
-    // Get all orders
 
     public List<Order> getAll() throws SQLException {
         List<Order> orders = new ArrayList<>();
@@ -53,7 +51,6 @@ public class OrderMapper {
     }
 
     // _________________________________________________________
-    // Get all orders for a specific user
 
     public List<Order> getByUserId(int userId) throws SQLException {
         List<Order> orders = new ArrayList<>();
@@ -72,7 +69,6 @@ public class OrderMapper {
     }
 
     // _________________________________________________________
-    // Create a new order
 
     public Order newOrder(int userID) throws SQLException {
         String sql = "INSERT INTO orders (user_id) VALUES (?)";
@@ -86,7 +82,6 @@ public class OrderMapper {
             ResultSet keys = stmt.getGeneratedKeys();
             if (keys.next()) {
                 return new Order(keys.getInt(1), userID);
-                //order.setId(keys.getInt(1));
             }
 
         }
