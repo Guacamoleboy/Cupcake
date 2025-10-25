@@ -28,7 +28,7 @@ public class RefundMapper {
 
                 if (rs.next()) {
 
-                    return new Refund(rs.getInt(1), order.getId(), order.getUser().getId(), reason, rs.getTimestamp("created_at"), "active");
+                    return new Refund(rs.getInt(1), order.getId(), order.getUser().getId(), reason, rs.getTimestamp("created_at"), "open");
 
                 }
             }

@@ -48,10 +48,14 @@ public class CupcakeToppingMapper {
     public void newTopping(CupcakeTopping topping) throws SQLException {
         String sql = "INSERT INTO cupcake_toppings (name, price) VALUES (?, ?)";
         try (Connection conn = Database.getConnection();
-             PreparedStatement stmt = conn.prepareStatement(sql)) {
+             PreparedStatement stmt = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
             stmt.setString(1, topping.getName());
             stmt.setDouble(2, topping.getPrice());
             stmt.executeUpdate();
+            ResultSet keys = stmt.getGeneratedKeys();
+            if (keys.next()) {
+                topping.setId(keys.getInt(1));
+            }
         }
     }
 
