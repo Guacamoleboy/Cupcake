@@ -11,7 +11,7 @@ must / should implement.
 Clone or Fork the Project
 
 - Open the Project in IntelliJ and navigate to Database.java.
-- Insert your PgAdmin (Postgres) information and you're good to go.
+- Insert your PgAdmin (Postgres) information.
 - Add Cupcake and Cupcake_test databases and insert our setup.sql file in both of the databases.
 - Add our dummy.sql file into the Cupcake database and you're ready to go.
 
@@ -21,14 +21,14 @@ This app is not fully implemented which means stuff like payment isn't added for
 The app is only made responsive on IPad 14.7.2 which means loading it on IPhone won't look good.
 We have blockers for that, but please be aware that the program is designed for Web & IPad as of right now.
 
-## Thank you
-
-Thank you for downloading and using our Application. We've spent a lot of time developing it and 
-learned a few things during so.
-
 ## Languages used
 
 - HTML
 - CSS
 - JavaScript
 - Java
+
+## Thank you
+
+Thank you for downloading and using our Application. We've spent a lot of time developing it and 
+learned a few things during so.

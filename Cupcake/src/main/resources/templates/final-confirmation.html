@@ -59,7 +59,6 @@
         <hr class="section-divider">
 
         <!-- Coupon -->
-        <!-- TODO skriv det her om til én linje. Underligt at lave det i 2 lol. -->
         <h3>Rabatkode</h3>
         <p th:if="${data.coupon != null}" th:text="${data.coupon.code}">Ingen rabatkode anvendt</p>
         <p th:if="${data.coupon == null}">Ingen rabatkode anvendt</p>
@@ -96,7 +95,7 @@
             <div class="order-item guac-row guac-col-auto">
                 <p>Total</p>
                 <p></p>
-                <p th:text="${data.discountedTotal != null ? data.discountedTotal : data.originalTotal} + ' kr'">0 kr</p>
+                <p th:text="${#numbers.formatDecimal((data.discountedTotal != null ? data.discountedTotal : data.originalTotal), 1, 2) + ' kr'}">0.00 kr</p>
             </div>
         </div>
         <!-- Info Under Order List -->

@@ -76,7 +76,7 @@
                 <div class="order-item guac-row guac-col-auto">
                     <p>Total</p>
                     <p></p>
-                    <p><span id="totalDisplay" th:text="${order.totalPrice} + ' kr'">0 kr</span></p>
+                    <p><span id="totalDisplay" th:text="${#numbers.formatDecimal(order.totalPrice, 1, 2)} + ' kr'">0.00 kr</span></p>
                 </div>
             </div>
             <!-- Info Under Order List -->
