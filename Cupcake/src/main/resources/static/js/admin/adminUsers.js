@@ -1,12 +1,17 @@
 document.addEventListener("DOMContentLoaded", () => {
+
+    // Attributes
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     const hideUserBtn = document.getElementById("hideUserBtn");
     const searchUserBtn = document.getElementById("searchUserbtn");
+    const deleteUser = document.getElementById("deleteUser");
+    const createUser = document.getElementById("createUser");
     let resultDiv = document.getElementById("searchUser");
 
     // _________________________________________________________________________
 
     searchUserBtn.addEventListener("click", async () => {
-        console.log("Modtager jeg?")
+
         const userId = document.getElementById("searchuser-id").value.trim();
         const username = document.getElementById("searchusername").value.trim();
         const email = document.getElementById("searchEmail").value.trim();
@@ -14,10 +19,13 @@ document.addEventListener("DOMContentLoaded", () => {
         console.log(userId, username, email)
 
         if (!userId && !username && !email) {
-
             showNotification("Indtast mindst ét søgekriterie (ID, brugernavn eller email)!", "orange")
             return;
+        }
 
+        if (email && !emailRegex.test(email)) {
+            showNotification("Indtast en gyldig emailadresse!", "orange");
+            return;
         }
 
         try {
@@ -84,14 +92,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
     });
 
-
-
-    //###################################
-    //########### CREATE USER ###########
-    //###################################
-
-    const createUser = document.getElementById("createUser");
-
+    // _________________________________________________________________________
 
     createUser.addEventListener("click", async () => {
 
@@ -100,10 +101,13 @@ document.addEventListener("DOMContentLoaded", () => {
         const email = document.getElementById("createuser-email").value.trim();
 
         if (!password && !username && !email) {
-
             showNotification("indtast mindst ét søgekriterie (password, brugernavn eller email)!", "orange")
             return;
+        }
 
+        if (email && !emailRegex.test(email)) {
+            showNotification("Indtast en gyldig emailadresse!", "orange");
+            return;
         }
 
         try {
@@ -131,14 +135,7 @@ document.addEventListener("DOMContentLoaded", () => {
         }
     })
 
-
-
-    //###################################
-    //########### DELETE USER ###########
-    //###################################
-
-    const deleteUser = document.getElementById("deleteUser");
-
+    // _________________________________________________________________________
 
     deleteUser.addEventListener("click", async () => {
 
@@ -147,10 +144,13 @@ document.addEventListener("DOMContentLoaded", () => {
         const email = document.getElementById("deleteuser-email").value.trim();
 
         if (!id && !username && !email) {
-
             showNotification("indtast mindst ét kriterie (id, brugernavn eller email)!", "orange")
             return;
+        }
 
+        if (email && !emailRegex.test(email)) {
+            showNotification("Indtast en gyldig emailadresse!", "orange");
+            return;
         }
 
         try {
@@ -177,4 +177,5 @@ document.addEventListener("DOMContentLoaded", () => {
 
         }
     })
+
 });
