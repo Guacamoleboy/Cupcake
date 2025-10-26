@@ -30,6 +30,7 @@
     <script src="/js/notification.js" defer></script>
     <script src="/js/scroll-fix.js" defer></script>
     <script src="/js/admin/adminOrders.js" defer></script>
+    <script src="/js/admin/adminUsers.js" defer></script>
 
     <!-- Modules -->
     <script type="module" src="/js/components/navbar.js" defer></script>
@@ -87,19 +88,26 @@
                     <p>Indtast brugerens ID og/eller brugernavn:</p>
                     <div class="guac-row input-group">
                         <div class="guac-col">
-                            <label for="user-id">ID</label>
-                            <input type="text" id="user-id" placeholder="41414...">
+                            <label for="searchuser-id">ID</label>
+                            <input type="text" id="searchuser-id" placeholder="41414...">
                         </div>
                         <div class="guac-col">
-                            <label for="username">Brugernavn</label>
-                            <input type="text" id="username" placeholder="Diddy69...">
+                            <label for="searchusername">Brugernavn</label>
+                            <input type="text" id = "searchusername" placeholder="Diddy69...">
                         </div>
                         <div class="guac-col">
                             <label>email</label>
-                            <input type="email" placeholder="narko@narko.dk">
+                            <input type="email" id = "searchEmail" placeholder="narko@narko.dk">
                         </div>
                     </div>
-                    <button type="button" class="guac-btn action-btn">Søg efter bruger</button>
+
+
+                    <div id="searchUser"></div>
+
+                    <div class="order-nav-row">
+                        <button type="button" class="guac-btn action-btn" id="searchUserbtn">Søg bruger</button>
+                        <button type="button" class="guac-btn action-btn" id="hideUserBtn" style="display:none;">Skjul</button>
+                    </div>
                 </div>
                 <!--  Content Section -->
 
@@ -111,19 +119,19 @@
                     <p>Udfyld oplysninger for at oprette en ny bruger:</p>
                     <div class="guac-row input-group">
                         <div class="guac-col">
-                            <label for="new-username">Brugernavn</label>
-                            <input type="text" id="new-username" placeholder="Brugernavn...">
+                            <label for="createuser-username">Brugernavn</label>
+                            <input type="text" id="createuser-username" placeholder="Brugernavn...">
                         </div>
                         <div class="guac-col">
                             <label>Password</label>
-                            <input type="password" placeholder="Password...">
+                            <input type="password" id="createuser-password" placeholder="Password...">
                         </div>
                         <div class="guac-col">
-                            <label for="email">Email</label>
-                            <input type="email" id="email" placeholder="Email...">
+                            <label for="createuser-email">Email</label>
+                            <input type="email" id="createuser-email" placeholder="Email...">
                         </div>
                     </div>
-                    <button type="button" class="guac-btn action-btn">Opret bruger</button>
+                    <button type="button" id= "createUser" class="guac-btn action-btn">Opret bruger</button>
                 </div>
                 <!--  Content Section -->
 
@@ -136,18 +144,18 @@
                     <div class="guac-row input-group">
                         <div class="guac-col">
                             <label>Brugernavn</label>
-                            <input type="text" placeholder="Brugernavn...">
+                            <input type="text" id="deleteuser-username" placeholder="Brugernavn...">
                         </div>
                         <div class="guac-col">
                             <label>Email</label>
-                            <input type="email" placeholder="Email...">
+                            <input type="email" id="deleteuser-email" placeholder="Email...">
                         </div>
                         <div class="guac-col">
                             <label>ID</label>
-                            <input type="text" placeholder="ID...">
+                            <input type="text" id="deleteuser-id" placeholder="ID...">
                         </div>
                     </div>
-                    <button type="button" class="guac-btn action-btn">Fjern bruger</button>
+                    <button type="button" id="deleteUser" class="guac-btn action-btn">Fjern bruger</button>
                 </div>
                 <!--  Content Section -->
 
@@ -232,11 +240,11 @@
 
                     <div class="guac-row input-group">
                         <div class="guac-col">
-                            <label for="user-id">ID</label>
+                            <label for="searchOrderAdminUserId">ID</label>
                             <input type="text" id="searchOrderAdminUserId" placeholder="41414...">
                         </div>
                         <div class="guac-col">
-                            <label for="username">Brugernavn</label>
+                            <label for="searchOrderAdminUsername">Brugernavn</label>
                             <input type="text" id="searchOrderAdminUsername" placeholder="Diddy69...">
                         </div>
                         <div class="guac-col">

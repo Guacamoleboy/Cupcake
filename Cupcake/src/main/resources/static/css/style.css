@@ -1263,7 +1263,8 @@ body::-webkit-scrollbar { /* All other browsers */
 #userOrdersContainer .order-card,
 #updateDeleteOrderAdmin .order-card,
 #seeAllOrdersAdmin .order-card,
-#returnAdmin .order-card{
+#returnAdmin .order-card,
+#searchForUserAdmin .user-card{
     border: 0.0625rem solid var(--profile-sidemenu-border);
     border-radius: 0.5rem;
     padding: 1rem;
