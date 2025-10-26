@@ -60,7 +60,7 @@ public class ValidationController {
             String email = ctx.formParam("email");
 
             if (username == null || password == null || passwordConfirm == null || email == null ||
-                    username.isBlank() || password.isBlank() || passwordConfirm.isBlank() || email.isBlank()) {
+                username.isBlank() || password.isBlank() || passwordConfirm.isBlank() || email.isBlank()) {
                 ctx.redirect("/register?error=missingFields");
                 return;
             }

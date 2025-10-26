@@ -8,7 +8,6 @@ import dk.cupcake.mapper.UserMapper;
 import io.javalin.Javalin;
 import io.javalin.http.Context;
 import org.mindrot.jbcrypt.BCrypt;
-
 import java.sql.SQLException;
 import java.util.Map;
 
@@ -72,15 +71,16 @@ public class AdminUserController {
         String password = ctx.formParam("password");
         String username = ctx.formParam("username");
         String email = ctx.formParam("email");
+
         if (username == null || password == null || email == null ||
-                username.isBlank() || password.isBlank() || email.isBlank()) {
-            ctx.redirect("/Admin?error=missingFields");
+            username.isBlank() || password.isBlank() || email.isBlank()) {
+            ctx.redirect("/admin?error=missingFields");
             return;
         }
 
         try {
             if (userMapper.existsByEmailOrUsername(email, username)) {
-                ctx.redirect("/register?error=accountExists");
+                ctx.redirect("/admin?error=accountExists");
                 return;
             }
 
