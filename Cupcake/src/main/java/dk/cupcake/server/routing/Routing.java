@@ -4,6 +4,7 @@ package dk.cupcake.server.routing;
 // Imports
 import dk.cupcake.controller.*;
 import dk.cupcake.controller.Admin.AdminOrderController;
+import dk.cupcake.controller.Admin.AdminUserController;
 import dk.cupcake.controller.Profile.ProfileOrderController;
 import dk.cupcake.controller.Profile.ProfileReturnController;
 import io.javalin.Javalin;
@@ -26,6 +27,7 @@ public class Routing {
         ProfileOrderController.registerRoutes(app);
         ProfileReturnController.registerRoutes(app);
         AdminOrderController.registerRoutes(app);
+        AdminUserController.registerRoutes(app);
 
         // Last
         registerErrorRoutes(app);

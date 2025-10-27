@@ -23,12 +23,11 @@ export async function loadFooterNav(containerId = "footer-nav-component") {
         const response = await fetch("/api/auth/status");
         const data = await response.json();
 
-        if (data.loggedIn) {
-
+        if (data.loggedIn && data.email) {
             const footerText = container.querySelector("#footer-text");
             if (footerText) {
                 footerText.innerHTML += `
-                    <span> | Your email: Email@her.dk</span>
+                    <span> | <strong>${data.email}</strong></span>
                 `;
             }
         }

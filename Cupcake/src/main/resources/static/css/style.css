@@ -1263,7 +1263,8 @@ body::-webkit-scrollbar { /* All other browsers */
 #userOrdersContainer .order-card,
 #updateDeleteOrderAdmin .order-card,
 #seeAllOrdersAdmin .order-card,
-#returnAdmin .order-card{
+#returnAdmin .order-card,
+#searchForUserAdmin .user-card{
     border: 0.0625rem solid var(--profile-sidemenu-border);
     border-radius: 0.5rem;
     padding: 1rem;
@@ -2432,6 +2433,26 @@ button.minus:active {
 
 .next-btn:hover {
     text-decoration: none !important;
+}
+
+.customer-input {
+    width: 100%;
+    padding: 0.6rem 0.9rem;
+    border-radius: 15px;
+    border: 2px solid var(--cupcake-white);
+    background: transparent;
+    color: var(--cupcake-white);
+    font-family: 'itim', cursive;
+    font-size: 1rem;
+    outline: none;
+    margin-bottom: 1rem;
+    transition: all 0.2s ease;
+}
+
+.customer-input::placeholder {
+    color: rgba(255, 255, 255, 0.7);
+    font-family: 'itim', cursive;
+    font-size: 1rem;
 }
 
 /* ___________________________________________ */
