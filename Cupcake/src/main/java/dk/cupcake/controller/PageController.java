@@ -36,6 +36,9 @@ public class PageController {
         });
 
         // ______________________________________________________________
+        // I virkeligheden kunne man jo bare tilføje alt data udover password_hash.
+        // Så kan man hente balance, telefon osv fremfor at skulle lave SQL specifikke metoder..
+        // - Guac.
 
         app.get("/api/auth/status", ctx -> {
             var user = ctx.sessionAttribute("user");
@@ -44,6 +47,7 @@ public class PageController {
                 ctx.json(Map.of(
                         "loggedIn", true,
                         "username", ((User) user).getUsername(),
+                        "email", ((User) user).getEmail(),
                         "role", ((User) user).getRole()
                 ));
             } else {

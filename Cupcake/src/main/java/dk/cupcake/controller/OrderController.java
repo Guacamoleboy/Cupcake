@@ -7,18 +7,15 @@ import dk.cupcake.entities.Coupon;
 import dk.cupcake.entities.Order;
 import dk.cupcake.entities.OrderItem;
 import dk.cupcake.entities.User;
-import dk.cupcake.mapper.CouponMapper;
-import dk.cupcake.mapper.CupcakeFlavorMapper;
-import dk.cupcake.mapper.CupcakeToppingMapper;
-import dk.cupcake.mapper.OrderMapper;
+import dk.cupcake.mapper.*;
 import dk.cupcake.server.ThymeleafSetup;
 import io.javalin.Javalin;
-
 import java.util.*;
 
 public class OrderController {
 
     // Attributes
+    static UserMapper userMapper = new UserMapper();
     static Order order;
     static OrderMapper orderMapper = new OrderMapper();
     static CupcakeToppingMapper toppingMapper = new CupcakeToppingMapper();
@@ -254,6 +251,12 @@ public class OrderController {
             }
 
             User user = ctx.sessionAttribute("user");
+
+            // Uses our guest login (id 0) for balance on /pay
+            if (user == null) {
+                user = userMapper.getById(0);
+                ctx.sessionAttribute("user", user);
+            }
 
             List<OrderItem> cartItems = order.getItems();
             Double originalTotal = ctx.sessionAttribute("total");
