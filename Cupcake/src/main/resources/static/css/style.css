@@ -2435,6 +2435,26 @@ button.minus:active {
     text-decoration: none !important;
 }
 
+.customer-input {
+    width: 100%;
+    padding: 0.6rem 0.9rem;
+    border-radius: 15px;
+    border: 2px solid var(--cupcake-white);
+    background: transparent;
+    color: var(--cupcake-white);
+    font-family: 'itim', cursive;
+    font-size: 1rem;
+    outline: none;
+    margin-bottom: 1rem;
+    transition: all 0.2s ease;
+}
+
+.customer-input::placeholder {
+    color: rgba(255, 255, 255, 0.7);
+    font-family: 'itim', cursive;
+    font-size: 1rem;
+}
+
 /* ___________________________________________ */
 
 /* Admin / Profile Menu */
