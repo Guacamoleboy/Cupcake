@@ -37,9 +37,6 @@ public class AccountController {
             String amountString = ctx.formParam("amount");
             double amount;
 
-            // TODO Might be able to do this validation in .js instead. Not sure.
-            // TODO If you're bored go ahead and fix it. For now it works.
-
             // Fixes our "Both Fields Entered" bug
             if ((username == null || username.isEmpty()) && (idString == null || idString.isEmpty())) {
                 ctx.redirect("/admin?error=missingFields");
@@ -117,8 +114,6 @@ public class AccountController {
                 return;
             }
 
-            System.out.println("Updating user with ID: " + user.getId());
-
             String hashed = BCrypt.hashpw(newPassword, BCrypt.gensalt());
             user.setPasswordHash(hashed);
             userMapper.update(user);
@@ -165,7 +160,6 @@ public class AccountController {
     // ______________________________________________________
 
     public void forgotEmail(Context ctx) {
-        // TODO her skal man kunne se sin mail. Dvs man skriver Password + Username, og så displayer den din mail
         ctx.redirect("/login?error=emailIsReset");
     }
 

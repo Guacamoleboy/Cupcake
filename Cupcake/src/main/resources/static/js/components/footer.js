@@ -1,5 +1,3 @@
-// Sets a const to our finished Navbar Visuals 
-
 const footerHTML = `
 <!-- Footer Start -->
     <section class="footer">

@@ -70,7 +70,7 @@ const navbarHTML = `
 <!-- Navbar End -->
 `;
 
-// Searches for our id="navbar-component" checks if it's not found and reports error in console
+// __________________________________________________________
 
 export async function loadNavbar(containerId = "navbar-component") {
 
@@ -131,6 +131,8 @@ export async function loadNavbar(containerId = "navbar-component") {
         console.error("Could not fetch auth status:", err);
     }
 }
+
+// __________________________________________________________
 
 loadNavbar().then(() => {
 

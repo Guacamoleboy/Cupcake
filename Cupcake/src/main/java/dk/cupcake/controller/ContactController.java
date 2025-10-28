@@ -6,9 +6,6 @@ import dk.cupcake.server.ThymeleafSetup;
 import io.javalin.Javalin;
 import io.javalin.http.Context;
 import javax.mail.*;
-import javax.mail.internet.InternetAddress;
-import javax.mail.internet.MimeMessage;
-import java.util.Properties;
 import dk.cupcake.server.MailSetup;
 
 public class ContactController {

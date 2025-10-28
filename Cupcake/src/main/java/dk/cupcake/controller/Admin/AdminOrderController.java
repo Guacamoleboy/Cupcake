@@ -11,7 +11,6 @@ import dk.cupcake.mapper.ProductMapper;
 import dk.cupcake.mapper.UserMapper;
 import io.javalin.Javalin;
 import io.javalin.http.Context;
-
 import java.sql.SQLException;
 import java.util.List;
 import java.util.Map;
@@ -33,8 +32,6 @@ public class AdminOrderController {
         app.post("/admin/searchOrderID", controller::searchOrderID);
         app.post("/admin/manageOrder", controller::manageOrder);
         app.post("/admin/showOrders", controller::showOrders);
-        //app.post("/admin/createOrder", controller::createOrder);
-        app.post("/admin/manageRefusion", controller::manageRefusion);
         app.post("/admin/returnOrder", controller::returnOrder);
         app.post("/admin/returnOrderShowAll", controller::returnOrderShowAll);
 
@@ -226,20 +223,6 @@ public class AdminOrderController {
 
     // ______________________________________________________
 
-    /*public void createOrder(Context ctx) {
-        Er denne nødvendig????
-    }*/
-
-    // ______________________________________________________
-
-    public void manageRefusion(Context ctx) {
-
-        //TODO Jeg laver denne når jeg ikke er helt smadret - Rovelt123456789
-
-    }
-
-    // ______________________________________________________
-
     public void returnOrder(Context ctx) {
 
         try {
@@ -303,6 +286,4 @@ public class AdminOrderController {
         ctx.json(refunds);
     }
 
-
 }
-

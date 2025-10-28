@@ -1,13 +1,11 @@
 package dk.cupcake.controller.Profile;
 
 import dk.cupcake.entities.Order;
-import dk.cupcake.entities.OrderItem;
 import dk.cupcake.entities.User;
 import dk.cupcake.mapper.OrderMapper;
 import dk.cupcake.server.ThymeleafSetup;
 import io.javalin.Javalin;
 import io.javalin.http.Context;
-
 import java.sql.SQLException;
 import java.util.List;
 import java.util.Map;
@@ -60,7 +58,6 @@ public class ProfileOrderController {
         String orderIdParam = ctx.queryParam("orderId");
         OrderMapper orderMapper = new OrderMapper();
         orderMapper.delete(Integer.parseInt(orderIdParam));
-        // TODO Skal lige få fixet så dirigerer mig hen til #mineOrdre (Har læst og kan ikke finde en løsning via thymeleaf) Tror jeg skal bruge javascript..
         ctx.redirect("/profile#mineOrdre");
 
     }

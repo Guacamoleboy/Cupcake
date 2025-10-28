@@ -13,7 +13,6 @@
 // __________________________________________________________________
 
 document.addEventListener("DOMContentLoaded", function() {
-    // Animationer
     const elements = document.querySelectorAll(".guac-animate");
 
     function isInViewport(el) {

@@ -2,12 +2,16 @@ export function callJavaMethod(url, element) {
 
     const data = {};
 
+    // __________________________________________________________
+
     for (let newData of element.attributes) {
         if (newData.name.startsWith('data-')) {
             const key = newData.name.substring(5);
             data[key] = newData.value;
         }
     }
+
+    // __________________________________________________________
 
     fetch(url, {
         method: 'POST',
@@ -20,5 +24,7 @@ export function callJavaMethod(url, element) {
         })
         .catch(err => console.error(err));
 }
+
+// __________________________________________________________
 
 window.callJavaMethod = callJavaMethod;

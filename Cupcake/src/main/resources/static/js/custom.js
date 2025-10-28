@@ -34,7 +34,6 @@ document.addEventListener("DOMContentLoaded", async () => {
             previewImg.src = data.imageUrl;
         } catch (err) {
             console.error(err);
-            // TODO skal laves en placeholder cupcake eller noget fremfor bare at vise cupcake-1.png
             previewImg.src = "/images/products/cupcake-1.png";
         }
     });

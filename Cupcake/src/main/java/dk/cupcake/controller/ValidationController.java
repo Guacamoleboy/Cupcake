@@ -4,7 +4,6 @@ package dk.cupcake.controller;
 // Imports
 import dk.cupcake.entities.User;
 import dk.cupcake.exceptions.DatabaseException;
-import dk.cupcake.mapper.OrderMapper;
 import dk.cupcake.mapper.UserMapper;
 import io.javalin.Javalin;
 import org.mindrot.jbcrypt.BCrypt;

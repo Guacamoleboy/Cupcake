@@ -90,7 +90,6 @@ document.addEventListener("DOMContentLoaded", () => {
     });
 
     // ___________________________________________________________________
-    // TODO Somethings wrong with this button. Need to find out what and fix it. Getting errors in Browser Inspect
 
     paybtn.addEventListener("click", async () => {
 

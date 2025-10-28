@@ -2,15 +2,9 @@
 package dk.cupcake.controller;
 
 // Imports
-import dk.cupcake.entities.Order;
-import dk.cupcake.entities.Product;
 import dk.cupcake.entities.User;
-import dk.cupcake.mapper.OrderMapper;
-import dk.cupcake.mapper.ProductMapper;
 import dk.cupcake.server.ThymeleafSetup;
 import io.javalin.Javalin;
-import java.sql.SQLException;
-import java.util.List;
 import java.util.Map;
 
 public class PageController {

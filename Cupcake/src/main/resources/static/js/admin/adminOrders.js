@@ -1,9 +1,6 @@
 document.addEventListener("DOMContentLoaded", () => {
 
-    //#########################
-    //### Search user orders###
-    //#########################
-
+    // Attributes
     const searchBtn = document.getElementById("searchUserOrdersBtn");
     const hideBtn = document.getElementById("hideUserOrdersBtn");
     const container = document.getElementById("userOrdersContainer");
@@ -174,12 +171,6 @@ document.addEventListener("DOMContentLoaded", () => {
     });
 
 
-
-
-    //##########################
-    //### Search orders by ID###
-    //##########################
-
     const OrderByIDhideBtn = document.getElementById("hideOrderBtn");
     const OrderByIDsearchBtn = document.getElementById("searchOrderBtn");
     let resultDiv = document.getElementById("orderResult");
@@ -303,13 +294,6 @@ document.addEventListener("DOMContentLoaded", () => {
         OrderByIDsearchBtn.style.display = "inline-block";
 
     });
-
-
-
-
-    //#########################
-    //### Manage user orders###
-    //#########################
 
     const manageContainer = document.getElementById("updateDeleteOrderContainer");
     const searchManageBtn = document.getElementById("searchManageOrderBtn");
@@ -488,13 +472,6 @@ document.addEventListener("DOMContentLoaded", () => {
     };
 
 
-
-
-    //####################################################
-    //##### Refund/return orders by id & all refunds #####
-    //####################################################
-
-
     const returnContainer = document.getElementById("returnContainer");
     const searchReturnBtn = document.getElementById("searchReturnBtn");
     const showAllReturnsBtn = document.getElementById("showAllReturnsBtn");
@@ -614,13 +591,6 @@ document.addEventListener("DOMContentLoaded", () => {
         }
 
     });
-
-
-
-
-    //#########################
-    //#### Show all orders ####
-    //#########################
 
     const showAllContainer = document.getElementById("ShowAllOrdersContainer");
     const showAllBtn = document.getElementById("ShowAllOrdersBtn");
@@ -788,6 +758,5 @@ document.addEventListener("DOMContentLoaded", () => {
     });
 
     // _________________________________________________________________________
-
 
 });

@@ -7,7 +7,6 @@ import io.javalin.http.Handler;
 import org.mindrot.jbcrypt.BCrypt;
 import dk.cupcake.mapper.UserMapper;
 import dk.cupcake.entities.User;
-import dk.cupcake.exceptions.DatabaseException;
 
 public class UserController {
 

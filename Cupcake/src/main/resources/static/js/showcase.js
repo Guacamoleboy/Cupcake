@@ -3,8 +3,6 @@ document.addEventListener("DOMContentLoaded", () => {
     // Attributes
     const showcase = document.querySelector(".section-1-showcase");
     let startIndex = 0;
-
-    // Hardcoded for now.. Changed 1 and 4 cuz 4 is mad ugly. Like. Frfr. 
     const cupcakes = [
         { img: "images/products/cupcake-1.png", name: "Det røde bær", desc: "Red velvet bund med frisk jordbærtop." },
         { img: "images/products/cupcake-2.png", name: "Cherry On Top", desc: "Blød vaniljebund toppet med chokoladecreme." },
@@ -64,7 +62,6 @@ document.addEventListener("DOMContentLoaded", () => {
 
     // _______________________________________________________________________________
 
-    // Use our methods and functions bby
     renderShowcase();
     setTimeout(nextShowcase, 3500);
 
