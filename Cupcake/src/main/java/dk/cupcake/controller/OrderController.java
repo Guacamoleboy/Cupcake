@@ -2,7 +2,6 @@
 package dk.cupcake.controller;
 
 // Imports
-import dk.cupcake.db.Database;
 import dk.cupcake.entities.Coupon;
 import dk.cupcake.entities.Order;
 import dk.cupcake.entities.OrderItem;
@@ -91,7 +90,6 @@ public class OrderController {
 
             order = ctx.sessionAttribute("order");
 
-            /* TODO Fjern det her fis. Brugeren har ikke behov for at se sit ID før der er placeret en ordre. */
             if (order == null) {
                 if (user != null) {
                     order = orderMapper.newOrder(user.getId());
@@ -141,7 +139,6 @@ public class OrderController {
 
             order = ctx.sessionAttribute("order");
 
-            /* TODO Fjern det her fis. Brugeren har ikke behov for at se sit ID før der er placeret en ordre. */
             if (order == null) {
                 if (user != null) {
                     order = orderMapper.newOrder(user.getId());

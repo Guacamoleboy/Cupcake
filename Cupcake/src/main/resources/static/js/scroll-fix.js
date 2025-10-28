@@ -9,8 +9,6 @@ document.addEventListener("DOMContentLoaded", () => {
 
             const targetId = this.getAttribute("href").substring(1);
             const target = document.getElementById(targetId);
-
-            // Only on our Profile / Admin Menu. They use the same tag.
             const container = this.closest(".profile-actual");
 
             if (target && container) {

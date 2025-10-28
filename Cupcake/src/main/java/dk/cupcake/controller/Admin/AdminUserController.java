@@ -22,7 +22,6 @@ public class AdminUserController {
     public static void registerRoutes(Javalin app) {
 
         AdminUserController controller = new AdminUserController();
-
         app.post("/admin/searchUser", controller::searchUser);
         app.post("/admin/createUser", controller::createUser);
         app.post("/admin/deleteUser", controller::deleteUser);

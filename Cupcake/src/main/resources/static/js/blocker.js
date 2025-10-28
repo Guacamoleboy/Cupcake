@@ -26,7 +26,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 font-family: sans-serif;
                 padding: 2rem;
             ">
-                <h1>Jeg er lige her!</h1>
+                <h1>Olsker Cupcakes!</h1>
                 <p>Olsker Cupcakes er ikke helt klar til andet end IPad og Web lige nu..</p>
                 <p>Brug venligst en af delene for at komme videre.</p>
             </div>

@@ -1,11 +1,17 @@
+// Package
 package dk.cupcake.mapper;
 
+// Imports
 import dk.cupcake.db.Database;
 import dk.cupcake.entities.Coupon;
 import java.sql.*;
 import java.time.Instant;
 
 public class CouponMapper {
+
+    // Attributes
+
+    // __________________________________________________________
 
     public Coupon getCouponByCode(String code) throws SQLException {
         String sql = "SELECT * FROM coupons WHERE code = ?";
@@ -30,4 +36,5 @@ public class CouponMapper {
         }
         return null;
     }
-}
+
+} // CouponMapper end

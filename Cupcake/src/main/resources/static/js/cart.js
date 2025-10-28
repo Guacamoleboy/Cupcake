@@ -217,7 +217,6 @@ async function addToCart(index, amount = 1) {
         if (totalElement) {
             totalElement.textContent = `${cartTotal.toFixed(2)} kr`;
         }
-        //showCartPopup(cartItems, cartTotal, true);
 
     } catch (err) {
 
@@ -273,10 +272,6 @@ async function removeFromCart(index, amount = 1) {
         }
 
         if (newValue <= 0) {
-
-            // TODO Vi skal fixe så vi ikke behøver at skulle bruge showCartPopup!!!
-            /*const li = input.closest("li");
-            if (li) li.remove(); */
 
             if (!cartItems || cartItems.length === 0) {
                 const popup = document.querySelector(".cart-popup");
