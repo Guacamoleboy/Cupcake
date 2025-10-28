@@ -16,6 +16,9 @@
     <link rel="icon" href="/images/icons/cupcake-1.png" type="image/x-icon"> <!-- That little logo thats next to the title in URL -->
     <link rel="apple-touch-icon" href="/images/icons/cupcake-1.png">
 
+    <!-- Font Awesome Load -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
     <!-- CSS Load -->
     <link rel="stylesheet" href="/css/style.css">
 
@@ -32,7 +35,7 @@
 <body class="subpage">
 
 <!-- Return to Index -->
-<a href="/" class="exit-btn" title="Tilbage til forsiden">&#10006;</a>
+<a href="/payment" class="exit-btn" title="Tilbage til order"><i class="fa fa-arrow-left"></i></a>
 <!-- Return to Index -->
 
 <!-- Payment Section Start -->
@@ -52,7 +55,8 @@
             <button type="button" th:text="${data.deliveryMethod}"></button>
         </div>
         <p>Olskervej 1, 3770 Allinge</p>
-        <p>Din ordre er klar inden for ca 30 min efter godkendelse</p>
+        <p>Din ordre er klar inden for ca 30 min efter godkendelse hvis du henter selv.</p>
+        <p>Har du bestilt med levering, så kommer de efter ca 1-3 dage.</p>
         <p>+45 12 34 56 78</p>
         <!-- Delivery -->
 
