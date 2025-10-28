@@ -3,10 +3,10 @@
     Lavet af Gruppe D
     Skole Projekt - Cupcake
     2. Semester
-    3NF
+    Skulle gerne følge 3NF
 
     Sidst opdateret af: Guacamoleboy
-    Dato: 25/10-2025
+    Dato: 28/10-2025
 
 */
 

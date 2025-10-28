@@ -3,10 +3,7 @@ package dk.cupcake.entities;
 
 // Imports
 import dk.cupcake.mapper.OrderItemMapper;
-import dk.cupcake.mapper.OrderMapper;
 import dk.cupcake.mapper.UserMapper;
-import dk.cupcake.server.ThymeleafSetup;
-import io.javalin.Javalin;
 import java.sql.SQLException;
 import java.sql.Timestamp;
 import java.time.Instant;

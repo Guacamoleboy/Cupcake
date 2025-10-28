@@ -5,12 +5,9 @@ import dk.cupcake.entities.Refund;
 import dk.cupcake.entities.User;
 import dk.cupcake.mapper.OrderMapper;
 import dk.cupcake.mapper.RefundMapper;
-import dk.cupcake.server.ThymeleafSetup;
 import io.javalin.Javalin;
 import io.javalin.http.Context;
-
 import java.sql.SQLException;
-import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Map;
 

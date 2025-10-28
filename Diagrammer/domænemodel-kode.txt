@@ -12,6 +12,20 @@ class User {
     - Timestamp createdAt
 }
 
+class Cart {
+    - List<CartItem> items
+}
+
+class CartItem {
+    - Integer productId
+    - Integer flavorId
+    - Integer toppingId
+    - String name
+    - double unitPrice
+    - int quantity
+    - String displayName
+}
+
 class PaymentInfo {
     - int id
     - String cardNumber
@@ -45,6 +59,9 @@ class Product {
     - String description
     - double price
     - String imageUrl
+    - int categoryId
+    - int topping_id
+    - int flavor_id
     - Timestamp createdAt
 }
 
@@ -61,18 +78,35 @@ class PaymentMethod {
 
 class Order {
     - int id
+    - User user
     - String status
-    - String deliveryAddress
     - Timestamp createdAt
+    - ArrayList<OrderItem> items
+    - Integer deliveryMethodId
+    - Integer paymentMethodId
+    - String deliveryAddress
+    - double totalPrice
+    - OrderItemMapper orderItemMapper
 }
 
 class OrderItem {
     - int id
+    - int productId
+    - int bottomId
+    - int toppingId
+    - String toppingName
+    - String bottomName
     - int quantity
+    - String title
+    - String description
+    - double price
+    - String displayName
+    - boolean customCupcake
 }
 
 class Transaction {
     - int id
+    - int userId
     - double amount
     - String description
     - Timestamp createdAt
@@ -88,29 +122,36 @@ class Coupon {
 
 class Refund {
     - int id
+    - int orderId
+    - int userId
     - String reason
     - Timestamp createdAt
     - String status
 }
 
-
 User "1" -- "0..*" PaymentInfo : has
 User "1" -- "0..*" Order : places
 User "1" -- "0..*" Transaction : owns
 User "1" -- "0..*" Refund : requests
+User "1" -- "0..1" Cart : has
+
+Cart "1" -- "0..*" CartItem : contains
+CartItem "1" -- "1" Product : refersTo
+CartItem "0..1" -- "0..1" CupcakeFlavor : selectedFlavor
+CartItem "0..1" -- "0..1" CupcakeTopping : selectedTopping
 
 Order "1" -- "1..*" OrderItem : contains
-Order "0..1" -- "0..*" DeliveryMethod : uses
-Order "0..1" -- "0..*" PaymentMethod : paysWith
-Order "0..1" -- "0..*" Coupon : applies
+Order "0..1" -- "0..1" DeliveryMethod : uses
+Order "0..1" -- "0..1" PaymentMethod : paysWith
+Order "0..1" -- "0..1" Coupon : applies
 Order "1" -- "0..*" Refund : generates
 
 OrderItem "1" -- "1" Product : refersTo
-Product "0..1" -- "0..*" Category : belongsTo
-Product "0..1" -- "0..*" CupcakeFlavor : hasFlavor
-Product "0..1" -- "0..*" CupcakeTopping : hasTopping
+OrderItem "0..1" -- "0..1" CupcakeFlavor : selectedFlavor
+OrderItem "0..1" -- "0..1" CupcakeTopping : selectedTopping
 
-OrderItem "0..1" -- "0..*" CupcakeFlavor : selectedFlavor
-OrderItem "0..1" -- "0..*" CupcakeTopping : selectedTopping
+Product "0..1" -- "0..*" Category : belongsTo
+Product "0..1" -- "0..1" CupcakeFlavor : hasFlavor
+Product "0..1" -- "0..1" CupcakeTopping : hasTopping
 
 @enduml

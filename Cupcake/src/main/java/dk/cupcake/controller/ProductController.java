@@ -103,9 +103,9 @@ public class ProductController {
 
     public void searchByTitle(Context ctx) {
         try {
-            String query = ctx.queryParam("q"); // ?q=searchTerm
+            String query = ctx.queryParam("q");
             if (query == null || query.isEmpty()) {
-                query = ""; // return all if empty
+                query = "";
             }
             List<Product> products = productMapper.searchByName(query);
             ctx.html(ThymeleafSetup.render("order.html", Map.of("products", products)));
@@ -130,7 +130,7 @@ public class ProductController {
             List<Product> products = productMapper.getByToppingAndBund(topping, bund);
 
             if (!products.isEmpty()) {
-                Product p = products.get(0); // take the first match
+                Product p = products.get(0);
                 ctx.json(Map.of(
                         "id", p.getId(),
                         "name", p.getName(),

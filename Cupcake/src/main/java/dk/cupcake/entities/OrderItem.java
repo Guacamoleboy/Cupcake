@@ -7,7 +7,6 @@ public class OrderItem {
 
     // Attributes
     private int id;
-    // private int orderId;
     private int productId;
     private int bottomId;
     private int toppingId;
@@ -67,18 +66,6 @@ public class OrderItem {
     public void setQuantity(int quantity) {
         this.quantity = quantity;
     }
-
-    // ___________________________________________________
-
-    /*public int getOrderId() {
-        return orderId;
-    }
-
-    // ___________________________________________________
-
-    public void setOrderId(int orderId) {
-        this.orderId = orderId;
-    }*/
 
     // ___________________________________________________
 

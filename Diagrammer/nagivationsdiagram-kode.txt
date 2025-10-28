@@ -8,50 +8,59 @@ skinparam rectangle {
     FontSize 12
 }
 
-package "Generel Information" {
+package "General Information" {
     rectangle "Forside" #B0E0E6
     rectangle "Gallery" #B0E0E6
     rectangle "Events" #B0E0E6
     rectangle "Kontakt" #B0E0E6 
 }
 
-package "Bruger" {
+package "Settings Menu" {
+    rectangle "Profile" #98FB98
+    rectangle "Admin" #98FB98
+}
+
+package "Auth" {
     rectangle "Login" #90EE90
     rectangle "Register" #90EE90
 }
 
-package "Shop / Bestilling" {
+package "Shop" {
     rectangle "Order / Kurv" #FFD580
     rectangle "Custom / Kurv" #FFD580
 }
 
-package "Betaling" {
+package "Final Confirmation" {
     rectangle "Payment" #FFB6C1
     rectangle "Pay" #FFB6C1
 }
 
-package "Bekræftelse" {
+package "UI Confirmation" {
     rectangle "Tak-Order" #D8BFD8
     rectangle "Tak (Kontakt)" #D8BFD8
 }
 
-
-"Forside" --> "Login" : Optional login
-"Forside" --> "Register" : Optional register
-"Forside" --> "Order / Kurv" : Start shopping
-"Forside" --> "Custom / Kurv" : Custom cupcake
+"Forside" --> "Login" : Optional
+"Forside" --> "Register" : Optional
+"Forside" --> "Order / Kurv" : Browsing
+"Forside" --> "Custom / Kurv" : Custom
 "Forside" --> "Kontakt"
 "Forside" --> "Gallery"
 "Forside" --> "Events"
 
-"Login" --> "Forside" : Efter login
-"Register" --> "Forside" : Efter register
+"Login" --> "Forside" : Return
+"Register" --> "Forside" : Return
 
-"Order / Kurv" --> "Payment" : Gå til betaling
-"Custom / Kurv" --> "Payment" : Gå til betaling
-"Payment" --> "Pay" : Gennemse & betal
-"Pay" --> "Tak-Order" : Ordre bekræftet
+"Forside" --> "Profile" : customer
+"Forside" --> "Admin" : Admin
+"Profile" --> "Forside" : Return
+"Admin" --> "Forside" : Return
 
-"Kontakt" --> "Tak (Kontakt)" : Formular sendt
+"Order / Kurv" --> "Payment"
+"Custom / Kurv" --> "Payment"
+"Payment" --> "Pay" : Final
+"Pay" --> "Tak-Order" : Order confirmed
+
+"Kontakt" --> "Tak (Kontakt)" : Sent
 
 @enduml

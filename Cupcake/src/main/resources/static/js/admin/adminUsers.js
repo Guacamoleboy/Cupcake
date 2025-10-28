@@ -52,7 +52,6 @@ document.addEventListener("DOMContentLoaded", () => {
 
             }
 
-
             resultDiv.innerHTML = `
                 <div class="user-card">
                     <div class="user-header">
