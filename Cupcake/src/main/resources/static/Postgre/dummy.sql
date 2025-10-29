@@ -61,7 +61,12 @@ INSERT INTO products (name, description, price, image_url, category_id, topping_
 ('Fluffy Cocoa', 'Chokoladebund med marshmallow fluff.', 28.95, 'images/products/cupcake-16.png', 1, 7, 1),
 ('Choco Creamy', 'Chokolade og vanilje i cremet balance.', 28.95, 'images/products/cupcake-17.png', 1, 2, 2),
 ('Snefnug', 'Julens vaniljekage med let skum.', 28.95, 'images/products/cupcake-18.png', 3, 6, 2),
+('Custom', 'Custom cupcake!', 49, 'images/products/cupcake-19.png', 1, 1, 1),
 ('Crispy Cocoa', 'Chokoladebund toppet med sprød marengs.', 28.95, 'images/products/cupcake-19.png', 1, 10, 1);
+
+UPDATE products
+SET id = 0
+WHERE name = 'Custom';
 
 /* Orders (Total) */
 INSERT INTO orders (user_id, status) VALUES
