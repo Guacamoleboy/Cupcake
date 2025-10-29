@@ -113,7 +113,7 @@ public class OrderItemMapperTest {
 
         // Act
         OrderItemMapper.addOrderItem(orderID, item);
-        OrderItemMapper.updateQuantity(orderID, productID1, 5);
+        OrderItemMapper.updateQuantity(orderID, item.getId(), 5);
         ArrayList<OrderItem> items = OrderItemMapper.getOrderByID(orderID);
 
         // Assert

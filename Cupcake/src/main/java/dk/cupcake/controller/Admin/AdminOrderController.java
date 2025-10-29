@@ -182,10 +182,10 @@ public class AdminOrderController {
                 if (match == null) continue;
 
                 kept.add(title);
-                OrderItemMapper.updateQuantity(order.getId(), match.getProductId(), quantity);
+                OrderItemMapper.updateQuantity(order.getId(), match.getId(), quantity);
 
                 if (Double.compare(price, match.getPrice()) != 0) {
-                    var product = productMapper.getById(match.getProductId());
+                    var product = productMapper.getById(match.getId());
                     if (product != null) {
                         product.setPrice(price);
                         productMapper.update(product);
@@ -195,7 +195,7 @@ public class AdminOrderController {
 
             for (OrderItem oi : items) {
                 if (!kept.contains(oi.getTitle())) {
-                    OrderItemMapper.deleteOrderItem(order.getId(), oi.getProductId());
+                    OrderItemMapper.deleteOrderItem(order.getId(), oi.getId());
                 }
             }
 
