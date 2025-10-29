@@ -55,8 +55,7 @@
             <button type="button" th:text="${data.deliveryMethod}"></button>
         </div>
         <p>Olskervej 1, 3770 Allinge</p>
-        <p>Din ordre er klar inden for ca 30 min efter godkendelse hvis du henter selv.</p>
-        <p>Har du bestilt med levering, så kommer de efter ca 1-3 dage.</p>
+        <p th:text="${data.deliveryDescription}">Leveringsinfo</p>
         <p>+45 12 34 56 78</p>
         <!-- Delivery -->
 
@@ -94,12 +93,24 @@
 
         <hr class="section-divider">
 
+        <!-- Shipping Line -->
+        <div class="order-list" th:if="${data.shippingPrice != null and data.shippingPrice > 0}">
+            <div class="order-item guac-row guac-col-auto">
+                <p>Levering</p>
+                <p>1</p>
+                <p th:text="${#numbers.formatDecimal(data.shippingPrice, 1, 2) + ' kr'}">0.00 kr</p>
+            </div>
+        </div>
+        <!-- Shipping Line -->
+
+        <hr class="section-divider" th:if="${data.shippingPrice != null and data.shippingPrice > 0}">
+
         <!-- Info Under Order List -->
         <div class="order-list">
             <div class="order-item guac-row guac-col-auto">
                 <p>Total</p>
                 <p></p>
-                <p th:text="${#numbers.formatDecimal((data.discountedTotal != null ? data.discountedTotal : data.originalTotal), 1, 2) + ' kr'}">0.00 kr</p>
+                <p th:text="${#numbers.formatDecimal(data.finalTotal, 1, 2) + ' kr'}">0.00 kr</p>
             </div>
         </div>
         <!-- Info Under Order List -->
