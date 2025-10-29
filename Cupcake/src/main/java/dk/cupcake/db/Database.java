@@ -22,9 +22,9 @@ public class Database {
 
     // Attributes
     private static String databaseName = "Cupcake";
-    private static final String URL = "jdbc:postgresql://localhost:5433/%s";
+    private static final String URL = "jdbc:postgresql://localhost:5432/%s";
     private static final String USER = "postgres";
-    private static final String PASSWORD = "dinmor";
+    private static final String PASSWORD = "postgres";
 
     // ________________________________________________
 

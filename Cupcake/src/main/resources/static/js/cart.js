@@ -55,7 +55,7 @@ document.addEventListener("DOMContentLoaded", async () => {
         const data = await res.json();
 
         cartItems = data.items;
-        cartTotal = data.total;
+        cartTotal = data.totalPrice;
 
         showCartPopup(cartItems, cartTotal);
 
@@ -68,7 +68,7 @@ document.addEventListener("DOMContentLoaded", async () => {
 
         const data = await res.json();
         cartItems = data.items || [];
-        cartTotal = data.total || 0;
+        cartTotal = data.totalPrice || 0;
 
         if (cartItems.length > 0) {
             showCartPopup(cartItems, cartTotal, true);
@@ -211,7 +211,7 @@ async function addToCart(index, amount = 1) {
 
         const data = JSON.parse(text);
         cartItems = data.items || cartItems;
-        cartTotal = data.total ?? cartTotal;
+        cartTotal = data.totalPrice ?? cartTotal;
 
         const totalElement = document.querySelector(".cart-popup .total span:last-child");
         if (totalElement) {
@@ -264,7 +264,7 @@ async function removeFromCart(index, amount = 1) {
 
         const data = JSON.parse(text);
         cartItems = data.items || cartItems;
-        cartTotal = data.total ?? cartTotal;
+        cartTotal = data.totalPrice ?? cartTotal;
 
         const totalElement = document.querySelector(".cart-popup .total span:last-child");
         if (totalElement) {

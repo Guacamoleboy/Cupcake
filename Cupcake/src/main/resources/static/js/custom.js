@@ -75,7 +75,7 @@ document.addEventListener("DOMContentLoaded", async () => {
             const data = await res.json();
 
             cartItems = data.items;
-            cartTotal = data.total;
+            cartTotal = data.totalPrice;
             showCartPopup(cartItems, cartTotal);
 
         } catch (err) {

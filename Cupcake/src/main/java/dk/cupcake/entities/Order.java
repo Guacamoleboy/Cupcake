@@ -34,7 +34,7 @@ public class Order {
         this.items = new ArrayList<>();
     }
 
-    // ___________________________________________________
+// ___________________________________________________
 
     public Order() {
         this.items = new ArrayList<>();
@@ -191,7 +191,7 @@ public class Order {
     // ___________________________________________________
 
     public double getTotalPrice() {
-        return totalPrice;
+        return this.totalPrice;
     }
 
     // ___________________________________________________

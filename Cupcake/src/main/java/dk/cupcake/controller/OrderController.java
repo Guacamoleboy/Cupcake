@@ -9,6 +9,9 @@ import dk.cupcake.entities.User;
 import dk.cupcake.mapper.*;
 import dk.cupcake.server.ThymeleafSetup;
 import io.javalin.Javalin;
+import io.javalin.http.Context;
+
+import java.sql.SQLException;
 import java.util.*;
 
 public class OrderController {
@@ -21,6 +24,28 @@ public class OrderController {
     static CupcakeFlavorMapper bottomMapper = new CupcakeFlavorMapper();
 
     // ______________________________________________________________
+
+    public static Order getOrder(Context ctx) throws SQLException {
+        User user = ctx.sessionAttribute("user");
+
+        order = ctx.sessionAttribute("order");
+
+        if (order == null) {
+            if (user != null) {
+                order = orderMapper.newOrder(user.getId());
+            } else {
+                order = orderMapper.newOrder(0);
+            }
+        }
+        return order;
+    }
+
+    public static double calculateTotalPrice(Order order) {
+        return order.getItems().stream()
+                .mapToDouble(i -> i.getPrice() * i.getQuantity())
+                .sum();
+    }
+
 
     public static void registerRoutes(Javalin app) {
 
@@ -46,17 +71,8 @@ public class OrderController {
         // ______________________________________________________________________________
 
         app.post("/cart/add", ctx -> {
-            User user = ctx.sessionAttribute("user");
 
-            order = ctx.sessionAttribute("order");
-
-            if (order == null) {
-                if (user != null) {
-                    order = orderMapper.newOrder(user.getId());
-                } else {
-                    order = orderMapper.newOrder(0);
-                }
-            }
+            order = getOrder(ctx);
 
             int id = Integer.parseInt(ctx.formParam("id"));
             String name = ctx.formParam("name");
@@ -69,34 +85,20 @@ public class OrderController {
 
             ctx.sessionAttribute("order", order);
 
-            double total = order.getItems().stream()
-                    .mapToDouble(i -> i.getPrice() * i.getQuantity())
-                    .sum();
+            double total = calculateTotalPrice(order);
 
             order.setTotalPrice(total);
             ctx.sessionAttribute("total", total);
 
-            ctx.json(Map.of(
-                    "items", order.getItems(),
-                    "total", total
-            ));
+            ctx.json(order);
 
         });
 
         // ______________________________________________________________________________
 
         app.post("/cart/remove", ctx -> {
-            User user = ctx.sessionAttribute("user");
 
-            order = ctx.sessionAttribute("order");
-
-            if (order == null) {
-                if (user != null) {
-                    order = orderMapper.newOrder(user.getId());
-                } else {
-                    order = orderMapper.newOrder(0);
-                }
-            }
+            order = getOrder(ctx);
 
             int id = Integer.parseInt(ctx.formParam("id"));
             int amount = Integer.parseInt(ctx.formParam("amount"));
@@ -119,44 +121,23 @@ public class OrderController {
 
             ctx.sessionAttribute("order", order);
 
-            double total = order.getItems().stream()
-                    .mapToDouble(i -> i.getPrice() * i.getQuantity())
-                    .sum();
+            double total = calculateTotalPrice(order);
 
             order.setTotalPrice(total);
             ctx.sessionAttribute("total", total);
 
-            ctx.json(Map.of(
-                    "items", order.getItems(),
-                    "total", total
-            ));
+            ctx.json(order);
         });
 
         // ______________________________________________________________________________
 
         app.get("/cart/get", ctx -> {
-            User user = ctx.sessionAttribute("user");
 
-            order = ctx.sessionAttribute("order");
+            order = getOrder(ctx);
 
-            if (order == null) {
-                if (user != null) {
-                    order = orderMapper.newOrder(user.getId());
-                } else {
-                    order = orderMapper.newOrder(0);
-                }
-            }
+            ctx.sessionAttribute("total", order.getTotalPrice());
 
-            double total = order.getItems().stream()
-                    .mapToDouble(i -> i.getPrice() * i.getQuantity())
-                    .sum();
-            order.setTotalPrice(total);
-            ctx.sessionAttribute("total", total);
-
-            ctx.json(Map.of(
-                    "items", order.getItems(),
-                    "total", total
-            ));
+            ctx.json(order);
 
         });
 
@@ -176,9 +157,9 @@ public class OrderController {
                 ctx.sessionAttribute("order", order);
             }
 
-            double total = order.getItems().stream()
-                    .mapToDouble(i -> i.getPrice() * i.getQuantity())
-                    .sum();
+
+            double total = calculateTotalPrice(order);
+
             order.setTotalPrice(total);
 
             ctx.sessionAttribute("total", total);
@@ -200,9 +181,9 @@ public class OrderController {
 
                 if (order != null) {
 
-                    double total = order.getItems().stream()
-                            .mapToDouble(i -> i.getPrice() * i.getQuantity())
-                            .sum();
+
+                    double total = calculateTotalPrice(order);
+
                     double discountedTotal = total * (1 - coupon.getDiscountPercent() / 100.0);
 
                     ctx.sessionAttribute("coupon", coupon);

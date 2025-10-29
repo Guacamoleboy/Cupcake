@@ -91,7 +91,8 @@ document.addEventListener("DOMContentLoaded", () => {
 
     // ___________________________________________________________________
 
-    paybtn.addEventListener("click", async () => {
+    if (paybtn) {
+        paybtn.addEventListener("click", async () => {
 
         const deliveryMethod = document.querySelector(".delivery-options button.selected")?.textContent || "GLS";
         const paymentMethod = document.querySelector(".payment-options button.selected")?.textContent || "MobilePay";
@@ -121,5 +122,6 @@ document.addEventListener("DOMContentLoaded", () => {
         }
 
     });
+    }
 
 });
