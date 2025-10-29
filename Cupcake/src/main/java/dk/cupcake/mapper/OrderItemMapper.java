@@ -2,6 +2,7 @@
 package dk.cupcake.mapper;
 
 // Imports
+import dk.cupcake.entities.Order;
 import dk.cupcake.entities.OrderItem;
 import dk.cupcake.db.Database;
 import java.sql.*;
@@ -167,7 +168,9 @@ public class OrderItemMapper {
                     int top = rs.getInt("topping_id");
                     int buttom = rs.getInt("bottom_id");
 
-                    orderItems.add(new OrderItem(productId, title, description, price, quantity, top, buttom));
+                    OrderItem orderItem = new OrderItem(productId, title, description, price, quantity, top, buttom);
+                    orderItem.setId(rs.getInt("id"));
+                    orderItems.add(orderItem);
                 }
             }
         }
