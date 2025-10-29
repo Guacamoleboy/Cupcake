@@ -16,7 +16,6 @@ document.addEventListener("DOMContentLoaded", () => {
     const deliveryButtons = document.querySelectorAll(".delivery-options button");
     const paymentButtons = document.querySelectorAll(".payment-options button");
     let selectedDelivery = null;
-    let selectedDeliveryId = null;
     let selectedPayment = null;
 
     function updateNextBtnState() {
@@ -36,7 +35,6 @@ document.addEventListener("DOMContentLoaded", () => {
             deliveryButtons.forEach(b => b.classList.remove("active"));
             button.classList.add("active");
             selectedDelivery = button.textContent.trim();
-            selectedDeliveryId = button.getAttribute("data-id");
             updateNextBtnState();
         });
     });
@@ -67,9 +65,6 @@ document.addEventListener("DOMContentLoaded", () => {
         try {
             const formData = new URLSearchParams();
             formData.append("deliveryMethod", selectedDelivery);
-            if (selectedDeliveryId) {
-                formData.append("deliveryMethodId", selectedDeliveryId);
-            }
             formData.append("paymentMethod", selectedPayment);
             formData.append("deliveryAddress", deliveryAddress);
 

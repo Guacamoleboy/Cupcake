@@ -229,37 +229,10 @@ public class OrderController {
 
         app.post("/update-payment-info", ctx -> {
             String deliveryMethod = ctx.formParam("deliveryMethod");
-            String idString = ctx.formParam("deliveryMethodId");
             String paymentMethod = ctx.formParam("paymentMethod");
 
-            Integer deliveryMethodId = null;
-            Double deliveryPrice = null;
-
-            if (idString != null && !idString.isBlank()) {
-                try {
-                    deliveryMethodId = Integer.parseInt(idString);
-                    DeliveryMethodsMapper deliveryMethodsMapper = new DeliveryMethodsMapper();
-                    var method = deliveryMethodsMapper.getById(deliveryMethodId);
-                    if (method != null) {
-                        deliveryMethod = method.getName();
-                        deliveryPrice = method.getPrice();
-                    }
-                } catch (Exception ignored) {}
-            }
-
-            ctx.sessionAttribute("deliveryMethodId", deliveryMethodId);
             ctx.sessionAttribute("deliveryMethod", deliveryMethod);
-            if (deliveryPrice != null) {
-                ctx.sessionAttribute("deliveryPrice", deliveryPrice);
-            }
             ctx.sessionAttribute("paymentMethod", paymentMethod);
-
-            Order currentOrder = ctx.sessionAttribute("order");
-            if (currentOrder != null && deliveryMethodId != null) {
-                currentOrder.setDeliveryMethodId(deliveryMethodId);
-                ctx.sessionAttribute("order", currentOrder);
-            }
-
             ctx.json(Map.of("success", true));
         });
 
@@ -286,49 +259,15 @@ public class OrderController {
             Double originalTotal = ctx.sessionAttribute("total");
             Double discountedTotal = ctx.sessionAttribute("discountedTotal");
             String deliveryMethod = ctx.sessionAttribute("deliveryMethod");
-            Integer deliveryMethodId = ctx.sessionAttribute("deliveryMethodId");
-            Double deliveryPrice = ctx.sessionAttribute("deliveryPrice");
             String paymentMethod = ctx.sessionAttribute("paymentMethod");
             Coupon coupon = ctx.sessionAttribute("coupon");
-
-            if (deliveryPrice == null && (deliveryMethodId != null)) {
-                try {
-                    DeliveryMethodsMapper deliveryMethodsMapper = new DeliveryMethodsMapper();
-                    var method = deliveryMethodsMapper.getById(deliveryMethodId);
-                    if (method != null) {
-                        deliveryPrice = method.getPrice();
-                        if (deliveryMethod == null || deliveryMethod.isBlank()) {
-                            deliveryMethod = method.getName();
-                        }
-                        ctx.sessionAttribute("deliveryPrice", deliveryPrice);
-                        ctx.sessionAttribute("deliveryMethod", deliveryMethod);
-                    }
-                } catch (Exception ignored) {}
-            }
-
-            double baseTotal = (discountedTotal != null ? discountedTotal : (originalTotal != null ? originalTotal : 0.0));
-            double shipping = (deliveryPrice != null ? deliveryPrice : 0.0);
-            double finalTotal = baseTotal + shipping;
-
-            String deliveryDescription;
-            if (deliveryMethod != null && deliveryMethod.equalsIgnoreCase("Afhent i butik")) {
-                deliveryDescription = "Din ordre er klar inden for ca. 30 min efter godkendelse.";
-            } else if (deliveryMethod != null && !deliveryMethod.isBlank()) {
-                deliveryDescription = "Leveringstid 1-3 hverdage.";
-            } else {
-                deliveryDescription = "Vælg en leveringsmetode.";
-            }
 
             Map<String, Object> model = new HashMap<>();
             model.put("order", order);
             model.put("cartItems", cartItems);
             model.put("originalTotal", originalTotal);
             model.put("discountedTotal", discountedTotal);
-            model.put("baseTotal", baseTotal);
-            model.put("shippingPrice", shipping);
-            model.put("finalTotal", finalTotal);
             model.put("deliveryMethod", deliveryMethod);
-            model.put("deliveryDescription", deliveryDescription);
             model.put("paymentMethod", paymentMethod);
             model.put("coupon", coupon);
             model.put("user", user);
