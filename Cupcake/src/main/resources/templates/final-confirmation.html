@@ -88,22 +88,15 @@
                 <p th:text="${item.quantity}">Antal</p>
                 <p th:text="${item.price} + ' kr'">Pris</p>
             </div>
-        </div>
-        <!-- Order List -->
-
-        <hr class="section-divider">
-
-        <!-- Shipping Line -->
-        <div class="order-list" th:if="${data.shippingPrice != null and data.shippingPrice > 0}">
-            <div class="order-item guac-row guac-col-auto">
-                <p>Levering</p>
+            <div class="order-item guac-row guac-col-auto" th:if="${data.shippingPrice != null}">
+                <p th:text="${data.deliveryMethod != null ? data.deliveryMethod : 'Levering'}">Levering</p>
                 <p>1</p>
                 <p th:text="${#numbers.formatDecimal(data.shippingPrice, 1, 2) + ' kr'}">0.00 kr</p>
             </div>
         </div>
-        <!-- Shipping Line -->
+        <!-- Order List -->
 
-        <hr class="section-divider" th:if="${data.shippingPrice != null and data.shippingPrice > 0}">
+        <hr class="section-divider">
 
         <!-- Info Under Order List -->
         <div class="order-list">
