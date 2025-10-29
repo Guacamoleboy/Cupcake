@@ -100,25 +100,25 @@ public class OrderItemMapper {
 
     // _________________________________________________________
 
-    public static void deleteOrderItem(int orderID, int productID) throws SQLException {
-        String sql = "DELETE FROM order_items WHERE order_id = ? AND product_id = ?";
+    public static void deleteOrderItem(int orderID, int id) throws SQLException {
+        String sql = "DELETE FROM order_items WHERE order_id = ? AND id = ?";
         try (Connection conn = Database.getConnection();
              PreparedStatement stmt = conn.prepareStatement(sql)) {
             stmt.setInt(1, orderID);
-            stmt.setInt(2, productID);
+            stmt.setInt(2, id);
             stmt.executeUpdate();
         }
     }
 
     // _________________________________________________________
 
-    public static void deleteAmount(int orderID, int productID, int amount) throws SQLException {
-        String sql = "UPDATE order_items SET quantity = quantity - ? WHERE order_id = ? AND product_id = ? RETURNING quantity";
+    public static void deleteAmount(int orderID, int id, int amount) throws SQLException {
+        String sql = "UPDATE order_items SET quantity = quantity - ? WHERE order_id = ? AND id = ? RETURNING quantity";
         try (Connection conn = Database.getConnection();
              PreparedStatement stmt = conn.prepareStatement(sql)) {
             stmt.setInt(1, amount);
             stmt.setInt(2, orderID);
-            stmt.setInt(3, productID);
+            stmt.setInt(3, id);
 
             ResultSet rs = stmt.executeQuery();
 
@@ -126,7 +126,7 @@ public class OrderItemMapper {
             if (rs.next()) {
                 int newQuantity = rs.getInt("quantity");
                 if (newQuantity <= 0) {
-                    deleteOrderItem(orderID, productID);
+                    deleteOrderItem(orderID, id);
                 }
             }
         }

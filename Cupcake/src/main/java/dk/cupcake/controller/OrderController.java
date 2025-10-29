@@ -82,7 +82,6 @@ public class OrderController {
             int bottom = Integer.parseInt(ctx.formParam("bottom"));
 
 
-
             order.addToOrder(new OrderItem(id, name, description, price, 1, top, bottom), order.getId());
 
             ctx.sessionAttribute("order", order);

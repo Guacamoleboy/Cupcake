@@ -182,10 +182,10 @@ public class Order {
 
                 if (newQuantity > 0) {
                     item.setQuantity(newQuantity);
-                    OrderItemMapper.deleteAmount(orderID, productId, amount);
+                    OrderItemMapper.deleteAmount(orderID, item.getId(), amount);
                 } else {
                     items.remove(i);
-                    OrderItemMapper.deleteOrderItem(orderID, productId);
+                    OrderItemMapper.deleteOrderItem(orderID, item.getId());
                 }
                 return;
             }

@@ -51,19 +51,22 @@ document.addEventListener("DOMContentLoaded", async () => {
             return;
         }
 
-        const product = {
-            id: 0,
-            name: "Custom Cupcake",
-            price: 49,
-            description: `Custom cupcake | ${topText} Top | ${bundText} Bund`,
-            topping: parseInt(topId),
-            bottom: parseInt(bundId)
-        };
+
+        const safeId = 0;
+        const safeName = "Custom cupcake";
+        const safePrice = 49;
+        const safeDesc = `Custom cupcake | ${topText} Top | ${bundText} Bund`;
+        const safeTop = topId || 1;
+        const safeBottom = bundId || 1;
 
         const formData = new FormData();
-        for (const key in product) {
-            formData.append(key, product[key]);
-        }
+        formData.append("id", String(safeId));
+        formData.append("name", safeName);
+        formData.append("price", String(safePrice));
+        formData.append("description", safeDesc);
+        formData.append("topping", String(safeTop));
+        formData.append("bottom", String(safeBottom));
+
 
         try {
             const res = await fetch("/cart/add", { method: "POST", body: formData });
@@ -77,6 +80,18 @@ document.addEventListener("DOMContentLoaded", async () => {
             cartItems = data.items;
             cartTotal = data.totalPrice;
             showCartPopup(cartItems, cartTotal);
+
+            cartItems = cartItems.map(item => {
+                if (!item.productId || item.productId === 0) {
+                    return {
+                        ...item,
+                        productId: 0,
+                        topping: safeTop,
+                        bottom: safeBottom
+                    };
+                }
+                return item;
+            });
 
         } catch (err) {
             console.error("Fejl ved tilføjelse af custom cupcake:", err);
