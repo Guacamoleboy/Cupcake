@@ -34,7 +34,7 @@ public class Order {
         this.items = new ArrayList<>();
     }
 
-    // ___________________________________________________
+// ___________________________________________________
 
     public Order() {
         this.items = new ArrayList<>();
@@ -142,9 +142,7 @@ public class Order {
 
     public void addToOrder(OrderItem newItem, int orderID) throws SQLException {
 
-        if (items == null) {
-            items = new ArrayList<>();
-        }
+        if (items == null) items = new ArrayList<>();
 
         boolean found = false;
 
@@ -152,8 +150,13 @@ public class Order {
             if (item.isMergeableWith(newItem)) {
                 item.setQuantity(item.getQuantity() + newItem.getQuantity());
                 found = true;
+
                 if (orderID > 0) {
-                    OrderItemMapper.updateQuantity(orderID, item.getProductId(), item.getQuantity());
+                    if (item.getId() > 0) {
+                        OrderItemMapper.updateQuantity(orderID, item.getId(), item.getQuantity());
+                    } else {
+                        OrderItemMapper.addOrderItem(orderID, item);
+                    }
                 }
                 break;
             }
@@ -167,6 +170,7 @@ public class Order {
         }
     }
 
+
     // ___________________________________________________
 
     public void removeFromOrder(int productId, int amount, int orderID) throws SQLException {
@@ -178,10 +182,10 @@ public class Order {
 
                 if (newQuantity > 0) {
                     item.setQuantity(newQuantity);
-                    OrderItemMapper.deleteAmount(orderID, productId, amount);
+                    OrderItemMapper.deleteAmount(orderID, item.getId(), amount);
                 } else {
                     items.remove(i);
-                    OrderItemMapper.deleteOrderItem(orderID, productId);
+                    OrderItemMapper.deleteOrderItem(orderID, item.getId());
                 }
                 return;
             }
@@ -191,7 +195,7 @@ public class Order {
     // ___________________________________________________
 
     public double getTotalPrice() {
-        return totalPrice;
+        return this.totalPrice;
     }
 
     // ___________________________________________________
@@ -199,5 +203,7 @@ public class Order {
     public void setTotalPrice(double totalPrice) {
         this.totalPrice = totalPrice;
     }
+
+
 
 } // Order end

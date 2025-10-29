@@ -55,7 +55,7 @@ document.addEventListener("DOMContentLoaded", async () => {
         const data = await res.json();
 
         cartItems = data.items;
-        cartTotal = data.total;
+        cartTotal = data.totalPrice;
 
         showCartPopup(cartItems, cartTotal);
 
@@ -68,7 +68,7 @@ document.addEventListener("DOMContentLoaded", async () => {
 
         const data = await res.json();
         cartItems = data.items || [];
-        cartTotal = data.total || 0;
+        cartTotal = data.totalPrice || 0;
 
         if (cartItems.length > 0) {
             showCartPopup(cartItems, cartTotal, true);
@@ -175,12 +175,12 @@ async function addToCart(index, amount = 1) {
     if (isNaN(newValue) || newValue < 1) newValue = 1;
     input.value = newValue; item.quantity = newValue;
 
-    const safeId = item.id || item.productId || item.cupcakeId || 0;
+    const safeId = item.productId || 0;
     const safeName = item.title || item.name || "Ukendt produkt";
     const safePrice = item.price ?? 0.0;
     const safeDesc = item.description || "";
-    const safeTop = item.topping || item.top || 0;
-    const safeBottom = item.bottom || item.base || 0;
+    const safeTop = item.toppingId || 0;
+    const safeBottom = item.bottomId || 0;
 
     const form = new FormData();
     form.append("id", String(safeId));
@@ -211,7 +211,7 @@ async function addToCart(index, amount = 1) {
 
         const data = JSON.parse(text);
         cartItems = data.items || cartItems;
-        cartTotal = data.total ?? cartTotal;
+        cartTotal = data.totalPrice ?? cartTotal;
 
         const totalElement = document.querySelector(".cart-popup .total span:last-child");
         if (totalElement) {
@@ -239,11 +239,15 @@ async function removeFromCart(index, amount = 1) {
     let newValue = parseInt(input.value) - amount;
     if (isNaN(newValue) || newValue < 1) newValue = 0;
     input.value = newValue; item.quantity = newValue;
-    const safeId = item.id || item.productId || item.cupcakeId || 0;
+    const safeId = item.productId || 0;
+    const safeTop = item.topping || item.top || 0;
+    const safeBottom = item.bottom || item.base || 0;
 
     const form = new FormData();
     form.append("id", String(safeId));
     form.append("amount", String(amount));
+    form.append("topping", String(safeTop));
+    form.append("bottom", String(safeBottom));
 
     try {
 
@@ -264,7 +268,7 @@ async function removeFromCart(index, amount = 1) {
 
         const data = JSON.parse(text);
         cartItems = data.items || cartItems;
-        cartTotal = data.total ?? cartTotal;
+        cartTotal = data.totalPrice ?? cartTotal;
 
         const totalElement = document.querySelector(".cart-popup .total span:last-child");
         if (totalElement) {
