@@ -52,7 +52,7 @@ document.addEventListener("DOMContentLoaded", async () => {
         }
 
         const product = {
-            id: 1,
+            id: 0,
             name: "Custom Cupcake",
             price: 49,
             description: `Custom cupcake | ${topText} Top | ${bundText} Bund`,

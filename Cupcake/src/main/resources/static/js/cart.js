@@ -175,6 +175,7 @@ async function addToCart(index, amount = 1) {
     if (isNaN(newValue) || newValue < 1) newValue = 1;
     input.value = newValue; item.quantity = newValue;
 
+
     const safeId = item.id || item.productId || item.cupcakeId || 0;
     const safeName = item.title || item.name || "Ukendt produkt";
     const safePrice = item.price ?? 0.0;
@@ -240,10 +241,14 @@ async function removeFromCart(index, amount = 1) {
     if (isNaN(newValue) || newValue < 1) newValue = 0;
     input.value = newValue; item.quantity = newValue;
     const safeId = item.id || item.productId || item.cupcakeId || 0;
+    const safeTop = item.topping || item.top || 0;
+    const safeBottom = item.bottom || item.base || 0;
 
     const form = new FormData();
     form.append("id", String(safeId));
     form.append("amount", String(amount));
+    form.append("topping", String(safeTop));
+    form.append("bottom", String(safeBottom));
 
     try {
 

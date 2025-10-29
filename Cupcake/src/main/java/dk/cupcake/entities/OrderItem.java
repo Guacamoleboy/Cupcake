@@ -173,9 +173,13 @@ public class OrderItem {
         if (other == null) return false;
 
         boolean sameProduct = this.productId > 0 && this.productId == other.productId;
-        boolean sameCustom = this.productId <= 0 && other.productId <= 0 && this.toppingId == other.toppingId && this.bottomId == other.bottomId;
+
+        boolean sameCustom = this.productId == 0 && other.productId == 0 &&
+                this.toppingId == other.toppingId &&
+                this.bottomId == other.bottomId;
 
         return sameProduct || sameCustom;
     }
+
 
 } // OrderItem end

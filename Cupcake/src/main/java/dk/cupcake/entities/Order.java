@@ -142,9 +142,7 @@ public class Order {
 
     public void addToOrder(OrderItem newItem, int orderID) throws SQLException {
 
-        if (items == null) {
-            items = new ArrayList<>();
-        }
+        if (items == null) items = new ArrayList<>();
 
         boolean found = false;
 
@@ -152,8 +150,13 @@ public class Order {
             if (item.isMergeableWith(newItem)) {
                 item.setQuantity(item.getQuantity() + newItem.getQuantity());
                 found = true;
+
                 if (orderID > 0) {
-                    OrderItemMapper.updateQuantity(orderID, item.getProductId(), item.getQuantity());
+                    if (item.getId() > 0) {
+                        OrderItemMapper.updateQuantity(orderID, item.getId(), item.getQuantity());
+                    } else {
+                        OrderItemMapper.addOrderItem(orderID, item);
+                    }
                 }
                 break;
             }
@@ -166,6 +169,7 @@ public class Order {
             items.add(newItem);
         }
     }
+
 
     // ___________________________________________________
 
@@ -199,5 +203,7 @@ public class Order {
     public void setTotalPrice(double totalPrice) {
         this.totalPrice = totalPrice;
     }
+
+
 
 } // Order end

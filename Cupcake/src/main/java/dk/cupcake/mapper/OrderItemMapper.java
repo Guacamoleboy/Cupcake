@@ -64,8 +64,10 @@ public class OrderItemMapper {
 
     public static void addOrderItem(int orderID, OrderItem item) throws SQLException {
         String sql = "INSERT INTO order_items (order_id, product_id, quantity, topping_id, bottom_id) VALUES (?, ?, ?, ?, ?)";
+
         try (Connection conn = Database.getConnection();
-             PreparedStatement stmt = conn.prepareStatement(sql)) {
+             PreparedStatement stmt = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
+
             stmt.setInt(1, orderID);
             stmt.setInt(2, item.getProductId());
             stmt.setInt(3, item.getQuantity());
@@ -73,18 +75,25 @@ public class OrderItemMapper {
             stmt.setInt(5, item.getBottomId());
 
             stmt.executeUpdate();
+
+            try (ResultSet rs = stmt.getGeneratedKeys()) {
+                if (rs.next()) {
+                    item.setId(rs.getInt(1));
+                }
+            }
         }
     }
 
+
     // _________________________________________________________
 
-    public static void updateQuantity(int orderID, int productID, int quantity) throws SQLException {
-        String sql = "UPDATE order_items SET quantity = ? WHERE order_id = ? AND product_id = ?";
+    public static void updateQuantity(int orderID, int id, int quantity) throws SQLException {
+        String sql = "UPDATE order_items SET quantity = ? WHERE order_id = ? AND id = ?";
         try (Connection conn = Database.getConnection();
              PreparedStatement stmt = conn.prepareStatement(sql)) {
             stmt.setInt(1, quantity);
             stmt.setInt(2, orderID);
-            stmt.setInt(3, productID);
+            stmt.setInt(3, id);
             stmt.executeUpdate();
         }
     }
