@@ -254,7 +254,6 @@ public class OrderController {
             }
             ctx.sessionAttribute("paymentMethod", paymentMethod);
 
-         
             Order currentOrder = ctx.sessionAttribute("order");
             if (currentOrder != null && deliveryMethodId != null) {
                 currentOrder.setDeliveryMethodId(deliveryMethodId);
@@ -292,7 +291,6 @@ public class OrderController {
             String paymentMethod = ctx.sessionAttribute("paymentMethod");
             Coupon coupon = ctx.sessionAttribute("coupon");
 
-            // Resolve delivery price from DB if missing but method is known
             if (deliveryPrice == null && (deliveryMethodId != null)) {
                 try {
                     DeliveryMethodsMapper deliveryMethodsMapper = new DeliveryMethodsMapper();
