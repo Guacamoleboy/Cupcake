@@ -32,7 +32,7 @@ public class CupcakeFlavorMapperTest {
         flavorMapper = new CupcakeFlavorMapper();
         try (Connection conn = Database.getConnection();
              Statement stmt = conn.createStatement()) {
-            stmt.execute("TRUNCATE TABLE cupcake_flavor RESTART IDENTITY CASCADE");
+             stmt.execute("TRUNCATE TABLE cupcake_flavor RESTART IDENTITY CASCADE");
         }
     }
 

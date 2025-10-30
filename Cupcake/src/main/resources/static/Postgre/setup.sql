@@ -6,7 +6,7 @@
     Skulle gerne følge 3NF
 
     Sidst opdateret af: Guacamoleboy
-    Dato: 28/10-2025
+    Dato: 30/10-2025
 
 */
 

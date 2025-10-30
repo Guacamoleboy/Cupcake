@@ -1092,7 +1092,7 @@ body::-webkit-scrollbar { /* All other browsers */
     bottom: 30px;
     right: 30px;
     padding: 10px 20px;
-    background-color: #373757;
+    background-color: var(--cupcake-orange);
     color: white;
     border: none;
     border-radius: 0.9375rem;

@@ -2,6 +2,7 @@
 package dk.cupcake.mapper;
 
 // Imports
+import dk.cupcake.entities.Order;
 import dk.cupcake.entities.OrderItem;
 import dk.cupcake.db.Database;
 import java.sql.*;
@@ -64,8 +65,10 @@ public class OrderItemMapper {
 
     public static void addOrderItem(int orderID, OrderItem item) throws SQLException {
         String sql = "INSERT INTO order_items (order_id, product_id, quantity, topping_id, bottom_id) VALUES (?, ?, ?, ?, ?)";
+
         try (Connection conn = Database.getConnection();
-             PreparedStatement stmt = conn.prepareStatement(sql)) {
+             PreparedStatement stmt = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
+
             stmt.setInt(1, orderID);
             stmt.setInt(2, item.getProductId());
             stmt.setInt(3, item.getQuantity());
@@ -73,43 +76,50 @@ public class OrderItemMapper {
             stmt.setInt(5, item.getBottomId());
 
             stmt.executeUpdate();
+
+            try (ResultSet rs = stmt.getGeneratedKeys()) {
+                if (rs.next()) {
+                    item.setId(rs.getInt(1));
+                }
+            }
         }
     }
 
+
     // _________________________________________________________
 
-    public static void updateQuantity(int orderID, int productID, int quantity) throws SQLException {
-        String sql = "UPDATE order_items SET quantity = ? WHERE order_id = ? AND product_id = ?";
+    public static void updateQuantity(int orderID, int id, int quantity) throws SQLException {
+        String sql = "UPDATE order_items SET quantity = ? WHERE order_id = ? AND id = ?";
         try (Connection conn = Database.getConnection();
              PreparedStatement stmt = conn.prepareStatement(sql)) {
             stmt.setInt(1, quantity);
             stmt.setInt(2, orderID);
-            stmt.setInt(3, productID);
+            stmt.setInt(3, id);
             stmt.executeUpdate();
         }
     }
 
     // _________________________________________________________
 
-    public static void deleteOrderItem(int orderID, int productID) throws SQLException {
-        String sql = "DELETE FROM order_items WHERE order_id = ? AND product_id = ?";
+    public static void deleteOrderItem(int orderID, int id) throws SQLException {
+        String sql = "DELETE FROM order_items WHERE order_id = ? AND id = ?";
         try (Connection conn = Database.getConnection();
              PreparedStatement stmt = conn.prepareStatement(sql)) {
             stmt.setInt(1, orderID);
-            stmt.setInt(2, productID);
+            stmt.setInt(2, id);
             stmt.executeUpdate();
         }
     }
 
     // _________________________________________________________
 
-    public static void deleteAmount(int orderID, int productID, int amount) throws SQLException {
-        String sql = "UPDATE order_items SET quantity = quantity - ? WHERE order_id = ? AND product_id = ? RETURNING quantity";
+    public static void deleteAmount(int orderID, int id, int amount) throws SQLException {
+        String sql = "UPDATE order_items SET quantity = quantity - ? WHERE order_id = ? AND id = ? RETURNING quantity";
         try (Connection conn = Database.getConnection();
              PreparedStatement stmt = conn.prepareStatement(sql)) {
             stmt.setInt(1, amount);
             stmt.setInt(2, orderID);
-            stmt.setInt(3, productID);
+            stmt.setInt(3, id);
 
             ResultSet rs = stmt.executeQuery();
 
@@ -117,7 +127,7 @@ public class OrderItemMapper {
             if (rs.next()) {
                 int newQuantity = rs.getInt("quantity");
                 if (newQuantity <= 0) {
-                    deleteOrderItem(orderID, productID);
+                    deleteOrderItem(orderID, id);
                 }
             }
         }
@@ -158,7 +168,9 @@ public class OrderItemMapper {
                     int top = rs.getInt("topping_id");
                     int buttom = rs.getInt("bottom_id");
 
-                    orderItems.add(new OrderItem(productId, title, description, price, quantity, top, buttom));
+                    OrderItem orderItem = new OrderItem(productId, title, description, price, quantity, top, buttom);
+                    orderItem.setId(rs.getInt("id"));
+                    orderItems.add(orderItem);
                 }
             }
         }

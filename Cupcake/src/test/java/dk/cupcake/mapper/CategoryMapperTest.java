@@ -34,7 +34,7 @@ public class CategoryMapperTest {
 
         try (Connection conn = Database.getConnection();
              Statement stmt = conn.createStatement()) {
-            stmt.execute("TRUNCATE TABLE categories RESTART IDENTITY CASCADE");
+             stmt.execute("TRUNCATE TABLE categories RESTART IDENTITY CASCADE");
         }
     }
 
