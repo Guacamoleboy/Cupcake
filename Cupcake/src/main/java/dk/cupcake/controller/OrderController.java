@@ -211,15 +211,18 @@ public class OrderController {
 
         app.post("/update-payment-info", ctx -> {
             String deliveryMethod = ctx.formParam("deliveryMethod");
-            String idString = ctx.formParam("deliveryMethodId");
+            String deliveryIdString = ctx.formParam("deliveryMethodId");
             String paymentMethod = ctx.formParam("paymentMethod");
+            String paymentIdString = ctx.formParam("paymentMethodId");
+            String deliveryAddress = ctx.formParam("deliveryAddress");
 
             Integer deliveryMethodId = null;
             Double deliveryPrice = null;
+            Integer paymentMethodId = null;
 
-            if (idString != null && !idString.isBlank()) {
+            if (deliveryIdString != null && !deliveryIdString.isBlank()) {
                 try {
-                    deliveryMethodId = Integer.parseInt(idString);
+                    deliveryMethodId = Integer.parseInt(deliveryIdString);
                     DeliveryMethodsMapper deliveryMethodsMapper = new DeliveryMethodsMapper();
                     var method = deliveryMethodsMapper.getById(deliveryMethodId);
                     if (method != null) {
@@ -229,17 +232,34 @@ public class OrderController {
                 } catch (Exception ignored) {}
             }
 
+            if (paymentIdString != null && !paymentIdString.isBlank()) {
+                try {
+                    paymentMethodId = Integer.parseInt(paymentIdString);
+                    PaymentMethodsMapper paymentMethodsMapper = new PaymentMethodsMapper();
+                    var p = paymentMethodsMapper.getById(paymentMethodId);
+                    if (p != null) {
+                        paymentMethod = p.getName();
+                    }
+                } catch (Exception ignored) {}
+            }
+
             ctx.sessionAttribute("deliveryMethodId", deliveryMethodId);
             ctx.sessionAttribute("deliveryMethod", deliveryMethod);
-            if (deliveryPrice != null) {
-                ctx.sessionAttribute("deliveryPrice", deliveryPrice);
-            }
+            if (deliveryPrice != null) ctx.sessionAttribute("deliveryPrice", deliveryPrice);
             ctx.sessionAttribute("paymentMethod", paymentMethod);
+            ctx.sessionAttribute("paymentMethodId", paymentMethodId);
+            if (deliveryAddress != null) ctx.sessionAttribute("deliveryAddress", deliveryAddress);
 
             Order currentOrder = ctx.sessionAttribute("order");
-            if (currentOrder != null && deliveryMethodId != null) {
-                currentOrder.setDeliveryMethodId(deliveryMethodId);
+            if (currentOrder != null) {
+                if (deliveryMethodId != null) currentOrder.setDeliveryMethodId(deliveryMethodId);
+                if (paymentMethodId != null) currentOrder.setPaymentMethodId(paymentMethodId);
+                if (deliveryAddress != null && !deliveryAddress.isBlank()) currentOrder.setDeliveryAddress(deliveryAddress);
                 ctx.sessionAttribute("order", currentOrder);
+                try {
+                    OrderMapper om = new OrderMapper();
+                    om.updateMethodsAndAddress(currentOrder.getId(), deliveryMethodId, paymentMethodId, deliveryAddress);
+                } catch (Exception ignored) {}
             }
 
             ctx.json(Map.of("success", true));
