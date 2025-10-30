@@ -158,7 +158,6 @@ public class OrderController {
                 ctx.sessionAttribute("order", order);
             }
 
-
             double total = calculateTotalPrice(order);
 
             order.setTotalPrice(total);

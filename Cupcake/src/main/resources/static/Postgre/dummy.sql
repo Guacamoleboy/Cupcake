@@ -1,6 +1,20 @@
 /* Needed for Hash Generation Apparently */
 CREATE EXTENSION IF NOT EXISTS pgcrypto;
 
+/* Resets our tables by default */
+TRUNCATE TABLE
+order_items,
+orders,
+products,
+cupcake_toppings,
+cupcake_flavor,
+payment_methods,
+delivery_methods,
+categories,
+users,
+coupons
+RESTART IDENTITY CASCADE;
+
 /* Hashed Users */
 INSERT INTO users (email, password_hash, role, username) VALUES
 ('admin@olskercupcakes.dk', crypt('admin', gen_salt('bf')), 'admin', 'Admin'),
@@ -10,10 +24,31 @@ INSERT INTO users (email, password_hash, role, username) VALUES
 ('rovelt123@live.dk', crypt('rovelt123', gen_salt('bf')), 'customer', 'Rovelt123'),
 ('guest@guest.dk', crypt('thisShouldNotBeGuessed', gen_salt('bf')), 'customer', 'guest');
 
-/* Fixes Rovelt123 annoying fix */
+/* Sets our guest to ID 0 */
 UPDATE users
 SET id = 0
 WHERE username = 'guest';
+
+/* Categories */
+INSERT INTO categories (name) VALUES
+('Chokolade'),
+('Frugt'),
+('Creme');
+
+/* Delivery methods */
+INSERT INTO delivery_methods (name, price) VALUES
+('GLS', 35.00),
+('PostNord', 45.00),
+('DAO', 30.00),
+('Bring', 40.00),
+('Afhent i butik', 0.00);
+
+/* Payment methods */
+INSERT INTO payment_methods (name) VALUES
+('MobilePay'),
+('VISA'),
+('MasterCard'),
+('Apple Pay');
 
 /* Cupcake Flavor (bunde) */
 INSERT INTO cupcake_flavor (name, price) VALUES
@@ -34,12 +69,6 @@ INSERT INTO cupcake_toppings (name, price) VALUES
 ('Is', 7.00),
 ('Vaniljeskum', 5.50),
 ('Marengs', 6.00);
-
-/* Categories */
-INSERT INTO categories (name) VALUES
-('Chokolade'),
-('Frugt'),
-('Creme');
 
 /* Products (flavor_id = bund) */
 INSERT INTO products (name, description, price, image_url, category_id, topping_id, flavor_id) VALUES
@@ -64,14 +93,15 @@ INSERT INTO products (name, description, price, image_url, category_id, topping_
 ('Custom', 'Custom cupcake!', 49, 'images/products/cupcake-19.png', 1, 1, 1),
 ('Crispy Cocoa', 'Chokoladebund toppet med sprød marengs.', 28.95, 'images/products/cupcake-19.png', 1, 10, 1);
 
+/* Sets our Custom Cupcake ID to 0 */
 UPDATE products
 SET id = 0
 WHERE name = 'Custom';
 
 /* Orders (Total) */
-INSERT INTO orders (user_id, status) VALUES
-(2, 'open'),
-(3, 'open');
+INSERT INTO orders (user_id, status, delivery_method_id, payment_method_id) VALUES
+(2, 'open', 1, 2),
+(3, 'open', 2, 1);
 
 /* Per Order (Pre-defined) */
 INSERT INTO order_items (order_id, product_id, quantity)
@@ -89,28 +119,3 @@ INSERT INTO coupons (code, discount_percent, valid_from, valid_until) VALUES (
 NOW(),
 NOW() + INTERVAL '1 month'
 );
-
-/* Delivery methods */
-INSERT INTO delivery_methods (name, price) VALUES
-('GLS', 35.00),
-('PostNord', 45.00),
-('DAO', 30.00),
-('Bring', 40.00),
-('Afhent i butik', 0.00);
-
-/* Payment methods */
-INSERT INTO payment_methods (name) VALUES
-('MobilePay'),
-('VISA'),
-('MasterCard'),
-('Apple Pay');
-
-/*
-INSERT INTO transactions (user_id, amount, description) VALUES
-(2, 100.00, 'Refund'); -- Refund
-
-INSERT INTO transactions (user_id, amount, description) VALUES
-(2, -48.00, 'Payment for your order (#591915915)'); -- Payment
-*/
-
-TRUNCATE TABLE products RESTART IDENTITY CASCADE;
