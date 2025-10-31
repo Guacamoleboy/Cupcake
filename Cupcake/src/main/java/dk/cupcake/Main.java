@@ -14,7 +14,7 @@ public class Main {
     public static void main(String[] args) throws SQLException {
 
         Server server = new Server();
-        server.start(7000);
+        server.start(7000); // Standard Server for Javalin
 
     }
 
